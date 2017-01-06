@@ -1,0 +1,39 @@
+<!-- BACKGROUND IMAGE -->
+<!--===================================================-->
+<div id="bg-overlay"></div>
+
+
+<!-- LOGIN FORM -->
+<!--===================================================-->
+<div class="cls-content">
+    <div class="cls-content-sm panel">
+        <div class="panel-body">
+            <div class="mar-ver pad-btm">
+                <h3 class="h4 mar-no">Riza Login</h3>
+                <p class="text-muted">Sign In to your account.</p>
+            </div>
+            <form action="index.html" (ngSubmit)="attempt(f)" #f="ngForm">
+              <span style="color:red;">{{errors}}</span>
+                <div class="form-group">
+                    <input type="text" class="form-control" ngModel name="username" placeholder="username" autofocus required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" ngModel name="password" placeholder="Password" required>
+                </div>
+                <div class="checkbox pad-btm text-left">
+                    <input id="demo-form-checkbox" class="magic-checkbox" type="checkbox">
+                    <label for="demo-form-checkbox">Remember me</label>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Sign In</button>
+            </form>
+        </div>
+
+        <div class="pad-all">
+            <a routerLink="/forgotpass" class="btn-link mar-rgt">Forgot password ?</a>
+            <a routerLink="/register" class="btn-link mar-lft">Create new account</a>
+
+
+        </div>
+    </div>
+</div>
+<!--===================================================-->
