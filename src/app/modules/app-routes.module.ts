@@ -6,6 +6,7 @@ import {RegisterComponent} from '../components/register/register.component';
 import {AuthGuardService} from '../services/auth-guard.service';
 import {ForgotpassComponent} from '../components/forgotpass/forgotpass.component';
 import {AntiAuthGuardService} from '../services/anti-auth-guard.service';
+import { CreateNewPasswordComponent } from '../components/create-new-password/create-new-password.component';
 import {PasswordResetPromptComponent} from '../components/password-reset-prompt/password-reset-prompt.component';
 
 const appRoutes: Routes = [
@@ -16,6 +17,7 @@ const appRoutes: Routes = [
   {path: "register", component:RegisterComponent, canActivate: [AntiAuthGuardService]},
   {path: "forgotpass", component:ForgotpassComponent, canActivate: [AntiAuthGuardService]},
   {path: "pass-reset", component:PasswordResetPromptComponent, canActivate: [AntiAuthGuardService]},
+  {path: "create-new-password", component:CreateNewPasswordComponent, canActivate: [AntiAuthGuardService]},
   {path:'',redirectTo:"/home",pathMatch:"full"}
 ];
 

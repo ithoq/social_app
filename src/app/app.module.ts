@@ -14,6 +14,7 @@ import {AppService} from './app.service';
 import { RegisterComponent } from './components/register/register.component';
 import { ForgotpassComponent } from './components/forgotpass/forgotpass.component';
 import { PasswordResetPromptComponent } from './components/password-reset-prompt/password-reset-prompt.component';
+import { CreateNewPasswordComponent } from './components/create-new-password/create-new-password.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PasswordResetPromptComponent } from './components/password-reset-prompt
     RegisterComponent,
     RegisterComponent,
     ForgotpassComponent,
-    PasswordResetPromptComponent
+    PasswordResetPromptComponent,
+    CreateNewPasswordComponent
   ],
   imports: [
     AppRoutingModule,
