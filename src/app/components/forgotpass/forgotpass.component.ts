@@ -43,7 +43,7 @@ export class ForgotpassComponent implements OnInit {
         this.router.navigate(['pass-reset']);
       },
       (e) => {
-        this.errors = e.json()['error-message'];
+        this.errors = e.json()['error_message'];
         console.log(e.json())
       }
     );
