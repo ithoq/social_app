@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MediumToPasswordResetPromptService} from '../../services/medium-to-password-reset-prompt.service';
 
 @Component({
   selector: 'sa-password-reset-prompt',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./password-reset-prompt.component.css']
 })
 export class PasswordResetPromptComponent implements OnInit {
-
-  constructor() { }
+  public email:any;
+  constructor(private mediumToPasswordResetPromptService : MediumToPasswordResetPromptService) {
+    this.email = mediumToPasswordResetPromptService.getEmail();
+  }
 
   ngOnInit() {
   }

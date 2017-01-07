@@ -39,6 +39,7 @@ export class ForgotpassComponent implements OnInit {
     this.http.get('http://api-social.apptazer.com/api/userPassReset/ses09812098312/&email='+form.value.email).subscribe(
       (data:Response) => {
         this.mediumToPasswordResetPromptService.setAccessable(true);
+        this.mediumToPasswordResetPromptService.setEmail(form.value.email);
         this.router.navigate(['pass-reset']);
       },
       (e) => {
