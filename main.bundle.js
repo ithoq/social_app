@@ -234,7 +234,7 @@ var ForgotpassComponent = (function () {
             _this.mediumToPasswordResetPromptService.setEmail(form.value.email);
             _this.router.navigate(['pass-reset']);
         }, function (e) {
-            _this.errors = e.json()['error-message'];
+            _this.errors = e.json()['error_message'];
             console.log(e.json());
         });
     };
@@ -355,7 +355,7 @@ var LoginComponent = (function () {
             _this.auth.set_session_token('asssbbb34ccc');
             _this.router.navigate(['home']);
         }, function (e) {
-            _this.errors = (e.json()['error-message'] != undefined) ? e.json()['error-message'] : 'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
+            _this.errors = (e.json()['error_message'] != undefined) ? e.json()['error_message'] : 'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
             console.log(e.json());
         });
     };
@@ -465,7 +465,7 @@ var RegisterComponent = (function () {
             console.log(data.json());
             _this.router.navigate(['login']);
         }, function (e) {
-            _this.errors = e.json()['error-message'];
+            _this.errors = e.json()['error_message'];
             console.log(e.json());
         });
     };
