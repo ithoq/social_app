@@ -33,6 +33,8 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser(form:NgForm){
+    if(!this.validate(form.value)){return false;}
+
     this.http.get('http://api-social.apptazer.com/api/userRegister/&email='+form.value.email+'&username='+form.value.username+'&pass='+form.value.password+'').subscribe(
       (data:Response) => {
         console.log(data.json());
@@ -44,6 +46,14 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
+private validate(user:any){
+  if(user.password != user.confirmpass){
+    this.errors = "Password did not match!";
+    return false;
+  }
+  return true;
+}
 
   ngOnInit() {
     //this.contact = this.route.snapshot.data['contact'];

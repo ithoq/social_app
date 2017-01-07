@@ -17,20 +17,20 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <input type="text" class="form-control" ngModel name="email" placeholder="E-mail" name="email">
+                            <input type="text" class="form-control" ngModel name="email" placeholder="E-mail" name="email" required>
                         </div>
                     </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" ngModel name="username" placeholder="Username">
+                                <input type="text" class="form-control" ngModel name="username" placeholder="Username" required>
                             </div>
                         </div>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <input type="password" class="form-control" ngModel name="password" placeholder="Create password">
+                            <input type="password" class="form-control" ngModel name="password" placeholder="Create password" required>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" ngModel name="confirmpass" placeholder="Re-type password">
+                            <input type="password" class="form-control" ngModel name="confirmpass" placeholder="Re-type password" required>
                         </div>
                     </div>
                 </div>
@@ -40,6 +40,7 @@
                 <button class="btn btn-primary btn-block" type="submit">Register</button>
             </form>
         </div>
+        <p style="color:red; text-align:center;">{{errors}}</p>
         <div class="pad-all">
             Already have an account ? <a routerLink="/login" class="btn-link mar-rgt">Sign In</a>
         </div>

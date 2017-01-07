@@ -5,6 +5,8 @@ import { Http, Response } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {MediumToLoginService} from '../../services/medium-to-login.service';
+import {MediumToPasswordResetPromptService} from '../../services/medium-to-password-reset-prompt.service';
 
 @Component({
   selector: 'sa-forgotpass',
@@ -20,7 +22,9 @@ export class ForgotpassComponent implements OnInit {
   public user:any;
   constructor(
     private authenticator: AuthService, private rootService:AppService,
-     private httpService: Http, appRouter: Router, private route: ActivatedRoute
+     private httpService: Http, appRouter: Router, private route: ActivatedRoute,
+     private mediumToLogin:MediumToLoginService,
+     private mediumToPasswordResetPromptService : MediumToPasswordResetPromptService
    ) {
       this.auth = authenticator;
       this.appService = rootService;
@@ -34,7 +38,7 @@ export class ForgotpassComponent implements OnInit {
   sendPasswordResetLink(form:NgForm){
     this.http.get('http://api-social.apptazer.com/api/userPassReset/ses09812098312/&email='+form.value.email).subscribe(
       (data:Response) => {
-        console.log(data.json());
+        this.mediumToPasswordResetPromptService.setAccessable(true);
         this.router.navigate(['pass-reset']);
       },
       (e) => {

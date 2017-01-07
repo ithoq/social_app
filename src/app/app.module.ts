@@ -5,6 +5,7 @@ import { HttpModule ,Http, Response} from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './modules/app-routes.module';
 import {AuthService} from './services/auth.service';
+import {MediumToLoginService} from './services/medium-to-login.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -14,6 +15,7 @@ import {AppService} from './app.service';
 import { RegisterComponent } from './components/register/register.component';
 import { ForgotpassComponent } from './components/forgotpass/forgotpass.component';
 import { PasswordResetPromptComponent } from './components/password-reset-prompt/password-reset-prompt.component';
+import {MediumToPasswordResetPromptService} from './services/medium-to-password-reset-prompt.service';
 import { CreateNewPasswordComponent } from './components/create-new-password/create-new-password.component';
 
 @NgModule({
@@ -33,7 +35,7 @@ import { CreateNewPasswordComponent } from './components/create-new-password/cre
     FormsModule,
     HttpModule
   ],
-  providers: [AuthService, AppService],
+  providers: [AuthService, AppService, MediumToLoginService, MediumToPasswordResetPromptService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
