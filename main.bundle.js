@@ -72,7 +72,7 @@ var MediumToLoginService = (function () {
 
 /***/ },
 
-/***/ 218:
+/***/ 154:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -90,10 +90,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var MediumToPasswordResetPromptService = (function () {
     function MediumToPasswordResetPromptService() {
-        this.accessable = {
-            current: false,
-            default: false
-        };
+        this.accessable = { current: false, default: false };
+        this.email = { current: '', default: '' };
     }
     MediumToPasswordResetPromptService.prototype.setAccessable = function (accessable) {
         this.accessable.current = accessable;
@@ -103,6 +101,15 @@ var MediumToPasswordResetPromptService = (function () {
         var accessable = this.accessable.current;
         this.accessable.current = this.accessable.default;
         return accessable;
+    };
+    MediumToPasswordResetPromptService.prototype.setEmail = function (email) {
+        this.email.current = email;
+    };
+    ;
+    MediumToPasswordResetPromptService.prototype.getEmail = function () {
+        var email = this.email.current;
+        this.email.current = this.email.default;
+        return email;
     };
     MediumToPasswordResetPromptService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */])(), 
@@ -184,7 +191,7 @@ var CreateNewPasswordComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_medium_to_login_service__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_medium_to_password_reset_prompt_service__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_medium_to_password_reset_prompt_service__ = __webpack_require__(154);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ForgotpassComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -224,6 +231,7 @@ var ForgotpassComponent = (function () {
         var _this = this;
         this.http.get('http://api-social.apptazer.com/api/userPassReset/ses09812098312/&email=' + form.value.email).subscribe(function (data) {
             _this.mediumToPasswordResetPromptService.setAccessable(true);
+            _this.mediumToPasswordResetPromptService.setEmail(form.value.email);
             _this.router.navigate(['pass-reset']);
         }, function (e) {
             _this.errors = e.json()['error-message'];
@@ -374,6 +382,7 @@ var LoginComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_medium_to_password_reset_prompt_service__ = __webpack_require__(154);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PasswordResetPromptComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -385,8 +394,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var PasswordResetPromptComponent = (function () {
-    function PasswordResetPromptComponent() {
+    function PasswordResetPromptComponent(mediumToPasswordResetPromptService) {
+        this.mediumToPasswordResetPromptService = mediumToPasswordResetPromptService;
+        this.email = mediumToPasswordResetPromptService.getEmail();
     }
     PasswordResetPromptComponent.prototype.ngOnInit = function () {
     };
@@ -396,9 +408,10 @@ var PasswordResetPromptComponent = (function () {
             template: __webpack_require__(679),
             styles: [__webpack_require__(672)]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_medium_to_password_reset_prompt_service__["a" /* MediumToPasswordResetPromptService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_medium_to_password_reset_prompt_service__["a" /* MediumToPasswordResetPromptService */]) === 'function' && _a) || Object])
     ], PasswordResetPromptComponent);
     return PasswordResetPromptComponent;
+    var _a;
 }());
 //# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/password-reset-prompt.component.js.map
 
@@ -575,7 +588,7 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_register_register_component__ = __webpack_require__(337);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_forgotpass_forgotpass_component__ = __webpack_require__(333);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_password_reset_prompt_password_reset_prompt_component__ = __webpack_require__(336);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_medium_to_password_reset_prompt_service__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_medium_to_password_reset_prompt_service__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_create_new_password_create_new_password_component__ = __webpack_require__(332);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -803,7 +816,7 @@ var AuthGuardService = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__medium_to_password_reset_prompt_service__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__medium_to_password_reset_prompt_service__ = __webpack_require__(154);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PasswordResetPromptGuardService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1075,7 +1088,7 @@ module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===============================
 /***/ 676:
 /***/ function(module, exports) {
 
-module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- PASSWORD RESETTING FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"pad-ver\">\n                <i class=\"pli-mail icon-3x\"></i>\n            </div>\n            <p class=\"text-muted pad-btm\">Enter your email address to recover your password. </p>\n            <form action=\"pages-login.html\" (ngSubmit)=\"sendPasswordResetLink(f)\" #f=\"ngForm\">\n                <div class=\"form-group\">\n                    <input type=\"email\" class=\"form-control\" placeholder=\"Email\" ngModel name=\"email\">\n                </div>\n                <div class=\"form-group text-right\">\n                    <button class=\"btn btn-success btn-block\" type=\"submit\">Reset Password</button>\n                </div>\n            </form>\n            <div class=\"pad-top\">\n                <a routerLink=\"/login\" class=\"btn-link mar-rgt\">Back to Login</a>\n            </div>\n        </div>\n    </div>\n</div>\n<!--===================================================-->\n"
+module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- PASSWORD RESETTING FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"pad-ver\">\n                <i class=\"pli-mail icon-3x\"></i>\n            </div>\n            <p class=\"text-muted pad-btm\">Enter your email address to recover your password. </p>\n            <form action=\"pages-login.html\" (ngSubmit)=\"sendPasswordResetLink(f)\" #f=\"ngForm\">\n                <div class=\"form-group\">\n                    <input type=\"email\" class=\"form-control\" placeholder=\"Email\" ngModel name=\"email\">\n                </div>\n                <div class=\"form-group text-right\">\n                    <button class=\"btn btn-success btn-block\" type=\"submit\">Reset Password</button>\n                </div>\n            </form>\n            <p style=\"color:red; text-align:center;\">{{errors}}</p>\n            <div class=\"pad-top\">\n                <a routerLink=\"/login\" class=\"btn-link mar-rgt\">Back to Login</a>\n            </div>\n        </div>\n    </div>\n</div>\n<!--===================================================-->\n"
 
 /***/ },
 
@@ -1096,7 +1109,7 @@ module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===============================
 /***/ 679:
 /***/ function(module, exports) {
 
-module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- LOGIN FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"mar-ver pad-btm\">\n              <h3 class=\"h4 mar-no\">Thanks</h3>\n            </div>\n\n                                <div class=\"mar-ver pad-btm\">\n\n              <p class=\"text-muted\">Please check (lee@dxm.com) for a link to reset your password.</p>\n            </div>\n\n\n\n        </div>\n\n    </div>\n</div>\n<!--===================================================-->\n"
+module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- LOGIN FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"mar-ver pad-btm\">\n              <h3 class=\"h4 mar-no\">Thanks</h3>\n            </div>\n\n                                <div class=\"mar-ver pad-btm\">\n\n              <p class=\"text-muted\">Please check ({{email}}) for a link to reset your password.</p>\n            </div>\n\n\n\n        </div>\n\n    </div>\n</div>\n<!--===================================================-->\n"
 
 /***/ },
 
