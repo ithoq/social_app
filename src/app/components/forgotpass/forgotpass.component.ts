@@ -36,17 +36,26 @@ export class ForgotpassComponent implements OnInit {
       };
   };
   sendPasswordResetLink(form:NgForm){
-    this.http.get('http://api-social.apptazer.com/api/userPassReset/ses09812098312/&email='+form.value.email).subscribe(
-      (data:Response) => {
-        this.mediumToPasswordResetPromptService.setAccessable(true);
-        this.mediumToPasswordResetPromptService.setEmail(form.value.email);
-        this.router.navigate(['pass-reset']);
-      },
-      (e) => {
-        this.errors = e.json()['error_message'];
-        console.log(e.json())
-      }
-    );
+    this.auth.grab_app_key().subscribe((app_key)=>{
+      this.auth.set_app_token(app_key);
+      this.http.get(this.appService.api_end_point+"getSession/&AppKey="+app_key).subscribe(
+        (data:Response) => {
+          let session_token = data.json().payload.SessionToken;
+          this.auth.set_session_token(session_token);
+          this.http.get(this.appService.api_end_point+'userPassReset/'+session_token+'/&Email='+form.value.email).subscribe(
+            (data:Response) => {
+              this.mediumToPasswordResetPromptService.setAccessable(true);
+              this.mediumToPasswordResetPromptService.setEmail(form.value.email);
+              this.router.navigate(['pass-reset']);
+            },
+            (e) => {
+              this.errors = e.json()['error_message'];
+              console.log(e.json())
+            }
+          );
+        }
+      );
+    });
   };
 
   ngOnInit() {

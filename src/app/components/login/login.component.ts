@@ -32,18 +32,25 @@ export class LoginComponent implements OnInit {
   }
 
   attempt(form:NgForm){
-    this.http.get('http://api-social.apptazer.com/api/userSignin/ses09812098312/&email=&username='+form.value.username+'&pass='+form.value.password).subscribe(
-      (data:Response) => {
-        console.log(data.json());
-        this.auth.set_app_token('asssbbb34ccc');
-        this.auth.set_session_token('asssbbb34ccc');
-        this.router.navigate(['home']);
-      },
-      (e) => {
-        this.errors = (e.json()['error_message'] != undefined)?e.json()['error_message']:'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
-        console.log(e.json())
-      }
-    );
+    this.auth.grab_app_key().subscribe((app_key)=>{
+      this.auth.set_app_token(app_key);
+      this.http.get(this.appService.api_end_point+"getSession/&AppKey="+app_key).subscribe(
+        (data:Response) => {
+          let session_token = data.json().payload.SessionToken;
+          this.auth.set_session_token(session_token);
+          this.http.get(this.appService.api_end_point+'userSignin/'+session_token+'/&Email=&Username='+form.value.username+'&Pass='+form.value.password).subscribe(
+            (data:Response) => {
+              this.auth.setUser(data.json().payload);
+              this.router.navigate(['home']);
+            },
+            (e) => {
+              this.errors = (e.json()['error_message'] != undefined)?e.json()['error_message']:'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
+              console.log(e.json())
+            }
+          );
+        }
+      );
+    });
   }
 
   ngOnInit() {
