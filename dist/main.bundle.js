@@ -229,13 +229,20 @@ var ForgotpassComponent = (function () {
     ;
     ForgotpassComponent.prototype.sendPasswordResetLink = function (form) {
         var _this = this;
-        this.http.get('http://api-social.apptazer.com/api/userPassReset/ses09812098312/&email=' + form.value.email).subscribe(function (data) {
-            _this.mediumToPasswordResetPromptService.setAccessable(true);
-            _this.mediumToPasswordResetPromptService.setEmail(form.value.email);
-            _this.router.navigate(['pass-reset']);
-        }, function (e) {
-            _this.errors = e.json()['error_message'];
-            console.log(e.json());
+        this.auth.grab_app_key().subscribe(function (app_key) {
+            _this.auth.set_app_token(app_key);
+            _this.http.get(_this.appService.api_end_point + "getSession/&AppKey=" + app_key).subscribe(function (data) {
+                var session_token = data.json().payload.SessionToken;
+                _this.auth.set_session_token(session_token);
+                _this.http.get(_this.appService.api_end_point + 'userPassReset/' + session_token + '/&Email=' + form.value.email).subscribe(function (data) {
+                    _this.mediumToPasswordResetPromptService.setAccessable(true);
+                    _this.mediumToPasswordResetPromptService.setEmail(form.value.email);
+                    _this.router.navigate(['pass-reset']);
+                }, function (e) {
+                    _this.errors = e.json()['error_message'];
+                    console.log(e.json());
+                });
+            });
         });
     };
     ;
@@ -349,14 +356,19 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.attempt = function (form) {
         var _this = this;
-        this.http.get('http://api-social.apptazer.com/api/userSignin/ses09812098312/&email=&username=' + form.value.username + '&pass=' + form.value.password).subscribe(function (data) {
-            console.log(data.json());
-            _this.auth.set_app_token('asssbbb34ccc');
-            _this.auth.set_session_token('asssbbb34ccc');
-            _this.router.navigate(['home']);
-        }, function (e) {
-            _this.errors = (e.json()['error_message'] != undefined) ? e.json()['error_message'] : 'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
-            console.log(e.json());
+        this.auth.grab_app_key().subscribe(function (app_key) {
+            _this.auth.set_app_token(app_key);
+            _this.http.get(_this.appService.api_end_point + "getSession/&AppKey=" + app_key).subscribe(function (data) {
+                var session_token = data.json().payload.SessionToken;
+                _this.auth.set_session_token(session_token);
+                _this.http.get(_this.appService.api_end_point + 'userSignin/' + session_token + '/&Email=&Username=' + form.value.username + '&Pass=' + form.value.password).subscribe(function (data) {
+                    _this.auth.setUser(data.json().payload);
+                    _this.router.navigate(['home']);
+                }, function (e) {
+                    _this.errors = (e.json()['error_message'] != undefined) ? e.json()['error_message'] : 'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
+                    console.log(e.json());
+                });
+            });
         });
     };
     LoginComponent.prototype.ngOnInit = function () {
@@ -461,12 +473,18 @@ var RegisterComponent = (function () {
         if (!this.validate(form.value)) {
             return false;
         }
-        this.http.get('http://api-social.apptazer.com/api/userRegister/&email=' + form.value.email + '&username=' + form.value.username + '&pass=' + form.value.password + '').subscribe(function (data) {
-            console.log(data.json());
-            _this.router.navigate(['login']);
-        }, function (e) {
-            _this.errors = e.json()['error_message'];
-            console.log(e.json());
+        this.auth.grab_app_key().subscribe(function (app_key) {
+            _this.auth.set_app_token(app_key);
+            _this.http.get(_this.appService.api_end_point + "getSession/&AppKey=" + app_key).subscribe(function (data) {
+                var session_token = data.json().payload.SessionToken;
+                _this.auth.set_session_token(session_token);
+                _this.http.get(_this.appService.api_end_point + 'userRegister/' + _this.auth.get_session_token() + '/&Email=' + form.value.email + '&Username=' + form.value.username + '&Pass=' + form.value.password + '').subscribe(function (data) {
+                    console.log(data.json());
+                    _this.router.navigate(['login']);
+                }, function (e) {
+                    _this.errors = e.json()['error_message'];
+                });
+            });
         });
     };
     RegisterComponent.prototype.validate = function (user) {
@@ -954,10 +972,16 @@ var AuthService = (function () {
         this.appService = appService;
         this.app_token = '';
         this.session_token = '';
+        this.user = null;
         //this.localStorage = ls;
     }
     AuthService.prototype.getUser = function () {
-        return this.user;
+        return localStorage.getItem('user');
+    };
+    AuthService.prototype.grab_app_key = function () {
+        return new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observable) {
+            observable.next("WebClient");
+        });
     };
     AuthService.prototype.get_app_token = function () {
         return localStorage.getItem('app_token');
@@ -978,7 +1002,11 @@ var AuthService = (function () {
     };
     ;
     AuthService.prototype.authenticated = function () {
-        return (this.get_session_token() != null);
+        return (this.getUser() != null);
+    };
+    AuthService.prototype.setUser = function (user) {
+        localStorage.setItem('user', user);
+        this.user = user;
     };
     AuthService.prototype.attempt = function () {
         //return this.http.get(this.appService.api_end_point+'userSignin/ses09812098312/&email=test@yahoo.com&username=test&pass=test');
@@ -1003,7 +1031,7 @@ var AuthService = (function () {
     };
     AuthService.prototype.logout = function () {
         return new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observable) {
-            localStorage.removeItem('session_token');
+            localStorage.removeItem('user');
             observable.next({ success: "true" });
         });
     };

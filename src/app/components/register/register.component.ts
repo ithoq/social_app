@@ -43,7 +43,6 @@ export class RegisterComponent implements OnInit {
           this.auth.set_session_token(session_token);
           this.http.get(this.appService.api_end_point+'userRegister/'+this.auth.get_session_token()+'/&Email='+form.value.email+'&Username='+form.value.username+'&Pass='+form.value.password+'').subscribe(
             (data:Response) => {
-              console.log(data.json());
               this.router.navigate(['login']);
             },
             (e) => {

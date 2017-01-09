@@ -38,7 +38,6 @@ var RegisterComponent = (function () {
                 var session_token = data.json().payload.SessionToken;
                 _this.auth.set_session_token(session_token);
                 _this.http.get(_this.appService.api_end_point + 'userRegister/' + _this.auth.get_session_token() + '/&Email=' + form.value.email + '&Username=' + form.value.username + '&Pass=' + form.value.password + '').subscribe(function (data) {
-                    console.log(data.json());
                     _this.router.navigate(['login']);
                 }, function (e) {
                     _this.errors = e.json()['error_message'];
