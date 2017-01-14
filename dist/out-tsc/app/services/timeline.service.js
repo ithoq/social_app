@@ -30,4 +30,4 @@ export var TimelineService = (function () {
     ], TimelineService);
     return TimelineService;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/services/timeline.service.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/services/timeline.service.js.map

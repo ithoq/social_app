@@ -55,4 +55,4 @@ export var TokensResolver = (function () {
     ], TokensResolver);
     return TokensResolver;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/parent/tokens.resolver.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/parent/tokens.resolver.js.map

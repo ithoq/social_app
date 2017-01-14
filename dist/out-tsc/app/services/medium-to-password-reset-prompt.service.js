@@ -47,4 +47,4 @@ export var MediumToPasswordResetPromptService = (function () {
     ], MediumToPasswordResetPromptService);
     return MediumToPasswordResetPromptService;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/services/medium-to-password-reset-prompt.service.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/services/medium-to-password-reset-prompt.service.js.map

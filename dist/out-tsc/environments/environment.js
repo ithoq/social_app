@@ -5,4 +5,4 @@
 export var environment = {
     production: false
 };
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/environments/environment.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/environments/environment.js.map

@@ -51,4 +51,4 @@ export var ForgotpassComponent = (function () {
     ], ForgotpassComponent);
     return ForgotpassComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/forgotpass/forgotpass.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/forgotpass/forgotpass.component.js.map

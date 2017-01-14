@@ -23,4 +23,4 @@ export var ActionComponent = (function () {
     ], ActionComponent);
     return ActionComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/header/action/action.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/header/action/action.component.js.map

@@ -44,4 +44,4 @@ export var PickColorComponent = (function () {
     ], PickColorComponent);
     return PickColorComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/create-profile/pick-color/pick-color.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/create-profile/pick-color/pick-color.component.js.map

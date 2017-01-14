@@ -60,4 +60,4 @@ export var RegisterComponent = (function () {
     ], RegisterComponent);
     return RegisterComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/register/register.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/register/register.component.js.map

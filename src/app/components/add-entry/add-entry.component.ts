@@ -13,8 +13,10 @@ declare var wNumb: any;
     styleUrls: ['./add-entry.component.css']
 })
 export class AddEntryComponent implements OnInit {
-  noUiSlider: any;
-  wNumb: any;
+    /* external libs */
+    noUiSlider: any;
+    wNumb: any;
+    /*****************/
 
     public modes = [
         {value:'Angry',img:'emoji-angry.png'},
@@ -46,6 +48,8 @@ export class AddEntryComponent implements OnInit {
     public selectedTypes = [];
     public selectedModes = [];
     public showDefinitions = false;
+    public BestSelfRating:any;
+    public CloseToOthers:any;
     constructor(private auth:AuthService, private entryService:EntryService) {
         this.timelines = this.auth.getUser().timelines;
         this.seletedTimelines.push(this.timelines[0].Id);
@@ -66,8 +70,6 @@ export class AddEntryComponent implements OnInit {
 
     create(form:NgForm){
         let data = form.value;
-
-        //validation form
         if (data.Name == ''){
             alert('Post Title is required');
         }else if(this.seletedTimelines.length <=0){
@@ -77,7 +79,6 @@ export class AddEntryComponent implements OnInit {
         }else if(data.DateStart <=0){
             alert('please select Start Date')
         }else{
-            console.log(this.seletedTimelines.join(','));
             data.TimelineId = this.seletedTimelines.join(',');
             data.Mode = this.selectedModes.join(',');
             data.Type = this.selectedTypes[0];
@@ -112,7 +113,6 @@ export class AddEntryComponent implements OnInit {
                 this.selectedModes.push(parts[1]);
             }
         }
-        console.log(this.selectedModes);
     }
     typeChanged(data:any){
         var parts = data.split(',');
@@ -135,10 +135,9 @@ export class AddEntryComponent implements OnInit {
                 this.selectedTypes.push(parts[1]);
             }
         }
-        console.log(this.selectedTypes);
     }
 
-    foo(data:any){
+    timelinesChanged(data:any){
         var parts = data.split(',');
         var alreadyExists = false;
         for (let entry of this.seletedTimelines) {
@@ -162,24 +161,43 @@ export class AddEntryComponent implements OnInit {
     }
 
   ngOnInit() {
-    var rs_step = document.getElementById('test_slider');
+      var best_self_slider = document.getElementById('test_slider');
+      noUiSlider.create(best_self_slider,{
+          start   : [ 0 ],
+          connect : 'lower',
+          step    : 1,
+          range   : {
+              'min': [  0 ],
+              'max': [ 100 ]
+          },
+          format: wNumb({
+              decimals: 0,
+              thousand: '.',
 
-    noUiSlider.create(rs_step,{
-      start   : [ 0 ],
-      connect : 'lower',
-      step    : 1,
-      range   : {
-        'min': [  0 ],
-        'max': [ 100 ]
-      },
-      format: wNumb({
-        decimals: 0,
-        thousand: '.',
+          })
+      }).on('update', ( values, handle ) =>{
+          this.BestSelfRating = values[handle];
+      });
 
-      })
-    }).on('update', function( values, handle ) {
-      console.log(values[handle]);
-    });
+    /*   ------    ------      ----- ----- -----*/
+
+      var close_to_others_slider = document.getElementById('close_to_others_slider');
+      noUiSlider.create(close_to_others_slider,{
+          start   : [ 0 ],
+          connect : 'lower',
+          step    : 1,
+          range   : {
+              'min': [  0 ],
+              'max': [ 100 ]
+          },
+          format: wNumb({
+              decimals: 0,
+              thousand: '.',
+
+          })
+      }).on('update', ( values, handle ) =>{
+          this.CloseToOthers = values[handle];
+      });
   }
 
     isModeSelected(mode:any){

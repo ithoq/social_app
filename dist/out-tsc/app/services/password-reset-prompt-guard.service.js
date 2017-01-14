@@ -31,4 +31,4 @@ export var PasswordResetPromptGuardService = (function () {
     ], PasswordResetPromptGuardService);
     return PasswordResetPromptGuardService;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/services/password-reset-prompt-guard.service.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/services/password-reset-prompt-guard.service.js.map

@@ -23,4 +23,4 @@ export var ParentComponent = (function () {
     ], ParentComponent);
     return ParentComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/parent/parent.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/parent/parent.component.js.map

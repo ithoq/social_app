@@ -85,4 +85,4 @@ export var CreateProfileComponent = (function () {
     ], CreateProfileComponent);
     return CreateProfileComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/create-profile/create-profile.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/create-profile/create-profile.component.js.map

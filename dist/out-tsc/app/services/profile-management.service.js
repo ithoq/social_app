@@ -81,4 +81,4 @@ export var ProfileManagementService = (function () {
     ], ProfileManagementService);
     return ProfileManagementService;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/services/profile-management.service.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/services/profile-management.service.js.map

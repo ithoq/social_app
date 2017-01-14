@@ -23,4 +23,4 @@ export var BodyRightContentComponent = (function () {
     ], BodyRightContentComponent);
     return BodyRightContentComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/body/body-right-content/body-right-content.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/body/body-right-content/body-right-content.component.js.map

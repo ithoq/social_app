@@ -18,4 +18,4 @@ export var AppService = (function () {
     ], AppService);
     return AppService;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/app.service.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/app.service.js.map

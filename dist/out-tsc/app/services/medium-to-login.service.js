@@ -36,4 +36,4 @@ export var MediumToLoginService = (function () {
     ], MediumToLoginService);
     return MediumToLoginService;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/services/medium-to-login.service.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/services/medium-to-login.service.js.map

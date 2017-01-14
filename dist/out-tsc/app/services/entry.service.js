@@ -30,4 +30,4 @@ export var EntryService = (function () {
     ], EntryService);
     return EntryService;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/services/entry.service.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/services/entry.service.js.map

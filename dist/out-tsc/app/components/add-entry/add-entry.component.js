@@ -14,6 +14,7 @@ export var AddEntryComponent = (function () {
     function AddEntryComponent(auth, entryService) {
         this.auth = auth;
         this.entryService = entryService;
+        /*****************/
         this.modes = [
             { value: 'Angry', img: 'emoji-angry.png' },
             { value: 'Blah', img: 'emoji-blah.png' },
@@ -60,7 +61,6 @@ export var AddEntryComponent = (function () {
     };
     AddEntryComponent.prototype.create = function (form) {
         var data = form.value;
-        //validation form
         if (data.Name == '') {
             alert('Post Title is required');
         }
@@ -74,7 +74,6 @@ export var AddEntryComponent = (function () {
             alert('please select Start Date');
         }
         else {
-            console.log(this.seletedTimelines.join(','));
             data.TimelineId = this.seletedTimelines.join(',');
             data.Mode = this.selectedModes.join(',');
             data.Type = this.selectedTypes[0];
@@ -107,7 +106,6 @@ export var AddEntryComponent = (function () {
                 this.selectedModes.push(parts[1]);
             }
         }
-        console.log(this.selectedModes);
     };
     AddEntryComponent.prototype.typeChanged = function (data) {
         var parts = data.split(',');
@@ -131,9 +129,8 @@ export var AddEntryComponent = (function () {
                 this.selectedTypes.push(parts[1]);
             }
         }
-        console.log(this.selectedTypes);
     };
-    AddEntryComponent.prototype.foo = function (data) {
+    AddEntryComponent.prototype.timelinesChanged = function (data) {
         var parts = data.split(',');
         var alreadyExists = false;
         for (var _i = 0, _a = this.seletedTimelines; _i < _a.length; _i++) {
@@ -157,8 +154,9 @@ export var AddEntryComponent = (function () {
         }
     };
     AddEntryComponent.prototype.ngOnInit = function () {
-        var rs_step = document.getElementById('test_slider');
-        noUiSlider.create(rs_step, {
+        var _this = this;
+        var best_self_slider = document.getElementById('test_slider');
+        noUiSlider.create(best_self_slider, {
             start: [0],
             connect: 'lower',
             step: 1,
@@ -171,7 +169,24 @@ export var AddEntryComponent = (function () {
                 thousand: '.',
             })
         }).on('update', function (values, handle) {
-            console.log(values[handle]);
+            _this.BestSelfRating = values[handle];
+        });
+        /*   ------    ------      ----- ----- -----*/
+        var close_to_others_slider = document.getElementById('close_to_others_slider');
+        noUiSlider.create(close_to_others_slider, {
+            start: [0],
+            connect: 'lower',
+            step: 1,
+            range: {
+                'min': [0],
+                'max': [100]
+            },
+            format: wNumb({
+                decimals: 0,
+                thousand: '.',
+            })
+        }).on('update', function (values, handle) {
+            _this.CloseToOthers = values[handle];
         });
     };
     AddEntryComponent.prototype.isModeSelected = function (mode) {
@@ -202,4 +217,4 @@ export var AddEntryComponent = (function () {
     ], AddEntryComponent);
     return AddEntryComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/add-entry/add-entry.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/add-entry/add-entry.component.js.map

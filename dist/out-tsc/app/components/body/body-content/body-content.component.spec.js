@@ -18,4 +18,4 @@ describe('BodyContentComponent', function () {
         expect(component).toBeTruthy();
     });
 });
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/body/body-content/body-content.component.spec.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/body/body-content/body-content.component.spec.js.map

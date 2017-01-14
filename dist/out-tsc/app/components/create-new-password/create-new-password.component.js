@@ -32,4 +32,4 @@ export var CreateNewPasswordComponent = (function () {
     ], CreateNewPasswordComponent);
     return CreateNewPasswordComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/create-new-password/create-new-password.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/create-new-password/create-new-password.component.js.map

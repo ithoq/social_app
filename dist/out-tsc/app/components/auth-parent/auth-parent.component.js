@@ -23,4 +23,4 @@ export var AuthParentComponent = (function () {
     ], AuthParentComponent);
     return AuthParentComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/auth-parent/auth-parent.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/auth-parent/auth-parent.component.js.map

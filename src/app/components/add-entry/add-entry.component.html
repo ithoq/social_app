@@ -66,7 +66,7 @@
               <!-- Checkboxes -->
                 <span  *ngFor="let option of timelines">
                   <div class="checkbox">
-                        <input class="magic-checkbox" id="demo-form-checkbox{{option.Id}}" #timeline type="checkbox" value="{{option.Id}}" [ngModel]="isTimelineSelected(option.Id)" name="timeline{{option.Id}}" (change)="foo(timeline.checked+','+timeline.value)" />
+                        <input class="magic-checkbox" id="demo-form-checkbox{{option.Id}}" #timeline type="checkbox" value="{{option.Id}}" [checked]="isTimelineSelected(option.Id)" name="timeline{{option.Id}}" (change)="timelinesChanged(timeline.checked+','+timeline.value)" />
                         <label for="demo-form-checkbox{{option.Id}}"> {{option.Name}}</label>
                     </div>
                 <hr class="new-section-xs bord-no">
@@ -159,10 +159,18 @@
 
         <!--Third tab-->
         <div id="demo-step-tab3" class="tab-pane">
-          <div id="test_slider"></div>
-          <input type="hidden" id="test_slider-val" ngModel name="TestSlider">
-            <input type="number" ngModel name="BestSelfRating" placeholder="Best Self Rating">
-          <hr class="new-section-xs bord-no">
+
+          <p class="text-main text-bold">I was my <em class="text-success"> best self ?</em></p>
+
+          <!--Range Slider2 : Steps-->
+          <!--===================================================-->
+          <div class="pad-hor mar-btm">
+            <div class="mar-btm text-center"> <span class="h1 text-success">{{BestSelfRating}}</span> </div>
+            <div id="test_slider"></div>
+            <input type="hidden" [ngModel]="BestSelfRating" name="BestSelfRating">
+            <div class="mar-all"><i class="pull-left">Not so much</i><i class="pull-right"> Yes I really was</i> </div>
+          </div>
+          <br><br>
           <p class="text-main text-bold">About</p>
           <textarea rows="4" class="form-control" ngModel name="About" placeholder="My experiences, highlights, insights, or whatever comes to mind." ></textarea>
           <hr class="new-section-xs bord-no">
@@ -182,7 +190,9 @@
 
           <!--===================================================-->
           <div class="pad-hor">
-            <input type="number" ngModel name="CloseToOthers">
+            <div class="mar-btm text-center"> <span class="h1 text-success">{{CloseToOthers}}</span> </div>
+            <div id="close_to_others_slider"></div>
+            <input type="hidden" [ngModel]="CloseToOthers" name="CloseToOthers">
           </div>
           <div class="mar-all"><i class="pull-left">Not close</i><i class="pull-right"> Very close</i> </div>
           <hr class="new-section-sm bord-no">

@@ -23,4 +23,4 @@ export var AntiAuthParentComponent = (function () {
     ], AntiAuthParentComponent);
     return AntiAuthParentComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/anti-auth-parent/anti-auth-parent.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/anti-auth-parent/anti-auth-parent.component.js.map

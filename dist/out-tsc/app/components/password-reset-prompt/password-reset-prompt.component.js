@@ -26,4 +26,4 @@ export var PasswordResetPromptComponent = (function () {
     ], PasswordResetPromptComponent);
     return PasswordResetPromptComponent;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/password-reset-prompt/password-reset-prompt.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/password-reset-prompt/password-reset-prompt.component.js.map
