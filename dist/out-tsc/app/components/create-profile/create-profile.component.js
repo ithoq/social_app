@@ -49,7 +49,7 @@ export var CreateProfileComponent = (function () {
             if (_this.auth.getUser().timelines == null) {
                 _this.timelineService.create({ Name: 'My Private Timeline' }).subscribe(function (data) {
                     var user = _this.auth.getUser();
-                    user.timelines = [{ Id: data.json().payload.TimelineId, Name: 'My Private Timeline 5' }];
+                    user.timelines = [{ Id: data.json().payload.TimelineId, Name: 'My Private Timeline' }];
                     _this.auth.setUser(JSON.stringify(user));
                     var entry = {
                         TimelineId: data.json().payload.TimelineId,
@@ -59,11 +59,13 @@ export var CreateProfileComponent = (function () {
                     };
                     _this.entrySerice.addEntry(entry).subscribe(function (data) {
                         _this.router.navigate(['/home']);
+                        location.reload(); // for the time being
                     });
                 }, function (error) { });
             }
             else {
                 _this.router.navigate(['/home']);
+                location.reload(); // for the time being
             }
         }, function (error) {
             console.log(error.json());

@@ -52,7 +52,7 @@ export class CreateProfileComponent implements OnInit {
                 this.timelineService.create({Name:'My Private Timeline'}).subscribe((data:Response)=>{
 
                   let user = this.auth.getUser();
-                  user.timelines = [{Id:data.json().payload.TimelineId,Name:'My Private Timeline 5'}];
+                  user.timelines = [{Id:data.json().payload.TimelineId,Name:'My Private Timeline'}];
                   this.auth.setUser(JSON.stringify(user));
 
                     let entry = {
@@ -63,10 +63,13 @@ export class CreateProfileComponent implements OnInit {
                     };
                     this.entrySerice.addEntry(entry).subscribe((data:Response)=>{
                         this.router.navigate(['/home']);
+
+                        location.reload();// for the time being
                     });
                 },(error) => { });
             }else{
                 this.router.navigate(['/home']);
+                location.reload();// for the time being
             }
 
         },(error) => {

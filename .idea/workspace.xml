@@ -2,105 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f405f1b4-bc75-4d88-ab59-f33d19d289ab" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/app.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/app.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/app.module.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/app.module.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/app.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/app.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/add-entry/add-entry.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/add-entry/add-entry.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/anti-auth-parent/anti-auth-parent.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/anti-auth-parent/anti-auth-parent.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/auth-parent/auth-parent.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/auth-parent/auth-parent.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/aside/aside.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/aside/aside.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/aside/aside.component.spec.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/aside/aside.component.spec.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/body-content/body-content.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/body-content/body-content.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/body-content/body-content.component.spec.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/body-content/body-content.component.spec.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/body-right-content/body-right-content.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/body-right-content/body-right-content.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/body-right-content/body-right-content.component.spec.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/body-right-content/body-right-content.component.spec.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/body.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/body.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/create-new-password/create-new-password.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/create-new-password/create-new-password.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/create-profile.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/create-profile.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/pick-color/pick-color.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/pick-color/pick-color.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/footer/footer.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/footer/footer.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/footer/footer.component.spec.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/footer/footer.component.spec.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/forgotpass/forgotpass.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/forgotpass/forgotpass.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/action/action.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/action/action.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/action/action.component.spec.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/action/action.component.spec.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/header.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/header.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/title/title.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/title/title.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/title/title.component.spec.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/title/title.component.spec.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/home/home.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/home/home.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/login/login.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/login/login.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/parent/parent.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/parent/parent.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/parent/tokens.resolver.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/parent/tokens.resolver.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/password-reset-prompt/password-reset-prompt.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/password-reset-prompt/password-reset-prompt.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/register/register.component.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/register/register.component.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/modules/app-routes.module.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/modules/app-routes.module.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/anti-auth-guard.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/anti-auth-guard.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/auth-guard.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/auth-guard.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/auth.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/auth.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/entry.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/entry.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/medium-to-login.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/medium-to-login.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/medium-to-password-reset-prompt.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/medium-to-password-reset-prompt.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/password-reset-prompt-guard.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/password-reset-prompt-guard.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/profile-created-guard.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/profile-created-guard.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/profile-created-guard.service.spec.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/profile-created-guard.service.spec.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/profile-management.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/profile-management.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/timeline.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/timeline.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/users.service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/users.service.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/environments/environment.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/environments/environment.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/environments/environment.prod.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/environments/environment.prod.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/main.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/polyfills.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/polyfills.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/test.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/out-tsc/test.js.map" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/add-entry/add-entry.component.html" afterPath="$PROJECT_DIR$/src/app/components/add-entry/add-entry.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/add-entry/add-entry.component.ts" afterPath="$PROJECT_DIR$/src/app/components/add-entry/add-entry.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/create-profile.component.js" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/create-profile.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/create-profile.component.js.map" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/create-profile.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.ts" afterPath="$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/login/login.component.ts" afterPath="$PROJECT_DIR$/src/app/components/login/login.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.html" afterPath="$PROJECT_DIR$/src/index.html" />
     </list>
     <ignored path="dev.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -131,29 +39,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nifty-demo.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/assets/js/demo/nifty-demo.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4740">
-              <caret line="321" column="55" lean-forward="false" selection-start-line="321" selection-start-column="50" selection-end-line="321" selection-end-column="55" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1650">
-              <caret line="110" column="41" lean-forward="false" selection-start-line="110" selection-start-column="41" selection-end-line="110" selection-end-column="41" />
+            <state relative-caret-position="551">
+              <caret line="146" column="24" lean-forward="false" selection-start-line="146" selection-start-column="24" selection-end-line="146" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="add-entry.component.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="create-profile.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="54" column="96" lean-forward="false" selection-start-line="54" selection-start-column="96" selection-end-line="54" selection-end-column="96" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/components/login/login.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add-entry.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/add-entry/add-entry.component.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="304">
@@ -267,62 +183,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="form-component.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/assets/js/demo/form-component.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1290">
-              <caret line="86" column="11" lean-forward="false" selection-start-line="86" selection-start-column="11" selection-end-line="86" selection-end-column="11" />
-              <folding>
-                <marker date="1484321578000" expanded="true" signature="266:12175" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="2693:2696" ph="{&quot;thousand&quot;: '.'...}" />
-                <marker date="1484321578000" expanded="true" signature="2693:2699" ph="{&quot;connect&quot;: 'lower'...}" />
-                <marker date="1484321578000" expanded="true" signature="2767:2825" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="2838:3076" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="3455:3649" ph="{&quot;connect&quot;: 'lower'...}" />
-                <marker date="1484321578000" expanded="true" signature="3521:3584" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="3690:3884" ph="{&quot;connect&quot;: 'lower'...}" />
-                <marker date="1484321578000" expanded="true" signature="3756:3819" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="3924:4118" ph="{&quot;connect&quot;: 'lower'...}" />
-                <marker date="1484321578000" expanded="true" signature="3990:4053" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="4158:4352" ph="{&quot;connect&quot;: 'lower'...}" />
-                <marker date="1484321578000" expanded="true" signature="4224:4287" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="4392:4578" ph="{&quot;connect&quot;: 'lower'...}" />
-                <marker date="1484321578000" expanded="true" signature="4458:4513" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="4587:4823" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="4927:5077" ph="{&quot;behaviour&quot;: 'drag'...}" />
-                <marker date="1484321578000" expanded="true" signature="5021:5071" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="5088:5330" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="5434:5598" ph="{&quot;behaviour&quot;: 'drag-fixed'...}" />
-                <marker date="1484321578000" expanded="true" signature="5534:5592" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="5610:5703" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="5732:5855" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="5864:6111" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="6221:6415" ph="{&quot;range&quot;: range_all_sliders...}" />
-                <marker date="1484321578000" expanded="true" signature="6316:6409" ph="{&quot;mode&quot;: 'steps'...}" />
-                <marker date="1484321578000" expanded="true" signature="6426:6654" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="6697:6930" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="6974:7045" ph="{&quot;placeholder&quot;: &quot;Select a state&quot;...}" />
-                <marker date="1484321578000" expanded="true" signature="7055:7289" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="7349:7607" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="7651:7921" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="7961:8045" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="8054:8316" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="8370:8648" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="8731:9014" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="9067:9187" ph="{&quot;format&quot;: &quot;MM dd, yyyy&quot;...}" />
-                <marker date="1484321578000" expanded="true" signature="9196:9465" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="9506:9610" ph="{&quot;format&quot;: &quot;MM dd, yyyy&quot;...}" />
-                <marker date="1484321578000" expanded="true" signature="9620:9868" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="9938:10188" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="10260:10504" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="10771:10834" ph="{...}" />
-                <marker date="1484321578000" expanded="true" signature="10842:11079" ph="//..." />
-                <marker date="1484321578000" expanded="true" signature="11718:11953" ph="//..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="nouislider.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/assets/plugins/noUiSlider/nouislider.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -415,7 +275,6 @@
         <option value="$PROJECT_DIR$/src/app/components/register/register.component.ts" />
         <option value="$PROJECT_DIR$/src/app/components/forgotpass/forgotpass.component.ts" />
         <option value="$PROJECT_DIR$/src/app/components/anti-auth-parent/anti-auth-parent.component.html" />
-        <option value="$PROJECT_DIR$/src/app/components/login/login.component.ts" />
         <option value="$PROJECT_DIR$/../resources/social_timeline-dev/demo/m-add-profile.html" />
         <option value="$PROJECT_DIR$/src/app/services/users.service.ts" />
         <option value="$PROJECT_DIR$/src/app/services/timeline.service.ts" />
@@ -444,13 +303,14 @@
         <option value="$PROJECT_DIR$/src/app/components/header/header.component.html" />
         <option value="$PROJECT_DIR$/src/app/components/create-profile/pick-color/pick-color.component.html" />
         <option value="$PROJECT_DIR$/src/app/components/home/home.component.html" />
-        <option value="$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.ts" />
         <option value="$PROJECT_DIR$/src/app/app.module.ts" />
-        <option value="$PROJECT_DIR$/src/index.html" />
         <option value="$PROJECT_DIR$/src/assets/js/demo/form-wizard.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/app/components/add-entry/add-entry.component.html" />
         <option value="$PROJECT_DIR$/src/app/components/add-entry/add-entry.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/login/login.component.ts" />
+        <option value="$PROJECT_DIR$/src/index.html" />
       </list>
     </option>
   </component>
@@ -625,12 +485,12 @@
       <workItem from="1484193643479" duration="29638000" />
       <workItem from="1484282631240" duration="21419000" />
       <workItem from="1484318545535" duration="208000" />
-      <workItem from="1484374624613" duration="1898000" />
+      <workItem from="1484374624613" duration="2401000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78462000" />
+    <option name="totallyTimeSpent" value="78965000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -643,10 +503,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22265625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22265625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -738,13 +598,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/login/login.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="39" column="90" lean-forward="false" selection-start-line="39" selection-start-column="81" selection-end-line="39" selection-end-column="90" />
         </state>
       </provider>
     </entry>
@@ -952,13 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="35" column="29" lean-forward="false" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/services/profile-management.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
@@ -978,7 +824,7 @@
         <state relative-caret-position="4740">
           <caret line="321" column="55" lean-forward="false" selection-start-line="321" selection-start-column="50" selection-end-line="321" selection-end-column="55" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1131,14 +977,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="110" column="41" lean-forward="false" selection-start-line="110" selection-start-column="41" selection-end-line="110" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -1173,6 +1011,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="54" column="96" lean-forward="false" selection-start-line="54" selection-start-column="96" selection-end-line="54" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/login/login.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="146" column="24" lean-forward="false" selection-start-line="146" selection-start-column="24" selection-end-line="146" selection-end-column="24" />
           <folding />
         </state>
       </provider>
