@@ -50,7 +50,7 @@ $(document).ready(function() {
     // http://refreshless.com/nouislider/
     // =================================================================
 
-    var rs_step = document.getElementById('demo-range-step');
+    var rs_step = document.getElementById('demo-range-drg');
     var rs_step_value = document.getElementById('demo-range-step-val');
 
 
@@ -65,7 +65,7 @@ $(document).ready(function() {
 format: wNumb({
 		decimals: 0,
 		thousand: '.',
-	
+
 	})
 });
 
@@ -95,7 +95,7 @@ format: wNumb({
 format: wNumb({
 		decimals: 0,
 		thousand: '.',
-	
+
 	})
 });
 

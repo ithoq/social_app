@@ -1,0 +1,40 @@
+<sa-header>
+  <sa-title></sa-title>
+  <sa-action>
+    <li class="pad-rgt"> <a href="" > Profile </a> </li>
+  </sa-action>
+</sa-header>
+<!--===================================================-->
+<!--END NAVBAR-->
+
+<sa-body>
+  <sa-body-content>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Choose Color</h3>
+          </div>
+          <div class="panel-body">
+
+            <div class="pad-ver mar-btm">
+              <div class="chose-color">
+                <label  *ngFor="let option of colors" class="btn-{{option}}">
+                  <input #color type="radio" name="myColor" (change)="clicked(option)">
+                  {{option}}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </sa-body-content>
+  <sa-body-right-content></sa-body-right-content>
+  <sa-aside></sa-aside>
+</sa-body>
+<!-- FOOTER -->
+<!--===================================================-->
+<sa-footer></sa-footer>

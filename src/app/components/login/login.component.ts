@@ -32,25 +32,24 @@ export class LoginComponent implements OnInit {
   }
 
   attempt(form:NgForm){
-    this.auth.grab_app_key().subscribe((app_key)=>{
-      this.auth.set_app_token(app_key);
-      this.http.get(this.appService.api_end_point+"getSession/&AppKey="+app_key).subscribe(
-        (data:Response) => {
-          let session_token = data.json().payload.SessionToken;
-          this.auth.set_session_token(session_token);
-          this.http.get(this.appService.api_end_point+'userSignin/'+session_token+'/&Email=&Username='+form.value.username+'&Pass='+form.value.password).subscribe(
-            (data:Response) => {
-              this.auth.setUser(data.json().payload);
-              this.router.navigate(['home']);
-            },
-            (e) => {
+      this.auth.attempt(form.value).subscribe(
+          (data:Response) => {
+              /*
+               saving the authenticated user in the localStorage
+               */
+              this.auth.setUser(JSON.stringify({profile:data.json().payload.User,timelines:data.json().payload.Timelines}));
+              if(this.auth.getUser().timelines != null)
+                  this.router.navigate(['home']);
+              else
+                  this.router.navigate(['manage-profile']);
+
+              location.reload();// for the time being
+          },
+          (e) => {
               this.errors = (e.json()['error_message'] != undefined)?e.json()['error_message']:'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
               console.log(e.json())
-            }
-          );
-        }
+          }
       );
-    });
   }
 
   ngOnInit() {

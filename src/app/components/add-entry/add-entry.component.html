@@ -1,0 +1,236 @@
+
+<!-- Bubble Numbers Form Wizard -->
+<!--===================================================-->
+<div id="demo-step-wz">
+
+  <!--Form-->
+  <form class="form-horizontal" (submit)="create(f)" #f="ngForm">
+
+    <!--Footer button-->
+
+    <div class="wz-heading wz-w-label bg-info">
+
+      <!--Progress bar-->
+      <div class="progress progress-xs">
+        <div style="width: 15%;" class="progress-bar progress-bar-dark"></div>
+      </div>
+
+      <!--Nav-->
+      <ul class="wz-steps wz-icon-bw wz-nav-on text-lg">
+        <li class="col-xs-3"> <a data-toggle="tab" href="#demo-step-tab1"> <span class="icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver"> <span class="wz-icon icon-txt text-bold">1</span> <em class="wz-icon-done demo-psi-like"></em> </span> <small class="wz-desc box-block text-semibold"></small> </a> </li>
+        <li class="col-xs-3"> <a data-toggle="tab" href="#demo-step-tab2"> <span class="icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver"> <span class="wz-icon icon-txt text-bold">2</span> <i class="wz-icon-done demo-psi-like"></i> </span> <small class="wz-desc box-block text-semibold"></small> </a> </li>
+        <li class="col-xs-3"> <a data-toggle="tab" href="#demo-step-tab3"> <span class="icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver"> <span class="wz-icon icon-txt text-bold">3</span> <i class="wz-icon-done demo-psi-like"></i> </span> <small class="wz-desc box-block text-semibold"></small> </a> </li>
+        <li class="col-xs-3"> <a data-toggle="tab" href="#demo-step-tab4"> <span class="icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver"> <span class="wz-icon icon-txt text-bold">4</span> <i class="wz-icon-done demo-psi-like"></i> </span> <small class="wz-desc box-block text-semibold"></small> </a> </li>
+      </ul>
+    </div>
+    <div class="bg-gray bord-btm">
+      <div class="demo-nifty-btn widget-tabs-contr">
+        <div class="col-xs-6 pad-no">
+          <button type="button" class="previous btn btn-block btn-info mar-no pad-ver">Previous</button>
+        </div>
+        <div class="col-xs-6 pad-no">
+          <button type="button" class="next btn btn-block btn-info mar-no pad-ver">Next</button>
+          <button type="button" class="finish btn btn-block btn-success mar-no pad-ver" disabled type="submit">Save</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body bg-light">
+      <div class="tab-content">
+
+        <!--First tab-->
+        <div id="demo-step-tab1" class="tab-pane">
+          <div class="mar-btm">
+            <p class="text-main text-bold">Type of content:<span class="btn btn-default btn-xs btn-rounded pull-right mar-rgt" (click)="changeTypeOrientation()"> Show Definitions</span></p>
+            <!--Justified Button Group-->
+            <!--===================================================-->
+
+            <div class="post-type-panel" [ngClass]="{show_definitions: showDefinitions === true}">
+              <label *ngFor="let option of types" [ngClass]="{active: isTypeSelected(option.value)}">
+                <input type="checkbox" #type type="checkbox" value="{{option.value}}" (change)="typeChanged(type.checked+','+type.value)" />
+                <div class="type-left">
+                  <img src="assets/img/{{option.img}}" alt="">
+                  <span>{{option.value}}</span>
+                </div>
+                <div class="type-definitions">
+                  {{option.desc}}
+                </div>
+              </label>
+            </div>
+            <!--===================================================-->
+
+          </div>
+          <hr class="new-section-xs bord-no">
+          <p class="text-main text-bold">Include this content in these timelines:</p>
+          <div class = "mar-lft mar-top">
+            <div class="form-group pad-hor">
+              <!-- Checkboxes -->
+                <span  *ngFor="let option of timelines">
+                  <div class="checkbox">
+                        <input class="magic-checkbox" id="demo-form-checkbox{{option.Id}}" #timeline type="checkbox" value="{{option.Id}}" [ngModel]="isTimelineSelected(option.Id)" name="timeline{{option.Id}}" (change)="foo(timeline.checked+','+timeline.value)" />
+                        <label for="demo-form-checkbox{{option.Id}}"> {{option.Name}}</label>
+                    </div>
+                <hr class="new-section-xs bord-no">
+              </span>
+
+            </div>
+          </div>
+          <hr class="new-section-xs bord-no">
+          <hr class="new-section-xs">
+          <div class="text-danger pad-all"></div>
+        </div>
+
+        <!--Second tab-->
+        <div id="demo-step-tab2" class="tab-pane fade">
+          <hr class="new-section-xs bord-no">
+          <p class="text-main text-bold">Title</p>
+          <div>
+            <input type="text" ngModel name="Name" class="form-control">
+          </div>
+          <hr class="new-section-xs bord-no">
+          <p class="text-main text-bold">Date(s)</p>
+
+          <!--Bootstrap Datepicker : Range-->
+          <!--===================================================-->
+          <div id="demo-dp-range">
+            <div class="input-daterange input-group" id="datepicker">
+              <input type="text" class="form-control" ngModel name="DateStart" />
+              <span class="input-group-addon">to</span>
+              <input type="text" class="form-control" ngModel name="DateEnd" />
+            </div>
+          </div>
+          <!--===================================================-->
+
+          <hr class="new-section-xs bord-no">
+          <p class="text-main text-bold">Location</p>
+          <div>
+            <input type="text" ngModel name="Location" class="form-control">
+          </div>
+          <hr class="new-section-xs bord-no">
+          <p class="text-main text-bold">Map</p>
+          <div>
+            <input type="text" class="form-control">
+          </div>
+          <hr class="new-section-xs bord-no">
+          <p class="text-main text-bold">Add images</p>
+          <div>
+            <!--<div class="panel-body">-->
+
+            <!--Dropzonejs using Bootstrap theme-->
+            <!--===================================================-->
+
+            <div class="bord-top pad-ver">
+              <!-- The fileinput-button span is used to style the file input field as button -->
+              <span class="btn btn-default fileinput-button dz-clickable"> <i class="fa fa-plus"></i> <span>Add images</span> </span>
+              <div class="btn-group pull-right">
+                <button id="dz-upload-btn" class="btn btn-default" type="submit" disabled> <i class="fa fa-upload-cloud"></i> Upload </button>
+                <button id="dz-remove-btn" class="btn btn-default cancel" type="reset" disabled> <i class="demo-pli-cross"></i> </button>
+              </div>
+            </div>
+            <div id="dz-previews">
+              <div id="dz-template" class="pad-top bord-top">
+                <div class="media">
+                  <div class="media-body">
+                    <!--This is used as the file preview template-->
+                    <div class="media-block">
+                      <div class="media-left"> <img class="dz-img" data-dz-thumbnail> </div>
+                      <div class="media-body-filename">
+                        <p class="text-main text-bold mar-no text-overflow-filename" data-dz-name></p>
+                        <span class="dz-error text-danger text-sm" data-dz-errormessage></span>
+                        <p class="text-sm" data-dz-size></p>
+                        <div id="dz-total-progress" style="opacity:0">
+                          <div class="progress progress-xs active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                            <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="media-right">
+                    <button data-dz-remove class="btn btn-xs btn-danger dz-cancel"><i class="demo-pli-cross"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--===================================================-->
+            <!--End Dropzonejs using Bootstrap theme-->
+
+          </div>
+        </div>
+
+        <!--Third tab-->
+        <div id="demo-step-tab3" class="tab-pane">
+          <div id="test_slider"></div>
+          <input type="hidden" id="test_slider-val" ngModel name="TestSlider">
+            <input type="number" ngModel name="BestSelfRating" placeholder="Best Self Rating">
+          <hr class="new-section-xs bord-no">
+          <p class="text-main text-bold">About</p>
+          <textarea rows="4" class="form-control" ngModel name="About" placeholder="My experiences, highlights, insights, or whatever comes to mind." ></textarea>
+          <hr class="new-section-xs bord-no">
+          <!-- Bootstrap Tags Input -->
+          <!--===================================================-->
+          <input type="text" class="form-control" ngModel name="Tags" placeholder="What Tags" value="favorite" data-role="tagsinput">
+          <!--===================================================-->
+          <hr class="new-section-sm bord-no">
+          <p class="text-main text-bold">What else...</p>
+          <textarea rows="1" ngModel name="WhatElse" class="form-control" placeholder="Challenges, additianal comments, etc." ></textarea>
+          <hr class="new-section-sm bord-no">
+
+          <!--Range Slider1 : Steps-->
+          <p class="text-main text-bold">How <em class="text-success"> close </em> did I feel to others?</p>
+          <!--                    <hr class="new-section-xs bord-no">
+-->
+
+          <!--===================================================-->
+          <div class="pad-hor">
+            <input type="number" ngModel name="CloseToOthers">
+          </div>
+          <div class="mar-all"><i class="pull-left">Not close</i><i class="pull-right"> Very close</i> </div>
+          <hr class="new-section-sm bord-no">
+          <!--===================================================-->
+
+          <!--                      <hr class="new-section-xs bord-no">
+-->
+          <!-- Bootstrap Tags Input -->
+          <!--===================================================-->
+          <input type="text" class="form-control" placeholder="Who Tags" value="Alan" data-role="tagsinput">
+          <!--===================================================-->
+
+          <hr class="new-section-xs bord-no">
+
+          <!--===================================================-->
+        </div>
+
+        <!--Fourth tab-->
+        <div id="demo-step-tab4" class="tab-pane">
+          <hr class="new-section-md bord-no">
+          <p class="text-main text-bold">Tags about me related to this post</p>
+
+          <!-- Bootstrap Tags Input -->
+          <!--===================================================-->
+          <input type="text" class="form-control" placeholder="You Tags" value="Silly" data-role="tagsinput">
+          <!--===================================================-->
+
+          <hr class="new-section-sm bord-no">
+          <p class="text-main text-bold">Mood (select all that apply)</p>
+          <div class="mar-btm">
+
+            <!--Justified Button Group-->
+            <!--===================================================-->
+
+            <div class="mood-type-panel">
+              <label  *ngFor="let option of modes" [ngClass]="{active: isModeSelected(option.value)}">
+                <input type="checkbox" #mode type="checkbox" value="{{option.value}}" (change)="modeChanged(mode.checked+','+mode.value)" >
+                <img src="assets/img/{{option.img}}" alt="">
+                <span>{{option.value}}</span>
+              </label>
+            </div>
+            <!--===================================================-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!--===================================================-->
+<!-- End Bubble Numbers Form Wizard -->

@@ -5,6 +5,7 @@ import { Http, Response } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {UsersService} from "../../services/users.service";
 
 @Component({
   selector: 'sa-register',
@@ -20,7 +21,8 @@ export class RegisterComponent implements OnInit {
   public user:any;
   constructor(
     private authenticator: AuthService, private rootService:AppService,
-     private httpService: Http, appRouter: Router, private route: ActivatedRoute
+     private httpService: Http, appRouter: Router, private route: ActivatedRoute,
+    private users:UsersService
    ) {
       this.auth = authenticator;
       this.appService = rootService;
@@ -35,23 +37,14 @@ export class RegisterComponent implements OnInit {
   registerUser(form:NgForm){
     if(!this.validate(form.value)){return false;}
 
-    this.auth.grab_app_key().subscribe((app_key)=>{
-      this.auth.set_app_token(app_key);
-      this.http.get(this.appService.api_end_point+"getSession/&AppKey="+app_key).subscribe(
-        (data:Response) => {
-          let session_token = data.json().payload.SessionToken;
-          this.auth.set_session_token(session_token);
-          this.http.get(this.appService.api_end_point+'userRegister/'+this.auth.get_session_token()+'/&Email='+form.value.email+'&Username='+form.value.username+'&Pass='+form.value.password+'').subscribe(
-            (data:Response) => {
+      this.users.register(form.value).subscribe(
+          (data:Response) => {
               this.router.navigate(['login']);
-            },
-            (e) => {
+          },
+          (e) => {
               this.errors = e.json()['error_message'];
-            }
-          );
-        }
+          }
       );
-    });
   }
 
 private validate(user:any){

@@ -8,7 +8,5 @@ import {AuthService} from './services/auth.service';
 })
 export class AppComponent {
   constructor(private auth:AuthService){
-    this.auth.set_app_token('aaaabbbbbcccc');
   }
-  title = 'sa works!';
 }

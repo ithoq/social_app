@@ -1,14 +1,14 @@
-import { DevPage } from './app.po';
+import { Dev2Page } from './app.po';
 
-describe('dev App', function() {
-  let page: DevPage;
+describe('dev2 App', function() {
+  let page: Dev2Page;
 
   beforeEach(() => {
-    page = new DevPage();
+    page = new Dev2Page();
   });
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('sa works!');
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });

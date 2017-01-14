@@ -9,17 +9,39 @@ import {AntiAuthGuardService} from '../services/anti-auth-guard.service';
 import {PasswordResetPromptGuardService} from '../services/password-reset-prompt-guard.service';
 import { CreateNewPasswordComponent } from '../components/create-new-password/create-new-password.component';
 import {PasswordResetPromptComponent} from '../components/password-reset-prompt/password-reset-prompt.component';
+import {ParentComponent} from '../components/parent/parent.component';
+import {TokensResolver} from "../components/parent/tokens.resolver";
+import {AuthParentComponent} from "../components/auth-parent/auth-parent.component";
+import {AntiAuthParentComponent} from "../components/anti-auth-parent/anti-auth-parent.component";
+import {CreateProfileComponent} from "../components/create-profile/create-profile.component";
+import {PickColorComponent} from "../components/create-profile/pick-color/pick-color.component";
+import {ProfileManagementService} from "../services/profile-management.service";
+import {ProfileCreatedGuardService} from "../services/profile-created-guard.service";
 
 const appRoutes: Routes = [
-  {path: "home", component:HomeComponent, canActivate:[AuthGuardService]},
-  {
-    path: "login", component:LoginComponent, canActivate: [AntiAuthGuardService]
-  },
-  {path: "register", component:RegisterComponent, canActivate: [AntiAuthGuardService]},
-  {path: "forgotpass", component:ForgotpassComponent, canActivate: [AntiAuthGuardService]},
-  {path: "pass-reset", component:PasswordResetPromptComponent, canActivate: [AntiAuthGuardService, PasswordResetPromptGuardService]},
-  {path: "create-new-password", component:CreateNewPasswordComponent, canActivate: [AntiAuthGuardService]},
-  {path:'',redirectTo:"/home",pathMatch:"full"}
+    {
+        path:'',
+        component: ParentComponent,
+        resolve:{
+            tokens:TokensResolver
+        },
+        children:[
+            {path: "", component:AuthParentComponent, canActivate:[AuthGuardService], children:[
+                {path: "home", component:HomeComponent, canActivate:[ProfileCreatedGuardService]},
+                {path: "manage-profile", component:CreateProfileComponent},
+                {path: "pick-color", component:PickColorComponent, canActivate:[ProfileManagementService]},
+                {path:'',redirectTo:"/home",pathMatch:"full"}
+            ]},
+            {path: "", component:AntiAuthParentComponent, canActivate:[AntiAuthGuardService], children:[
+                {path: "login", component:LoginComponent},
+                {path: "register", component:RegisterComponent},
+                {path: "forgotpass", component:ForgotpassComponent},
+                {path: "pass-reset", component:PasswordResetPromptComponent, canActivate: [PasswordResetPromptGuardService]},
+                {path: "create-new-password", component:CreateNewPasswordComponent},
+                {path:'',redirectTo:"/login",pathMatch:"full"}
+            ]}
+        ]
+    },
 ];
 
 
@@ -31,6 +53,6 @@ const appRoutes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [AuthGuardService, AntiAuthGuardService, PasswordResetPromptGuardService]
+  providers: [AuthGuardService, AntiAuthGuardService, PasswordResetPromptGuardService, TokensResolver, ProfileCreatedGuardService]
 })
 export class AppRoutingModule {}

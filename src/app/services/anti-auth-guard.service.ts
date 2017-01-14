@@ -1,3 +1,5 @@
+// this service is a guard which protect routes from authenticated users.
+
 import { Injectable } from '@angular/core';
 import { CanActivate,Router, ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from './auth.service';

@@ -1,0 +1,17 @@
+.chose-color{
+    overflow: hidden;
+}
+
+.chose-color label{
+    float: left;
+    width:33.3%;
+    text-align: center;
+    padding:30px;
+    color: #FFF;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+
+.chose-color label input {
+    visibility: hidden;
+}

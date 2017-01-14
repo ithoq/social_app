@@ -1,26 +1,26 @@
-import { Injectable , OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {AppService} from '../app.service';
-import {Http, Response} from '@angular/Http';
+import { Injectable } from '@angular/core';
+import {Http} from "@angular/http";
+import {AppService} from "../app.service";
+import {Observable} from "rxjs";
 
 @Injectable()
-export class AuthService implements OnInit{
+export class AuthService {
   private app_token = '';
   private session_token = '';
   private user:any = null;
-  private localStorage: any;
-  constructor(private appService:AppService) {
-    //this.localStorage = ls;
-  }
+  constructor(private http:Http, private appService:AppService) { }
 
   getUser() {
-    return localStorage.getItem('user');
+      return (localStorage.getItem('user') != null)?JSON.parse(localStorage.getItem('user')):null;
   }
 
   grab_app_key(){
     return new Observable(observable=>{
       observable.next("WebClient");
     });
+  }
+  grab_session_token(app_key:any){
+    return this.http.get(this.appService.api_end_point+"getSession/&AppKey="+app_key);
   }
 
   get_app_token(){
@@ -44,40 +44,22 @@ export class AuthService implements OnInit{
     return (this.getUser() != null);
   }
 
-setUser(user:any){
-  localStorage.setItem('user',user);
-  this.user = user;
-}
-
-  attempt(){
-    //return this.http.get(this.appService.api_end_point+'userSignin/ses09812098312/&email=test@yahoo.com&username=test&pass=test');
-
-    return new Observable(observable=>{
-      setTimeout(function(){observable.next({
-        ver: "1.1",
-        cmd: "userSignin",
-        t: "1483643656",
-        success: "true",
-	      payload: {
-          firstName:"",
-          lastName:"",
-          email:"test3@yahoo.com",
-          userId:"usr6tFNst5ZjFj6EvAgcHc2",
-          color:"",
-          timelines:[]
-        }
-      })}, 1000);
-    });
+//sets the authenticated user in the localStorage
+  setUser(user:any){
+    localStorage.setItem('user',user);
+    this.user = user;
   }
 
+  attempt(credentials){
+      return this.http.get(this.appService.api_end_point+'userSignin/'+this.get_session_token()+'/&Email=&Username='+credentials.username+'&Pass='+credentials.password);
+  }
+
+  //removes the user from the localStorage
   logout(){
     return new Observable(observable => {
       localStorage.removeItem('user');
+      this.user = null;
       observable.next({success:"true"});
     });
   };
-
-  ngOnInit(){
-    //this.foo = this.attempt();
-  }
 }

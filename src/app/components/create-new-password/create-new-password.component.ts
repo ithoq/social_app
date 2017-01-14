@@ -16,20 +16,8 @@ export class CreateNewPasswordComponent implements OnInit {
 
   createNewPassword(form:NgForm){
     this.mediumToLogin.setTitle('Your Riza password has been reset.');
-    (new Observable(observable => {
-        setTimeout(function(){
-            observable.next({success:"true"});
-        },500);
-    })).subscribe(
-      (data:Response) => {
-        this.router.navigate(['login']);
-      },
-      (error)=>{
-
-      }
-    );
+    this.router.navigate(['login']);
   }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

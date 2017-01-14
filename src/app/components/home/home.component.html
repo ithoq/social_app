@@ -1,3 +1,22 @@
-<p>
-  <button class="btn btn-success" (click)="logout()"> Logout</button>
-</p>
+<sa-header>
+  <sa-title></sa-title>
+  <sa-action>
+    <li class="pad-rgt"> <a href="javascript:void(0)" class="aside-toggle"> <em class="fa fa-fw fa-plus"></em> Add Content </a> </li>
+  </sa-action>
+</sa-header>
+<!--===================================================-->
+<!--END NAVBAR-->
+
+<sa-body>
+  <sa-body-content>
+    <button (click)="logout()">Logout</button>
+  </sa-body-content>
+  <sa-body-right-content>
+    <sa-add-entry></sa-add-entry>
+  </sa-body-right-content>
+  <sa-aside></sa-aside>
+</sa-body>
+<!-- FOOTER -->
+<!--===================================================-->
+<sa-footer></sa-footer>
+

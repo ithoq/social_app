@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import { Http, Response } from '@angular/http';
+import {Response} from '@angular/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,10 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  private auth: AuthService;
-  constructor(private authService: AuthService, private appRouter: Router) {
-    this.auth = authService;
-  }
+  constructor(private auth: AuthService, private appRouter: Router) {}
 
   logout(){
     this.auth.logout().subscribe(
@@ -26,6 +23,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.auth.getUser());
   }
 
 }

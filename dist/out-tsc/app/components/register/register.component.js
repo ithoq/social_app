@@ -12,12 +12,14 @@ import { AppService } from '../../app.service';
 import { AuthService } from '../../services/auth.service';
 import { Http } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-var RegisterComponent = (function () {
-    function RegisterComponent(authenticator, rootService, httpService, appRouter, route) {
+import { UsersService } from "../../services/users.service";
+export var RegisterComponent = (function () {
+    function RegisterComponent(authenticator, rootService, httpService, appRouter, route, users) {
         this.authenticator = authenticator;
         this.rootService = rootService;
         this.httpService = httpService;
         this.route = route;
+        this.users = users;
         this.auth = authenticator;
         this.appService = rootService;
         this.http = httpService;
@@ -32,17 +34,10 @@ var RegisterComponent = (function () {
         if (!this.validate(form.value)) {
             return false;
         }
-        this.auth.grab_app_key().subscribe(function (app_key) {
-            _this.auth.set_app_token(app_key);
-            _this.http.get(_this.appService.api_end_point + "getSession/&AppKey=" + app_key).subscribe(function (data) {
-                var session_token = data.json().payload.SessionToken;
-                _this.auth.set_session_token(session_token);
-                _this.http.get(_this.appService.api_end_point + 'userRegister/' + _this.auth.get_session_token() + '/&Email=' + form.value.email + '&Username=' + form.value.username + '&Pass=' + form.value.password + '').subscribe(function (data) {
-                    _this.router.navigate(['login']);
-                }, function (e) {
-                    _this.errors = e.json()['error_message'];
-                });
-            });
+        this.users.register(form.value).subscribe(function (data) {
+            _this.router.navigate(['login']);
+        }, function (e) {
+            _this.errors = e.json()['error_message'];
         });
     };
     RegisterComponent.prototype.validate = function (user) {
@@ -53,17 +48,16 @@ var RegisterComponent = (function () {
         return true;
     };
     RegisterComponent.prototype.ngOnInit = function () {
+        //this.contact = this.route.snapshot.data['contact'];
     };
+    RegisterComponent = __decorate([
+        Component({
+            selector: 'sa-register',
+            templateUrl: './register.component.html',
+            styleUrls: ['./register.component.css']
+        }), 
+        __metadata('design:paramtypes', [AuthService, AppService, Http, Router, ActivatedRoute, UsersService])
+    ], RegisterComponent);
     return RegisterComponent;
 }());
-RegisterComponent = __decorate([
-    Component({
-        selector: 'sa-register',
-        templateUrl: './register.component.html',
-        styleUrls: ['./register.component.css']
-    }),
-    __metadata("design:paramtypes", [AuthService, AppService,
-        Http, Router, ActivatedRoute])
-], RegisterComponent);
-export { RegisterComponent };
-//# sourceMappingURL=../../../../../src/app/components/register/register.component.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev2/src/app/components/register/register.component.js.map
