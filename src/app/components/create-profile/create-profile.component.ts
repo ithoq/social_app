@@ -23,11 +23,13 @@ export class CreateProfileComponent implements OnInit {
       private router:Router,
       private profileManagementService:ProfileManagementService
   ) {
+
       let profileData = this.profileManagementService.getProfileData();
       if(profileData != null){
           this.user = profileData;
           this.user.Color = this.profileManagementService.getColor();
       }else{
+
           this.user = this.auth.getUser().profile;
       }
 

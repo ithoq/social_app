@@ -3,7 +3,7 @@ import {AuthService} from '../../services/auth.service';
 import {Response} from '@angular/http';
 import { Router } from '@angular/router';
 import {RightContentService} from "../../services/right-content.service";
-declare var $:any;
+
 @Component({
   selector: 'sa-home',
   templateUrl: './home.component.html',
@@ -11,9 +11,8 @@ declare var $:any;
 })
 export class HomeComponent implements OnInit {
 
-  $:any;
   constructor(private auth: AuthService, private appRouter: Router, private rightContent:RightContentService) {
-    this.$ = $;
+
   }
 
   logout(){
@@ -30,7 +29,7 @@ export class HomeComponent implements OnInit {
     this.rightContent.aside_in = !this.rightContent.aside_in;
   }
   ngOnInit() {
-    console.log(this.auth.getUser());
+
   }
 
 }
