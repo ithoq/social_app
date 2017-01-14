@@ -1462,7 +1462,7 @@
                 if(toggleBtn.length){
                     toggleBtn.on('click', function(e){
                         e.preventDefault();
-                         $.niftyAside('toggleHideShow');
+                        $.niftyAside('toggleHideShow');
                     })
                 }
             }
