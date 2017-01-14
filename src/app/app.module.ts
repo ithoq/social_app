@@ -34,6 +34,7 @@ import { BodyRightContentComponent } from './components/body/body-right-content/
 import { AddEntryComponent } from './components/add-entry/add-entry.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {ProfileManagementService} from "./services/profile-management.service";
+import {RightContentService} from "./services/right-content.service";
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import {ProfileManagementService} from "./services/profile-management.service";
     UsersService,
     TimelineService,
     EntryService,
-    ProfileManagementService
+    ProfileManagementService,
+      RightContentService
   ],
   bootstrap: [AppComponent]
 })
