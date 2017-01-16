@@ -35,6 +35,7 @@ import { AddEntryComponent } from './components/add-entry/add-entry.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {ProfileManagementService} from "./services/profile-management.service";
 import {RightContentService} from "./services/right-content.service";
+import {AgmCoreModule} from "angular2-google-maps/core";
 
 @NgModule({
   declarations: [
@@ -66,7 +67,11 @@ import {RightContentService} from "./services/right-content.service";
     AppRoutingModule,
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBC4QNkQKk6p37YYHjrxWcVZ7BSQ7UZvIQ',
+      libraries: ['places']
+    })
   ],
   providers: [
     AuthService,

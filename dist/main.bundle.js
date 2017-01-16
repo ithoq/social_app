@@ -806,7 +806,6 @@ var HomeComponent = (function () {
         this.auth = auth;
         this.appRouter = appRouter;
         this.rightContent = rightContent;
-        this.$ = $;
     }
     HomeComponent.prototype.logout = function () {
         var _this = this;
@@ -819,7 +818,6 @@ var HomeComponent = (function () {
         this.rightContent.aside_in = !this.rightContent.aside_in;
     };
     HomeComponent.prototype.ngOnInit = function () {
-        console.log(this.auth.getUser());
     };
     HomeComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
@@ -1395,7 +1393,6 @@ var AddEntryComponent = (function () {
         this.selectedModes = [];
         this.showDefinitions = false;
         this.timelines = this.auth.getUser().timelines;
-        this.seletedTimelines.push(this.timelines[0].Id);
         this.noUiSlider = noUiSlider;
         this.wNumb = wNumb;
         this.$ = $;
@@ -1556,8 +1553,8 @@ var AddEntryComponent = (function () {
         this.showDefinitions = !this.showDefinitions;
     };
     AddEntryComponent.prototype.ngAfterViewInit = function () {
-        var wizard = '#add-entry-form-wizard';
-        $(wizard).bootstrapWizard({
+        var add_entry_form_wizard = '#add-entry-form-wizard';
+        $(add_entry_form_wizard).bootstrapWizard({
             tabClass: 'wz-steps',
             nextSelector: '.next',
             previousSelector: '.previous',
@@ -1565,7 +1562,7 @@ var AddEntryComponent = (function () {
                 return false;
             },
             onInit: function () {
-                $(wizard).find('.finish').hide().prop('disabled', true);
+                $(add_entry_form_wizard).find('.finish').hide().prop('disabled', true);
             },
             onTabShow: function (tab, navigation, index) {
                 var $total = navigation.find('li').length;
@@ -1574,16 +1571,16 @@ var AddEntryComponent = (function () {
                 var wdt = 100 / $total;
                 var lft = wdt * index;
                 var margin = (100 / $total) / 2;
-                $(wizard).find('.progress-bar').css({ width: $percent + '%', 'margin': 0 + 'px ' + margin + '%' });
+                $(add_entry_form_wizard).find('.progress-bar').css({ width: $percent + '%', 'margin': 0 + 'px ' + margin + '%' });
                 // If it's the last tab then hide the last button and show the finish instead
                 if ($current >= $total) {
-                    $(wizard).find('.next').hide();
-                    $(wizard).find('.finish').show();
-                    $(wizard).find('.finish').prop('disabled', false);
+                    $(add_entry_form_wizard).find('.next').hide();
+                    $(add_entry_form_wizard).find('.finish').show();
+                    $(add_entry_form_wizard).find('.finish').prop('disabled', false);
                 }
                 else {
-                    $(wizard).find('.next').show();
-                    $(wizard).find('.finish').hide().prop('disabled', true);
+                    $(add_entry_form_wizard).find('.next').show();
+                    $(add_entry_form_wizard).find('.finish').hide().prop('disabled', true);
                 }
             }
         });

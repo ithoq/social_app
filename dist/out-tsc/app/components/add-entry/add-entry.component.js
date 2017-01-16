@@ -10,11 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { EntryService } from "../../services/entry.service";
+import { MapsAPILoader } from "angular2-google-maps/core";
 export var AddEntryComponent = (function () {
-    function AddEntryComponent(auth, entryService) {
+    function AddEntryComponent(auth, entryService, _loader) {
         this.auth = auth;
         this.entryService = entryService;
+        this._loader = _loader;
         /*****************/
+        /* map api */
+        this.title = 'My first angular2-google-maps project';
+        this.lat = 51.678418;
+        this.lng = 7.809007;
+        /* ----------------------- */
+        this.tags = ['a'];
         this.modes = [
             { value: 'Angry', img: 'emoji-angry.png' },
             { value: 'Blah', img: 'emoji-blah.png' },
@@ -49,6 +57,17 @@ export var AddEntryComponent = (function () {
         this.wNumb = wNumb;
         this.$ = $;
     }
+    AddEntryComponent.prototype.autocomplete = function () {
+        var _this = this;
+        this._loader.load().then(function () {
+            var autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocompleteInput"), {});
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                _this.lat = place.geometry.location.lat();
+                _this.lng = place.geometry.location.lng();
+            });
+        });
+    };
     AddEntryComponent.prototype.isTimelineSelected = function (timeline) {
         var alreadyExists = false;
         for (var _i = 0, _a = this.seletedTimelines; _i < _a.length; _i++) {
@@ -77,6 +96,8 @@ export var AddEntryComponent = (function () {
             data.TimelineId = this.seletedTimelines.join(',');
             data.Mode = this.selectedModes.join(',');
             data.Type = this.selectedTypes[0];
+            data.Tags = $('#what-tags-input').val();
+            console.log(data);
             this.entryService.addEntry(data).subscribe(function (data) {
                 alert('Post Created Successfully!');
             }, function (error) {
@@ -153,6 +174,9 @@ export var AddEntryComponent = (function () {
             }
         }
     };
+    AddEntryComponent.prototype.ngAfterContentInit = function () {
+        this.autocomplete();
+    };
     AddEntryComponent.prototype.ngOnInit = function () {
         var _this = this;
         var best_self_slider = document.getElementById('test_slider');
@@ -205,6 +229,7 @@ export var AddEntryComponent = (function () {
         this.showDefinitions = !this.showDefinitions;
     };
     AddEntryComponent.prototype.ngAfterViewInit = function () {
+        $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
         var add_entry_form_wizard = '#add-entry-form-wizard';
         $(add_entry_form_wizard).bootstrapWizard({
             tabClass: 'wz-steps',
@@ -237,13 +262,23 @@ export var AddEntryComponent = (function () {
             }
         });
     };
+    AddEntryComponent.prototype.initMap = function () {
+        var input = document.getElementById('pac-input');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+    };
+    AddEntryComponent.prototype.onTagsChange = function () {
+    };
+    AddEntryComponent.prototype.onTagsAdded = function () {
+    };
+    AddEntryComponent.prototype.onTagRemoved = function () {
+    };
     AddEntryComponent = __decorate([
         Component({
             selector: 'sa-add-entry',
             templateUrl: './add-entry.component.html',
             styleUrls: ['./add-entry.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, EntryService])
+        __metadata('design:paramtypes', [AuthService, EntryService, MapsAPILoader])
     ], AddEntryComponent);
     return AddEntryComponent;
 }());

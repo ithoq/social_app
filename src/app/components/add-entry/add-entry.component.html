@@ -103,12 +103,14 @@
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Location</p>
           <div>
-            <input type="text" ngModel name="Location" class="form-control">
+            <input type="text" ngModel name="Location" class="form-control" id="autocompleteInput">
           </div>
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Map</p>
           <div>
-            <input type="text" class="form-control">
+            <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="10">
+              <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+            </sebm-google-map>
           </div>
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Add images</p>
@@ -176,7 +178,7 @@
           <hr class="new-section-xs bord-no">
           <!-- Bootstrap Tags Input -->
           <!--===================================================-->
-          <input type="text" class="form-control" ngModel name="Tags" placeholder="What Tags" value="favorite" data-role="tagsinput">
+          <input type="text" id="what-tags-input" class="form-control" [ngModel]="tags" name="Tags" placeholder="What Tags" value="favorite" data-role="tagsinput">
           <!--===================================================-->
           <hr class="new-section-sm bord-no">
           <p class="text-main text-bold">What else...</p>
