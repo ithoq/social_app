@@ -1,9 +1,10 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {EntryService} from "../../services/entry.service";
 import {Response} from "@angular/http";
 import {MapsAPILoader} from "angular2-google-maps/core";
+import {RightContentService} from "../../services/right-content.service";
 
 declare var noUiSlider: any;
 declare var wNumb: any;
@@ -24,6 +25,7 @@ export class AddEntryComponent implements OnInit {
     /*****************/
 
     /* map api */
+    showmap:any = false;
     title: string = 'My first angular2-google-maps project';
     lat: number = 51.678418;
     lng: number = 7.809007;
@@ -63,20 +65,24 @@ export class AddEntryComponent implements OnInit {
     public showDefinitions = false;
     public BestSelfRating:any;
     public CloseToOthers:any;
-    constructor(private auth:AuthService, private entryService:EntryService,private _loader: MapsAPILoader) {
+    public location:any;
+    constructor(private auth:AuthService, private entryService:EntryService,private _loader: MapsAPILoader, private rightContentService:RightContentService,private chRef: ChangeDetectorRef) {
         this.timelines = this.auth.getUser().timelines;
         this.noUiSlider = noUiSlider;
         this.wNumb = wNumb;
         this.$ = $;
     }
 
+
     autocomplete() {
         this._loader.load().then(() => {
             let autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocompleteInput"), {});
             google.maps.event.addListener(autocomplete, 'place_changed', () => {
                 let place = autocomplete.getPlace();
+                this.location = place.formatted_address;
                 this.lat = place.geometry.location.lat();
                 this.lng = place.geometry.location.lng();
+                this.chRef.detectChanges();
             });
         });
     }
@@ -106,10 +112,12 @@ export class AddEntryComponent implements OnInit {
             data.Mode = this.selectedModes.join(',');
             data.Type = this.selectedTypes[0];
             data.Tags = $('#what-tags-input').val();
+            data.Location = this.location;
             console.log(data);
             this.entryService.addEntry(data).subscribe(
                 (data:Response)=>{
-                    alert('Post Created Successfully!')
+                    alert('Post Created Successfully!');
+                    this.rightContentService.aside_in = false;
                 },(error) => {
                     alert(error.json().error_message);
                 }
@@ -185,10 +193,6 @@ export class AddEntryComponent implements OnInit {
         }
     }
 
-    ngAfterContentInit(){
-        this.autocomplete();
-    }
-
   ngOnInit() {
       var best_self_slider = document.getElementById('test_slider');
       noUiSlider.create(best_self_slider,{
@@ -248,6 +252,7 @@ export class AddEntryComponent implements OnInit {
     }
 
     ngAfterViewInit() {
+        this.autocomplete();
         $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
        let add_entry_form_wizard = '#add-entry-form-wizard';
         $(add_entry_form_wizard).bootstrapWizard({
@@ -283,18 +288,14 @@ export class AddEntryComponent implements OnInit {
         });
     }
 
+    movedToNextSlide(){
+        setTimeout(() => {
+            this.showmap = true;
+        },500);
+    }
+
     initMap(){
         var input = document.getElementById('pac-input');
         var autocomplete = new google.maps.places.Autocomplete(input);
-    }
-
-    onTagsChange(){
-
-    }
-    onTagsAdded(){
-
-    }
-    onTagRemoved(){
-
     }
 }

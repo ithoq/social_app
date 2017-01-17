@@ -29,7 +29,7 @@
           <button type="button" class="previous btn btn-block btn-info mar-no pad-ver">Previous</button>
         </div>
         <div class="col-xs-6 pad-no">
-          <button type="button" class="next btn btn-block btn-info mar-no pad-ver">Next</button>
+          <button type="button" class="next btn btn-block btn-info mar-no pad-ver" (click)="movedToNextSlide()">Next</button>
           <button type="button" class="finish btn btn-block btn-success mar-no pad-ver" disabled type="submit">Save</button>
         </div>
       </div>
@@ -107,9 +107,9 @@
           </div>
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Map</p>
-          <div>
-            <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="10">
-              <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+          <div *ngIf="showmap" (latLngChanged)="foo()">
+            <sebm-google-map [(latitude)]="lat" [(longitude)]="lng" [zoom]="15">
+              <sebm-google-map-marker [(latitude)]="lat" [(longitude)]="lng"></sebm-google-map-marker>
             </sebm-google-map>
           </div>
           <hr class="new-section-xs bord-no">

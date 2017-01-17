@@ -12,10 +12,16 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { RightContentService } from "../../services/right-content.service";
 export var HomeComponent = (function () {
+    /* ----------------------- */
     function HomeComponent(auth, appRouter, rightContent) {
         this.auth = auth;
         this.appRouter = appRouter;
         this.rightContent = rightContent;
+        /* map api */
+        this.title = 'My first angular2-google-maps project';
+        this.lat = 51.678418;
+        this.lng = 7.809007;
+        this.showmap = false;
     }
     HomeComponent.prototype.logout = function () {
         var _this = this;
@@ -28,6 +34,9 @@ export var HomeComponent = (function () {
         this.rightContent.aside_in = !this.rightContent.aside_in;
     };
     HomeComponent.prototype.ngOnInit = function () {
+    };
+    HomeComponent.prototype.showMap = function () {
+        this.showmap = !this.showmap;
     };
     HomeComponent = __decorate([
         Component({

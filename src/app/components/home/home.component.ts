@@ -11,6 +11,12 @@ import {RightContentService} from "../../services/right-content.service";
 })
 export class HomeComponent implements OnInit {
 
+  /* map api */
+  title: string = 'My first angular2-google-maps project';
+  lat: number = 51.678418;
+  lng: number = 7.809007;
+  /* ----------------------- */
+
   constructor(private auth: AuthService, private appRouter: Router, private rightContent:RightContentService) {
 
   }
@@ -30,6 +36,11 @@ export class HomeComponent implements OnInit {
   }
   ngOnInit() {
 
+  }
+
+  showmap:any = false;
+  showMap(){
+    this.showmap = !this.showmap;
   }
 
 }

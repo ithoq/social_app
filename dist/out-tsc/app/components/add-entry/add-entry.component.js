@@ -7,17 +7,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { EntryService } from "../../services/entry.service";
 import { MapsAPILoader } from "angular2-google-maps/core";
+import { RightContentService } from "../../services/right-content.service";
 export var AddEntryComponent = (function () {
-    function AddEntryComponent(auth, entryService, _loader) {
+    function AddEntryComponent(auth, entryService, _loader, rightContentService, chRef) {
         this.auth = auth;
         this.entryService = entryService;
         this._loader = _loader;
+        this.rightContentService = rightContentService;
+        this.chRef = chRef;
         /*****************/
         /* map api */
+        this.showmap = false;
         this.title = 'My first angular2-google-maps project';
         this.lat = 51.678418;
         this.lng = 7.809007;
@@ -63,8 +67,10 @@ export var AddEntryComponent = (function () {
             var autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocompleteInput"), {});
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
+                _this.location = place.formatted_address;
                 _this.lat = place.geometry.location.lat();
                 _this.lng = place.geometry.location.lng();
+                _this.chRef.detectChanges();
             });
         });
     };
@@ -79,6 +85,7 @@ export var AddEntryComponent = (function () {
         return alreadyExists;
     };
     AddEntryComponent.prototype.create = function (form) {
+        var _this = this;
         var data = form.value;
         if (data.Name == '') {
             alert('Post Title is required');
@@ -97,9 +104,11 @@ export var AddEntryComponent = (function () {
             data.Mode = this.selectedModes.join(',');
             data.Type = this.selectedTypes[0];
             data.Tags = $('#what-tags-input').val();
+            data.Location = this.location;
             console.log(data);
             this.entryService.addEntry(data).subscribe(function (data) {
                 alert('Post Created Successfully!');
+                _this.rightContentService.aside_in = false;
             }, function (error) {
                 alert(error.json().error_message);
             });
@@ -174,9 +183,6 @@ export var AddEntryComponent = (function () {
             }
         }
     };
-    AddEntryComponent.prototype.ngAfterContentInit = function () {
-        this.autocomplete();
-    };
     AddEntryComponent.prototype.ngOnInit = function () {
         var _this = this;
         var best_self_slider = document.getElementById('test_slider');
@@ -229,6 +235,7 @@ export var AddEntryComponent = (function () {
         this.showDefinitions = !this.showDefinitions;
     };
     AddEntryComponent.prototype.ngAfterViewInit = function () {
+        this.autocomplete();
         $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
         var add_entry_form_wizard = '#add-entry-form-wizard';
         $(add_entry_form_wizard).bootstrapWizard({
@@ -262,15 +269,15 @@ export var AddEntryComponent = (function () {
             }
         });
     };
+    AddEntryComponent.prototype.movedToNextSlide = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.showmap = true;
+        }, 500);
+    };
     AddEntryComponent.prototype.initMap = function () {
         var input = document.getElementById('pac-input');
         var autocomplete = new google.maps.places.Autocomplete(input);
-    };
-    AddEntryComponent.prototype.onTagsChange = function () {
-    };
-    AddEntryComponent.prototype.onTagsAdded = function () {
-    };
-    AddEntryComponent.prototype.onTagRemoved = function () {
     };
     AddEntryComponent = __decorate([
         Component({
@@ -278,7 +285,7 @@ export var AddEntryComponent = (function () {
             templateUrl: './add-entry.component.html',
             styleUrls: ['./add-entry.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, EntryService, MapsAPILoader])
+        __metadata('design:paramtypes', [AuthService, EntryService, MapsAPILoader, RightContentService, ChangeDetectorRef])
     ], AddEntryComponent);
     return AddEntryComponent;
 }());
