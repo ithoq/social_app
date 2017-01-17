@@ -59,7 +59,6 @@ export var CreateProfileComponent = (function () {
                     };
                     _this.entrySerice.addEntry(entry).subscribe(function (data) {
                         _this.router.navigate(['/home']);
-                        location.reload(); // for the time being
                     });
                 }, function (error) { });
             }

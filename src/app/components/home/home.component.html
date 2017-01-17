@@ -9,10 +9,7 @@
 
 <sa-body>
   <sa-body-content>
-    <button type="button" (click)="showMap()"> Show Map </button>
-    <sebm-google-map *ngIf="showmap" [latitude]="lat" [longitude]="lng" [zoom]="15" style="height: 700px;">
-      <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
-    </sebm-google-map>
+
   </sa-body-content>
   <sa-body-right-content>
     <sa-add-entry></sa-add-entry>

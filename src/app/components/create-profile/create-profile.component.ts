@@ -65,8 +65,6 @@ export class CreateProfileComponent implements OnInit {
                     };
                     this.entrySerice.addEntry(entry).subscribe((data:Response)=>{
                         this.router.navigate(['/home']);
-
-                        location.reload();// for the time being
                     });
                 },(error) => { });
             }else{
