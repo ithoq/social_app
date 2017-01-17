@@ -2674,7 +2674,7 @@ module.exports = "<ul class=\"nav navbar-top-links pull-left\">\n  <ng-content><
 /***/ 790:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\" (click)=\"asideToggle()\"> <a href=\"javascript:void(0)\"> <em class=\"fa fa-fw fa-plus\"></em> Add Content </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <button type=\"button\" (click)=\"showMap()\"> Show Map </button>\n    <sebm-google-map *ngIf=\"showmap\" [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"15\" style=\"height: 700px;\">\n      <sebm-google-map-marker [latitude]=\"lat\" [longitude]=\"lng\"></sebm-google-map-marker>\n    </sebm-google-map>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-add-entry></sa-add-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n\n"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\" (click)=\"asideToggle()\"> <a href=\"javascript:void(0)\"> <em class=\"fa fa-fw fa-plus\"></em> Add Content </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-add-entry></sa-add-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n\n"
 
 /***/ },
 
