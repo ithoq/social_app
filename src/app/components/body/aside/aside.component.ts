@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {Response} from "@angular/http";
+import {TimelineService} from "../../../services/timeline.service";
 
 @Component({
   selector: 'sa-aside',
@@ -10,7 +11,11 @@ import {Response} from "@angular/http";
 })
 export class AsideComponent implements OnInit {
 
-  constructor(private auth: AuthService, private appRouter: Router) { }
+  public user;
+  public timelines:any;
+  constructor(private auth: AuthService, private appRouter: Router, private timelineService:TimelineService) {
+      this.timelines = this.auth.getUser().timelines;
+  }
 
   ngOnInit() {
   }

@@ -1,0 +1,24 @@
+<sa-header>
+  <sa-title></sa-title>
+  <sa-action>
+    <li class="pad-rgt" (click)="asideToggle()"> <a href="javascript:void(0)"> <em class="fa fa-fw fa-plus"></em> Add Content </a> </li>
+  </sa-action>
+</sa-header>
+<!--===================================================-->
+<!--END NAVBAR-->
+
+<sa-body>
+  <sa-body-content>
+    <form (submit)="create(f)" #f="ngForm">
+      <input type="text" ngModel name="Name" placeholder="Enter New Log Name Here.." required>
+      <button type="submit">Save</button>
+    </form>
+  </sa-body-content>
+  <sa-body-right-content>
+    <sa-add-entry></sa-add-entry>
+  </sa-body-right-content>
+  <sa-aside></sa-aside>
+</sa-body>
+<!-- FOOTER -->
+<!--===================================================-->
+<sa-footer></sa-footer>

@@ -16,6 +16,8 @@ export var TimelineService = (function () {
         this.http = http;
         this.appService = appService;
         this.auth = auth;
+        this.userTimelines = [];
+        this.setUserTimelines(this.auth.getUser().timelines);
     }
     TimelineService.prototype.create = function (data) {
         var querystr = "";
@@ -23,6 +25,12 @@ export var TimelineService = (function () {
             querystr += '&' + propertyName + '=' + data[propertyName];
         }
         return this.http.get(this.appService.api_end_point + 'timelineCreate/' + this.auth.get_session_token() + "/" + querystr);
+    };
+    TimelineService.prototype.get = function (timeline_id, user_id) {
+        return this.http.get(this.appService.api_end_point + 'userTimeline/' + this.auth.get_session_token() + "/&TimelineId=" + timeline_id + "&UserId=" + user_id);
+    };
+    TimelineService.prototype.setUserTimelines = function (timelines) {
+        this.userTimelines = timelines;
     };
     TimelineService = __decorate([
         Injectable(), 

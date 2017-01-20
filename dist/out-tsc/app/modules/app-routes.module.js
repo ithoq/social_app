@@ -26,6 +26,10 @@ import { CreateProfileComponent } from "../components/create-profile/create-prof
 import { PickColorComponent } from "../components/create-profile/pick-color/pick-color.component";
 import { ProfileManagementService } from "../services/profile-management.service";
 import { ProfileCreatedGuardService } from "../services/profile-created-guard.service";
+import { ManageLogsComponent } from "../components/manage-logs/manage-logs.component";
+import { CreateLogComponent } from "../components/create-log/create-log.component";
+import { LogComponent } from "../components/log/log.component";
+import { LogResolver } from "../components/log/log.resolver";
 var appRoutes = [
     {
         path: '',
@@ -36,7 +40,10 @@ var appRoutes = [
         children: [
             { path: "", component: AuthParentComponent, canActivate: [AuthGuardService], children: [
                     { path: "home", component: HomeComponent, canActivate: [ProfileCreatedGuardService] },
+                    { path: 'log/:id', resolve: { log: LogResolver }, component: LogComponent },
                     { path: "manage-profile", component: CreateProfileComponent },
+                    { path: "manage-logs", component: ManageLogsComponent, canActivate: [ProfileCreatedGuardService] },
+                    { path: "create-log", component: CreateLogComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "pick-color", component: PickColorComponent, canActivate: [ProfileManagementService] },
                     { path: '', redirectTo: "/home", pathMatch: "full" }
                 ] },
@@ -62,7 +69,7 @@ export var AppRoutingModule = (function () {
             exports: [
                 RouterModule
             ],
-            providers: [AuthGuardService, AntiAuthGuardService, PasswordResetPromptGuardService, TokensResolver, ProfileCreatedGuardService]
+            providers: [AuthGuardService, AntiAuthGuardService, PasswordResetPromptGuardService, LogResolver, TokensResolver, ProfileCreatedGuardService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppRoutingModule);

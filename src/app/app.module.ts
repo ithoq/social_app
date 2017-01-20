@@ -36,6 +36,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import {ProfileManagementService} from "./services/profile-management.service";
 import {RightContentService} from "./services/right-content.service";
 import {AgmCoreModule} from "angular2-google-maps/core";
+import { ManageLogsComponent } from './components/manage-logs/manage-logs.component';
+import { CreateLogComponent } from './components/create-log/create-log.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
+import { LogComponent } from './components/log/log.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +65,10 @@ import {AgmCoreModule} from "angular2-google-maps/core";
     BodyContentComponent,
     BodyRightContentComponent,
     AddEntryComponent,
-    FooterComponent
+    FooterComponent,
+    ManageLogsComponent,
+    CreateLogComponent,
+    LogComponent
   ],
   imports: [
     AppRoutingModule,

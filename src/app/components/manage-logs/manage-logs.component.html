@@ -1,0 +1,77 @@
+<sa-header>
+  <sa-title></sa-title>
+  <sa-action>
+    <li class="pad-rgt" (click)="asideToggle()"> <a href="javascript:void(0)"> <em class="fa fa-fw fa-plus"></em> Add Content </a> </li>
+  </sa-action>
+</sa-header>
+<!--===================================================-->
+<!--END NAVBAR-->
+
+<sa-body>
+  <sa-body-content>
+    <div class="row">
+      <div  *ngFor="let option of timelines" class="col-lg-6">
+        <div class="panel">
+          <div class="panel-heading">
+            <div class="panel-control">
+              <ul class="pager pager-rounded">
+                <button id="demo-btn-addrow" class="btn"><i
+                        class="fa fa-plus text-info"></i></button>
+              </ul>
+            </div>
+            <h3 class="panel-title">{{option.Name}}<span class="text-sm text-muted mar-lft"> Admin: {{user.Nickname}}</span>
+              <button id="demo-btn-addrow" class="btn"><i class="fa fa-pencil text-info"></i>
+              </button>
+            </h3>
+
+          </div>
+
+          <!--Hover Rows-->
+          <!--===================================================-->
+          <div class="panel-body">
+
+
+            <table class="table table-hover table-vcenter">
+              <thead>
+              <tr>
+                <th class="min-width">Image</th>
+                <th>Name</th>
+                <th class="text-center">Profile managed by</th>
+                <th class="text-center">Profile</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td class="text-center"><img class="img-xs img-circle"
+                                             src="assets/img/profile-photos/profile-hannah.jpg"
+                                             alt="Profile picture"></td>
+                <td>
+                  <span class="text-main text-semibold">{{user.FirstName}} {{user.LastName}}</span>
+                </td>
+                <td class="text-center"><span
+                        class="text-muted text-semibold">{{user.FirstName}}</span></td>
+                <td class="text-center"><span class="text-info text-semibold">Edit</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--===================================================-->
+          <!--End Hover Rows-->
+
+        </div>
+      </div>
+
+      <div><a routerLink="/create-log" class="btn btn-info mar-lft">Create New Log </a></div>
+      <br>
+    </div>
+
+  </sa-body-content>
+  <sa-body-right-content>
+    <sa-add-entry></sa-add-entry>
+  </sa-body-right-content>
+  <sa-aside></sa-aside>
+</sa-body>
+<!-- FOOTER -->
+<!--===================================================-->
+<sa-footer></sa-footer>

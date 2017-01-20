@@ -29,8 +29,7 @@
 
             <li class="list-divider"></li>
             <li class="list-header">View Logs</li>
-            <li> <a href="m-plog"> <span class="menu-title text-menu"> <strong>My Personal</strong> </span> </a> </li>
-            <li> <a href="m-log.html"> <span class="menu-title text-menu"> <strong>King-Guffey</strong> </span> </a></li>
+            <li *ngFor="let option of timelines"> <a routerLink="/log/{{option.Id}}"> <span class="menu-title text-menu"> <strong>{{option.Name}}</strong> </span> </a> </li>
             <li> <a href="m-custom-view.html"> <span class="menu-title text-menu"> <strong>Custom View</strong> </span> </a> </li>
 
             <li class="list-divider"></li>
@@ -46,7 +45,7 @@
             </li>
             <li class="list-divider"></li>
             <li class="list-header">Manage</li>
-            <li> <a href="m-manage-logs.html"> <span class="menu-title text-menu"> <strong>Logs</strong> </span> </a> </li>
+            <li> <a routerLink="/manage-logs"> <span class="menu-title text-menu"> <strong>Logs</strong> </span> </a> </li>
 
             <!--Menu list item-->
             <li routerLinkActive="active"> <a routerLink="/manage-profile"> <span class="menu-title text-menu"> <strong>My Account</strong> </span> </a> </li>

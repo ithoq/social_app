@@ -29,6 +29,7 @@ export var LoginComponent = (function () {
     LoginComponent.prototype.attempt = function (form) {
         var _this = this;
         this.auth.attempt(form.value).subscribe(function (data) {
+            console.log(data.json().payload);
             /*
              saving the authenticated user in the localStorage
              */

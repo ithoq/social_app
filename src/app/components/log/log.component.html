@@ -1,0 +1,37 @@
+<sa-header>
+  <sa-title></sa-title>
+  <sa-action>
+    <li class="pad-rgt" (click)="asideToggle()"> <a href="javascript:void(0)"> <em class="fa fa-fw fa-plus"></em> Add Content </a> </li>
+  </sa-action>
+</sa-header>
+<!--===================================================-->
+<!--END NAVBAR-->
+
+<sa-body>
+  <sa-body-content>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="timeline">
+          <div class="timeline-entry" *ngFor="let entry of []">
+            <div class="timeline-stat">
+              <div class="timeline-icon"></div>
+              <div class="timeline-time">{{entry.DateStart}}</div>
+            </div>
+            <div class="timeline-label">
+              <p><a href="javascript:void(0)" class="text-main btn-link text-semibold"><i class="fa fa-heart text-muted"></i> {{entry.Name}}</a> <a class="pull-right btn-link text-semibold" routerLink="/log/{{timeline.Id}}">Alan</a></p>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </sa-body-content>
+  <sa-body-right-content>
+    <sa-add-entry></sa-add-entry>
+  </sa-body-right-content>
+  <sa-aside></sa-aside>
+</sa-body>
+<!-- FOOTER -->
+<!--===================================================-->
+<sa-footer></sa-footer>
+

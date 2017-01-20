@@ -69,7 +69,6 @@ export class CreateProfileComponent implements OnInit {
                 },(error) => { });
             }else{
                 this.router.navigate(['/home']);
-                location.reload();// for the time being
             }
 
         },(error) => {

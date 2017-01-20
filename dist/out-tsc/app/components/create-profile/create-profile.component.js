@@ -64,7 +64,6 @@ export var CreateProfileComponent = (function () {
             }
             else {
                 _this.router.navigate(['/home']);
-                location.reload(); // for the time being
             }
         }, function (error) {
             console.log(error.json());

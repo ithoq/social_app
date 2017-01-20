@@ -10,10 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { AuthService } from "../../../services/auth.service";
 import { Router } from "@angular/router";
+import { TimelineService } from "../../../services/timeline.service";
 export var AsideComponent = (function () {
-    function AsideComponent(auth, appRouter) {
+    function AsideComponent(auth, appRouter, timelineService) {
         this.auth = auth;
         this.appRouter = appRouter;
+        this.timelineService = timelineService;
+        this.timelines = this.auth.getUser().timelines;
     }
     AsideComponent.prototype.ngOnInit = function () {
     };
@@ -30,7 +33,7 @@ export var AsideComponent = (function () {
             templateUrl: './aside.component.html',
             styleUrls: ['./aside.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, Router])
+        __metadata('design:paramtypes', [AuthService, Router, TimelineService])
     ], AsideComponent);
     return AsideComponent;
 }());

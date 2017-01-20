@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   attempt(form:NgForm){
       this.auth.attempt(form.value).subscribe(
           (data:Response) => {
+              console.log(data.json().payload);
               /*
                saving the authenticated user in the localStorage
                */
