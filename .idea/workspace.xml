@@ -2,47 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f405f1b4-bc75-4d88-ab59-f33d19d289ab" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/components/log/log.resolver.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/assets/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/dist/assets/css/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/assets/js/demo/form-component.js" afterPath="$PROJECT_DIR$/dist/assets/js/demo/form-component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/inline.bundle.map" afterPath="$PROJECT_DIR$/dist/inline.bundle.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/main.bundle.js" afterPath="$PROJECT_DIR$/dist/main.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/main.bundle.map" afterPath="$PROJECT_DIR$/dist/main.bundle.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/app.module.js" afterPath="$PROJECT_DIR$/dist/out-tsc/app/app.module.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/app.module.js.map" afterPath="$PROJECT_DIR$/dist/out-tsc/app/app.module.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/aside/aside.component.js" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/body/aside/aside.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/body/aside/aside.component.js.map" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/body/aside/aside.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/create-profile.component.js" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/create-profile.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/create-profile.component.js.map" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/create-profile/create-profile.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/header.component.js" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/header/header.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/header/header.component.js.map" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/header/header.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/login/login.component.js" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/login/login.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/login/login.component.js.map" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/login/login.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/modules/app-routes.module.js" afterPath="$PROJECT_DIR$/dist/out-tsc/app/modules/app-routes.module.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/modules/app-routes.module.js.map" afterPath="$PROJECT_DIR$/dist/out-tsc/app/modules/app-routes.module.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/timeline.service.js" afterPath="$PROJECT_DIR$/dist/out-tsc/app/services/timeline.service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/services/timeline.service.js.map" afterPath="$PROJECT_DIR$/dist/out-tsc/app/services/timeline.service.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/environments/environment.js" afterPath="$PROJECT_DIR$/dist/out-tsc/environments/environment.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/environments/environment.js.map" afterPath="$PROJECT_DIR$/dist/out-tsc/environments/environment.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/vendor.bundle.js" afterPath="$PROJECT_DIR$/dist/vendor.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/vendor.bundle.map" afterPath="$PROJECT_DIR$/dist/vendor.bundle.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.module.ts" afterPath="$PROJECT_DIR$/src/app/app.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/add-entry/add-entry.component.html" afterPath="$PROJECT_DIR$/src/app/components/add-entry/add-entry.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/body/aside/aside.component.html" afterPath="$PROJECT_DIR$/src/app/components/body/aside/aside.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/body/aside/aside.component.ts" afterPath="$PROJECT_DIR$/src/app/components/body/aside/aside.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.ts" afterPath="$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/header/header.component.html" afterPath="$PROJECT_DIR$/src/app/components/header/header.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/header/header.component.ts" afterPath="$PROJECT_DIR$/src/app/components/header/header.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/login/login.component.ts" afterPath="$PROJECT_DIR$/src/app/components/login/login.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/modules/app-routes.module.ts" afterPath="$PROJECT_DIR$/src/app/modules/app-routes.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/timeline.service.ts" afterPath="$PROJECT_DIR$/src/app/services/timeline.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/src/assets/css/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/demo/form-component.js" afterPath="$PROJECT_DIR$/src/assets/js/demo/form-component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/nifty.js" afterPath="$PROJECT_DIR$/src/assets/js/nifty.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/environments/environment.ts" afterPath="$PROJECT_DIR$/src/environments/environment.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.html" afterPath="$PROJECT_DIR$/src/index.html" />
     </list>
     <ignored path="dev.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,21 +26,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/index.html">
+      <file leaf-file-name="aside.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/components/body/aside/aside.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="605">
-              <caret line="121" column="7" lean-forward="false" selection-start-line="121" selection-start-column="7" selection-end-line="121" selection-end-column="7" />
+            <state relative-caret-position="300">
+              <caret line="24" column="19" lean-forward="false" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.component.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/components/header/header.component.html">
+      <file leaf-file-name="auth.service.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app/services/auth.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="51" lean-forward="false" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="58" />
+            <state relative-caret-position="545">
+              <caret line="59" column="38" lean-forward="false" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -261,7 +224,6 @@
         <option value="$PROJECT_DIR$/src/app/components/create-log/create-log.component.html" />
         <option value="$PROJECT_DIR$/src/app/components/create-log/create-log.component.ts" />
         <option value="$PROJECT_DIR$/src/app/components/login/login.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/components/body/aside/aside.component.ts" />
         <option value="$PROJECT_DIR$/src/assets/js/demo/form-component.js" />
         <option value="$PROJECT_DIR$/src/app/app.module.ts" />
         <option value="$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.ts" />
@@ -281,6 +243,7 @@
         <option value="$PROJECT_DIR$/src/app/components/header/header.component.html" />
         <option value="$PROJECT_DIR$/src/assets/js/nifty.js" />
         <option value="$PROJECT_DIR$/src/app/components/header/header.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/body/aside/aside.component.ts" />
       </list>
     </option>
   </component>
@@ -522,12 +485,12 @@
       <workItem from="1484713394428" duration="12451000" />
       <workItem from="1484801957496" duration="7320000" />
       <workItem from="1484841326260" duration="37000" />
-      <workItem from="1484885587976" duration="563000" />
+      <workItem from="1484885587976" duration="592000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135352000" />
+    <option name="totallyTimeSpent" value="135381000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -540,7 +503,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22265625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -595,13 +558,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="67" column="37" lean-forward="false" selection-start-line="67" selection-start-column="37" selection-end-line="67" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/components/create-profile/create-profile.component.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -655,13 +611,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1575">
           <caret line="105" column="35" lean-forward="false" selection-start-line="105" selection-start-column="35" selection-end-line="105" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/body/aside/aside.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="29" lean-forward="false" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -959,6 +908,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="69" lean-forward="false" selection-start-line="0" selection-start-column="69" selection-end-line="0" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/body/aside/aside.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="24" column="19" lean-forward="false" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/services/auth.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="59" column="38" lean-forward="false" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
           <folding />
         </state>
       </provider>

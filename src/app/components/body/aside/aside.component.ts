@@ -24,7 +24,6 @@ export class AsideComponent implements OnInit {
   logout(){
     this.auth.logout().subscribe(
       (response: Response)=>{
-        console.log('loggedout');
         this.appRouter.navigate(['login']);
       },
       (error)=>{}

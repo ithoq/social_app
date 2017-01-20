@@ -23,7 +23,6 @@ export var AsideComponent = (function () {
     AsideComponent.prototype.logout = function () {
         var _this = this;
         this.auth.logout().subscribe(function (response) {
-            console.log('loggedout');
             _this.appRouter.navigate(['login']);
         }, function (error) { });
     };
