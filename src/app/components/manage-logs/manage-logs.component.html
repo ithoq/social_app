@@ -19,7 +19,7 @@
                         class="fa fa-plus text-info"></i></button>
               </ul>
             </div>
-            <h3 class="panel-title">{{option.Name}}<span class="text-sm text-muted mar-lft"> Admin: {{user.Nickname}}</span>
+            <h3 class="panel-title">{{option.Name}}<span class="text-sm text-muted mar-lft"> Admin: {{option.Users[0].Nickname}}</span>
               <button id="demo-btn-addrow" class="btn"><i class="fa fa-pencil text-info"></i>
               </button>
             </h3>
@@ -41,7 +41,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr *ngFor="let user of option.Users">
                 <td class="text-center"><img class="img-xs img-circle"
                                              src="assets/img/profile-photos/profile-hannah.jpg"
                                              alt="Profile picture"></td>

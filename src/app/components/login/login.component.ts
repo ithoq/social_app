@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   attempt(form:NgForm){
       this.auth.attempt(form.value).subscribe(
           (data:Response) => {
-              console.log(data.json().payload);
               /*
                saving the authenticated user in the localStorage
                */
@@ -46,7 +45,6 @@ export class LoginComponent implements OnInit {
           },
           (e) => {
               this.errors = (e.json()['error_message'] != undefined)?e.json()['error_message']:'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
-              console.log(e.json())
           }
       );
   }

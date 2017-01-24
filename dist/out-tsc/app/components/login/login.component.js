@@ -29,7 +29,6 @@ export var LoginComponent = (function () {
     LoginComponent.prototype.attempt = function (form) {
         var _this = this;
         this.auth.attempt(form.value).subscribe(function (data) {
-            console.log(data.json().payload);
             /*
              saving the authenticated user in the localStorage
              */
@@ -40,7 +39,6 @@ export var LoginComponent = (function () {
                 _this.router.navigate(['manage-profile']);
         }, function (e) {
             _this.errors = (e.json()['error_message'] != undefined) ? e.json()['error_message'] : 'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
-            console.log(e.json());
         });
     };
     LoginComponent.prototype.ngOnInit = function () {

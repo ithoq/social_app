@@ -40,6 +40,7 @@ import { ManageLogsComponent } from './components/manage-logs/manage-logs.compon
 import { CreateLogComponent } from './components/create-log/create-log.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { LogComponent } from './components/log/log.component';
+import { InviteUsersComponent } from './components/invite-users/invite-users.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { LogComponent } from './components/log/log.component';
     FooterComponent,
     ManageLogsComponent,
     CreateLogComponent,
-    LogComponent
+    LogComponent,
+    InviteUsersComponent
   ],
   imports: [
     AppRoutingModule,

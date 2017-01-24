@@ -9,14 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
+import { ActivatedRoute } from "@angular/router";
 export var ManageLogsComponent = (function () {
-    function ManageLogsComponent(auth) {
+    function ManageLogsComponent(auth, route) {
         this.auth = auth;
+        this.route = route;
         this.timelines = [];
-        this.timelines = this.auth.getUser().timelines;
+        //this.timelines = this.auth.getUser().timelines;
         this.user = this.auth.getUser().profile;
     }
     ManageLogsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        console.log('hi');
+        this.route.data
+            .subscribe(function (data) {
+            _this.timelines = data.logs.json().payload;
+        }, function (error) { });
     };
     ManageLogsComponent = __decorate([
         Component({
@@ -24,7 +32,7 @@ export var ManageLogsComponent = (function () {
             templateUrl: './manage-logs.component.html',
             styleUrls: ['./manage-logs.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService])
+        __metadata('design:paramtypes', [AuthService, ActivatedRoute])
     ], ManageLogsComponent);
     return ManageLogsComponent;
 }());

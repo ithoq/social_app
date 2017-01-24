@@ -46,6 +46,7 @@ import { AgmCoreModule } from "angular2-google-maps/core";
 import { ManageLogsComponent } from './components/manage-logs/manage-logs.component';
 import { CreateLogComponent } from './components/create-log/create-log.component';
 import { LogComponent } from './components/log/log.component';
+import { InviteUsersComponent } from './components/invite-users/invite-users.component';
 export var AppModule = (function () {
     function AppModule() {
     }
@@ -77,7 +78,8 @@ export var AppModule = (function () {
                 FooterComponent,
                 ManageLogsComponent,
                 CreateLogComponent,
-                LogComponent
+                LogComponent,
+                InviteUsersComponent
             ],
             imports: [
                 AppRoutingModule,

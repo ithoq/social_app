@@ -27,6 +27,10 @@ export var UsersService = (function () {
         }
         return this.http.get(this.appService.api_end_point + 'userSettings/' + this.auth.get_session_token() + "/" + querystr);
     };
+    UsersService.prototype.searchByKeyword = function (keyword) {
+        if (keyword === void 0) { keyword = ""; }
+        return this.http.get(this.appService.api_end_point + 'userSearch/' + this.auth.get_session_token() + "/&SearchFor=" + keyword);
+    };
     UsersService = __decorate([
         Injectable(), 
         __metadata('design:paramtypes', [Http, AppService, AuthService])

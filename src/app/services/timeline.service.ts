@@ -24,6 +24,10 @@ export class TimelineService {
       return this.http.get(this.appService.api_end_point+'userTimeline/'+this.auth.get_session_token()+"/&TimelineId="+timeline_id+"&UserId="+user_id);
   }
 
+  getUserTimelines(){
+      return this.http.get(this.appService.api_end_point+'timelineDetails/'+this.auth.get_session_token()+"/");
+  }
+
   setUserTimelines(timelines){
       this.userTimelines = timelines;
   }

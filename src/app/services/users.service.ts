@@ -20,4 +20,9 @@ export class UsersService {
         return this.http.get(this.appService.api_end_point+'userSettings/'+this.auth.get_session_token()+"/"+querystr);
     }
 
+    searchByKeyword(keyword = "")
+    {
+        return this.http.get(this.appService.api_end_point+'userSearch/'+this.auth.get_session_token()+"/&SearchFor="+keyword);
+    }
+
 }

@@ -19,5 +19,4 @@ export class LogComponent implements OnInit {
               this.timeline = data.log.json().payload;
           }, (error)=>{});
   }
-
 }

@@ -21,6 +21,8 @@ import {ManageLogsComponent} from "../components/manage-logs/manage-logs.compone
 import {CreateLogComponent} from "../components/create-log/create-log.component";
 import {LogComponent} from "../components/log/log.component";
 import {LogResolver} from "../components/log/log.resolver";
+import {LogsResolver} from "../components/manage-logs/logs.resolver";
+import {InviteUsersComponent} from "../components/invite-users/invite-users.component";
 
 const appRoutes: Routes = [
     {
@@ -33,8 +35,9 @@ const appRoutes: Routes = [
             {path: "", component:AuthParentComponent, canActivate:[AuthGuardService], children:[
                 {path: "home", component:HomeComponent, canActivate:[ProfileCreatedGuardService]},
                 { path: 'log/:id', resolve:{log:LogResolver}, component: LogComponent },
+                { path: 'log/:id/invite-users', resolve:{log:LogResolver}, component: InviteUsersComponent },
                 {path: "manage-profile", component:CreateProfileComponent},
-                {path: "manage-logs", component:ManageLogsComponent, canActivate:[ProfileCreatedGuardService]},
+                {path: "manage-logs", resolve:{logs:LogsResolver}, component:ManageLogsComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "create-log", component:CreateLogComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "pick-color", component:PickColorComponent, canActivate:[ProfileManagementService]},
                 {path:'',redirectTo:"/home",pathMatch:"full"}
@@ -60,6 +63,6 @@ const appRoutes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [AuthGuardService, AntiAuthGuardService, PasswordResetPromptGuardService, LogResolver, TokensResolver, ProfileCreatedGuardService]
+  providers: [AuthGuardService, AntiAuthGuardService, LogsResolver, PasswordResetPromptGuardService, LogResolver, TokensResolver, ProfileCreatedGuardService]
 })
 export class AppRoutingModule {}

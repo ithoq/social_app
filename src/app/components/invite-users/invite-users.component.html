@@ -1,0 +1,76 @@
+<sa-header>
+  <sa-title></sa-title>
+  <sa-action>
+    <li class="pad-rgt" (click)="asideToggle()"> <a href="javascript:void(0)"> <em class="fa fa-fw fa-plus"></em> Add Content </a> </li>
+  </sa-action>
+</sa-header>
+<!--===================================================-->
+<!--END NAVBAR-->
+
+<sa-body>
+  <sa-body-content>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel">
+          <div class="panel-heading">
+            <div class="panel-control">
+              <ul class="pager pager-rounded">
+              </ul>
+            </div>
+            <div class="panel-heading">
+              <div class="panel-control">
+                <button type="submit" class="demo-panel-ref-btn btn btn-default" data-target="#demo-panel-ref" data-toggle="panel-overlay"> <i class="fa fa-share fa-fw"></i> Invite </button>
+              </div>
+              <h3 class="panel-title">Invite others to join this log</h3>
+            </div>
+          </div>
+
+          <!--Hover Rows-->
+          <!--===================================================-->
+          <div class="panel-body">
+            <div class="mar-ver">
+              <p class="text-main text-bold mar-no">Add from the directory</p>
+              <p>Invite someone that already uses Riza to join this log.</p>
+              <div class="input-group mar-btm col-xs-12 col-md-4">
+                <!-- Multiple Select Choosen -->
+                <form (submit)="invite(f)" #f="ngForm">
+                  <!--===================================================-->
+                  <select class="js-data-example-ajax" multiple style="width: 300px;" ngModel name="users">
+
+                  </select>
+                  <input type="submit">
+                  <!--===================================================-->
+                </form>
+              </div>
+
+            </div>
+
+
+            <p class="text-main text-bold">Or, enter an email address</p>
+            <!--                                  <p>Enter the email address of the person you would like to invite.</p>
+            -->                                  					                  <div class="input-group mar-btm col-xs-12 col-md-3">
+            <input type="text" class="form-control" placeholder="Enter email">
+          </div>
+            <div class="input-group mar-btm col-xs-12 col-md-4">
+
+              <button class="btn btn-info">Preview Email Invite</button>
+
+            </div>
+
+          </div>
+          <!--===================================================-->
+          <!--End Hover Rows-->
+
+        </div>
+      </div>
+    </div>
+  </sa-body-content>
+  <sa-body-right-content>
+    <sa-add-entry></sa-add-entry>
+  </sa-body-right-content>
+  <sa-aside></sa-aside>
+</sa-body>
+<!-- FOOTER -->
+<!--===================================================-->
+<sa-footer></sa-footer>
+
