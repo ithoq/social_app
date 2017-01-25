@@ -5,6 +5,8 @@ import {EntryService} from "../../services/entry.service";
 import {Response} from "@angular/http";
 import {MapsAPILoader} from "angular2-google-maps/core";
 import {RightContentService} from "../../services/right-content.service";
+import {MediumToManageEntryService} from "../../services/medium-to-manage-entry.service";
+import {Router} from "@angular/router";
 
 declare var noUiSlider: any;
 declare var wNumb: any;
@@ -13,11 +15,11 @@ declare var foooo:any;
 declare var initMap;
 declare var google;
 @Component({
-    selector: 'sa-add-entry',
-    templateUrl: './add-entry.component.html',
-    styleUrls: ['./add-entry.component.css']
+    selector: 'sa-manage-entry',
+    templateUrl: './manage-entry.component.html',
+    styleUrls: ['./manage-entry.component.css']
 })
-export class AddEntryComponent implements OnInit {
+export class ManageEntryComponent implements OnInit {
     /* external libs */
     noUiSlider: any;
     wNumb: any;
@@ -34,15 +36,15 @@ export class AddEntryComponent implements OnInit {
     tags = ['a'];
 
     public modes = [
-        {value:'Angry',img:'emoji-angry.png'},
-        {value:'Blah',img:'emoji-blah.png'},
-        {value:'Brilliant',img:'emoji-brilliant.png'},
-        {value:'Calm',img:'emoji-calm.png'},
-        {value:'Confident',img:'emoji-confident.png'},
-        {value:'Confused',img:'emoji-confused.png'},
-        {value:'Cool',img:'emoji-cool.png'},
-        {value:'Down',img:'emoji-down.png'},
-        {value:'Embarrassed',img:'emoji-embarrassed.png'}
+        {value:'angry',img:'emoji-angry.png'},
+        {value:'blah',img:'emoji-blah.png'},
+        {value:'brilliant',img:'emoji-brilliant.png'},
+        {value:'calm',img:'emoji-calm.png'},
+        {value:'confident',img:'emoji-confident.png'},
+        {value:'confused',img:'emoji-confused.png'},
+        {value:'cool',img:'emoji-cool.png'},
+        {value:'down',img:'emoji-down.png'},
+        {value:'embarrassed',img:'emoji-embarrassed.png'}
     ];
     public types = [
         {value:'Place',img:'icon-places-big.png', desc:'description'},
@@ -66,7 +68,25 @@ export class AddEntryComponent implements OnInit {
     public BestSelfRating:any;
     public CloseToOthers:any;
     public location:any;
-    constructor(private auth:AuthService, private entryService:EntryService,private _loader: MapsAPILoader, private rightContentService:RightContentService,private chRef: ChangeDetectorRef) {
+    public existingEntry:any = null;
+
+    public postName:any='';
+    public postDateStart:any='';
+    public postDateEnd:any='';
+    public postLocation:any='';
+    public postAbout:any='';
+    public postWhatelse:any='';
+    public postBestSelf:any=0;
+    public postCloseToOthers:any=0;
+    constructor(
+        private auth:AuthService,
+        private entryService:EntryService,
+        private _loader: MapsAPILoader,
+        private rightContentService:RightContentService,
+        private chRef: ChangeDetectorRef,
+        private mediumToManageEntry:MediumToManageEntryService,
+        private router:Router
+    ) {
         this.timelines = this.auth.getUser().timelines;
         this.noUiSlider = noUiSlider;
         this.wNumb = wNumb;
@@ -97,6 +117,20 @@ export class AddEntryComponent implements OnInit {
         return alreadyExists;
     }
 
+    deletePost(){
+        this.entryService.updateEntry(this.existingEntry.EntryId, {Delete:true}).subscribe(
+            (data:Response)=>{
+                alert('Post Deleted Successfully!');
+                this.rightContentService.aside_in = false;
+                if(this.auth.getUser().timelines.length > 0)
+                    this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
+                else
+                    this.router.navigate(['/manage-profile']);
+            },(error) => {
+                alert(error.json().error_message);
+            }
+        );
+    }
     create(form:NgForm){
         let data = form.value;
         if (data.Name == ''){
@@ -114,14 +148,26 @@ export class AddEntryComponent implements OnInit {
             data.Tags = $('#what-tags-input').val();
             data.Location = this.location;
             console.log(data);
-            this.entryService.addEntry(data).subscribe(
-                (data:Response)=>{
-                    alert('Post Created Successfully!');
-                    this.rightContentService.aside_in = false;
-                },(error) => {
-                    alert(error.json().error_message);
-                }
-            );
+            if(this.existingEntry != null){
+                console.log('updating');
+                this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(
+                    (data:Response)=>{
+                        alert('Post Updated Successfully!');
+                        this.rightContentService.aside_in = false;
+                    },(error) => {
+                        alert(error.json().error_message);
+                    }
+                );
+            }else{
+                this.entryService.addEntry(data).subscribe(
+                    (data:Response)=>{
+                        alert('Post Created Successfully!');
+                        this.rightContentService.aside_in = false;
+                    },(error) => {
+                        alert(error.json().error_message);
+                    }
+                );
+            }
         }
 
     }
@@ -193,10 +239,35 @@ export class AddEntryComponent implements OnInit {
         }
     }
 
+    setExistingPost(post:any){
+        this.existingEntry = post;
+        if(this.existingEntry != null){
+            console.log(this.existingEntry);
+            if(this.existingEntry.BestSelfRating != '' && this.existingEntry.BestSelfRating != undefined){
+                this.postBestSelf = parseInt(this.existingEntry.BestSelfRating);
+            }
+            if(this.existingEntry.CloseToOthers != '' && this.existingEntry.BestSelfRating != undefined){
+                this.postCloseToOthers = parseInt(this.existingEntry.CloseToOthers);
+            }
+            this.postName = this.existingEntry.Name;
+            this.postAbout = this.existingEntry.About;
+            this.postDateEnd = this.existingEntry.DateEnd;
+            this.postDateStart = this.existingEntry.DateStart;
+            this.postLocation = this.existingEntry.Location;
+            for(let i = 0; i<this.existingEntry.Timelines.length; i++){
+                this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
+            }
+            this.selectedModes = this.existingEntry.Mode.split(',');
+        }
+    }
   ngOnInit() {
+        //setting up existing entry if on edit mode
+      this.setExistingPost(this.mediumToManageEntry.getPost());
+      /*---------------------------------------------------*/
+
       var best_self_slider = document.getElementById('test_slider');
       noUiSlider.create(best_self_slider,{
-          start   : [ 0 ],
+          start   : [ this.postBestSelf ],
           connect : 'lower',
           step    : 1,
           range   : {
@@ -212,11 +283,10 @@ export class AddEntryComponent implements OnInit {
           this.BestSelfRating = values[handle];
       });
 
-    /*   ------    ------      ----- ----- -----*/
-
+    /*------ ------ ----- ----- -----*/
       var close_to_others_slider = document.getElementById('close_to_others_slider');
       noUiSlider.create(close_to_others_slider,{
-          start   : [ 0 ],
+          start   : [ this.postCloseToOthers ],
           connect : 'lower',
           step    : 1,
           range   : {

@@ -24,6 +24,13 @@ export var EntryService = (function () {
         }
         return this.http.get(this.appService.api_end_point + 'entryAdd/' + this.auth.get_session_token() + "/" + querystr);
     };
+    EntryService.prototype.updateEntry = function (entry_id, entry) {
+        var querystr = "";
+        for (var propertyName in entry) {
+            querystr += '&' + propertyName + '=' + entry[propertyName];
+        }
+        return this.http.get(this.appService.api_end_point + 'entryUpdate/' + this.auth.get_session_token() + "/&EntryId=" + entry_id + querystr);
+    };
     EntryService = __decorate([
         Injectable(), 
         __metadata('design:paramtypes', [Http, AppService, AuthService])

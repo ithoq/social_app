@@ -9,12 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
+import { MediumToPostDetailService } from "../../services/medium-to-post-detail.service";
 export var LogComponent = (function () {
-    function LogComponent(route, router) {
+    function LogComponent(route, router, mediumToPostDetail) {
         this.route = route;
         this.router = router;
+        this.mediumToPostDetail = mediumToPostDetail;
         this.timeline = null;
     }
+    LogComponent.prototype.showDetail = function (entry) {
+        this.mediumToPostDetail.setPost(entry);
+        this.router.navigate(['/post/' + entry.EntryId]);
+    };
     LogComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.data
@@ -31,7 +37,7 @@ export var LogComponent = (function () {
             templateUrl: './log.component.html',
             styleUrls: ['./log.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute, Router])
+        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService])
     ], LogComponent);
     return LogComponent;
 }());

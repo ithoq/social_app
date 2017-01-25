@@ -74,9 +74,10 @@
 
             </div>
           </div>
+
           <hr class="new-section-xs bord-no">
           <hr class="new-section-xs">
-          <div class="text-danger pad-all"></div>
+          <div *ngIf="existingEntry != null" class="text-danger pad-all"><span (click)="deletePost()"><i class="fa fa-close pad-rgt text-danger"></i>Delete this Post</span></div>
         </div>
 
         <!--Second tab-->
@@ -84,7 +85,7 @@
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Title</p>
           <div>
-            <input type="text" ngModel name="Name" class="form-control">
+            <input type="text" [(ngModel)]="postName" name="Name" class="form-control">
           </div>
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Date(s)</p>
@@ -93,9 +94,9 @@
           <!--===================================================-->
           <div id="demo-dp-range">
             <div class="input-daterange input-group">
-              <input id="new-post-start-date" type="text" class="form-control" ngModel name="DateStart" />
+              <input id="new-post-start-date" type="text" class="form-control" [(ngModel)]="postDateStart" name="DateStart" />
               <span class="input-group-addon">to</span>
-              <input type="text" class="form-control" ngModel name="DateEnd" />
+              <input type="text" class="form-control" [(ngModel)]="postDateEnd" name="DateEnd" />
             </div>
           </div>
           <!--===================================================-->
@@ -103,7 +104,7 @@
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Location</p>
           <div>
-            <input type="text" ngModel name="Location" class="form-control" id="autocompleteInput">
+            <input type="text" [(ngModel)]="postLocation" name="Location" class="form-control" id="autocompleteInput">
           </div>
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Map</p>
@@ -155,7 +156,6 @@
             </div>
             <!--===================================================-->
             <!--End Dropzonejs using Bootstrap theme-->
-
           </div>
         </div>
 
@@ -174,15 +174,15 @@
           </div>
           <br><br>
           <p class="text-main text-bold">About</p>
-          <textarea rows="4" class="form-control" ngModel name="About" placeholder="My experiences, highlights, insights, or whatever comes to mind." ></textarea>
+          <textarea rows="4" class="form-control" [(ngModel)]="postAbout" name="About" placeholder="My experiences, highlights, insights, or whatever comes to mind." ></textarea>
           <hr class="new-section-xs bord-no">
           <!-- Bootstrap Tags Input -->
           <!--===================================================-->
-          <input type="text" id="what-tags-input" class="form-control" [ngModel]="tags" name="Tags" placeholder="What Tags" value="favorite" data-role="tagsinput">
+          <input type="text" id="what-tags-input" class="form-control" [ngModel]="tags" name="Tags" placeholder="What Tags" value="favorite,about" data-role="tagsinput">
           <!--===================================================-->
           <hr class="new-section-sm bord-no">
           <p class="text-main text-bold">What else...</p>
-          <textarea rows="1" ngModel name="WhatElse" class="form-control" placeholder="Challenges, additianal comments, etc." ></textarea>
+          <textarea rows="1" [(ngModel)]="postWhatelse" name="WhatElse" class="form-control" placeholder="Challenges, additianal comments, etc." ></textarea>
           <hr class="new-section-sm bord-no">
 
           <!--Range Slider1 : Steps-->

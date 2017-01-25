@@ -11,6 +11,26 @@ var HeaderComponent = (function () {
     }
     HeaderComponent.prototype.ngOnInit = function () {
     };
+    HeaderComponent.prototype.ngAfterViewInit = function () {
+        var toggleBtn = $('.mainnav-toggle');
+        toggleBtn.on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (toggleBtn.hasClass('push')) {
+                $.niftyNav('pushToggle');
+            }
+            else if (toggleBtn.hasClass('slide')) {
+                $.niftyNav('slideToggle');
+            }
+            else if (toggleBtn.hasClass('reveal')) {
+                $.niftyNav('revealToggle');
+            }
+            else {
+                $.niftyNav('colExpToggle');
+                console.log('hiii');
+            }
+        });
+    };
     HeaderComponent = __decorate([
         core_1.Component({
             selector: 'sa-header',

@@ -15,8 +15,8 @@
           <div class="panel-heading">
             <div class="panel-control">
               <ul class="pager pager-rounded">
-                <button id="demo-btn-addrow" class="btn"><i
-                        class="fa fa-plus text-info"></i></button>
+                <a routerLink="/log/{{option.Id}}/invite-users" id="demo-btn-addrow" class="btn"><i
+                        class="fa fa-plus text-info"></i></a>
               </ul>
             </div>
             <h3 class="panel-title">{{option.Name}}<span class="text-sm text-muted mar-lft"> Admin: {{option.Users[0].Nickname}}</span>
@@ -50,7 +50,9 @@
                 </td>
                 <td class="text-center"><span
                         class="text-muted text-semibold">{{user.FirstName}}</span></td>
-                <td class="text-center"><span class="text-info text-semibold">Edit</span>
+                <td class="text-center">
+                  <span class="text-info text-semibold">Edit</span>
+                  <span class="text-info text-semibold" (click)="removeUser(option.Id, user.UserId)">Del</span>
                 </td>
               </tr>
               </tbody>
@@ -68,7 +70,7 @@
 
   </sa-body-content>
   <sa-body-right-content>
-    <sa-add-entry></sa-add-entry>
+    <sa-manage-entry></sa-manage-entry>
   </sa-body-right-content>
   <sa-aside></sa-aside>
 </sa-body>

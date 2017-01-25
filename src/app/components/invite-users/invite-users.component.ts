@@ -5,6 +5,7 @@ import {Response} from "@angular/http";
 import {AppService} from "../../app.service";
 import {AuthService} from "../../services/auth.service";
 import {NgForm} from "@angular/forms";
+import {TimelineService} from "../../services/timeline.service";
 
 declare var $:any;
 @Component({
@@ -16,14 +17,20 @@ export class InviteUsersComponent implements OnInit {
 
   public searchedUsers = [];
   public timeline:any = null;
-  constructor(private route:ActivatedRoute, private router:Router, private users:UsersService, private appService:AppService, private auth:AuthService) { }
+  constructor(private timelineService:TimelineService ,private route:ActivatedRoute, private router:Router, private users:UsersService, private appService:AppService, private auth:AuthService) { }
   public selectedUsers = [];
 
   invite(form:NgForm){
-    console.log(this.selectedUsers.join(','));
+    let users = this.selectedUsers.join(',');
+    let emails = form.value.email;
+    this.timelineService.inviteUsers(this.timeline.Id,users,emails).subscribe((data:Response)=>{
+      alert('invitation sent successfully');
+      this.router.navigate(['/manage-logs']);
+    });
   }
   ngOnInit() {
-    $(".js-data-example-ajax").select2({
+    let invite_users_multi_select = $('.invite-users-multi-select');
+    invite_users_multi_select.select2({
       ajax: {
         url: (params)=>{
           return this.appService.api_end_point+'userSearch/'+this.auth.get_session_token()+"/&SearchFor="+params.term;
@@ -60,10 +67,10 @@ export class InviteUsersComponent implements OnInit {
         return repo.FirstName;
       } // omitted for brevity, see the source of this page
     });
-    $(".js-data-example-ajax").on("select2:select", (e) => {
+    invite_users_multi_select.on("select2:select", (e) => {
       this.selectedUsers.push(e.params.data.UserId);
     });
-    $(".js-data-example-ajax").on("select2:unselect", (e) => {
+    invite_users_multi_select.on("select2:unselect", (e) => {
       var index = this.selectedUsers.indexOf(e.params.data.UserId);
       if (index > -1) {
         this.selectedUsers.splice(index, 1);
@@ -74,7 +81,6 @@ export class InviteUsersComponent implements OnInit {
         .subscribe((data: { log: any }) => {
           if(data.log == null){this.router.navigate(['/manage-logs']); }
           this.timeline = data.log.json().payload;
-          console.log(this.timeline);
         }, (error)=>{});
   }
 

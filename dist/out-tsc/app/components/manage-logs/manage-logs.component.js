@@ -10,17 +10,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { ActivatedRoute } from "@angular/router";
+import { TimelineService } from "../../services/timeline.service";
 export var ManageLogsComponent = (function () {
-    function ManageLogsComponent(auth, route) {
+    function ManageLogsComponent(auth, route, timelineService) {
         this.auth = auth;
         this.route = route;
+        this.timelineService = timelineService;
         this.timelines = [];
         //this.timelines = this.auth.getUser().timelines;
         this.user = this.auth.getUser().profile;
     }
+    ManageLogsComponent.prototype.removeUser = function (timelineId, userId) {
+        var _this = this;
+        this.timelineService.removeUsers(timelineId, userId).subscribe(function (data) {
+            console.log(timelineId, userId);
+            _this.timelineService.getUserTimelines().subscribe(function (data) {
+                _this.timelines = data.json().payload;
+            });
+        });
+    };
     ManageLogsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log('hi');
         this.route.data
             .subscribe(function (data) {
             _this.timelines = data.logs.json().payload;
@@ -32,7 +42,7 @@ export var ManageLogsComponent = (function () {
             templateUrl: './manage-logs.component.html',
             styleUrls: ['./manage-logs.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, ActivatedRoute])
+        __metadata('design:paramtypes', [AuthService, ActivatedRoute, TimelineService])
     ], ManageLogsComponent);
     return ManageLogsComponent;
 }());

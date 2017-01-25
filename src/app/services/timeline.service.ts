@@ -12,13 +12,13 @@ export class TimelineService {
         this.setUserTimelines(this.auth.getUser().timelines);
     }
 
-  create(data:any){
-      let querystr = "";
-      for(let propertyName in data) {
-          querystr+= '&'+propertyName+'='+data[propertyName];
-      }
-      return this.http.get(this.appService.api_end_point+'timelineCreate/'+this.auth.get_session_token()+"/"+querystr);
-  }
+    create(data:any){
+        let querystr = "";
+        for(let propertyName in data) {
+            querystr+= '&'+propertyName+'='+data[propertyName];
+        }
+        return this.http.get(this.appService.api_end_point+'timelineCreate/'+this.auth.get_session_token()+"/"+querystr);
+    }
 
   get(timeline_id:any, user_id:any){
       return this.http.get(this.appService.api_end_point+'userTimeline/'+this.auth.get_session_token()+"/&TimelineId="+timeline_id+"&UserId="+user_id);
@@ -31,4 +31,12 @@ export class TimelineService {
   setUserTimelines(timelines){
       this.userTimelines = timelines;
   }
+
+    inviteUsers(timelineId, users,emails){
+        return this.http.get(this.appService.api_end_point+'timelineInviteUsers/'+this.auth.get_session_token()+"/&TimelineId="+timelineId+"&InviteUsers="+users+"&InviteEmails="+emails);
+    }
+
+    removeUsers(timelineId, users){
+        return this.http.get(this.appService.api_end_point+'timelineInviteUsers/'+this.auth.get_session_token()+"/&TimelineId="+timelineId+"&RemoveUsers="+users);
+    }
 }

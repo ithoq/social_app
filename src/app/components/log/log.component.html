@@ -1,7 +1,7 @@
 <sa-header>
   <sa-title></sa-title>
   <sa-action>
-    <li class="pad-rgt" (click)="asideToggle()"> <a href="javascript:void(0)"> <em class="fa fa-fw fa-plus"></em> Add Content </a> </li>
+    <li class="pad-rgt"> <app-add-content-btn></app-add-content-btn> </li>
   </sa-action>
 </sa-header>
 <!--===================================================-->
@@ -18,7 +18,7 @@
               <div class="timeline-time">{{entry.DateStart}}</div>
             </div>
             <div class="timeline-label">
-              <p><a href="javascript:void(0)" class="text-main btn-link text-semibold"><i class="fa fa-heart text-muted"></i> {{entry.Name}}</a> <a class="pull-right btn-link text-semibold" routerLink="/log/{{timeline.Id}}">Alan</a></p>
+              <p><a href="javascript:void(0)" (click)="showDetail(entry)" class="text-main btn-link text-semibold"><i class="fa fa-heart text-muted"></i> {{entry.Name}}</a> <a class="pull-right btn-link text-semibold" routerLink="/log/{{timeline.Id}}">Alan</a></p>
             </div>
           </div>
           <div class="clearfix"></div>
@@ -27,7 +27,7 @@
     </div>
   </sa-body-content>
   <sa-body-right-content>
-    <sa-add-entry></sa-add-entry>
+    <sa-manage-entry></sa-manage-entry>
   </sa-body-right-content>
   <sa-aside></sa-aside>
 </sa-body>

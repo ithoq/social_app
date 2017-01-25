@@ -23,6 +23,9 @@ import {LogComponent} from "../components/log/log.component";
 import {LogResolver} from "../components/log/log.resolver";
 import {LogsResolver} from "../components/manage-logs/logs.resolver";
 import {InviteUsersComponent} from "../components/invite-users/invite-users.component";
+import {PostDetailComponent} from "../components/post-detail/post-detail.component";
+import {PostResolver} from "../components/post-detail/post.resolver";
+import {PostDetailGuardService} from "../services/post-detail-guard.service";
 
 const appRoutes: Routes = [
     {
@@ -40,6 +43,7 @@ const appRoutes: Routes = [
                 {path: "manage-logs", resolve:{logs:LogsResolver}, component:ManageLogsComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "create-log", component:CreateLogComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "pick-color", component:PickColorComponent, canActivate:[ProfileManagementService]},
+                {path: "post/:id", resolve:{post:PostResolver}, component:PostDetailComponent, canActivate:[PostDetailGuardService]},
                 {path:'',redirectTo:"/home",pathMatch:"full"}
             ]},
             {path: "", component:AntiAuthParentComponent, canActivate:[AntiAuthGuardService], children:[
@@ -63,6 +67,16 @@ const appRoutes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [AuthGuardService, AntiAuthGuardService, LogsResolver, PasswordResetPromptGuardService, LogResolver, TokensResolver, ProfileCreatedGuardService]
+  providers: [
+      AuthGuardService,
+      AntiAuthGuardService,
+      LogsResolver,
+      PasswordResetPromptGuardService,
+      LogResolver,
+      TokensResolver,
+      PostResolver,
+      ProfileCreatedGuardService,
+      PostDetailGuardService
+  ]
 })
 export class AppRoutingModule {}

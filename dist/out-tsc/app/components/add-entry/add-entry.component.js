@@ -12,8 +12,8 @@ import { AuthService } from "../../services/auth.service";
 import { EntryService } from "../../services/entry.service";
 import { MapsAPILoader } from "angular2-google-maps/core";
 import { RightContentService } from "../../services/right-content.service";
-export var AddEntryComponent = (function () {
-    function AddEntryComponent(auth, entryService, _loader, rightContentService, chRef) {
+export var ManageEntryComponent = (function () {
+    function ManageEntryComponent(auth, entryService, _loader, rightContentService, chRef) {
         this.auth = auth;
         this.entryService = entryService;
         this._loader = _loader;
@@ -28,15 +28,15 @@ export var AddEntryComponent = (function () {
         /* ----------------------- */
         this.tags = ['a'];
         this.modes = [
-            { value: 'Angry', img: 'emoji-angry.png' },
-            { value: 'Blah', img: 'emoji-blah.png' },
-            { value: 'Brilliant', img: 'emoji-brilliant.png' },
-            { value: 'Calm', img: 'emoji-calm.png' },
-            { value: 'Confident', img: 'emoji-confident.png' },
-            { value: 'Confused', img: 'emoji-confused.png' },
-            { value: 'Cool', img: 'emoji-cool.png' },
-            { value: 'Down', img: 'emoji-down.png' },
-            { value: 'Embarrassed', img: 'emoji-embarrassed.png' }
+            { value: 'angry', img: 'emoji-angry.png' },
+            { value: 'blah', img: 'emoji-blah.png' },
+            { value: 'brilliant', img: 'emoji-brilliant.png' },
+            { value: 'calm', img: 'emoji-calm.png' },
+            { value: 'confident', img: 'emoji-confident.png' },
+            { value: 'confused', img: 'emoji-confused.png' },
+            { value: 'cool', img: 'emoji-cool.png' },
+            { value: 'down', img: 'emoji-down.png' },
+            { value: 'embarrassed', img: 'emoji-embarrassed.png' }
         ];
         this.types = [
             { value: 'Place', img: 'icon-places-big.png', desc: 'description' },
@@ -61,7 +61,7 @@ export var AddEntryComponent = (function () {
         this.wNumb = wNumb;
         this.$ = $;
     }
-    AddEntryComponent.prototype.autocomplete = function () {
+    ManageEntryComponent.prototype.autocomplete = function () {
         var _this = this;
         this._loader.load().then(function () {
             var autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocompleteInput"), {});
@@ -74,7 +74,7 @@ export var AddEntryComponent = (function () {
             });
         });
     };
-    AddEntryComponent.prototype.isTimelineSelected = function (timeline) {
+    ManageEntryComponent.prototype.isTimelineSelected = function (timeline) {
         var alreadyExists = false;
         for (var _i = 0, _a = this.seletedTimelines; _i < _a.length; _i++) {
             var entry = _a[_i];
@@ -84,7 +84,7 @@ export var AddEntryComponent = (function () {
         }
         return alreadyExists;
     };
-    AddEntryComponent.prototype.create = function (form) {
+    ManageEntryComponent.prototype.create = function (form) {
         var _this = this;
         var data = form.value;
         if (data.Name == '') {
@@ -114,7 +114,7 @@ export var AddEntryComponent = (function () {
             });
         }
     };
-    AddEntryComponent.prototype.modeChanged = function (data) {
+    ManageEntryComponent.prototype.modeChanged = function (data) {
         var parts = data.split(',');
         var alreadyExists = false;
         for (var _i = 0, _a = this.selectedModes; _i < _a.length; _i++) {
@@ -137,7 +137,7 @@ export var AddEntryComponent = (function () {
             }
         }
     };
-    AddEntryComponent.prototype.typeChanged = function (data) {
+    ManageEntryComponent.prototype.typeChanged = function (data) {
         var parts = data.split(',');
         var alreadyExists = false;
         for (var _i = 0, _a = this.selectedTypes; _i < _a.length; _i++) {
@@ -160,7 +160,7 @@ export var AddEntryComponent = (function () {
             }
         }
     };
-    AddEntryComponent.prototype.timelinesChanged = function (data) {
+    ManageEntryComponent.prototype.timelinesChanged = function (data) {
         var parts = data.split(',');
         var alreadyExists = false;
         for (var _i = 0, _a = this.seletedTimelines; _i < _a.length; _i++) {
@@ -183,7 +183,7 @@ export var AddEntryComponent = (function () {
             }
         }
     };
-    AddEntryComponent.prototype.ngOnInit = function () {
+    ManageEntryComponent.prototype.ngOnInit = function () {
         var _this = this;
         var best_self_slider = document.getElementById('test_slider');
         noUiSlider.create(best_self_slider, {
@@ -219,22 +219,22 @@ export var AddEntryComponent = (function () {
             _this.CloseToOthers = values[handle];
         });
     };
-    AddEntryComponent.prototype.isModeSelected = function (mode) {
+    ManageEntryComponent.prototype.isModeSelected = function (mode) {
         if (this.selectedModes.indexOf(mode) >= 0) {
             return true;
         }
         return false;
     };
-    AddEntryComponent.prototype.isTypeSelected = function (type) {
+    ManageEntryComponent.prototype.isTypeSelected = function (type) {
         if (this.selectedTypes.indexOf(type) >= 0) {
             return true;
         }
         return false;
     };
-    AddEntryComponent.prototype.changeTypeOrientation = function () {
+    ManageEntryComponent.prototype.changeTypeOrientation = function () {
         this.showDefinitions = !this.showDefinitions;
     };
-    AddEntryComponent.prototype.ngAfterViewInit = function () {
+    ManageEntryComponent.prototype.ngAfterViewInit = function () {
         this.autocomplete();
         $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
         var add_entry_form_wizard = '#add-entry-form-wizard';
@@ -269,24 +269,24 @@ export var AddEntryComponent = (function () {
             }
         });
     };
-    AddEntryComponent.prototype.movedToNextSlide = function () {
+    ManageEntryComponent.prototype.movedToNextSlide = function () {
         var _this = this;
         setTimeout(function () {
             _this.showmap = true;
         }, 500);
     };
-    AddEntryComponent.prototype.initMap = function () {
+    ManageEntryComponent.prototype.initMap = function () {
         var input = document.getElementById('pac-input');
         var autocomplete = new google.maps.places.Autocomplete(input);
     };
-    AddEntryComponent = __decorate([
+    ManageEntryComponent = __decorate([
         Component({
-            selector: 'sa-add-entry',
-            templateUrl: './add-entry.component.html',
-            styleUrls: ['./add-entry.component.css']
+            selector: 'sa-manage-entry',
+            templateUrl: './manage-entry.component.html',
+            styleUrls: ['./manage-entry.component.css']
         }), 
         __metadata('design:paramtypes', [AuthService, EntryService, MapsAPILoader, RightContentService, ChangeDetectorRef])
-    ], AddEntryComponent);
-    return AddEntryComponent;
+    ], ManageEntryComponent);
+    return ManageEntryComponent;
 }());
 //# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/add-entry/add-entry.component.js.map

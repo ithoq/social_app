@@ -15,5 +15,12 @@ export class EntryService {
         }
         return this.http.get(this.appService.api_end_point+'entryAdd/'+this.auth.get_session_token()+"/"+querystr);
     }
+    updateEntry(entry_id, entry){
+        let querystr = "";
+        for(let propertyName in entry) {
+            querystr+= '&'+propertyName+'='+entry[propertyName];
+        }
+        return this.http.get(this.appService.api_end_point+'entryUpdate/'+this.auth.get_session_token()+"/&EntryId="+entry_id+querystr);
+    }
 
 }

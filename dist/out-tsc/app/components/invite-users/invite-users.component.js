@@ -12,8 +12,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UsersService } from "../../services/users.service";
 import { AppService } from "../../app.service";
 import { AuthService } from "../../services/auth.service";
+import { TimelineService } from "../../services/timeline.service";
 export var InviteUsersComponent = (function () {
-    function InviteUsersComponent(route, router, users, appService, auth) {
+    function InviteUsersComponent(timelineService, route, router, users, appService, auth) {
+        this.timelineService = timelineService;
         this.route = route;
         this.router = router;
         this.users = users;
@@ -24,11 +26,18 @@ export var InviteUsersComponent = (function () {
         this.selectedUsers = [];
     }
     InviteUsersComponent.prototype.invite = function (form) {
-        console.log(this.selectedUsers.join(','));
+        var _this = this;
+        var users = this.selectedUsers.join(',');
+        var emails = form.value.email;
+        this.timelineService.inviteUsers(this.timeline.Id, users, emails).subscribe(function (data) {
+            alert('invitation sent successfully');
+            _this.router.navigate(['/manage-logs']);
+        });
     };
     InviteUsersComponent.prototype.ngOnInit = function () {
         var _this = this;
-        $(".js-data-example-ajax").select2({
+        var invite_users_multi_select = $('.invite-users-multi-select');
+        invite_users_multi_select.select2({
             ajax: {
                 url: function (params) {
                     return _this.appService.api_end_point + 'userSearch/' + _this.auth.get_session_token() + "/&SearchFor=" + params.term;
@@ -64,10 +73,10 @@ export var InviteUsersComponent = (function () {
                 return repo.FirstName;
             } // omitted for brevity, see the source of this page
         });
-        $(".js-data-example-ajax").on("select2:select", function (e) {
+        invite_users_multi_select.on("select2:select", function (e) {
             _this.selectedUsers.push(e.params.data.UserId);
         });
-        $(".js-data-example-ajax").on("select2:unselect", function (e) {
+        invite_users_multi_select.on("select2:unselect", function (e) {
             var index = _this.selectedUsers.indexOf(e.params.data.UserId);
             if (index > -1) {
                 _this.selectedUsers.splice(index, 1);
@@ -79,7 +88,6 @@ export var InviteUsersComponent = (function () {
                 _this.router.navigate(['/manage-logs']);
             }
             _this.timeline = data.log.json().payload;
-            console.log(_this.timeline);
         }, function (error) { });
     };
     InviteUsersComponent = __decorate([
@@ -88,7 +96,7 @@ export var InviteUsersComponent = (function () {
             templateUrl: './invite-users.component.html',
             styleUrls: ['./invite-users.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute, Router, UsersService, AppService, AuthService])
+        __metadata('design:paramtypes', [TimelineService, ActivatedRoute, Router, UsersService, AppService, AuthService])
     ], InviteUsersComponent);
     return InviteUsersComponent;
 }());

@@ -38,7 +38,7 @@ import { BodyComponent } from './components/body/body.component';
 import { AsideComponent } from './components/body/aside/aside.component';
 import { BodyContentComponent } from './components/body/body-content/body-content.component';
 import { BodyRightContentComponent } from './components/body/body-right-content/body-right-content.component';
-import { AddEntryComponent } from './components/add-entry/add-entry.component';
+import { ManageEntryComponent } from './components/manage-entry/manage-entry.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProfileManagementService } from "./services/profile-management.service";
 import { RightContentService } from "./services/right-content.service";
@@ -47,6 +47,10 @@ import { ManageLogsComponent } from './components/manage-logs/manage-logs.compon
 import { CreateLogComponent } from './components/create-log/create-log.component';
 import { LogComponent } from './components/log/log.component';
 import { InviteUsersComponent } from './components/invite-users/invite-users.component';
+import { AddContentBtnComponent } from './components/add-content-btn/add-content-btn.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { MediumToPostDetailService } from "./services/medium-to-post-detail.service";
+import { MediumToManageEntryService } from "./services/medium-to-manage-entry.service";
 export var AppModule = (function () {
     function AppModule() {
     }
@@ -74,12 +78,14 @@ export var AppModule = (function () {
                 AsideComponent,
                 BodyContentComponent,
                 BodyRightContentComponent,
-                AddEntryComponent,
+                ManageEntryComponent,
                 FooterComponent,
                 ManageLogsComponent,
                 CreateLogComponent,
                 LogComponent,
-                InviteUsersComponent
+                InviteUsersComponent,
+                AddContentBtnComponent,
+                PostDetailComponent
             ],
             imports: [
                 AppRoutingModule,
@@ -96,11 +102,13 @@ export var AppModule = (function () {
                 AppService,
                 MediumToLoginService,
                 MediumToPasswordResetPromptService,
+                MediumToPostDetailService,
                 UsersService,
                 TimelineService,
                 EntryService,
                 ProfileManagementService,
-                RightContentService
+                RightContentService,
+                MediumToManageEntryService
             ],
             bootstrap: [AppComponent]
         }), 
