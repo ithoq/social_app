@@ -28,7 +28,7 @@ export var AuthService = (function () {
         });
     };
     AuthService.prototype.grab_session_token = function (app_key) {
-        return this.http.get(this.appService.api_end_point + "getSession/&AppKey=" + app_key);
+        return this.http.post(this.appService.api_end_point + "getSession/&AppKey=" + app_key, {});
     };
     AuthService.prototype.get_app_token = function () {
         return localStorage.getItem('app_token');

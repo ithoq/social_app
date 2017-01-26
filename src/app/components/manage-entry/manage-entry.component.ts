@@ -68,6 +68,8 @@ export class ManageEntryComponent implements OnInit {
     public BestSelfRating:any;
     public CloseToOthers:any;
     public location:any;
+    public selectedFiles:any = [];
+
     public existingEntry:any = null;
 
     public postName:any='';
@@ -131,7 +133,11 @@ export class ManageEntryComponent implements OnInit {
             }
         );
     }
-    create(form:NgForm){
+
+    filesSelected(event){
+        this.selectedFiles = event.target.files;
+    }
+    create(form:NgForm, event){
         let data = form.value;
         if (data.Name == ''){
             alert('Post Title is required');
@@ -147,7 +153,11 @@ export class ManageEntryComponent implements OnInit {
             data.Type = this.selectedTypes[0];
             data.Tags = $('#what-tags-input').val();
             data.Location = this.location;
-            console.log(data);
+            let files = new FormData();
+            $.each(this.selectedFiles, function(key, value)
+            {
+                files.append('Image'+(key+1), value);
+            });
             if(this.existingEntry != null){
                 console.log('updating');
                 this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(
@@ -159,12 +169,13 @@ export class ManageEntryComponent implements OnInit {
                     }
                 );
             }else{
-                this.entryService.addEntry(data).subscribe(
-                    (data:Response)=>{
+                this.entryService.addEntry(data,files).subscribe(
+                    (data:any)=>{
+                        console.log(data);
                         alert('Post Created Successfully!');
                         this.rightContentService.aside_in = false;
                     },(error) => {
-                        alert(error.json().error_message);
+                        //alert(error.json().error_message);
                     }
                 );
             }

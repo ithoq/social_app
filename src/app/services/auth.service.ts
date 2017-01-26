@@ -20,7 +20,7 @@ export class AuthService {
     });
   }
   grab_session_token(app_key:any){
-    return this.http.get(this.appService.api_end_point+"getSession/&AppKey="+app_key);
+    return this.http.post(this.appService.api_end_point+"getSession/&AppKey="+app_key,{});
   }
 
   get_app_token(){

@@ -4,7 +4,7 @@
 <div id="add-entry-form-wizard">
 
   <!--Form-->
-  <form class="form-horizontal" (submit)="create(f)" #f="ngForm">
+  <form class="form-horizontal" (submit)="create(f, $event)" #f="ngForm">
 
     <!--Footer button-->
 
@@ -108,13 +108,14 @@
           </div>
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Map</p>
-          <div *ngIf="showmap" (latLngChanged)="foo()">
+          <div *ngIf="showmap">
             <sebm-google-map [(latitude)]="lat" [(longitude)]="lng" [zoom]="15">
               <sebm-google-map-marker [(latitude)]="lat" [(longitude)]="lng"></sebm-google-map-marker>
             </sebm-google-map>
           </div>
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Add images</p>
+          <input id="post-images" (change)="filesSelected($event)" type="file" ngModel name="images" multiple  />
           <div>
             <!--<div class="panel-body">-->
 

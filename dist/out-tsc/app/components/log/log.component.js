@@ -29,6 +29,7 @@ export var LogComponent = (function () {
                 _this.router.navigate(['/home']);
             }
             _this.timeline = data.log.json().payload;
+            console.log(_this.timeline);
         }, function (error) { });
     };
     LogComponent = __decorate([

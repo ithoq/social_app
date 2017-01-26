@@ -23,6 +23,7 @@ export class LogComponent implements OnInit {
           .subscribe((data: { log: any }) => {
               if(data.log == null){ this.router.navigate(['/home']); }
               this.timeline = data.log.json().payload;
+              console.log(this.timeline);
           }, (error)=>{});
   }
 }
