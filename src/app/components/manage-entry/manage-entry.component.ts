@@ -121,7 +121,6 @@ export class ManageEntryComponent implements OnInit {
 
     setSelectedTimelines(timelines:any){
         this.seletedTimelines = timelines;
-        console.log(this.seletedTimelines);
     }
     deletePost(){
         this.entryService.updateEntry(this.existingEntry.EntryId, {Delete:true}).subscribe(

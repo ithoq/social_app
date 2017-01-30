@@ -9,7 +9,7 @@
 
 <sa-body>
   <sa-body-content>
-    <div class="row">
+    <div class="row" *ngIf="post.Files.length > 0">
       <div class="col-sm-12">
 
         <!--Carousel-->
@@ -19,32 +19,16 @@
           <!--Indicators-->
           <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
           <ol class="carousel-indicators in pad-btm">
-            <li class="active" data-slide-to="0" data-target="#demo-carousel"></li>
-            <li data-slide-to="1" data-target="#demo-carousel"></li>
-            <li data-slide-to="2" data-target="#demo-carousel"></li>
+            <li class="active" *ngFor="let file of post.Files" data-target="#demo-carousel"></li>
           </ol>
 
           <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
           <div class="carousel-inner text-center">
-
             <!--Item 1-->
-            <div class="item active">
-              <div class="thumbnail"> <img src="assets/img/thumbs/img1.jpg" alt="Image"> </div>
+            <div class="item active" *ngFor="let file of post.Files">
+              <div class="thumbnail"> <img src="{{file.FileURL}}" alt="Image"> </div>
             </div>
-
-            <!--Item 2-->
-            <div class="item">
-              <div class="thumbnail"> <img src="assets/img/thumbs/img1.jpg" alt="Image"> </div>
-            </div>
-
-            <!--Item 3-->
-            <div class="item">
-              <div class="thumbnail"> <img src="assets/img/thumbs/img1.jpg" alt="Image"> </div>
-            </div>
-
-
-
           </div>
 
           <!--carousel-control-->

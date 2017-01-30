@@ -100,7 +100,6 @@ export var ManageEntryComponent = (function () {
     };
     ManageEntryComponent.prototype.setSelectedTimelines = function (timelines) {
         this.seletedTimelines = timelines;
-        console.log(this.seletedTimelines);
     };
     ManageEntryComponent.prototype.deletePost = function () {
         var _this = this;

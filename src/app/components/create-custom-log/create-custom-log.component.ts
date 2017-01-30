@@ -205,6 +205,26 @@ export class CreateCustomLogComponent implements OnInit {
 
   ngOnInit() {
     this.timelines = this.auth.getUser().timelines;
+
+    /* settings up pre selected data */
+    let settings = JSON.parse(localStorage.getItem('custom_log_settings'));
+    if(settings != null){
+      this.selectedModes = settings.modes;
+      this.selectedTypes = settings.types;
+      this.selectedTags = settings.tags;
+      this.seletedTimelines = settings.timelines;
+    }
+    /*---------------------------------*/
+  }
+
+  ngDoCheck() {
+    let settings = {
+      modes:this.selectedModes,
+      tags:this.selectedTags,
+      types:this.selectedTypes,
+      timelines:this.seletedTimelines
+    };
+    localStorage.setItem('custom_log_settings',JSON.stringify(settings));
   }
 
 }

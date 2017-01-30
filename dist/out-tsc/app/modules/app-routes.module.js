@@ -36,6 +36,7 @@ import { PostDetailComponent } from "../components/post-detail/post-detail.compo
 import { PostResolver } from "../components/post-detail/post.resolver";
 import { PostDetailGuardService } from "../services/post-detail-guard.service";
 import { CreateCustomLogComponent } from "../components/create-custom-log/create-custom-log.component";
+import { CustomLogResolver } from "../components/log/customLog.resolver";
 var appRoutes = [
     {
         path: '',
@@ -46,6 +47,7 @@ var appRoutes = [
         children: [
             { path: "", component: AuthParentComponent, canActivate: [AuthGuardService], children: [
                     { path: "home", component: HomeComponent, canActivate: [ProfileCreatedGuardService] },
+                    { path: 'log/custom', resolve: { log: CustomLogResolver }, component: LogComponent },
                     { path: 'log/:id', resolve: { log: LogResolver }, component: LogComponent },
                     { path: 'log/:id/invite-users', resolve: { log: LogResolver }, component: InviteUsersComponent },
                     { path: "manage-profile", component: CreateProfileComponent },
@@ -87,7 +89,8 @@ export var AppRoutingModule = (function () {
                 TokensResolver,
                 PostResolver,
                 ProfileCreatedGuardService,
-                PostDetailGuardService
+                PostDetailGuardService,
+                CustomLogResolver
             ]
         }), 
         __metadata('design:paramtypes', [])
