@@ -98,6 +98,10 @@ export var ManageEntryComponent = (function () {
         }
         return alreadyExists;
     };
+    ManageEntryComponent.prototype.setSelectedTimelines = function (timelines) {
+        this.seletedTimelines = timelines;
+        console.log(this.seletedTimelines);
+    };
     ManageEntryComponent.prototype.deletePost = function () {
         var _this = this;
         this.entryService.updateEntry(this.existingEntry.EntryId, { Delete: true }).subscribe(function (data) {
@@ -140,7 +144,6 @@ export var ManageEntryComponent = (function () {
                 files_1.append('Image' + (key + 1), value);
             });
             if (this.existingEntry != null) {
-                console.log('updating');
                 this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(function (data) {
                     alert('Post Updated Successfully!');
                     _this.rightContentService.aside_in = false;
@@ -150,7 +153,6 @@ export var ManageEntryComponent = (function () {
             }
             else {
                 this.entryService.addEntry(data, files_1).subscribe(function (data) {
-                    console.log(data);
                     alert('Post Created Successfully!');
                     _this.rightContentService.aside_in = false;
                 }, function (error) {
@@ -231,7 +233,6 @@ export var ManageEntryComponent = (function () {
     ManageEntryComponent.prototype.setExistingPost = function (post) {
         this.existingEntry = post;
         if (this.existingEntry != null) {
-            console.log(this.existingEntry);
             if (this.existingEntry.BestSelfRating != '' && this.existingEntry.BestSelfRating != undefined) {
                 this.postBestSelf = parseInt(this.existingEntry.BestSelfRating);
             }
@@ -253,6 +254,7 @@ export var ManageEntryComponent = (function () {
         var _this = this;
         //setting up existing entry if on edit mode
         this.setExistingPost(this.mediumToManageEntry.getPost());
+        //this.seletedTimelines = this.seletedTimelines.concat(this.mediumToManageEntry.getTempPostTimelines());
         /*---------------------------------------------------*/
         var best_self_slider = document.getElementById('test_slider');
         noUiSlider.create(best_self_slider, {

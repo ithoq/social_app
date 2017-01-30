@@ -18,7 +18,7 @@ export var EntryService = (function () {
         this.auth = auth;
     }
     EntryService.prototype.addEntry = function (entry, files) {
-        console.log(files);
+        if (files === void 0) { files = {}; }
         var querystr = "";
         for (var propertyName in entry) {
             querystr += '&' + propertyName + '=' + entry[propertyName];

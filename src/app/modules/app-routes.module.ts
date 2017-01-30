@@ -26,6 +26,7 @@ import {InviteUsersComponent} from "../components/invite-users/invite-users.comp
 import {PostDetailComponent} from "../components/post-detail/post-detail.component";
 import {PostResolver} from "../components/post-detail/post.resolver";
 import {PostDetailGuardService} from "../services/post-detail-guard.service";
+import {CreateCustomLogComponent} from "../components/create-custom-log/create-custom-log.component";
 
 const appRoutes: Routes = [
     {
@@ -37,11 +38,12 @@ const appRoutes: Routes = [
         children:[
             {path: "", component:AuthParentComponent, canActivate:[AuthGuardService], children:[
                 {path: "home", component:HomeComponent, canActivate:[ProfileCreatedGuardService]},
-                { path: 'log/:id', resolve:{log:LogResolver}, component: LogComponent },
-                { path: 'log/:id/invite-users', resolve:{log:LogResolver}, component: InviteUsersComponent },
+                {path: 'log/:id', resolve:{log:LogResolver}, component: LogComponent },
+                {path: 'log/:id/invite-users', resolve:{log:LogResolver}, component: InviteUsersComponent },
                 {path: "manage-profile", component:CreateProfileComponent},
                 {path: "manage-logs", resolve:{logs:LogsResolver}, component:ManageLogsComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "create-log", component:CreateLogComponent, canActivate:[ProfileCreatedGuardService]},
+                {path: "create-custom-log", component:CreateCustomLogComponent},
                 {path: "pick-color", component:PickColorComponent, canActivate:[ProfileManagementService]},
                 {path: "post/:id", resolve:{post:PostResolver}, component:PostDetailComponent, canActivate:[PostDetailGuardService]},
                 {path:'',redirectTo:"/home",pathMatch:"full"}

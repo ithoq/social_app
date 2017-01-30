@@ -21,7 +21,6 @@ export class ManageLogsComponent implements OnInit {
 
   removeUser(timelineId, userId){
     this.timelineService.removeUsers(timelineId,userId).subscribe((data:Response)=>{
-      console.log(timelineId,userId);
       this.timelineService.getUserTimelines().subscribe((data:Response)=>{
           this.timelines=data.json().payload;
       });

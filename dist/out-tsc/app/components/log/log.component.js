@@ -7,14 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { MediumToPostDetailService } from "../../services/medium-to-post-detail.service";
+import { MediumToManageEntryService } from "../../services/medium-to-manage-entry.service";
+import { ManageEntryComponent } from "../manage-entry/manage-entry.component";
 export var LogComponent = (function () {
-    function LogComponent(route, router, mediumToPostDetail) {
+    function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry) {
         this.route = route;
         this.router = router;
         this.mediumToPostDetail = mediumToPostDetail;
+        this.mediumToManageEntry = mediumToManageEntry;
         this.timeline = null;
     }
     LogComponent.prototype.showDetail = function (entry) {
@@ -29,16 +32,20 @@ export var LogComponent = (function () {
                 _this.router.navigate(['/home']);
             }
             _this.timeline = data.log.json().payload;
-            console.log(_this.timeline);
+            _this.manageEntryComponent.setSelectedTimelines([_this.timeline.Id]); //seting up timeline id for auto select in add entry component
         }, function (error) { });
     };
+    __decorate([
+        ViewChild(ManageEntryComponent), 
+        __metadata('design:type', Object)
+    ], LogComponent.prototype, "manageEntryComponent", void 0);
     LogComponent = __decorate([
         Component({
             selector: 'app-log',
             templateUrl: './log.component.html',
             styleUrls: ['./log.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService])
+        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService, MediumToManageEntryService])
     ], LogComponent);
     return LogComponent;
 }());

@@ -1,0 +1,9 @@
+.top-bar-widget li{
+    display: table-cell;
+    padding: 0 12px;
+    vertical-align: middle;
+    height: 40px;
+    color: #758697;
+    transition: all 0.4s;
+    line-height:3;
+}

@@ -1,0 +1,145 @@
+<sa-header>
+  <sa-title></sa-title>
+  <sa-action>
+    <li class="pad-rgt"> <a href="#" > <em class="fa fa-fw fa-eye"></em> View </a> </li>
+  </sa-action>
+</sa-header>
+<!--===================================================-->
+<!--END NAVBAR-->
+
+<sa-body>
+  <sa-body-content>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel">
+          <div class="panel-heading">
+            <div class="panel-control">
+              <ul class="pager pager-rounded">
+              </ul>
+            </div>
+            <h3 class="panel-title">Configure Custom View</h3>
+          </div>
+
+          <!--Hover Rows-->
+          <!--===================================================-->
+          <div class="panel-body">
+            <p class="mar-btm">Use these filters to configure a custom view with content from any of your logs. </p>
+            <div class="row">
+              <div class="col-sm-4 col-md-3">
+                <div class="mar-btm">
+
+                  <p class="dropdown-header">
+
+                                                    <span>
+                                                        <button class="btn btn-xs btn-rounded btn-default pull-right" (click)="unselectAllTimelines()"> None</button>
+                                                        <button class="btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm" (click)="selectAllTimelines()">All</button>
+                                                    </span>
+                  </p>
+
+                  <div class="form-group pad-hor">
+                    <!-- Checkboxes -->
+                    <span *ngFor="let option of timelines">
+                      <div class="checkbox" >
+                        <input class="magic-checkbox" id="demo-form-checkbox{{option.Id}}" #timeline type="checkbox" value="{{option.Id}}" [checked]="isTimelineSelected(option.Id)" name="timeline{{option.Id}}" (change)="timelinesChanged(timeline.checked+','+timeline.value)" />
+                          <label for="demo-form-checkbox{{option.Id}}"> {{option.Name}}</label>
+                      </div>
+                      <hr class="new-section-xs bord-no">
+                    </span>
+                  </div>
+                </div>
+
+                <div class="mar-btm">
+                  <p class="dropdown-header">View Date<span>
+                                                <button class="btn btn-xs btn-rounded btn-default pull-right">All</button>
+                                                </span>
+                  </p>
+                  <!--Bootstrap Datepicker : Range-->
+                  <!--===================================================-->
+                  <div id="demo-dp-range">
+                    <div class="input-daterange input-group" id="datepicker">
+                      <input type="text" class="form-control" name="start" />
+                      <span class="input-group-addon">to</span>
+                      <input type="text" class="form-control" name="end" />
+                    </div>
+                  </div>
+                  <!--===================================================-->
+                </div>
+
+                <hr class="new-section-xs bord-no">
+
+              </div>
+              <div class="col-sm-4 col-md-3">
+                <div class="mar-btm">
+                  <p class="dropdown-header">View Categories<span>
+                                                <button class="btn btn-xs btn-rounded btn-default pull-right" (click)="unselectAllTypes()">None</button>
+                                                <button class="btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm" (click)="selectAllTypes()">All</button>
+                                                </span>
+                  </p>
+                  <div class="cate-widget">
+                    <label *ngFor="let option of types" [ngClass]="{active: isTypeSelected(option.value)}">
+                      <input type="checkbox" #type type="checkbox" value="{{option.value}}" [checked]="isTypeSelected(option.value)" (change)="typeChanged(type.checked+','+type.value)" />
+                      <img class="category-images" src="assets/img/{{option.img}}" alt="">
+                      <span>{{option.value}}</span>
+                    </label>
+                  </div>
+                  <!--Justified Button Group-->
+                  <!--===================================================-->
+
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-3">
+                <div class="mar-btm">
+                  <p class="dropdown-header">View Tags<span>
+                                                <button class="btn btn-xs btn-rounded btn-default pull-right" (click)="unselectAllTags()">None</button>
+                                                <button class="btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm" (click)="selectAllTags()">All</button>
+                                                </span>
+                  </p>
+                  <!--Justified Button Group-->
+                  <!--===================================================-->
+                  <!--                  <div class="pre-scrollable bord-ver">
+                  -->
+                  <div class="tags-widget">
+                    <label *ngFor="let option of tags" [ngClass]="{active: isTagSelected(option)}">
+                      <input type="checkbox" #tag value="{{option}}" [checked]="isTagSelected(option)" (change)="tagChanged(tag.checked+','+tag.value)" />
+                      <span>{{option}}</span>
+                    </label>
+                  </div>
+                  <!--===================================================-->
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-3">
+                <div class="mar-btm">
+                  <p class="dropdown-header">View Moods<span>
+                                                <button class="btn btn-xs btn-rounded btn-default pull-right" (click)="unselectAllMoods()">None</button>
+                                                <button class="btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm" (click)="selectAllMoods()">All</button>
+                                                </span>
+                  </p>
+                  <!--                  <div class="pre-scrollable bord-ver">
+                  -->					                        <!--Justified Button Group-->
+                  <!--===================================================-->
+                  <div class="mood-type-panel">
+                    <label  *ngFor="let option of modes" [ngClass]="{active: isModeSelected(option.value)}">
+                      <input type="checkbox" #mode type="checkbox" value="{{option.value}}" [checked]="isModeSelected(option.value)" (change)="modeChanged(mode.checked+','+mode.value)" >
+                      <img src="assets/img/{{option.img}}" alt="">
+                      <span>{{option.value}}</span>
+                    </label>
+                  </div>
+                  <!--===================================================-->
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+      </div>
+    </div>
+  </sa-body-content>
+  <sa-body-right-content>
+    <sa-manage-entry></sa-manage-entry>
+  </sa-body-right-content>
+  <sa-aside></sa-aside>
+</sa-body>
+<!-- FOOTER -->
+<!--===================================================-->
+<sa-footer></sa-footer>

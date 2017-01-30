@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
             $.niftyNav('revealToggle');
           }else{
             $.niftyNav('colExpToggle');
-              console.log('hiii');
           }
         }
     )

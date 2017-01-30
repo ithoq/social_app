@@ -29,7 +29,6 @@ export var HeaderComponent = (function () {
             }
             else {
                 $.niftyNav('colExpToggle');
-                console.log('hiii');
             }
         });
     };

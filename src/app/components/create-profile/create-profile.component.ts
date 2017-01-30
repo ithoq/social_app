@@ -72,7 +72,7 @@ export class CreateProfileComponent implements OnInit {
             }
 
         },(error) => {
-            console.log(error.json());
+
         });
   }
 

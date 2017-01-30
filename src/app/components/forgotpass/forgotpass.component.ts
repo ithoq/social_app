@@ -31,7 +31,6 @@ export class ForgotpassComponent implements OnInit {
           },
           (e) => {
               this.errors = e.json()['error_message'];
-              console.log(e.json())
           }
       );
   };

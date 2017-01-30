@@ -10,8 +10,7 @@ export class EntryService {
 
     constructor(private http:Http,  private appService:AppService, private auth:AuthService) { }
 
-    addEntry(entry, files){
-        console.log(files);
+    addEntry(entry, files={}){
         let querystr = "";
         for(let propertyName in entry) {
             querystr+= '&'+propertyName+'='+entry[propertyName];

@@ -45,6 +45,7 @@ import { AddContentBtnComponent } from './components/add-content-btn/add-content
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import {MediumToPostDetailService} from "./services/medium-to-post-detail.service";
 import {MediumToManageEntryService} from "./services/medium-to-manage-entry.service";
+import { CreateCustomLogComponent } from './components/create-custom-log/create-custom-log.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,9 @@ import {MediumToManageEntryService} from "./services/medium-to-manage-entry.serv
     LogComponent,
     InviteUsersComponent,
     AddContentBtnComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    CreateCustomLogComponent,
+    CreateCustomLogComponent
   ],
   imports: [
     AppRoutingModule,

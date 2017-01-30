@@ -119,6 +119,10 @@ export class ManageEntryComponent implements OnInit {
         return alreadyExists;
     }
 
+    setSelectedTimelines(timelines:any){
+        this.seletedTimelines = timelines;
+        console.log(this.seletedTimelines);
+    }
     deletePost(){
         this.entryService.updateEntry(this.existingEntry.EntryId, {Delete:true}).subscribe(
             (data:Response)=>{
@@ -159,7 +163,6 @@ export class ManageEntryComponent implements OnInit {
                 files.append('Image'+(key+1), value);
             });
             if(this.existingEntry != null){
-                console.log('updating');
                 this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(
                     (data:Response)=>{
                         alert('Post Updated Successfully!');
@@ -171,7 +174,6 @@ export class ManageEntryComponent implements OnInit {
             }else{
                 this.entryService.addEntry(data,files).subscribe(
                     (data:any)=>{
-                        console.log(data);
                         alert('Post Created Successfully!');
                         this.rightContentService.aside_in = false;
                     },(error) => {
@@ -253,7 +255,6 @@ export class ManageEntryComponent implements OnInit {
     setExistingPost(post:any){
         this.existingEntry = post;
         if(this.existingEntry != null){
-            console.log(this.existingEntry);
             if(this.existingEntry.BestSelfRating != '' && this.existingEntry.BestSelfRating != undefined){
                 this.postBestSelf = parseInt(this.existingEntry.BestSelfRating);
             }
@@ -274,6 +275,7 @@ export class ManageEntryComponent implements OnInit {
   ngOnInit() {
         //setting up existing entry if on edit mode
       this.setExistingPost(this.mediumToManageEntry.getPost());
+      //this.seletedTimelines = this.seletedTimelines.concat(this.mediumToManageEntry.getTempPostTimelines());
       /*---------------------------------------------------*/
 
       var best_self_slider = document.getElementById('test_slider');

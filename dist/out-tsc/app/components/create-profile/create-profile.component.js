@@ -66,7 +66,6 @@ export var CreateProfileComponent = (function () {
                 _this.router.navigate(['/home']);
             }
         }, function (error) {
-            console.log(error.json());
         });
     };
     CreateProfileComponent.prototype.chooseColor = function (form) {

@@ -167,7 +167,6 @@ function validateSecondStep(){
 	}); 
 	
 	if(!$(".wizard-card form").valid()){
-    	console.log('invalid');
     	return false;
 	}
 	return true;

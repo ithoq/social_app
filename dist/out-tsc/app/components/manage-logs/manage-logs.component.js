@@ -23,7 +23,6 @@ export var ManageLogsComponent = (function () {
     ManageLogsComponent.prototype.removeUser = function (timelineId, userId) {
         var _this = this;
         this.timelineService.removeUsers(timelineId, userId).subscribe(function (data) {
-            console.log(timelineId, userId);
             _this.timelineService.getUserTimelines().subscribe(function (data) {
                 _this.timelines = data.json().payload;
             });

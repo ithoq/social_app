@@ -15,20 +15,38 @@ export var MediumToManageEntryService = (function () {
             current: null,
             default: null
         };
+        this.tempPostTimelines = {
+            current: null,
+            default: null
+        };
     }
     MediumToManageEntryService.prototype.setPost = function (post) {
         this.post.current = post;
     };
     ;
     /*
-      returns the current title from the post object
-      set current post with the default one.
-      basically its like a flash message. which can only be used once.
+     returns the current title from the post object
+     set current post with the default one.
+     basically its like a flash message. which can only be used once.
      */
     MediumToManageEntryService.prototype.getPost = function () {
         var post = this.post.current;
         this.post.current = this.post.default;
         return post;
+    };
+    MediumToManageEntryService.prototype.setTempPostTimelines = function (post) {
+        this.tempPostTimelines.current = post;
+    };
+    ;
+    /*
+     returns the current title from the post object
+     set current post with the default one.
+     basically its like a flash message. which can only be used once.
+     */
+    MediumToManageEntryService.prototype.getTempPostTimelines = function () {
+        var tempPostTimelines = this.tempPostTimelines.current;
+        this.tempPostTimelines.current = this.tempPostTimelines.default;
+        return tempPostTimelines;
     };
     MediumToManageEntryService = __decorate([
         Injectable(), 
