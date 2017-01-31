@@ -1,9 +1,8 @@
-.top-bar-widget li{
-    display: table-cell;
-    padding: 0 12px;
-    vertical-align: middle;
-    height: 40px;
-    color: #758697;
-    transition: all 0.4s;
-    line-height:3;
+.timeline-label .img-holder{
+    height:500px;
+    overflow: hidden;
+}
+
+.timeline-label .img-holder img {
+    height: 100%;
 }

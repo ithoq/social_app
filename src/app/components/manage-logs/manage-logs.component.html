@@ -9,7 +9,10 @@
 
 <sa-body>
   <sa-body-content>
+
     <div class="row">
+      <div class="row"><a routerLink="/create-log" class="btn btn-info mar-lft">Create New Log </a></div>
+      <div class="spacer"></div>
       <div  *ngFor="let option of timelines" class="col-lg-6">
         <div class="panel">
           <div class="panel-heading">
@@ -24,6 +27,7 @@
             </h3>
 
           </div>
+
 
           <!--Hover Rows-->
           <!--===================================================-->
@@ -63,7 +67,7 @@
         </div>
       </div>
 
-      <div><a routerLink="/create-log" class="btn btn-info mar-lft">Create New Log </a></div>
+
       <br>
     </div>
 

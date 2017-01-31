@@ -27,7 +27,7 @@ export class LogComponent implements OnInit {
     ngOnInit() {
         this.route.data
             .subscribe((data: { log: any }) => {
-                if(data.log == null){ this.router.navigate(['/home']); }
+                if(data.log == null){ this.router.navigate(['/log/custom']); }
                 this.timeline = data.log.json().payload;
                 this.manageEntryComponent.setSelectedTimelines([this.timeline.Id]); //seting up timeline id for auto select in add entry component
             }, (error)=>{});

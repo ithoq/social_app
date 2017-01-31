@@ -7,29 +7,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { MediumToManageEntryService } from "../../services/medium-to-manage-entry.service";
+import { AddContentBtnComponent } from "../add-content-btn/add-content-btn.component";
 export var PostDetailComponent = (function () {
     function PostDetailComponent(route, router, auth, mediumToManageEntry) {
         this.route = route;
         this.router = router;
         this.auth = auth;
         this.mediumToManageEntry = mediumToManageEntry;
+        this.bestSelfRating = 95;
         this.user = this.auth.getUser().profile;
     }
     PostDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.addContentBtnComponent.content = 'Edit Post';
         this.route.data
             .subscribe(function (data) {
             if (data.post == null) {
-                _this.router.navigate(['/home']);
+                _this.router.navigate(['/log/custom']);
             }
-            _this.post = data.post;
-            _this.mediumToManageEntry.setPost(data.post);
+            else {
+                _this.post = data.post;
+                console.log(_this.post);
+                _this.mediumToManageEntry.setPost(data.post);
+            }
         }, function (error) { });
     };
+    __decorate([
+        ViewChild(AddContentBtnComponent), 
+        __metadata('design:type', Object)
+    ], PostDetailComponent.prototype, "addContentBtnComponent", void 0);
     PostDetailComponent = __decorate([
         Component({
             selector: 'app-post-detail',

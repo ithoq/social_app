@@ -58,12 +58,12 @@ export var CreateProfileComponent = (function () {
                         Name: 'Birthday added'
                     };
                     _this.entrySerice.addEntry(entry).subscribe(function (data) {
-                        _this.router.navigate(['/home']);
+                        _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
                     });
                 }, function (error) { });
             }
             else {
-                _this.router.navigate(['/home']);
+                _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
             }
         }, function (error) {
         });
@@ -73,7 +73,9 @@ export var CreateProfileComponent = (function () {
         this.profileManagementService.setAllowColorChooser(true);
         this.router.navigate(['pick-color']);
     };
-    CreateProfileComponent.prototype.ngOnInit = function () { };
+    CreateProfileComponent.prototype.ngOnInit = function () {
+        console.log('in the manage component');
+    };
     CreateProfileComponent = __decorate([
         Component({
             selector: 'sa-create-profile',

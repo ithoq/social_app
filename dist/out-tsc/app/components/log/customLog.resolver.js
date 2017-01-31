@@ -34,7 +34,11 @@ export var CustomLogResolver = (function () {
                 });
             }
             else {
-                reject(null);
+                timelineService.get(auth.getUser().timelines[0].Id, auth.getUser().profile.UserId).subscribe(function (data) {
+                    resolve(data);
+                }, function (error) {
+                    resolve(null);
+                });
             }
         });
     };

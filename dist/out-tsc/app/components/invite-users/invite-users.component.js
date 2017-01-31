@@ -23,6 +23,7 @@ export var InviteUsersComponent = (function () {
         this.auth = auth;
         this.searchedUsers = [];
         this.timeline = null;
+        this.email = '';
         this.selectedUsers = [];
     }
     InviteUsersComponent.prototype.invite = function (form) {

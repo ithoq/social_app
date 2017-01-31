@@ -1,0 +1,6 @@
+@media (min-width: 769px){
+    #content-container {
+        padding-left: 220px;
+        left:0px !important;
+    }
+}

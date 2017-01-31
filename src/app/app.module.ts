@@ -46,6 +46,7 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
 import {MediumToPostDetailService} from "./services/medium-to-post-detail.service";
 import {MediumToManageEntryService} from "./services/medium-to-manage-entry.service";
 import { CreateCustomLogComponent } from './components/create-custom-log/create-custom-log.component';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { CreateCustomLogComponent } from './components/create-custom-log/create-
     AddContentBtnComponent,
     PostDetailComponent,
     CreateCustomLogComponent,
-    CreateCustomLogComponent
+    CreateCustomLogComponent,
+    TestComponent
   ],
   imports: [
     AppRoutingModule,

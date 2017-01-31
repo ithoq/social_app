@@ -47,16 +47,16 @@ var appRoutes = [
         children: [
             { path: "", component: AuthParentComponent, canActivate: [AuthGuardService], children: [
                     { path: "home", component: HomeComponent, canActivate: [ProfileCreatedGuardService] },
-                    { path: 'log/custom', resolve: { log: CustomLogResolver }, component: LogComponent },
-                    { path: 'log/:id', resolve: { log: LogResolver }, component: LogComponent },
-                    { path: 'log/:id/invite-users', resolve: { log: LogResolver }, component: InviteUsersComponent },
+                    { path: 'log/custom', resolve: { log: CustomLogResolver }, component: LogComponent, canActivate: [ProfileCreatedGuardService] },
+                    { path: 'log/:id', resolve: { log: LogResolver }, component: LogComponent, canActivate: [ProfileCreatedGuardService] },
+                    { path: 'log/:id/invite-users', resolve: { log: LogResolver }, component: InviteUsersComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "manage-profile", component: CreateProfileComponent },
                     { path: "manage-logs", resolve: { logs: LogsResolver }, component: ManageLogsComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "create-log", component: CreateLogComponent, canActivate: [ProfileCreatedGuardService] },
-                    { path: "create-custom-log", component: CreateCustomLogComponent },
+                    { path: "create-custom-log", component: CreateCustomLogComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "pick-color", component: PickColorComponent, canActivate: [ProfileManagementService] },
-                    { path: "post/:id", resolve: { post: PostResolver }, component: PostDetailComponent, canActivate: [PostDetailGuardService] },
-                    { path: '', redirectTo: "/home", pathMatch: "full" }
+                    { path: "post/:id", resolve: { post: PostResolver }, component: PostDetailComponent, canActivate: [ProfileCreatedGuardService] },
+                    { path: '', redirectTo: "/log/custom", pathMatch: "full" }
                 ] },
             { path: "", component: AntiAuthParentComponent, canActivate: [AntiAuthGuardService], children: [
                     { path: "login", component: LoginComponent },

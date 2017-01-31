@@ -14,7 +14,11 @@ export var HeaderComponent = (function () {
     HeaderComponent.prototype.ngOnInit = function () {
     };
     HeaderComponent.prototype.ngAfterViewInit = function () {
+        var niftyContainer = $('#container');
+        var niftyWindow = $(window);
         var toggleBtn = $('.mainnav-toggle');
+        //alert(toggleBtn);
+        //  $(document).on('click', '.mainnav-toggle', function(e){
         toggleBtn.on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();

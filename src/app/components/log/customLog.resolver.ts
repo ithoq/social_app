@@ -29,7 +29,14 @@ export class CustomLogResolver implements Resolve<any> {
                     }
                 );
             }else{
-                reject(null);
+                timelineService.get(auth.getUser().timelines[0].Id, auth.getUser().profile.UserId).subscribe(
+                    (data:any)=> {
+                        resolve(data);
+                    },
+                    (error)=>{
+                        resolve(null);
+                    }
+                );
             }
         });
     }

@@ -29,7 +29,7 @@ export var LogComponent = (function () {
         this.route.data
             .subscribe(function (data) {
             if (data.log == null) {
-                _this.router.navigate(['/home']);
+                _this.router.navigate(['/log/custom']);
             }
             _this.timeline = data.log.json().payload;
             _this.manageEntryComponent.setSelectedTimelines([_this.timeline.Id]); //seting up timeline id for auto select in add entry component

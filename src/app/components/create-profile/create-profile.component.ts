@@ -64,11 +64,11 @@ export class CreateProfileComponent implements OnInit {
                         Name: 'Birthday added'
                     };
                     this.entrySerice.addEntry(entry).subscribe((data:Response)=>{
-                        this.router.navigate(['/home']);
+                        this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
                     });
                 },(error) => { });
             }else{
-                this.router.navigate(['/home']);
+                this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
             }
 
         },(error) => {
@@ -81,6 +81,8 @@ export class CreateProfileComponent implements OnInit {
       this.profileManagementService.setAllowColorChooser(true);
       this.router.navigate(['pick-color']);
   }
-  ngOnInit() {}
+  ngOnInit() {
+      console.log('in the manage component')
+  }
 
 }

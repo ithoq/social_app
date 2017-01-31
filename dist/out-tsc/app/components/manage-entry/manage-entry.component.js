@@ -43,17 +43,17 @@ export var ManageEntryComponent = (function () {
             { value: 'embarrassed', img: 'emoji-embarrassed.png' }
         ];
         this.types = [
-            { value: 'Place', img: 'icon-places-big.png', desc: 'description' },
-            { value: 'Learning', img: 'icon-learning-big.png', desc: 'description' },
-            { value: 'Work', img: 'icon-work-big.png', desc: 'description' },
-            { value: 'Health', img: 'icon-health-big.png', desc: 'description' },
-            { value: 'Fitness', img: 'icon-fitness-big.png', desc: 'description' },
-            { value: 'Celebration', img: 'icon-celebration-big.png', desc: 'description' },
-            { value: 'Faves', img: 'icon-faves-big.png', desc: 'description' },
-            { value: 'Purpose', img: 'icon-world-big.png', desc: 'description' },
-            { value: 'People', img: 'icon-images-big.png', desc: 'description' },
-            { value: 'Bigs', img: 'logo.png', desc: 'description' },
-            { value: 'Other', img: 'add.png', desc: 'description' }
+            { value: 'Place', img: 'icon-places-big.png', desc: 'Lorem ipsum dolor sit amet, maiorum ponderum consulatu ut has. Id phaedrum similique appellantur mel, ad dolorem accusamus eum, vim te graeco eruditi. Cu posse ornatus duo, qui quidam oportere ad. Agam sanctus eum id. Iisque complectitur est cu.' },
+            { value: 'Learning', img: 'icon-learning-big.png', desc: 'Prompta habemus cu mel, pri an feugait laboramus consequuntur. At eum fugit lobortis scripserit. Graeco eligendi ne est, munere deseruisse mea te, ea eros phaedrum torquatos est. In vim mazim mentitum. Mei putent maiorum in, atomorum intellegebat mea an. Te ius homero nostro, ei mea nostro feugiat conceptam, ex vis euismod alienum expetendis.' },
+            { value: 'Work', img: 'icon-work-big.png', desc: 'Luptatum platonem instr vivendo inciderint ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.' },
+            { value: 'Health', img: 'icon-health-big.png', desc: 'Conceptam abhorreant quas ipsum decore pro no. Te usu mandamus conceptam voluptatum, vim ei erat delenit volutpat. Ei per tollit dicant, per wisi mandamus salutatus ex. At persius delectus perpetua vel.' },
+            { value: 'Fitness', img: 'icon-fitness-big.png', desc: 'Conceptam abhorreant pro no. Te usu mandamus conceptam voluptatum, vim ei erat delenit volutpat. Ei per tollit dicant, per wisi mandamus salutatus ex. At persius delectus perpetua vel.' },
+            { value: 'Celebration', img: 'icon-celebration-big.png', desc: 'Tantas lucilius facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.' },
+            { value: 'Faves', img: 'icon-faves-big.png', desc: 'Luptatum platonem instructior id  ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.' },
+            { value: 'Purpose', img: 'icon-world-big.png', desc: 'Tantas lucilius no vis, cu aliquid nominavi eloquentiam duo. Clita timeam duo an. Te eam postea facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.' },
+            { value: 'People', img: 'icon-images-big.png', desc: 'Conceptam abhorreant est cu, possit reprehendunt sit at. Ius augue legimus in, sit cibo essent et, quas ipsum decore pro no. Te usu mandamus conceptam voluptatum, vim ei erat delenit volutpat. Ei per tollit dicant, per wisi mandamus salutatus ex. At persius delectus perpetua vel.' },
+            { value: 'Bigs', img: 'logo.png', desc: 'Tantas lucilius no vis, cu aliquid nominavi eloquentiam duo. Clita timeam duo an. Te eam postea facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.' },
+            { value: 'Other', img: 'add.png', desc: 'Luptatum platonem instructior id nec, ea eam sale comprehensam, sit suas dicat eu. Ei mel sapientem constituto, cetero vivendo inciderint ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.' }
         ];
         this.timelines = [];
         this.seletedTimelines = [];
@@ -247,6 +247,7 @@ export var ManageEntryComponent = (function () {
                 this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
             }
             this.selectedModes = this.existingEntry.Mode.split(',');
+            this.tags = this.existingEntry.Tags.split(',');
         }
     };
     ManageEntryComponent.prototype.ngOnInit = function () {

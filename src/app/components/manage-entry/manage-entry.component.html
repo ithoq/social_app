@@ -114,7 +114,7 @@
           </div>
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Add images</p>
-          <input id="post-images" (change)="filesSelected($event)" type="file" ngModel name="images" multiple  />
+
           <div>
             <!--<div class="panel-body">-->
 
@@ -123,10 +123,10 @@
 
             <div class="bord-top pad-ver">
               <!-- The fileinput-button span is used to style the file input field as button -->
-              <span class="btn btn-default fileinput-button dz-clickable"> <i class="fa fa-plus"></i> <span>Add images</span> </span>
+              <span class="btn btn-default fileinput-button dz-clickable"> <i class="fa fa-plus"></i> <span>Add Images<input id="post-images" (change)="filesSelected($event)" type="file" ngModel name="images" multiple  /></span> </span>
               <div class="btn-group pull-right">
-                <button id="dz-upload-btn" class="btn btn-default" type="submit" disabled> <i class="fa fa-upload-cloud"></i> Upload </button>
-                <button id="dz-remove-btn" class="btn btn-default cancel" type="reset" disabled> <i class="demo-pli-cross"></i> </button>
+                <!--<button id="dz-upload-btn" class="btn btn-default" type="submit" disabled> <i class="fa fa-upload-cloud"></i> Upload </button>-->
+                <!--<button id="dz-remove-btn" class="btn btn-default cancel" type="reset" disabled> <i class="demo-pli-cross"></i> </button>-->
               </div>
             </div>
             <div id="dz-previews">
@@ -178,7 +178,7 @@
           <hr class="new-section-xs bord-no">
           <!-- Bootstrap Tags Input -->
           <!--===================================================-->
-          <input type="text" id="what-tags-input" class="form-control" [ngModel]="tags" name="Tags" placeholder="What Tags" value="favorite,about" data-role="tagsinput">
+          <input type="text" id="what-tags-input" class="form-control" [ngModel]="tags" name="Tags" placeholder="What Tags" value="{{tags.join(',')}}" data-role="tagsinput">
           <!--===================================================-->
           <hr class="new-section-sm bord-no">
           <p class="text-main text-bold">What else...</p>

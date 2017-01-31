@@ -17,6 +17,7 @@ export class InviteUsersComponent implements OnInit {
 
   public searchedUsers = [];
   public timeline:any = null;
+  public email:any = '';
   constructor(private timelineService:TimelineService ,private route:ActivatedRoute, private router:Router, private users:UsersService, private appService:AppService, private auth:AuthService) { }
   public selectedUsers = [];
 

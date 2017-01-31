@@ -10,6 +10,7 @@ export class AddContentBtnComponent implements OnInit {
 
   constructor(private rightContent:RightContentService) { }
 
+  public content:any = 'Add Content';
   asideToggle(){
     this.rightContent.aside_in = !this.rightContent.aside_in;
   }

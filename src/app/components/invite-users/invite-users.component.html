@@ -43,11 +43,42 @@
               <p class="text-main text-bold">Or, enter an email address</p>
               <!--                                  <p>Enter the email address of the person you would like to invite.</p>
               -->                                  					                  <div class="input-group mar-btm col-xs-12 col-md-3">
-              <input type="text" ngModel name="email" class="form-control" placeholder="Enter email">
+              <input type="text" [(ngModel)]="email" name="email" class="form-control" placeholder="Enter email">
             </div>
               <div class="input-group mar-btm col-xs-12 col-md-4">
 
-                <button class="btn btn-info">Preview Email Invite</button>
+                <button *ngIf="email != ''" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Preview Email Invite</button>
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Send Invitation</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="user-info clearfix">
+
+                        <div class="u-img"><img src="" alt=""></div>
+                        <div class="u-name">
+                            <strong>{{email}}</strong>
+                        </div>
+                        </div>
+                        <p style="font-size: 20px;">
+                          They will see this message when your request is sent
+                        </p>
+                        <p style="height: 150px;">
+                          Please join my log
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
               </div>
             </div>
