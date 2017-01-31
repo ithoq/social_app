@@ -1,0 +1,19 @@
+/* IMPORTANT :
+* ===================================================================================================
+* DON'T EDIT ANY CODE HERE, JUST LEAVE IT.
+*
+* You may edit the default color scheme.
+* You may change the variable value inside the _variables.LESS file and re-compiling using this file.
+*
+* If you make changes directly in the CSS and/ or LESS-files from Nifty,
+* it will be hard to update if I release an update. So I would recommend to create a new CSS/ LESS-file for this purpose.
+*/
+.top-bar-widget li{
+  display: table-cell;
+  padding: 0 12px;
+  vertical-align: middle;
+  height: 40px;
+  color: #758697;
+  transition: all 0.4s;
+  line-height:3;
+}
