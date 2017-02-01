@@ -36,6 +36,9 @@ export var PostDetailComponent = (function () {
             }
         }, function (error) { });
     };
+    PostDetailComponent.prototype.ngAfterViewInit = function () {
+        //$(document).trigger('ready');
+    };
     __decorate([
         ViewChild(AddContentBtnComponent), 
         __metadata('design:type', Object)

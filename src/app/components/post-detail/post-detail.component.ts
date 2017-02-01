@@ -5,6 +5,7 @@ import {MediumToManageEntryService} from "../../services/medium-to-manage-entry.
 import {ManageEntryComponent} from "../manage-entry/manage-entry.component";
 import {AddContentBtnComponent} from "../add-content-btn/add-content-btn.component";
 
+declare var $:any;
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
@@ -32,5 +33,8 @@ export class PostDetailComponent implements OnInit {
           }
         }, (error)=>{});
   }
+    ngAfterViewInit(){
+        //$(document).trigger('ready');
+    }
 
 }

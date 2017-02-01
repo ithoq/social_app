@@ -30,11 +30,14 @@ export class HeaderComponent implements OnInit {
         }else if(toggleBtn.hasClass('reveal')){
             $.niftyNav('revealToggle');
         }else{
-            $.niftyNav('colExpToggle');
-            // alert();
-            // if (niftyContainer.hasClass('mainnav-lg mainnav-sm')) niftyContainer.removeClass('mainnav-lg');
-            // niftyContainer.toggleClass('mainnav-lg mainnav-sm').removeClass('mainnav-in mainnav-out');
-            // return niftyWindow.trigger('resize');
+            try{
+                $.niftyNav('colExpToggle');
+            }
+            catch(err) {
+                if (niftyContainer.hasClass('mainnav-lg mainnav-sm')) niftyContainer.removeClass('mainnav-lg');
+                niftyContainer.toggleClass('mainnav-lg mainnav-sm').removeClass('mainnav-in mainnav-out');
+                return niftyWindow.trigger('resize');
+            }
         }
 
         }

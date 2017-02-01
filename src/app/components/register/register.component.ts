@@ -19,6 +19,13 @@ export class RegisterComponent implements OnInit {
   private router: Router;
   public errors:any;
   public user:any;
+
+
+  //default values
+    public email = '';
+    public username = '';
+    public pass = '';
+    public passagain = '';
   constructor(
     private authenticator: AuthService, private rootService:AppService,
      private httpService: Http, appRouter: Router, private route: ActivatedRoute,
@@ -32,6 +39,13 @@ export class RegisterComponent implements OnInit {
         email:'',
         password:''
       };
+
+      // if(localStorage.getItem('user_num') == null){
+      //     localStorage.setItem('user_num', '5');
+      // }
+      // localStorage.setItem('user_num',(parseInt(localStorage.getItem('user_num'))+1)+'');
+      // this.email = 'newuser'+localStorage.getItem('user_num')+'@gmail.com';
+      // this.username = 'newuser'+localStorage.getItem('user_num');
   }
 
   registerUser(form:NgForm){
@@ -39,7 +53,21 @@ export class RegisterComponent implements OnInit {
 
       this.users.register(form.value).subscribe(
           (data:Response) => {
-              this.router.navigate(['login']);
+              this.auth.attempt({username:form.value.username, password:form.value.password}).subscribe(
+                  (data:Response) => {
+                      /*
+                       saving the authenticated user in the localStorage
+                       */
+                      this.auth.setUser(JSON.stringify({profile:data.json().payload.User,timelines:data.json().payload.Timelines}));
+                      if(this.auth.getUser().timelines != null)
+                          this.router.navigate([this.auth.getUser().timelines[0].Id]);
+                      else
+                          this.router.navigate(['manage-profile']);
+                  },
+                  (e) => {
+                      this.errors = (e.json()['error_message'] != undefined)?e.json()['error_message']:'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
+                  }
+              );
           },
           (e) => {
               this.errors = e.json()['error_message'];

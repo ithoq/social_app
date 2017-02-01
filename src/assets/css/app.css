@@ -17,3 +17,9 @@
   transition: all 0.4s;
   line-height:3;
 }
+@media(max-width: 767px){
+#container #aside-container {
+  top:40px;
+  max-width:100%;
+}
+}

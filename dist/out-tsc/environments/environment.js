@@ -3,6 +3,6 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 export var environment = {
-    production: true
+    production: false
 };
 //# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/environments/environment.js.map

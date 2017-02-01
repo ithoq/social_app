@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {UsersService} from "../../services/users.service";
-import {Response} from "@angular/http";
+import {Response, Http} from "@angular/http";
 import {TimelineService} from "../../services/timeline.service";
 import {EntryService} from "../../services/entry.service";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {ProfileManagementService} from "../../services/profile-management.service";
+import {AppService} from "../../app.service";
 
 @Component({
   selector: 'sa-create-profile',
@@ -21,7 +22,9 @@ export class CreateProfileComponent implements OnInit {
       private entrySerice:EntryService,
       private auth:AuthService,
       private router:Router,
-      private profileManagementService:ProfileManagementService
+      private profileManagementService:ProfileManagementService,
+      private http:Http,
+      private appService:AppService
   ) {
 
       let profileData = this.profileManagementService.getProfileData();
@@ -63,7 +66,14 @@ export class CreateProfileComponent implements OnInit {
                         Type: 'Celebrations',
                         Name: 'Birthday added'
                     };
-                    this.entrySerice.addEntry(entry).subscribe((data:Response)=>{
+
+                    //adding the first entry
+                    let querystr = "";
+                    for(let propertyName in entry) {
+                        querystr+= '&'+propertyName+'='+entry[propertyName];
+                    }
+                    console.log(querystr);
+                    this.http.get(this.appService.api_end_point+'entryAdd/'+this.auth.get_session_token()+"/"+querystr).subscribe((data:Response)=>{
                         this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
                     });
                 },(error) => { });

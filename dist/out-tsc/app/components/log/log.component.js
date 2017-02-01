@@ -12,13 +12,16 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { MediumToPostDetailService } from "../../services/medium-to-post-detail.service";
 import { MediumToManageEntryService } from "../../services/medium-to-manage-entry.service";
 import { ManageEntryComponent } from "../manage-entry/manage-entry.component";
+import { AuthService } from "../../services/auth.service";
 export var LogComponent = (function () {
-    function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry) {
+    function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry, auth) {
         this.route = route;
         this.router = router;
         this.mediumToPostDetail = mediumToPostDetail;
         this.mediumToManageEntry = mediumToManageEntry;
+        this.auth = auth;
         this.timeline = null;
+        this.user = null;
     }
     LogComponent.prototype.showDetail = function (entry) {
         this.mediumToPostDetail.setPost(entry);
@@ -34,6 +37,7 @@ export var LogComponent = (function () {
             _this.timeline = data.log.json().payload;
             _this.manageEntryComponent.setSelectedTimelines([_this.timeline.Id]); //seting up timeline id for auto select in add entry component
         }, function (error) { });
+        this.user = this.auth.getUser().profile;
     };
     __decorate([
         ViewChild(ManageEntryComponent), 
@@ -45,7 +49,7 @@ export var LogComponent = (function () {
             templateUrl: './log.component.html',
             styleUrls: ['./log.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService, MediumToManageEntryService])
+        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService, MediumToManageEntryService, AuthService])
     ], LogComponent);
     return LogComponent;
 }());

@@ -29,11 +29,13 @@ export class ManageEntryComponent implements OnInit {
     /* map api */
     showmap:any = false;
     title: string = 'My first angular2-google-maps project';
-    lat: number = 51.678418;
-    lng: number = 7.809007;
+    lat: number = 45.523111;
+    lng: number = -122.672970;
     /* ----------------------- */
 
-    tags = ['a'];
+    whatTags = [];
+    whoTags = [];
+    youTags = [];
 
     public modes = [
         {value:'angry',img:'emoji-angry.png'},
@@ -73,6 +75,7 @@ export class ManageEntryComponent implements OnInit {
 
     public existingEntry:any = null;
 
+    public postType:any = '';
     public postName:any='';
     public postDateStart:any='';
     public postDateEnd:any='';
@@ -149,14 +152,17 @@ export class ManageEntryComponent implements OnInit {
             alert('please select atleast one timeline')
         }else if(this.selectedTypes.length <=0){
             alert('please select atleast one Type')
-        }else if(data.DateStart <=0){
+        }else if($('#new-post-start-date').val() == ''){
             alert('please select Start Date')
         }else{
             data.TimelineId = this.seletedTimelines.join(',');
             data.Mode = this.selectedModes.join(',');
-            data.Type = this.selectedTypes[0];
-            data.Tags = $('#what-tags-input').val();
+            data.Type = this.selectedTypes.join(',');
+            data.WhatTags = $('#what-tags-input').val();
+            data.WhoTags = $('#who-tags-input').val();
+            data.YouTags = $('#you-tags-input').val();
             data.Location = this.location;
+            data.DateStart = $('#new-post-start-date').val();
             let files = new FormData();
             $.each(this.selectedFiles, function(key, value)
             {
@@ -176,6 +182,7 @@ export class ManageEntryComponent implements OnInit {
                     (data:any)=>{
                         alert('Post Created Successfully!');
                         this.rightContentService.aside_in = false;
+
                     },(error) => {
                         //alert(error.json().error_message);
                     }
@@ -186,7 +193,7 @@ export class ManageEntryComponent implements OnInit {
     }
     modeChanged(data:any){
         var parts = data.split(',');
-        var alreadyExists = false;
+        var alreadyExists = false;``
         for (let entry of this.selectedModes) {
             if(entry == parts[1]){
                 alreadyExists = true;
@@ -261,6 +268,8 @@ export class ManageEntryComponent implements OnInit {
             if(this.existingEntry.CloseToOthers != '' && this.existingEntry.BestSelfRating != undefined){
                 this.postCloseToOthers = parseInt(this.existingEntry.CloseToOthers);
             }
+
+            this.selectedTypes = this.existingEntry.Type.split(',');
             this.postName = this.existingEntry.Name;
             this.postAbout = this.existingEntry.About;
             this.postDateEnd = this.existingEntry.DateEnd;
@@ -270,7 +279,9 @@ export class ManageEntryComponent implements OnInit {
                 this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
             }
             this.selectedModes = this.existingEntry.Mode.split(',');
-            this.tags = this.existingEntry.Tags.split(',');
+            this.whatTags = this.existingEntry.WhatTags.split(',');
+            this.whoTags = this.existingEntry.WhoTags.split(',');
+            this.youTags = this.existingEntry.YouTags.split(',');
         }
     }
   ngOnInit() {
@@ -370,6 +381,7 @@ export class ManageEntryComponent implements OnInit {
                 }
             }
         });
+        $('#new-post-start-date').datepicker();
     }
 
     movedToNextSlide(){

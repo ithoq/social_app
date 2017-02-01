@@ -15,6 +15,7 @@ export class AsideComponent implements OnInit {
   public timelines:any;
   constructor(private auth: AuthService, private appRouter: Router, private timelineService:TimelineService) {
       this.timelines = this.auth.getUser().timelines;
+      this.user = this.auth.getUser().profile;
   }
 
   ngOnInit() {

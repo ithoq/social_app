@@ -25,7 +25,7 @@
 
             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-            <div class="carousel-inner text-center">
+            <div class="carousel-inner text-center" >
               <!--Item 1-->
               <div class="item active" *ngFor="let file of post.Files">
                 <div class="thumbnail"> <img src="{{file.FileURL}}" alt="Image"> </div>
@@ -69,8 +69,9 @@
               <h3 class="panel-title">Relationships</h3>
             </div>
             <div class="panel-body">
-              <p class="mar-top"><strong>Who: </strong>#Pam</p>
-              <hr class="new-section-xs bord-no">                  <div> <span class="pull-right text-primary">{{post.CloseToOthers}}%</span> <span class="mar-ver">{{user.Nickname}} felt close to others</span> </div>
+              <p class="mar-top"><strong>Who: </strong>{{post.WhoTags.split(',').join('#')}}</p>
+              <hr class="new-section-xs bord-no">
+              <div> <span class="pull-right text-primary">{{post.CloseToOthers}}%</span> <span class="mar-ver">{{user.Nickname}} felt close to others</span> </div>
               <div class="progress progress-l mar-top bg-white">
                 <div class="progress-bar bg-primary" data-toggle="tooltip" data-original-title="67%" style="width: {{post.CloseToOthers}}%"></div>
               </div>
@@ -83,7 +84,7 @@
               <h3 class="panel-title">About Me</h3>
             </div>
             <div class="panel-body">
-              <p class="mar-top"><strong>Me: </strong>#happy #loved #healthy</p>
+              <p class="mar-top"><strong>Me: </strong>{{post.YouTags.split(',').join('#')}}</p>
               <hr class="new-section-xs bord-no">
               <div class=""> <span class="pull-right text-info">{{post.BestSelfRating}}%</span> <span class="mar-ver">Best me</span> </div>
               <div class="progress progress-l mar-top bg-white">

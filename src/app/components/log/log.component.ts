@@ -3,6 +3,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MediumToPostDetailService} from "../../services/medium-to-post-detail.service";
 import {MediumToManageEntryService} from "../../services/medium-to-manage-entry.service";
 import {ManageEntryComponent} from "../manage-entry/manage-entry.component";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'app-log',
@@ -12,11 +13,13 @@ import {ManageEntryComponent} from "../manage-entry/manage-entry.component";
 export class LogComponent implements OnInit {
     @ViewChild(ManageEntryComponent) manageEntryComponent;
     public timeline = null;
+    public user:any = null;
     constructor(
         private route:ActivatedRoute,
         private router:Router,
         private mediumToPostDetail:MediumToPostDetailService,
-        private mediumToManageEntry:MediumToManageEntryService
+        private mediumToManageEntry:MediumToManageEntryService,
+        private auth:AuthService
     ) {}
 
     showDetail(entry:any){
@@ -31,5 +34,6 @@ export class LogComponent implements OnInit {
                 this.timeline = data.log.json().payload;
                 this.manageEntryComponent.setSelectedTimelines([this.timeline.Id]); //seting up timeline id for auto select in add entry component
             }, (error)=>{});
+        this.user = this.auth.getUser().profile;
     }
 }

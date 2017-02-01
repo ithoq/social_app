@@ -178,7 +178,7 @@
           <hr class="new-section-xs bord-no">
           <!-- Bootstrap Tags Input -->
           <!--===================================================-->
-          <input type="text" id="what-tags-input" class="form-control" [ngModel]="tags" name="Tags" placeholder="What Tags" value="{{tags.join(',')}}" data-role="tagsinput">
+          <input type="text" id="what-tags-input" class="form-control" [ngModel]="whatTags" name="Tags" placeholder="What Tags" value="{{whatTags.join(',')}}" data-role="tagsinput">
           <!--===================================================-->
           <hr class="new-section-sm bord-no">
           <p class="text-main text-bold">What else...</p>
@@ -204,7 +204,7 @@
 -->
           <!-- Bootstrap Tags Input -->
           <!--===================================================-->
-          <input type="text" class="form-control" placeholder="Who Tags" value="Alan" data-role="tagsinput">
+          <input id="who-tags-input" type="text" class="form-control" [ngModel]="whoTags" name="WhoTags" placeholder="Who Tags" value="{{whoTags.join(',')}}" data-role="tagsinput">
           <!--===================================================-->
 
           <hr class="new-section-xs bord-no">
@@ -219,7 +219,7 @@
 
           <!-- Bootstrap Tags Input -->
           <!--===================================================-->
-          <input type="text" class="form-control" placeholder="You Tags" value="Silly" data-role="tagsinput">
+          <input id="you-tags-input" type="text" class="form-control" [ngModel]="youTags" name="YouTags" placeholder="You Tags" value="{{youTags.join(',')}}" data-role="tagsinput">
           <!--===================================================-->
 
           <hr class="new-section-sm bord-no">

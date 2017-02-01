@@ -17,6 +17,7 @@ export var AsideComponent = (function () {
         this.appRouter = appRouter;
         this.timelineService = timelineService;
         this.timelines = this.auth.getUser().timelines;
+        this.user = this.auth.getUser().profile;
     }
     AsideComponent.prototype.ngOnInit = function () {
     };

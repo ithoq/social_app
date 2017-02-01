@@ -19,7 +19,7 @@
             </div>
             <div class="timeline-label">
               <div *ngIf="entry.Files.length > 0" class="img-holder mar-btm"> <img alt="Image" src="{{entry.Files[0].FileURL}}"> </div>
-              <p><a href="javascript:void(0)" (click)="showDetail(entry)" class="text-main btn-link text-semibold"><i class="fa fa-heart text-muted"></i> {{entry.Name}}</a> <a class="pull-right btn-link text-semibold" routerLink="/log/{{timeline.Id}}">Alan</a></p>
+              <p><a href="javascript:void(0)" (click)="showDetail(entry)" class="text-main btn-link text-semibold"><i class="fa fa-heart text-muted"></i> {{entry.Name}}</a> <a class="pull-right btn-link text-semibold" routerLink="/log/{{timeline.Id}}">{{user.Nickname}}</a></p>
             </div>
           </div>
           <div class="clearfix"></div>

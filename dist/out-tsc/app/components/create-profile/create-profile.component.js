@@ -9,19 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { UsersService } from "../../services/users.service";
+import { Http } from "@angular/http";
 import { TimelineService } from "../../services/timeline.service";
 import { EntryService } from "../../services/entry.service";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { ProfileManagementService } from "../../services/profile-management.service";
+import { AppService } from "../../app.service";
 export var CreateProfileComponent = (function () {
-    function CreateProfileComponent(userService, timelineService, entrySerice, auth, router, profileManagementService) {
+    function CreateProfileComponent(userService, timelineService, entrySerice, auth, router, profileManagementService, http, appService) {
         this.userService = userService;
         this.timelineService = timelineService;
         this.entrySerice = entrySerice;
         this.auth = auth;
         this.router = router;
         this.profileManagementService = profileManagementService;
+        this.http = http;
+        this.appService = appService;
         this.user = null;
         var profileData = this.profileManagementService.getProfileData();
         if (profileData != null) {
@@ -57,7 +61,13 @@ export var CreateProfileComponent = (function () {
                         Type: 'Celebrations',
                         Name: 'Birthday added'
                     };
-                    _this.entrySerice.addEntry(entry).subscribe(function (data) {
+                    //adding the first entry
+                    var querystr = "";
+                    for (var propertyName in entry) {
+                        querystr += '&' + propertyName + '=' + entry[propertyName];
+                    }
+                    console.log(querystr);
+                    _this.http.get(_this.appService.api_end_point + 'entryAdd/' + _this.auth.get_session_token() + "/" + querystr).subscribe(function (data) {
                         _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
                     });
                 }, function (error) { });
@@ -82,7 +92,7 @@ export var CreateProfileComponent = (function () {
             templateUrl: './create-profile.component.html',
             styleUrls: ['./create-profile.component.css']
         }), 
-        __metadata('design:paramtypes', [UsersService, TimelineService, EntryService, AuthService, Router, ProfileManagementService])
+        __metadata('design:paramtypes', [UsersService, TimelineService, EntryService, AuthService, Router, ProfileManagementService, Http, AppService])
     ], CreateProfileComponent);
     return CreateProfileComponent;
 }());

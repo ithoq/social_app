@@ -23,6 +23,7 @@ export var EntryService = (function () {
         for (var propertyName in entry) {
             querystr += '&' + propertyName + '=' + entry[propertyName];
         }
+        //console.log(querystr);
         return this.http.post(this.appService.api_end_point + 'entryAdd/' + this.auth.get_session_token() + "/" + querystr, files);
     };
     EntryService.prototype.updateEntry = function (entry_id, entry) {

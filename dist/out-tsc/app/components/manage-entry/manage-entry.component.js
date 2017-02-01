@@ -27,10 +27,12 @@ export var ManageEntryComponent = (function () {
         /* map api */
         this.showmap = false;
         this.title = 'My first angular2-google-maps project';
-        this.lat = 51.678418;
-        this.lng = 7.809007;
+        this.lat = 45.523111;
+        this.lng = -122.672970;
         /* ----------------------- */
-        this.tags = ['a'];
+        this.whatTags = [];
+        this.whoTags = [];
+        this.youTags = [];
         this.modes = [
             { value: 'angry', img: 'emoji-angry.png' },
             { value: 'blah', img: 'emoji-blah.png' },
@@ -62,6 +64,7 @@ export var ManageEntryComponent = (function () {
         this.showDefinitions = false;
         this.selectedFiles = [];
         this.existingEntry = null;
+        this.postType = '';
         this.postName = '';
         this.postDateStart = '';
         this.postDateEnd = '';
@@ -129,15 +132,18 @@ export var ManageEntryComponent = (function () {
         else if (this.selectedTypes.length <= 0) {
             alert('please select atleast one Type');
         }
-        else if (data.DateStart <= 0) {
+        else if ($('#new-post-start-date').val() == '') {
             alert('please select Start Date');
         }
         else {
             data.TimelineId = this.seletedTimelines.join(',');
             data.Mode = this.selectedModes.join(',');
-            data.Type = this.selectedTypes[0];
-            data.Tags = $('#what-tags-input').val();
+            data.Type = this.selectedTypes.join(',');
+            data.WhatTags = $('#what-tags-input').val();
+            data.WhoTags = $('#who-tags-input').val();
+            data.YouTags = $('#you-tags-input').val();
             data.Location = this.location;
+            data.DateStart = $('#new-post-start-date').val();
             var files_1 = new FormData();
             $.each(this.selectedFiles, function (key, value) {
                 files_1.append('Image' + (key + 1), value);
@@ -163,6 +169,7 @@ export var ManageEntryComponent = (function () {
     ManageEntryComponent.prototype.modeChanged = function (data) {
         var parts = data.split(',');
         var alreadyExists = false;
+        "";
         for (var _i = 0, _a = this.selectedModes; _i < _a.length; _i++) {
             var entry = _a[_i];
             if (entry == parts[1]) {
@@ -238,6 +245,7 @@ export var ManageEntryComponent = (function () {
             if (this.existingEntry.CloseToOthers != '' && this.existingEntry.BestSelfRating != undefined) {
                 this.postCloseToOthers = parseInt(this.existingEntry.CloseToOthers);
             }
+            this.selectedTypes = this.existingEntry.Type.split(',');
             this.postName = this.existingEntry.Name;
             this.postAbout = this.existingEntry.About;
             this.postDateEnd = this.existingEntry.DateEnd;
@@ -247,7 +255,9 @@ export var ManageEntryComponent = (function () {
                 this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
             }
             this.selectedModes = this.existingEntry.Mode.split(',');
-            this.tags = this.existingEntry.Tags.split(',');
+            this.whatTags = this.existingEntry.WhatTags.split(',');
+            this.whoTags = this.existingEntry.WhoTags.split(',');
+            this.youTags = this.existingEntry.YouTags.split(',');
         }
     };
     ManageEntryComponent.prototype.ngOnInit = function () {
@@ -339,6 +349,7 @@ export var ManageEntryComponent = (function () {
                 }
             }
         });
+        $('#new-post-start-date').datepicker();
     };
     ManageEntryComponent.prototype.movedToNextSlide = function () {
         var _this = this;

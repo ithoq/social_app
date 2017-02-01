@@ -20,6 +20,11 @@ export var RegisterComponent = (function () {
         this.httpService = httpService;
         this.route = route;
         this.users = users;
+        //default values
+        this.email = '';
+        this.username = '';
+        this.pass = '';
+        this.passagain = '';
         this.auth = authenticator;
         this.appService = rootService;
         this.http = httpService;
@@ -28,6 +33,12 @@ export var RegisterComponent = (function () {
             email: '',
             password: ''
         };
+        // if(localStorage.getItem('user_num') == null){
+        //     localStorage.setItem('user_num', '5');
+        // }
+        // localStorage.setItem('user_num',(parseInt(localStorage.getItem('user_num'))+1)+'');
+        // this.email = 'newuser'+localStorage.getItem('user_num')+'@gmail.com';
+        // this.username = 'newuser'+localStorage.getItem('user_num');
     }
     RegisterComponent.prototype.registerUser = function (form) {
         var _this = this;
@@ -35,7 +46,18 @@ export var RegisterComponent = (function () {
             return false;
         }
         this.users.register(form.value).subscribe(function (data) {
-            _this.router.navigate(['login']);
+            _this.auth.attempt({ username: form.value.username, password: form.value.password }).subscribe(function (data) {
+                /*
+                 saving the authenticated user in the localStorage
+                 */
+                _this.auth.setUser(JSON.stringify({ profile: data.json().payload.User, timelines: data.json().payload.Timelines }));
+                if (_this.auth.getUser().timelines != null)
+                    _this.router.navigate([_this.auth.getUser().timelines[0].Id]);
+                else
+                    _this.router.navigate(['manage-profile']);
+            }, function (e) {
+                _this.errors = (e.json()['error_message'] != undefined) ? e.json()['error_message'] : 'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
+            });
         }, function (e) {
             _this.errors = e.json()['error_message'];
         });

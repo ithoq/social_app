@@ -32,7 +32,15 @@ export var HeaderComponent = (function () {
                 $.niftyNav('revealToggle');
             }
             else {
-                $.niftyNav('colExpToggle');
+                try {
+                    $.niftyNav('colExpToggle');
+                }
+                catch (err) {
+                    if (niftyContainer.hasClass('mainnav-lg mainnav-sm'))
+                        niftyContainer.removeClass('mainnav-lg');
+                    niftyContainer.toggleClass('mainnav-lg mainnav-sm').removeClass('mainnav-in mainnav-out');
+                    return niftyWindow.trigger('resize');
+                }
             }
         });
     };
