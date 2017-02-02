@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, Output, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { EntryService } from "../../services/entry.service";
 import { MapsAPILoader } from "angular2-google-maps/core";
@@ -23,6 +23,9 @@ export var ManageEntryComponent = (function () {
         this.chRef = chRef;
         this.mediumToManageEntry = mediumToManageEntry;
         this.router = router;
+        // Events of the components
+        this.entrycreated = new EventEmitter();
+        this.entryupdated = new EventEmitter();
         /*****************/
         /* map api */
         this.showmap = false;
@@ -63,6 +66,7 @@ export var ManageEntryComponent = (function () {
         this.selectedModes = [];
         this.showDefinitions = false;
         this.selectedFiles = [];
+        this.selectedFilesSrc = [];
         this.existingEntry = null;
         this.postType = '';
         this.postName = '';
@@ -73,6 +77,7 @@ export var ManageEntryComponent = (function () {
         this.postWhatelse = '';
         this.postBestSelf = 0;
         this.postCloseToOthers = 0;
+        this.uploadingPost = false;
         this.timelines = this.auth.getUser().timelines;
         this.noUiSlider = noUiSlider;
         this.wNumb = wNumb;
@@ -117,11 +122,36 @@ export var ManageEntryComponent = (function () {
             alert(error.json().error_message);
         });
     };
+    ManageEntryComponent.prototype.removeImage = function (index) {
+        var tempFiles = [];
+        for (var i = 0; i < this.selectedFiles.length; i++) {
+            if (index != i) {
+                tempFiles.push(this.selectedFiles[i]);
+            }
+        }
+        this.selectedFiles = tempFiles;
+        this.selectedFilesSrc.splice(index, 1);
+    };
     ManageEntryComponent.prototype.filesSelected = function (event) {
         this.selectedFiles = event.target.files;
+        console.log('selectedFiles', this.selectedFiles);
+        var length = this.selectedFiles.length;
+        this.selectedFilesSrc = [];
+        var tempSrc = [];
+        for (var i = 0; i < length; i++) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                tempSrc.push(e.target.result);
+            };
+            reader.readAsDataURL(this.selectedFiles[i]);
+        }
+        this.selectedFilesSrc = tempSrc;
+        console.log(this.selectedFilesSrc);
     };
     ManageEntryComponent.prototype.create = function (form, event) {
         var _this = this;
+        if (this.uploadingPost == true)
+            return false;
         var data = form.value;
         if (data.Name == '') {
             alert('Post Title is required');
@@ -136,6 +166,7 @@ export var ManageEntryComponent = (function () {
             alert('please select Start Date');
         }
         else {
+            this.uploadingPost = true;
             data.TimelineId = this.seletedTimelines.join(',');
             data.Mode = this.selectedModes.join(',');
             data.Type = this.selectedTypes.join(',');
@@ -150,7 +181,10 @@ export var ManageEntryComponent = (function () {
                 files_1.append('Image' + (key + 1), value);
             });
             if (this.existingEntry != null) {
+                console.log(data);
                 this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(function (data) {
+                    _this.uploadingPost = false;
+                    _this.entryupdated.emit({ data: data.json() });
                     alert('Post Updated Successfully!');
                     _this.rightContentService.aside_in = false;
                 }, function (error) {
@@ -159,6 +193,8 @@ export var ManageEntryComponent = (function () {
             }
             else {
                 this.entryService.addEntry(data, files_1).subscribe(function (data) {
+                    _this.uploadingPost = false;
+                    _this.entrycreated.emit({ data: _this.seletedTimelines });
                     alert('Post Created Successfully!');
                     _this.rightContentService.aside_in = false;
                 }, function (error) {
@@ -362,6 +398,14 @@ export var ManageEntryComponent = (function () {
         var input = document.getElementById('pac-input');
         var autocomplete = new google.maps.places.Autocomplete(input);
     };
+    __decorate([
+        Output('EntryCreated'), 
+        __metadata('design:type', Object)
+    ], ManageEntryComponent.prototype, "entrycreated", void 0);
+    __decorate([
+        Output('EntryUpdated'), 
+        __metadata('design:type', Object)
+    ], ManageEntryComponent.prototype, "entryupdated", void 0);
     ManageEntryComponent = __decorate([
         Component({
             selector: 'sa-manage-entry',

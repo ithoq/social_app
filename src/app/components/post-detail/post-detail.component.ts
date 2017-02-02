@@ -28,7 +28,6 @@ export class PostDetailComponent implements OnInit {
               this.router.navigate(['/log/custom']);
           }else{
               this.post = data.post;
-              console.log(this.post);
               this.mediumToManageEntry.setPost(data.post);
           }
         }, (error)=>{});

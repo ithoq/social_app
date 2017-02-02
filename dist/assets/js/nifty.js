@@ -1241,15 +1241,15 @@
                         e.preventDefault();
                         e.stopPropagation();
 
-                        if(toggleBtn.hasClass('push')){
-                            $.niftyNav('pushToggle');
-                        }else if(toggleBtn.hasClass('slide')){
-                            $.niftyNav('slideToggle');
-                        }else if(toggleBtn.hasClass('reveal')){
-                            $.niftyNav('revealToggle');
-                        }else{
-                            $.niftyNav('colExpToggle');
-                        }
+                        // if(toggleBtn.hasClass('push')){
+                        //     $.niftyNav('pushToggle');
+                        // }else if(toggleBtn.hasClass('slide')){
+                        //     $.niftyNav('slideToggle');
+                        // }else if(toggleBtn.hasClass('reveal')){
+                        //     $.niftyNav('revealToggle');
+                        // }else{
+                        //     $.niftyNav('colExpToggle');
+                        // }
                     }
                 )};
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, Inject, Output, ChangeDetectorRef, EventEmitter} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {EntryService} from "../../services/entry.service";
@@ -20,6 +20,11 @@ declare var google;
     styleUrls: ['./manage-entry.component.css']
 })
 export class ManageEntryComponent implements OnInit {
+    // Events of the components
+    @Output('EntryCreated') entrycreated = new EventEmitter();
+    @Output('EntryUpdated') entryupdated = new EventEmitter();
+
+
     /* external libs */
     noUiSlider: any;
     wNumb: any;
@@ -72,6 +77,7 @@ export class ManageEntryComponent implements OnInit {
     public CloseToOthers:any;
     public location:any;
     public selectedFiles:any = [];
+    public selectedFilesSrc:any = [];
 
     public existingEntry:any = null;
 
@@ -84,6 +90,8 @@ export class ManageEntryComponent implements OnInit {
     public postWhatelse:any='';
     public postBestSelf:any=0;
     public postCloseToOthers:any=0;
+
+    public uploadingPost:any = false;
     constructor(
         private auth:AuthService,
         private entryService:EntryService,
@@ -141,10 +149,35 @@ export class ManageEntryComponent implements OnInit {
         );
     }
 
+    removeImage(index){
+        let tempFiles = [];
+        for(let i = 0; i< this.selectedFiles.length; i++){
+            if(index != i){
+                tempFiles.push(this.selectedFiles[i]);
+            }
+        }
+        this.selectedFiles = tempFiles;
+        this.selectedFilesSrc.splice(index, 1);
+    }
+
     filesSelected(event){
         this.selectedFiles = event.target.files;
+        console.log('selectedFiles', this.selectedFiles);
+        var length = this.selectedFiles.length;
+        this.selectedFilesSrc = [];
+        let tempSrc = [];
+        for(let i = 0; i< length; i++){
+            let reader = new FileReader();
+            reader.onload = function (e:any) {
+               tempSrc.push(e.target.result);
+            };
+            reader.readAsDataURL(this.selectedFiles[i]);
+        }
+        this.selectedFilesSrc = tempSrc;
+        console.log(this.selectedFilesSrc);
     }
     create(form:NgForm, event){
+        if(this.uploadingPost == true) return false;
         let data = form.value;
         if (data.Name == ''){
             alert('Post Title is required');
@@ -155,6 +188,7 @@ export class ManageEntryComponent implements OnInit {
         }else if($('#new-post-start-date').val() == ''){
             alert('please select Start Date')
         }else{
+            this.uploadingPost = true;
             data.TimelineId = this.seletedTimelines.join(',');
             data.Mode = this.selectedModes.join(',');
             data.Type = this.selectedTypes.join(',');
@@ -170,8 +204,11 @@ export class ManageEntryComponent implements OnInit {
                 files.append('Image'+(key+1), value);
             });
             if(this.existingEntry != null){
+                console.log(data);
                 this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(
                     (data:Response)=>{
+                        this.uploadingPost = false;
+                        this.entryupdated.emit({data:data.json()});
                         alert('Post Updated Successfully!');
                         this.rightContentService.aside_in = false;
                     },(error) => {
@@ -181,6 +218,8 @@ export class ManageEntryComponent implements OnInit {
             }else{
                 this.entryService.addEntry(data,files).subscribe(
                     (data:any)=>{
+                        this.uploadingPost = false;
+                        this.entrycreated.emit({data:this.seletedTimelines});
                         alert('Post Created Successfully!');
                         this.rightContentService.aside_in = false;
 

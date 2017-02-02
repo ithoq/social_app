@@ -13,13 +13,15 @@ import { MediumToPostDetailService } from "../../services/medium-to-post-detail.
 import { MediumToManageEntryService } from "../../services/medium-to-manage-entry.service";
 import { ManageEntryComponent } from "../manage-entry/manage-entry.component";
 import { AuthService } from "../../services/auth.service";
+import { TimelineService } from "../../services/timeline.service";
 export var LogComponent = (function () {
-    function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry, auth) {
+    function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry, auth, timelineService) {
         this.route = route;
         this.router = router;
         this.mediumToPostDetail = mediumToPostDetail;
         this.mediumToManageEntry = mediumToManageEntry;
         this.auth = auth;
+        this.timelineService = timelineService;
         this.timeline = null;
         this.user = null;
     }
@@ -30,6 +32,24 @@ export var LogComponent = (function () {
     LogComponent.prototype.modifiedDate = function (date) {
         return date.split(' ')[0];
     };
+    LogComponent.prototype.timelineUpdated = function (event) {
+        this.refreshLog();
+    };
+    LogComponent.prototype.refreshLog = function () {
+        var _this = this;
+        var auth = this.auth;
+        var timelineService = this.timelineService;
+        var timelineId = this.timeline.Id;
+        return new Promise(function (resolve, reject) {
+            timelineService.get(timelineId, auth.getUser().profile.UserId).subscribe(function (data) {
+                _this.timeline = data.json().payload;
+                resolve(true);
+            }, function (error) {
+                console.log(error);
+                reject(false);
+            });
+        });
+    };
     LogComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.data
@@ -38,6 +58,7 @@ export var LogComponent = (function () {
                 _this.router.navigate(['/log/custom']);
             }
             _this.timeline = data.log.json().payload;
+            console.log(_this.timeline);
             _this.manageEntryComponent.setSelectedTimelines([_this.timeline.Id]); //seting up timeline id for auto select in add entry component
         }, function (error) { });
         this.user = this.auth.getUser().profile;
@@ -52,7 +73,7 @@ export var LogComponent = (function () {
             templateUrl: './log.component.html',
             styleUrls: ['./log.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService, MediumToManageEntryService, AuthService])
+        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService, MediumToManageEntryService, AuthService, TimelineService])
     ], LogComponent);
     return LogComponent;
 }());

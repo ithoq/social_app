@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 
+declare var $:any;
+
 @Component({
   selector: 'app-create-custom-log',
   templateUrl: './create-custom-log.component.html',
@@ -215,6 +217,10 @@ export class CreateCustomLogComponent implements OnInit {
       this.seletedTimelines = settings.timelines;
     }
     /*---------------------------------*/
+  }
+
+  ngAfterViewInit(){
+    $('.datepicker').datepicker();
   }
 
   ngDoCheck() {

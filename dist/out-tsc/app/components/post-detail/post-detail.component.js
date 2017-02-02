@@ -31,7 +31,6 @@ export var PostDetailComponent = (function () {
             }
             else {
                 _this.post = data.post;
-                console.log(_this.post);
                 _this.mediumToManageEntry.setPost(data.post);
             }
         }, function (error) { });

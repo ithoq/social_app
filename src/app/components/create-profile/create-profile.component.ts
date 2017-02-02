@@ -8,6 +8,9 @@ import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {ProfileManagementService} from "../../services/profile-management.service";
 import {AppService} from "../../app.service";
+import {Post} from "../../models/Post";
+
+declare var $:any;
 
 @Component({
   selector: 'sa-create-profile',
@@ -51,7 +54,9 @@ export class CreateProfileComponent implements OnInit {
   }
 
   createProfile(form:NgForm){
-        this.userService.updateSettings(form.value).subscribe((data:Response)=>{
+        let inputData = form.value;
+        inputData.DateBirthDay = $('.datepicker').val();
+        this.userService.updateSettings(inputData).subscribe((data:Response)=>{
             this.auth.setUser(JSON.stringify({profile:data.json().payload.User,timelines:data.json().payload.Timelines}));
             if(this.auth.getUser().timelines == null){
                 this.timelineService.create({Name:'My Private Timeline'}).subscribe((data:Response)=>{
@@ -60,12 +65,11 @@ export class CreateProfileComponent implements OnInit {
                   user.timelines = [{Id:data.json().payload.TimelineId,Name:'My Private Timeline'}];
                   this.auth.setUser(JSON.stringify(user));
 
-                    let entry = {
-                        TimelineId:   data.json().payload.TimelineId,
-                        DateStart: form.value.DateBirthDay,
-                        Type: 'Celebrations',
-                        Name: 'Birthday added'
-                    };
+                  let entry = new Post();
+                  entry.DateStart = inputData.DateBirthDay;
+                  entry.Type = 'Celebration';
+                  entry.Name = 'Birthday added';
+                  entry['TimelineId'] = data.json().payload.TimelineId;
 
                     //adding the first entry
                     let querystr = "";
@@ -93,6 +97,10 @@ export class CreateProfileComponent implements OnInit {
   }
   ngOnInit() {
       console.log('in the manage component')
+  }
+
+  ngAfterViewInit(){
+      $('.datepicker').datepicker();
   }
 
 }

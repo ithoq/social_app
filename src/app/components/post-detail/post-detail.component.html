@@ -27,7 +27,7 @@
 
             <div class="carousel-inner text-center" >
               <!--Item 1-->
-              <div class="item active" *ngFor="let file of post.Files">
+              <div class="item"  *ngFor="let file of post.Files; let i = index" [ngClass]="(i == 0)?'active':''">
                 <div class="thumbnail"> <img src="{{file.FileURL}}" alt="Image"> </div>
               </div>
             </div>
@@ -56,7 +56,7 @@
             <div class="panel-body">
               <p class="text-lg pad-btm">{{post.About}}</p>
               <p><strong>What else? </strong> {{post.WhatElse}}.</p>
-              <p><strong>Location: </strong> <span class="text-primary">{{post.Location}}</span> <i class="fa fa-map-marker pad-ver text-primary"></i></p>
+              <p><strong>Location: </strong> <span class="text-primary">{{(post.Location != 'undefined')?post.Location:''}}</span> <i class="fa fa-map-marker pad-ver text-primary"></i></p>
             </div>
           </div>
         </div>
@@ -73,7 +73,11 @@
               <hr class="new-section-xs bord-no">
               <div> <span class="pull-right text-primary">{{post.CloseToOthers}}%</span> <span class="mar-ver">{{user.Nickname}} felt close to others</span> </div>
               <div class="progress progress-l mar-top bg-white">
-                <div class="progress-bar bg-primary" data-toggle="tooltip" [attr.data-original-title]="(post.CloseToOthers+'%')" [ngStyle]="{width: post.CloseToOthers}"></div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: post.CloseToOthers + '%'}">
+                  <span class="sr-only">70% Complete</span>
+                </div>
+                <!--<div class="progress-bar bg-primary" data-toggle="tooltip" [attr.data-original-title]="(post.CloseToOthers+'%')" [ngStyle]="{width: post.CloseToOthers}"></div>-->
               </div>
             </div>
           </div>
@@ -88,7 +92,11 @@
               <hr class="new-section-xs bord-no">
               <div class=""> <span class="pull-right text-info">{{post.BestSelfRating}}%</span> <span class="mar-ver">Best me</span> </div>
               <div class="progress progress-l mar-top bg-white">
-                <div class="progress-bar bg-info" data-toggle="tooltip" data-original-title="95%" [ngStyle]="{width: post.BestSelfRating}"></div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: post.BestSelfRating + '%'}">
+                  <span class="sr-only">70% Complete</span>
+                </div>
+                <!--<div class="progress-bar bg-info" data-toggle="tooltip" data-original-title="95%" [ngStyle]="{width: post.BestSelfRating}"></div>-->
               </div>
               <hr class="new-section-xs bord-no">
               <div class="btn-group-justified">

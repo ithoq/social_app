@@ -217,6 +217,9 @@ export var CreateCustomLogComponent = (function () {
         }
         /*---------------------------------*/
     };
+    CreateCustomLogComponent.prototype.ngAfterViewInit = function () {
+        $('.datepicker').datepicker();
+    };
     CreateCustomLogComponent.prototype.ngDoCheck = function () {
         var settings = {
             modes: this.selectedModes,

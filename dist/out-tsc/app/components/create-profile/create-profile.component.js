@@ -16,6 +16,7 @@ import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { ProfileManagementService } from "../../services/profile-management.service";
 import { AppService } from "../../app.service";
+import { Post } from "../../models/Post";
 export var CreateProfileComponent = (function () {
     function CreateProfileComponent(userService, timelineService, entrySerice, auth, router, profileManagementService, http, appService) {
         this.userService = userService;
@@ -48,19 +49,20 @@ export var CreateProfileComponent = (function () {
     };
     CreateProfileComponent.prototype.createProfile = function (form) {
         var _this = this;
-        this.userService.updateSettings(form.value).subscribe(function (data) {
+        var inputData = form.value;
+        inputData.DateBirthDay = $('.datepicker').val();
+        this.userService.updateSettings(inputData).subscribe(function (data) {
             _this.auth.setUser(JSON.stringify({ profile: data.json().payload.User, timelines: data.json().payload.Timelines }));
             if (_this.auth.getUser().timelines == null) {
                 _this.timelineService.create({ Name: 'My Private Timeline' }).subscribe(function (data) {
                     var user = _this.auth.getUser();
                     user.timelines = [{ Id: data.json().payload.TimelineId, Name: 'My Private Timeline' }];
                     _this.auth.setUser(JSON.stringify(user));
-                    var entry = {
-                        TimelineId: data.json().payload.TimelineId,
-                        DateStart: form.value.DateBirthDay,
-                        Type: 'Celebrations',
-                        Name: 'Birthday added'
-                    };
+                    var entry = new Post();
+                    entry.DateStart = inputData.DateBirthDay;
+                    entry.Type = 'Celebration';
+                    entry.Name = 'Birthday added';
+                    entry['TimelineId'] = data.json().payload.TimelineId;
                     //adding the first entry
                     var querystr = "";
                     for (var propertyName in entry) {
@@ -85,6 +87,9 @@ export var CreateProfileComponent = (function () {
     };
     CreateProfileComponent.prototype.ngOnInit = function () {
         console.log('in the manage component');
+    };
+    CreateProfileComponent.prototype.ngAfterViewInit = function () {
+        $('.datepicker').datepicker();
     };
     CreateProfileComponent = __decorate([
         Component({
