@@ -27,6 +27,9 @@ export class LogComponent implements OnInit {
         this.router.navigate(['/post/'+entry.EntryId]);
     }
 
+    modifiedDate(date){
+        return date.split(' ')[0];
+    }
     ngOnInit() {
         this.route.data
             .subscribe((data: { log: any }) => {

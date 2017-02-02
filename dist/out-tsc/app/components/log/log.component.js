@@ -27,6 +27,9 @@ export var LogComponent = (function () {
         this.mediumToPostDetail.setPost(entry);
         this.router.navigate(['/post/' + entry.EntryId]);
     };
+    LogComponent.prototype.modifiedDate = function (date) {
+        return date.split(' ')[0];
+    };
     LogComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.data

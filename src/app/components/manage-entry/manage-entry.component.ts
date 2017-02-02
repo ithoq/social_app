@@ -31,7 +31,7 @@ export class ManageEntryComponent implements OnInit {
     title: string = 'My first angular2-google-maps project';
     lat: number = 45.523111;
     lng: number = -122.672970;
-    /* ----------------------- */
+    /* ---- ---- ---- ---- ---- --- */
 
     whatTags = [];
     whoTags = [];
@@ -163,6 +163,7 @@ export class ManageEntryComponent implements OnInit {
             data.YouTags = $('#you-tags-input').val();
             data.Location = this.location;
             data.DateStart = $('#new-post-start-date').val();
+            data.DateEnd = $('#new-post-end-date').val();
             let files = new FormData();
             $.each(this.selectedFiles, function(key, value)
             {
@@ -381,7 +382,7 @@ export class ManageEntryComponent implements OnInit {
                 }
             }
         });
-        $('#new-post-start-date').datepicker();
+        $('.datepicker').datepicker();
     }
 
     movedToNextSlide(){

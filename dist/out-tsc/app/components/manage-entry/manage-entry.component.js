@@ -29,7 +29,7 @@ export var ManageEntryComponent = (function () {
         this.title = 'My first angular2-google-maps project';
         this.lat = 45.523111;
         this.lng = -122.672970;
-        /* ----------------------- */
+        /* ---- ---- ---- ---- ---- --- */
         this.whatTags = [];
         this.whoTags = [];
         this.youTags = [];
@@ -144,6 +144,7 @@ export var ManageEntryComponent = (function () {
             data.YouTags = $('#you-tags-input').val();
             data.Location = this.location;
             data.DateStart = $('#new-post-start-date').val();
+            data.DateEnd = $('#new-post-end-date').val();
             var files_1 = new FormData();
             $.each(this.selectedFiles, function (key, value) {
                 files_1.append('Image' + (key + 1), value);
@@ -349,7 +350,7 @@ export var ManageEntryComponent = (function () {
                 }
             }
         });
-        $('#new-post-start-date').datepicker();
+        $('.datepicker').datepicker();
     };
     ManageEntryComponent.prototype.movedToNextSlide = function () {
         var _this = this;

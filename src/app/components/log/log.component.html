@@ -15,7 +15,7 @@
           <div class="timeline-entry" *ngFor="let entry of timeline.Entries">
             <div class="timeline-stat">
               <div class="timeline-icon"></div>
-              <div class="timeline-time">{{entry.DateStart}}</div>
+              <div class="timeline-time">{{modifiedDate(entry.DateStart)}}</div>
             </div>
             <div class="timeline-label">
               <div *ngIf="entry.Files.length > 0" class="img-holder mar-btm"> <img alt="Image" src="{{entry.Files[0].FileURL}}"> </div>
