@@ -26,6 +26,20 @@
     left:0;
   }
 }
+.datepicker {
+  min-height: 28px;
+}
+.carousel-indicators {
+  z-index: 1;
+}
 #mainnav-container {
   z-index: 999;
+}
+.selectimge {
+  list-style: none;
+  float: left;
+  margin-right: 5px;
+}
+.selectimge img {
+  max-width: 50px;
 }
