@@ -6,7 +6,7 @@ webpackJsonp([0,3],{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs__ = __webpack_require__(828);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AuthService; });
@@ -404,7 +404,7 @@ var ProfileManagementService = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_service__ = __webpack_require__(10);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return UsersService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -457,7 +457,7 @@ var UsersService = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_service__ = __webpack_require__(10);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return EntryService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -554,7 +554,7 @@ var MediumToLoginService = (function () {
 
 /***/ },
 
-/***/ 35:
+/***/ 30:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1069,7 +1069,7 @@ var CreateNewPasswordComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_auth_service__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_router__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_profile_management_service__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__models_Post__ = __webpack_require__(604);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CreateProfileComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1244,7 +1244,7 @@ var PickColorComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(11);
@@ -1377,7 +1377,7 @@ var HomeComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_users_service__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth_service__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__ = __webpack_require__(40);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InviteUsersComponent; });
@@ -1500,7 +1500,7 @@ var InviteUsersComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__manage_entry_manage_entry_component__ = __webpack_require__(392);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_auth_service__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_timeline_service__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_service__ = __webpack_require__(30);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return LogComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1605,7 +1605,7 @@ var LogComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_medium_to_login_service__ = __webpack_require__(255);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(49);
@@ -2039,28 +2039,27 @@ var ManageEntryComponent = (function () {
     ManageEntryComponent.prototype.changeTypeOrientation = function () {
         this.showDefinitions = !this.showDefinitions;
     };
+    ManageEntryComponent.prototype.validateStep = function (step) {
+        if (step == 1) {
+            if (this.seletedTimelines.length == 0) {
+                alert('Please select atleast 1 timeline.');
+                return false;
+            }
+            if (this.selectedTypes.length == 0) {
+                alert('Please select atleast 1 content type.');
+                return false;
+            }
+        }
+        else if (step == 2) {
+            if ($("#new-post-start-date").val() == '') {
+                alert('please select atleast start date');
+                return false;
+            }
+        }
+        return true;
+    };
     ManageEntryComponent.prototype.ngAfterViewInit = function () {
-        // $('.cutom-next').click(function(e){
-        //     var thiss = $(this);
-        //     var selected = $('.post-type-panel   label').hasClass('active');
-        //     if(selected){
-        //         $('.next.btn').click();
-        //         setTimeout(function (){
-        //             if(!$('.next.btn').is(':visible')){
-        //                 thiss.hide();
-        //             }
-        //
-        //         },200 );
-        //
-        //     }
-        //     else {
-        //             alert('please select any type of Content');
-        //     }
-        //
-        // });
-        // $('.previous.btn').click(function(){
-        //     $('.cutom-next').show();
-        // });
+        var _this = this;
         this.autocomplete();
         $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
         var add_entry_form_wizard = '#add-entry-form-wizard';
@@ -2075,7 +2074,7 @@ var ManageEntryComponent = (function () {
                 $(add_entry_form_wizard).find('.finish').hide().prop('disabled', true);
             },
             onNext: function (tab, navigation, index) {
-                return true;
+                return _this.validateStep(index);
             },
             onTabShow: function (tab, navigation, index) {
                 var $total = navigation.find('li').length;
@@ -2140,6 +2139,7 @@ var ManageEntryComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(30);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ManageLogsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2154,11 +2154,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ManageLogsComponent = (function () {
-    function ManageLogsComponent(auth, route, timelineService) {
+    function ManageLogsComponent(auth, route, timelineService, app) {
         this.auth = auth;
         this.route = route;
         this.timelineService = timelineService;
+        this.app = app;
         this.timelines = [];
         //this.timelines = this.auth.getUser().timelines;
         this.user = this.auth.getUser().profile;
@@ -2184,10 +2186,10 @@ var ManageLogsComponent = (function () {
             template: __webpack_require__(821),
             styles: [__webpack_require__(792)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */]) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__app_service__["a" /* AppService */]) === 'function' && _d) || Object])
     ], ManageLogsComponent);
     return ManageLogsComponent;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 //# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/manage-logs.component.js.map
 
@@ -2342,7 +2344,7 @@ var PostDetailComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(11);
@@ -2443,7 +2445,7 @@ var RegisterComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_service__ = __webpack_require__(10);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return TimelineService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2605,7 +2607,7 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(588);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_home_home_component__ = __webpack_require__(388);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_login_login_component__ = __webpack_require__(391);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_register_register_component__ = __webpack_require__(397);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_forgotpass_forgotpass_component__ = __webpack_require__(387);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_password_reset_prompt_password_reset_prompt_component__ = __webpack_require__(395);
@@ -3334,7 +3336,7 @@ var TokensResolver = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_medium_to_post_detail_service__ = __webpack_require__(177);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PostResolver; });
 /**
@@ -4276,7 +4278,7 @@ module.exports = "\n<!-- Bubble Numbers Form Wizard -->\n<!--===================
 /***/ 821:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n\n    <div class=\"row\">\n      <div class=\"row\"><a routerLink=\"/create-log\" class=\"btn btn-info mar-lft\">Create New Log </a></div>\n      <div class=\"spacer\"></div>\n      <div  *ngFor=\"let option of timelines\" class=\"col-lg-6\">\n        <div class=\"panel\">\n          <div class=\"panel-heading\">\n            <div class=\"panel-control\">\n              <ul class=\"pager pager-rounded\">\n                <a routerLink=\"/log/{{option.Id}}/invite-users\" id=\"demo-btn-addrow\" class=\"btn\"><i\n                        class=\"fa fa-plus text-info\"></i></a>\n              </ul>\n            </div>\n            <h3 class=\"panel-title\">{{option.Name}}<span class=\"text-sm text-muted mar-lft\"> Admin: {{option.Users[0].Nickname}}</span>\n              <button id=\"demo-btn-addrow\" class=\"btn\"><i class=\"fa fa-pencil text-info\"></i></button>\n            </h3>\n\n          </div>\n\n\n          <!--Hover Rows-->\n          <!--===================================================-->\n          <div class=\"panel-body\">\n\n\n            <table class=\"table table-hover table-vcenter\">\n              <thead>\n              <tr>\n                <th class=\"min-width\">Image</th>\n                <th>Name</th>\n                <th class=\"text-center\">Profile managed by</th>\n                <th class=\"text-center\">Profile</th>\n              </tr>\n              </thead>\n              <tbody>\n              <tr *ngFor=\"let user of option.Users\">\n                <td class=\"text-center\"><img class=\"img-xs img-circle\"\n                                             src=\"assets/img/profile-photos/profile-hannah.jpg\"\n                                             alt=\"Profile picture\"></td>\n                <td>\n                  <span class=\"text-main text-semibold\">{{user.FirstName}} {{user.LastName}}</span>\n                </td>\n                <td class=\"text-center\"><span\n                        class=\"text-muted text-semibold\">{{user.FirstName}}</span></td>\n                <td class=\"text-center\">\n                  <span class=\"text-info text-semibold\">Edit</span>\n                  <span class=\"text-info text-semibold\" (click)=\"removeUser(option.Id, user.UserId)\">Del</span>\n                </td>\n              </tr>\n              </tbody>\n            </table>\n          </div>\n          <!--===================================================-->\n          <!--End Hover Rows-->\n\n        </div>\n      </div>\n\n\n      <br>\n    </div>\n\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n\n    <div class=\"row\">\n      <div class=\"row\"><a routerLink=\"/create-log\" class=\"btn btn-info mar-lft\">Create New Log </a></div>\n      <div class=\"spacer\"></div>\n      <div  *ngFor=\"let option of timelines\" class=\"col-lg-6\">\n        <div class=\"panel\">\n          <div class=\"panel-heading\">\n            <div class=\"panel-control\">\n              <ul class=\"pager pager-rounded\">\n                <a routerLink=\"/log/{{option.Id}}/invite-users\" id=\"demo-btn-addrow\" class=\"btn\"><i\n                        class=\"fa fa-plus text-info\"></i></a>\n              </ul>\n            </div>\n            <h3 class=\"panel-title\">{{option.Name}}<span class=\"text-sm text-muted mar-lft\"> Admin: {{option.Users[0].Nickname}}</span>\n              <button id=\"demo-btn-addrow\" class=\"btn\"><i class=\"fa fa-pencil text-info\"></i></button>\n            </h3>\n\n          </div>\n\n\n          <!--Hover Rows-->\n          <!--===================================================-->\n          <div class=\"panel-body\">\n\n\n            <table class=\"table table-hover table-vcenter\">\n              <thead>\n              <tr>\n                <th class=\"min-width\">Image</th>\n                <th>Name</th>\n                <th class=\"text-center\">Profile managed by</th>\n                <th class=\"text-center\">Profile</th>\n              </tr>\n              </thead>\n              <tbody>\n              <tr *ngFor=\"let user of option.Users\">\n                <td class=\"text-center\"><img class=\"img-xs img-circle\"\n                                             src=\"{{app.domain}}/assets/img/profile-photos/profile-default.png\"\n                                             alt=\"Profile picture\"></td>\n                <td>\n                  <span class=\"text-main text-semibold\">{{user.FirstName}} {{user.LastName}}</span>\n                </td>\n                <td class=\"text-center\"><span\n                        class=\"text-muted text-semibold\">{{user.FirstName}}</span></td>\n                <td class=\"text-center\">\n                  <span class=\"text-info text-semibold\">Edit</span>\n                  <span class=\"text-info text-semibold\" (click)=\"removeUser(option.Id, user.UserId)\">Del</span>\n                </td>\n              </tr>\n              </tbody>\n            </table>\n          </div>\n          <!--===================================================-->\n          <!--End Hover Rows-->\n\n        </div>\n      </div>\n\n\n      <br>\n    </div>\n\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
 
 /***/ },
 
