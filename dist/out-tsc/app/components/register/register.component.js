@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 import { Http } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UsersService } from "../../services/users.service";
+import { User } from "../../models/User";
 export var RegisterComponent = (function () {
     function RegisterComponent(authenticator, rootService, httpService, appRouter, route, users) {
         this.authenticator = authenticator;
@@ -46,11 +47,16 @@ export var RegisterComponent = (function () {
             return false;
         }
         this.users.register(form.value).subscribe(function (data) {
-            _this.auth.attempt({ username: form.value.username, password: form.value.password }).subscribe(function (data) {
+            _this.auth.attempt({ Email: form.value.email, Password: form.value.password }).subscribe(function (data) {
                 /*
                  saving the authenticated user in the localStorage
                  */
-                _this.auth.setUser(JSON.stringify({ profile: data.json().payload.User, timelines: data.json().payload.Timelines }));
+                var user = new User();
+                var updatedUser = data.json().payload.User;
+                for (var property in updatedUser) {
+                    user[property] = updatedUser[property];
+                }
+                _this.auth.setUser(JSON.stringify({ profile: user, timelines: data.json().payload.Timelines }));
                 if (_this.auth.getUser().timelines != null)
                     _this.router.navigate([_this.auth.getUser().timelines[0].Id]);
                 else

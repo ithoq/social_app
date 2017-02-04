@@ -13,7 +13,7 @@
             <div class="col-lg-12">
                 <div class="panel">
 
-                    <form id="demo-bvd-notempty" action="m-add-profile.html" class="form-horizontal" (submit)="createProfile(f)" #f="ngForm">
+                    <form id="demo-bvd-notempty" action="#" class="form-horizontal" (submit)="createProfile(f)" #f="ngForm">
 
 
                         <div class="panel-heading">
@@ -24,8 +24,8 @@
                         </div>
 
                         <div class="panel-body">
-                            <div class="text-center pad-ver"> <img alt="Avatar" class="img-lg img-circle img-border-aquamarine mar-btm" src="assets/img/profile-photos/profile-default.png">
-                                <p class="text-sm">Add photo</p>
+                            <div (click)="chooseFile()" class="text-center pad-ver"> <img alt="Avatar" class="img-lg img-circle img-border-aquamarine mar-btm" [src]="(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '')?appService.default_user_profile_pic:user.ImageURL)">
+                                <p class="text-sm">Add photo <input id="profile-img-chooser" style="display: none;" type="file" (change)="filesSelected($event)"></p>
                             </div>
                             <br>
                             <p class="text-main text-bold">Name</p>

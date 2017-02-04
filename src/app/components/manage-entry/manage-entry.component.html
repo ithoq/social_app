@@ -93,9 +93,9 @@
           <!--===================================================-->
           <div id="demo-dp-range">
             <div class="input-daterange input-group">
-              <input id="new-post-start-date" type="text" class="form-control datepicker" [(ngModel)]="postDateStart" name="DateStart" />
+              <input id="new-post-start-date" class="form-control datepicker" [(ngModel)]="postDateStart" name="DateStart" />
               <span class="input-group-addon">to</span>
-              <input id="new-post-end-date" type="text" class="form-control datepicker" [(ngModel)]="postDateEnd" name="DateEnd" />
+              <input id="new-post-end-date" class="form-control datepicker" [(ngModel)]="postDateEnd" name="DateEnd" />
             </div>
           </div>
           <!--===================================================-->
@@ -124,9 +124,10 @@
             <div class="bord-top pad-ver">
               <!-- The fileinput-button span is used to style the file input field as button -->
               <span class="btn btn-default fileinput-button dz-clickable"> <i class="fa fa-plus"></i> <span>Add Images<input id="post-images" (change)="filesSelected($event)" type="file" ngModel name="images" multiple  /></span> </span>
-              <ul class="clearfix">
+              <ul class="clearfix imglisting">
                 <li class="selectimge" *ngFor="let img of selectedFilesSrc; let i = index" >
-                  <img src="{{img}}" (click)="removeImage(i)">
+                  <img src="{{img}}" >
+                  <span class="cross" (click)="removeImage(i)">x</span>
                 </li>
               </ul>
               <div class="btn-group pull-right">

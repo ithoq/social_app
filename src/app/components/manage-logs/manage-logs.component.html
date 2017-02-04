@@ -46,7 +46,7 @@
               <tbody>
               <tr *ngFor="let user of option.Users">
                 <td class="text-center"><img class="img-xs img-circle"
-                                             src="assets/img/profile-photos/profile-hannah.jpg"
+                                             [src]="(user.ImageURL == undefined)?app.default_user_profile_pic:user.ImageURL"
                                              alt="Profile picture"></td>
                 <td>
                   <span class="text-main text-semibold">{{user.FirstName}} {{user.LastName}}</span>

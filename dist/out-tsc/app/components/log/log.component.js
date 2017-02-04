@@ -14,14 +14,16 @@ import { MediumToManageEntryService } from "../../services/medium-to-manage-entr
 import { ManageEntryComponent } from "../manage-entry/manage-entry.component";
 import { AuthService } from "../../services/auth.service";
 import { TimelineService } from "../../services/timeline.service";
+import { AppService } from "../../app.service";
 export var LogComponent = (function () {
-    function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry, auth, timelineService) {
+    function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry, auth, timelineService, app) {
         this.route = route;
         this.router = router;
         this.mediumToPostDetail = mediumToPostDetail;
         this.mediumToManageEntry = mediumToManageEntry;
         this.auth = auth;
         this.timelineService = timelineService;
+        this.app = app;
         this.timeline = null;
         this.user = null;
     }
@@ -50,6 +52,18 @@ export var LogComponent = (function () {
             });
         });
     };
+    LogComponent.prototype.getEntryTypes = function (givenTypes) {
+        var foundTypes = [];
+        for (var _i = 0, _a = givenTypes.split(','); _i < _a.length; _i++) {
+            var givenType = _a[_i];
+            for (var _b = 0, _c = this.manageEntryComponent.types; _b < _c.length; _b++) {
+                var hostedType = _c[_b];
+                if (hostedType.value == givenType)
+                    foundTypes.push(hostedType);
+            }
+        }
+        return foundTypes;
+    };
     LogComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.data
@@ -73,7 +87,7 @@ export var LogComponent = (function () {
             templateUrl: './log.component.html',
             styleUrls: ['./log.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService, MediumToManageEntryService, AuthService, TimelineService])
+        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService, MediumToManageEntryService, AuthService, TimelineService, AppService])
     ], LogComponent);
     return LogComponent;
 }());

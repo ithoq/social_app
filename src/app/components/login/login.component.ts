@@ -6,6 +6,7 @@ import { Http, Response } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {User} from "../../models/User";
 
 @Component({
   selector: 'sa-login',
@@ -37,7 +38,12 @@ export class LoginComponent implements OnInit {
               /*
                saving the authenticated user in the localStorage
                */
-              this.auth.setUser(JSON.stringify({profile:data.json().payload.User,timelines:data.json().payload.Timelines}));
+              let user = new User();
+              let updatedUser = data.json().payload.User;
+              for (var property in updatedUser) {
+                  user[property] = updatedUser[property];
+              }
+              this.auth.setUser(JSON.stringify({profile:user,timelines:data.json().payload.Timelines}));
               if(this.auth.getUser().timelines != null)
                   this.router.navigate(['home']);
               else

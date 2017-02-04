@@ -22,10 +22,32 @@
   top:40px;
   max-width:100%;
 }
-  #container.mainnav-sm #mainnav-container {
-    left:0;
-  }
+
+}
+.datepicker {
+  min-height: 28px;
+}
+.carousel-indicators {
+  z-index: 1;
 }
 #mainnav-container {
   z-index: 999;
 }
+.selectimge {
+  list-style: none;
+  float: left;
+  margin-right: 5px;
+}
+.selectimge img {
+  max-width: 100px;
+}
+.wide {
+  width: 100%;
+}
+@media (max-width:400px){
+  .select2-container {
+    width:100% !important;
+  }
+}
+
+

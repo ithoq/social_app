@@ -18,6 +18,8 @@ export var AuthService = (function () {
         this.app_token = '';
         this.session_token = '';
         this.user = null;
+        this.currentUser = null;
+        this.currentUser = this.getUser().profile;
     }
     AuthService.prototype.getUser = function () {
         return (localStorage.getItem('user') != null) ? JSON.parse(localStorage.getItem('user')) : null;
@@ -55,9 +57,10 @@ export var AuthService = (function () {
     AuthService.prototype.setUser = function (user) {
         localStorage.setItem('user', user);
         this.user = user;
+        this.currentUser = JSON.parse(user).profile;
     };
     AuthService.prototype.attempt = function (credentials) {
-        return this.http.get(this.appService.api_end_point + 'userSignin/' + this.get_session_token() + '/&Email=&Username=' + credentials.username + '&Pass=' + credentials.password);
+        return this.http.get(this.appService.api_end_point + 'userSignin/' + this.get_session_token() + '/&Email=' + credentials.Email + '&Pass=' + credentials.Password);
     };
     //removes the user from the localStorage
     AuthService.prototype.logout = function () {

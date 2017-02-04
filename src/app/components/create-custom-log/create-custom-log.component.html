@@ -57,9 +57,9 @@
                   <!--===================================================-->
                   <div id="demo-dp-range">
                     <div class="input-daterange input-group" id="datepicker">
-                      <input type="text" class="form-control datepicker" name="start" />
+                      <input type="text" class="form-control datepicker" name="start" id="from-date"/>
                       <span class="input-group-addon">to</span>
-                      <input type="text" class="form-control datepicker" name="end" />
+                      <input type="text" class="form-control datepicker" name="end" id="to-date"/>
                     </div>
                   </div>
                   <!--===================================================-->
@@ -98,7 +98,7 @@
                   <!--===================================================-->
                   <!--                  <div class="pre-scrollable bord-ver">
                   -->
-                  <div class="tags-widget">
+                  <div class="tags-widget clearfix">
                     <label *ngFor="let option of tags" [ngClass]="{active: isTagSelected(option)}">
                       <input type="checkbox" #tag value="{{option}}" [checked]="isTagSelected(option)" (change)="tagChanged(tag.checked+','+tag.value)" />
                       <span>{{option}}</span>
@@ -109,7 +109,8 @@
               </div>
               <div class="col-sm-12 col-md-3">
                 <div class="mar-btm">
-                  <p class="dropdown-header">View Moods<span>
+                  <div class="clear"></div>
+                  <p class="dropdown-header wide" >View Moods<span>
                                                 <button class="btn btn-xs btn-rounded btn-default pull-right" (click)="unselectAllMoods()">None</button>
                                                 <button class="btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm" (click)="selectAllMoods()">All</button>
                                                 </span>

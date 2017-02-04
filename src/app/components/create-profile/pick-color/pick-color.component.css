@@ -15,3 +15,15 @@
 .chose-color label input {
     visibility: hidden;
 }
+.chose-color  label   input {
+    position: absolute;
+}
+.chose-color   label{
+    padding:30px 0;
+    text-align: center;
+}
+@media(max-width: 767px){
+    .chose-color   label {
+        font-size: 10px;
+    } 
+}

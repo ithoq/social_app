@@ -1,0 +1,6 @@
+@media only screen and (max-width: 500px) {
+    .mar-rgt, .mar-lft {
+        font-size: 12px;
+        margin:0 5px;
+    }
+}

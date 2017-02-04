@@ -33,7 +33,7 @@ export class CreateCustomLogComponent implements OnInit {
     {value:'Purpose',img:'icon-world-big.png', desc:'description'},
     {value:'People',img:'icon-images-big.png', desc:'description'},
     {value:'Bigs',img:'logo.png', desc:'description'},
-    {value:'Other',img:'add.png', desc:'description'}
+    {value:'Other',img:'icon-growth-big.png', desc:'description'}
   ];
   public tags:any = [
     'angry', 'blah', 'brilliant','calm'
@@ -228,7 +228,9 @@ export class CreateCustomLogComponent implements OnInit {
       modes:this.selectedModes,
       tags:this.selectedTags,
       types:this.selectedTypes,
-      timelines:this.seletedTimelines
+      timelines:this.seletedTimelines,
+      fromDate:$('#from-date').val(),
+      toDate:$('#to-date').val()
     };
     localStorage.setItem('custom_log_settings',JSON.stringify(settings));
   }

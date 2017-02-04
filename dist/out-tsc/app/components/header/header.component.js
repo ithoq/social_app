@@ -14,33 +14,20 @@ export var HeaderComponent = (function () {
     HeaderComponent.prototype.ngOnInit = function () {
     };
     HeaderComponent.prototype.ngAfterViewInit = function () {
-        var niftyContainer = $('#container');
-        var niftyWindow = $(window);
         var toggleBtn = $('.mainnav-toggle');
         //alert(toggleBtn);
         //  $(document).on('click', '.mainnav-toggle', function(e){
         toggleBtn.on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            if (toggleBtn.hasClass('push')) {
-                $.niftyNav('pushToggle');
-            }
-            else if (toggleBtn.hasClass('slide')) {
-                $.niftyNav('slideToggle');
-            }
-            else if (toggleBtn.hasClass('reveal')) {
-                $.niftyNav('revealToggle');
+            var niftyContainer = $('#container');
+            var niftyWindow = $(window);
+            var widnowwidth = niftyWindow.width();
+            if (widnowwidth > 767) {
+                niftyContainer.toggleClass('mainnav-lg mainnav-sm');
             }
             else {
-                try {
-                    $.niftyNav('colExpToggle');
-                }
-                catch (err) {
-                    if (niftyContainer.hasClass('mainnav-lg mainnav-sm'))
-                        niftyContainer.removeClass('mainnav-lg');
-                    niftyContainer.toggleClass('mainnav-lg mainnav-sm').removeClass('mainnav-in mainnav-out');
-                    return niftyWindow.trigger('resize');
-                }
+                niftyContainer.toggleClass('mainnav-sm mainnav-in');
             }
         });
     };

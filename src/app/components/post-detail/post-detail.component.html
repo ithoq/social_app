@@ -99,8 +99,11 @@
                 <!--<div class="progress-bar bg-info" data-toggle="tooltip" data-original-title="95%" [ngStyle]="{width: post.BestSelfRating}"></div>-->
               </div>
               <hr class="new-section-xs bord-no">
-              <div class="btn-group-justified">
-                <a *ngFor="let option of post.Mode.split(',')" href="javascript:void(0)" data-toggle="button" class="btn btn-md btn-active-highlight pad-top"><img class="img-sm" src="assets/img/emoji-{{option}}.png" alt="thumbs"> <p>{{option}}</p></a>
+              <div class="btn-group-justified cutoms" *ngIf="post.Mode != ''">
+                <a *ngFor="let option of post.Mode.split(',')" href="javascript:void(0)" data-toggle="button" class="btn btn-md btn-active-highlight pad-top">
+                  <img class="img-sm" src="assets/img/emoji-{{option}}.png" alt="thumbs">
+                  <p>{{option}}</p>
+                </a>
               </div>
             </div>
           </div>

@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {UsersService} from "../../services/users.service";
+import {User} from "../../models/User";
 
 @Component({
   selector: 'sa-register',
@@ -53,12 +54,17 @@ export class RegisterComponent implements OnInit {
 
       this.users.register(form.value).subscribe(
           (data:Response) => {
-              this.auth.attempt({username:form.value.username, password:form.value.password}).subscribe(
+              this.auth.attempt({Email:form.value.email, Password:form.value.password}).subscribe(
                   (data:Response) => {
                       /*
                        saving the authenticated user in the localStorage
                        */
-                      this.auth.setUser(JSON.stringify({profile:data.json().payload.User,timelines:data.json().payload.Timelines}));
+                      let user = new User();
+                      let updatedUser = data.json().payload.User;
+                      for (var property in updatedUser) {
+                          user[property] = updatedUser[property];
+                      }
+                      this.auth.setUser(JSON.stringify({profile:user,timelines:data.json().payload.Timelines}));
                       if(this.auth.getUser().timelines != null)
                           this.router.navigate([this.auth.getUser().timelines[0].Id]);
                       else

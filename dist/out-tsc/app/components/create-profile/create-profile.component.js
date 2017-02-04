@@ -28,10 +28,14 @@ export var CreateProfileComponent = (function () {
         this.http = http;
         this.appService = appService;
         this.user = null;
+        this.selectedImage = null;
+        this.selectedThumbnail = '';
         var profileData = this.profileManagementService.getProfileData();
         if (profileData != null) {
-            this.user = profileData;
+            this.user = profileData.user;
             this.user.Color = this.profileManagementService.getColor();
+            this.selectedThumbnail = profileData.selectedThumbnail;
+            this.selectedImage = profileData.selectedImage;
         }
         else {
             this.user = this.auth.getUser().profile;
@@ -51,8 +55,17 @@ export var CreateProfileComponent = (function () {
         var _this = this;
         var inputData = form.value;
         inputData.DateBirthDay = $('.datepicker').val();
-        this.userService.updateSettings(inputData).subscribe(function (data) {
-            _this.auth.setUser(JSON.stringify({ profile: data.json().payload.User, timelines: data.json().payload.Timelines }));
+        var image = null;
+        if (this.selectedImage != null) {
+            image = new FormData();
+            image.append('Image', this.selectedImage);
+        }
+        this.userService.updateSettings(inputData, image).subscribe(function (data) {
+            var updatedUser = data.json().payload.User;
+            for (var property in updatedUser) {
+                _this.user[property] = updatedUser[property];
+            }
+            _this.auth.setUser(JSON.stringify({ profile: _this.user, timelines: _this.auth.getUser().timelines }));
             if (_this.auth.getUser().timelines == null) {
                 _this.timelineService.create({ Name: 'My Private Timeline' }).subscribe(function (data) {
                     var user = _this.auth.getUser();
@@ -68,25 +81,44 @@ export var CreateProfileComponent = (function () {
                     for (var propertyName in entry) {
                         querystr += '&' + propertyName + '=' + entry[propertyName];
                     }
-                    console.log(querystr);
                     _this.http.get(_this.appService.api_end_point + 'entryAdd/' + _this.auth.get_session_token() + "/" + querystr).subscribe(function (data) {
                         _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
                     });
                 }, function (error) { });
             }
             else {
-                _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
+                alert('Profile updated successfully');
             }
         }, function (error) {
+            alert('some thing went wrong with the server please try again.');
         });
     };
+    CreateProfileComponent.prototype.filesSelected = function (event) {
+        var _this = this;
+        if (event.target.files.length > 0) {
+            this.selectedImage = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                _this.selectedThumbnail = e.target.result;
+            };
+            reader.readAsDataURL(this.selectedImage);
+        }
+    };
     CreateProfileComponent.prototype.chooseColor = function (form) {
-        this.profileManagementService.setProfileData(form.value);
+        var data = {
+            user: form.value,
+            selectedImage: this.selectedImage,
+            selectedThumbnail: this.selectedThumbnail,
+            DateBirthDay: $('.datepicker').val()
+        };
+        this.profileManagementService.setProfileData(data);
         this.profileManagementService.setAllowColorChooser(true);
         this.router.navigate(['pick-color']);
     };
+    CreateProfileComponent.prototype.chooseFile = function () {
+        jQuery('#profile-img-chooser').click();
+    };
     CreateProfileComponent.prototype.ngOnInit = function () {
-        console.log('in the manage component');
     };
     CreateProfileComponent.prototype.ngAfterViewInit = function () {
         $('.datepicker').datepicker();

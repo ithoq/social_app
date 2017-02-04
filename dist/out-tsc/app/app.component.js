@@ -21,13 +21,20 @@ export var AppComponent = (function () {
         router.events.forEach(function (event) {
             if (event instanceof NavigationStart) {
                 _this.rightContent.aside_in = false;
+                jQuery(document).ready(function () {
+                    var niftyContainer = $('#container');
+                    var niftyWindow = $(window);
+                    var widnowwidth = niftyWindow.width();
+                    if (widnowwidth <= 767) {
+                        niftyContainer.removeClass('mainnav-in');
+                        niftyContainer.addClass('mainnav-sm');
+                    }
+                });
             }
-            // NavigationEnd
-            // NavigationCancel
-            // NavigationError
-            // RoutesRecognized
         });
     }
+    AppComponent.prototype.ngOnInit = function () {
+    };
     AppComponent = __decorate([
         Component({
             selector: 'sa-root',

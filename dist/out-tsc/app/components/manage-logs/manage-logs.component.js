@@ -11,11 +11,13 @@ import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { ActivatedRoute } from "@angular/router";
 import { TimelineService } from "../../services/timeline.service";
+import { AppService } from "../../app.service";
 export var ManageLogsComponent = (function () {
-    function ManageLogsComponent(auth, route, timelineService) {
+    function ManageLogsComponent(auth, route, timelineService, app) {
         this.auth = auth;
         this.route = route;
         this.timelineService = timelineService;
+        this.app = app;
         this.timelines = [];
         //this.timelines = this.auth.getUser().timelines;
         this.user = this.auth.getUser().profile;
@@ -33,6 +35,7 @@ export var ManageLogsComponent = (function () {
         this.route.data
             .subscribe(function (data) {
             _this.timelines = data.logs.json().payload;
+            console.log(_this.timelines);
         }, function (error) { });
     };
     ManageLogsComponent = __decorate([
@@ -41,7 +44,7 @@ export var ManageLogsComponent = (function () {
             templateUrl: './manage-logs.component.html',
             styleUrls: ['./manage-logs.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, ActivatedRoute, TimelineService])
+        __metadata('design:paramtypes', [AuthService, ActivatedRoute, TimelineService, AppService])
     ], ManageLogsComponent);
     return ManageLogsComponent;
 }());

@@ -6,3 +6,16 @@
 .timeline-label .img-holder img {
     height: 100%;
 }
+
+.type-icon-grey img {
+    width:25px;
+    filter: grayscale(100%);
+}
+@media (max-width: 640px){
+    .timeline-label .img-holder {
+        height: auto;
+    }
+    .timeline-label .img-holder img {
+        height: auto;
+    }
+}

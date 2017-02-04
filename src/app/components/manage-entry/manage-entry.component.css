@@ -91,3 +91,23 @@
 .fileinput-button {
     position: relative;
 }
+.imglisting {
+    padding:0;
+    max-resolution: 10px 0;
+}
+.imglisting li {
+    position: relative;
+}
+.selectimge  .cross {
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    z-index: 99999;
+    height: 20px;
+    width: 20px;
+    font-weight:bold;
+    line-height: 20px;
+    background: red;
+    color: #fff
+    }

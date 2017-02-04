@@ -5,6 +5,7 @@ import {MediumToManageEntryService} from "../../services/medium-to-manage-entry.
 import {ManageEntryComponent} from "../manage-entry/manage-entry.component";
 import {AuthService} from "../../services/auth.service";
 import {TimelineService} from "../../services/timeline.service";
+import {AppService} from "../../app.service";
 
 @Component({
     selector: 'app-log',
@@ -21,7 +22,8 @@ export class LogComponent implements OnInit {
         private mediumToPostDetail:MediumToPostDetailService,
         private mediumToManageEntry:MediumToManageEntryService,
         private auth:AuthService,
-        private timelineService:TimelineService
+        private timelineService:TimelineService,
+        public app:AppService
     ) {}
 
     showDetail(entry:any){
@@ -53,6 +55,17 @@ export class LogComponent implements OnInit {
                 }
             );
         });
+    }
+
+    getEntryTypes(givenTypes:string){
+        let foundTypes = [];
+        for(let givenType of givenTypes.split(',')){
+            for(let hostedType of this.manageEntryComponent.types){
+                if(hostedType.value == givenType)
+                    foundTypes.push(hostedType);
+            }
+        }
+        return foundTypes;
     }
 
     ngOnInit() {

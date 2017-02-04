@@ -1,0 +1,5 @@
+.btn-group-justified.cutoms>.btn, .btn-group-justified.cutoms>.btn-group {
+    display: block;
+    float: left;
+    width: 33.33%;
+}

@@ -11,11 +11,13 @@ import { Component } from '@angular/core';
 import { AuthService } from "../../../services/auth.service";
 import { Router } from "@angular/router";
 import { TimelineService } from "../../../services/timeline.service";
+import { AppService } from "../../../app.service";
 export var AsideComponent = (function () {
-    function AsideComponent(auth, appRouter, timelineService) {
+    function AsideComponent(auth, appRouter, timelineService, app) {
         this.auth = auth;
         this.appRouter = appRouter;
         this.timelineService = timelineService;
+        this.app = app;
         this.timelines = this.auth.getUser().timelines;
         this.user = this.auth.getUser().profile;
     }
@@ -33,7 +35,7 @@ export var AsideComponent = (function () {
             templateUrl: './aside.component.html',
             styleUrls: ['./aside.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, Router, TimelineService])
+        __metadata('design:paramtypes', [AuthService, Router, TimelineService, AppService])
     ], AsideComponent);
     return AsideComponent;
 }());

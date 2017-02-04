@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
 import {AppService} from "../app.service";
 import {Observable} from "rxjs";
+import {User} from "../models/User";
 
 @Injectable()
 export class AuthService {
   private app_token = '';
   private session_token = '';
   private user:any = null;
-  constructor(private http:Http, private appService:AppService) { }
+  public currentUser:User = null;
+  constructor(private http:Http, private appService:AppService) {
+    this.currentUser = this.getUser().profile;
+  }
 
   getUser() {
       return (localStorage.getItem('user') != null)?JSON.parse(localStorage.getItem('user')):null;
@@ -48,10 +52,11 @@ export class AuthService {
   setUser(user:any){
     localStorage.setItem('user',user);
     this.user = user;
+    this.currentUser = JSON.parse(user).profile;
   }
 
   attempt(credentials){
-      return this.http.get(this.appService.api_end_point+'userSignin/'+this.get_session_token()+'/&Email=&Username='+credentials.username+'&Pass='+credentials.password);
+      return this.http.get(this.appService.api_end_point+'userSignin/'+this.get_session_token()+'/&Email='+credentials.Email+'&Pass='+credentials.Password);
   }
 
   //removes the user from the localStorage

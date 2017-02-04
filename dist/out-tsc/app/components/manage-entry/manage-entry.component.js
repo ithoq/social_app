@@ -58,7 +58,7 @@ export var ManageEntryComponent = (function () {
             { value: 'Purpose', img: 'icon-world-big.png', desc: 'Tantas lucilius no vis, cu aliquid nominavi eloquentiam duo. Clita timeam duo an. Te eam postea facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.' },
             { value: 'People', img: 'icon-images-big.png', desc: 'Conceptam abhorreant est cu, possit reprehendunt sit at. Ius augue legimus in, sit cibo essent et, quas ipsum decore pro no. Te usu mandamus conceptam voluptatum, vim ei erat delenit volutpat. Ei per tollit dicant, per wisi mandamus salutatus ex. At persius delectus perpetua vel.' },
             { value: 'Bigs', img: 'logo.png', desc: 'Tantas lucilius no vis, cu aliquid nominavi eloquentiam duo. Clita timeam duo an. Te eam postea facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.' },
-            { value: 'Other', img: 'add.png', desc: 'Luptatum platonem instructior id nec, ea eam sale comprehensam, sit suas dicat eu. Ei mel sapientem constituto, cetero vivendo inciderint ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.' }
+            { value: 'Other', img: 'icon-growth-big.png', desc: 'Luptatum platonem instructior id nec, ea eam sale comprehensam, sit suas dicat eu. Ei mel sapientem constituto, cetero vivendo inciderint ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.' }
         ];
         this.timelines = [];
         this.seletedTimelines = [];
@@ -352,7 +352,31 @@ export var ManageEntryComponent = (function () {
     ManageEntryComponent.prototype.changeTypeOrientation = function () {
         this.showDefinitions = !this.showDefinitions;
     };
+    ManageEntryComponent.prototype.validateStep = function (step) {
+        if (step == 1) {
+            if (this.selectedTypes.length == 0) {
+                alert('Please select atleast 1 content type.');
+                return false;
+            }
+            if (this.seletedTimelines.length == 0) {
+                alert('Please select atleast 1 timeline.');
+                return false;
+            }
+        }
+        else if (step == 2) {
+            if (this.postName == '') {
+                alert('Please enter a title for the post.');
+                return false;
+            }
+            if ($("#new-post-start-date").val() == '') {
+                alert('please select atleast start date');
+                return false;
+            }
+        }
+        return true;
+    };
     ManageEntryComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
         this.autocomplete();
         $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
         var add_entry_form_wizard = '#add-entry-form-wizard';
@@ -365,6 +389,9 @@ export var ManageEntryComponent = (function () {
             },
             onInit: function () {
                 $(add_entry_form_wizard).find('.finish').hide().prop('disabled', true);
+            },
+            onNext: function (tab, navigation, index) {
+                return _this.validateStep(index);
             },
             onTabShow: function (tab, navigation, index) {
                 var $total = navigation.find('li').length;
