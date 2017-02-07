@@ -8,7 +8,10 @@ declare var $:any;
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+    public title:any = '';
+  constructor() {
+
+  }
 
   ngOnInit() {
   }

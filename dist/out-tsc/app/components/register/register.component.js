@@ -58,7 +58,7 @@ export var RegisterComponent = (function () {
                 }
                 _this.auth.setUser(JSON.stringify({ profile: user, timelines: data.json().payload.Timelines }));
                 if (_this.auth.getUser().timelines != null)
-                    _this.router.navigate([_this.auth.getUser().timelines[0].Id]);
+                    _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
                 else
                     _this.router.navigate(['manage-profile']);
             }, function (e) {

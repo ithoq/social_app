@@ -15,15 +15,14 @@ export class EntryService {
         for(let propertyName in entry) {
             querystr+= '&'+propertyName+'='+entry[propertyName];
         }
-        //console.log(querystr);
         return this.http.post(this.appService.api_end_point+'entryAdd/'+this.auth.get_session_token()+"/"+querystr, files);
     }
-    updateEntry(entry_id, entry){
+    updateEntry(entry_id, entry, files={}){
         let querystr = "";
         for(let propertyName in entry) {
             querystr+= '&'+propertyName+'='+entry[propertyName];
         }
-        return this.http.get(this.appService.api_end_point+'entryUpdate/'+this.auth.get_session_token()+"/&EntryId="+entry_id+querystr);
+        return this.http.post(this.appService.api_end_point+'entryUpdate/'+this.auth.get_session_token()+"/&EntryId="+entry_id+querystr, files);
     }
 
 }

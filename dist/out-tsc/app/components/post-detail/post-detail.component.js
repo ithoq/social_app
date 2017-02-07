@@ -12,18 +12,27 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { MediumToManageEntryService } from "../../services/medium-to-manage-entry.service";
 import { AddContentBtnComponent } from "../add-content-btn/add-content-btn.component";
+import { HeaderComponent } from "../header/header.component";
 export var PostDetailComponent = (function () {
     function PostDetailComponent(route, router, auth, mediumToManageEntry) {
         this.route = route;
         this.router = router;
         this.auth = auth;
         this.mediumToManageEntry = mediumToManageEntry;
-        this.bestSelfRating = 95;
+        this.bestSelfRating = 0;
         this.user = this.auth.getUser().profile;
     }
+    PostDetailComponent.prototype.updatePost = function (event) {
+        console.log(event);
+        var post = this.post;
+        for (var property in event.data) {
+            post[property] = event.data[property];
+        }
+        this.post = post;
+        // console.log(this.post);
+    };
     PostDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.addContentBtnComponent.content = 'Edit Post';
         this.route.data
             .subscribe(function (data) {
             if (data.post == null) {
@@ -31,7 +40,13 @@ export var PostDetailComponent = (function () {
             }
             else {
                 _this.post = data.post;
-                _this.mediumToManageEntry.setPost(data.post);
+                var title = _this.post.DateStart.split(' ')[0] +
+                    ' ' + _this.post.DateEnd.split(' ')[0];
+                _this.headerComponent.title = title;
+                if (_this.auth.currentUser.UserId == _this.post.UserId) {
+                    _this.addContentBtnComponent.content = 'Edit Post';
+                    _this.mediumToManageEntry.setPost(data.post);
+                }
             }
         }, function (error) { });
     };
@@ -42,6 +57,10 @@ export var PostDetailComponent = (function () {
         ViewChild(AddContentBtnComponent), 
         __metadata('design:type', Object)
     ], PostDetailComponent.prototype, "addContentBtnComponent", void 0);
+    __decorate([
+        ViewChild(HeaderComponent), 
+        __metadata('design:type', Object)
+    ], PostDetailComponent.prototype, "headerComponent", void 0);
     PostDetailComponent = __decorate([
         Component({
             selector: 'app-post-detail',

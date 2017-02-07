@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 export var HeaderComponent = (function () {
     function HeaderComponent() {
+        this.title = '';
     }
     HeaderComponent.prototype.ngOnInit = function () {
     };

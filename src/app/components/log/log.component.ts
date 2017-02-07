@@ -6,6 +6,7 @@ import {ManageEntryComponent} from "../manage-entry/manage-entry.component";
 import {AuthService} from "../../services/auth.service";
 import {TimelineService} from "../../services/timeline.service";
 import {AppService} from "../../app.service";
+import {HeaderComponent} from "../header/header.component";
 
 @Component({
     selector: 'app-log',
@@ -14,6 +15,7 @@ import {AppService} from "../../app.service";
 })
 export class LogComponent implements OnInit {
     @ViewChild(ManageEntryComponent) manageEntryComponent;
+    @ViewChild(HeaderComponent) headerComponent;
     public timeline = null;
     public user:any = null;
     constructor(
@@ -74,6 +76,7 @@ export class LogComponent implements OnInit {
                 if(data.log == null){ this.router.navigate(['/log/custom']); }
                 this.timeline = data.log.json().payload;
                 console.log(this.timeline);
+                this.headerComponent.title = this.timeline.Name;
                 this.manageEntryComponent.setSelectedTimelines([this.timeline.Id]); //seting up timeline id for auto select in add entry component
             }, (error)=>{});
         this.user = this.auth.getUser().profile;

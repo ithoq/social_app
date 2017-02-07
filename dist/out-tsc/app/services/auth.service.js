@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 import { Http } from "@angular/http";
 import { AppService } from "../app.service";
 import { Observable } from "rxjs";
+import { User } from "../models/User";
 export var AuthService = (function () {
     function AuthService(http, appService) {
         this.http = http;
@@ -19,7 +20,7 @@ export var AuthService = (function () {
         this.session_token = '';
         this.user = null;
         this.currentUser = null;
-        this.currentUser = this.getUser().profile;
+        this.currentUser = (this.getUser() == null) ? new User() : this.getUser().profile;
     }
     AuthService.prototype.getUser = function () {
         return (localStorage.getItem('user') != null) ? JSON.parse(localStorage.getItem('user')) : null;

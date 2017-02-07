@@ -9,14 +9,17 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+#container #aside-container .panel-body {
+  height:calc(100vh - 200px);
+  overflow: auto;
+}
 #container #aside-container {
   padding: 0;
-  position: absolute;
+  position: fixed;
 /*  width: 320px;
 */  
 width: 488px;
-  height: auto;
+  height: 100vh;
   left: auto;
   right: -488px;
   top: 0;

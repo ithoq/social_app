@@ -8,7 +8,9 @@
 .cate-widget{
     overflow: hidden;
 }
-
+.btn.active {
+    border:none;
+}
 .post-type-panel label,
 .mood-type-panel label,
 .cate-widget label,

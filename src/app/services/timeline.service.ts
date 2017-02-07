@@ -20,8 +20,8 @@ export class TimelineService {
         return this.http.get(this.appService.api_end_point+'timelineCreate/'+this.auth.get_session_token()+"/"+querystr);
     }
 
-  get(timeline_id:any, user_id:any){
-      return this.http.get(this.appService.api_end_point+'userTimeline/'+this.auth.get_session_token()+"/&TimelineId="+timeline_id+"&UserId="+user_id);
+  get(timeline_id:any, user_id:any = ''){
+      return this.http.get(this.appService.api_end_point+'userTimeline/'+this.auth.get_session_token()+"/&TimelineId="+timeline_id);
   }
 
   getUserTimelines(){

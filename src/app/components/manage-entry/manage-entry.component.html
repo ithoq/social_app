@@ -1,7 +1,7 @@
 
 <!-- Bubble Numbers Form Wizard -->
 <!--===================================================-->
-<div id="add-entry-form-wizard">
+<div id="add-entry-form-wizard" [ngClass]="{'form-busy': uploadingPost == true}">
 
   <!--Form-->
   <form class="form-horizontal" onsubmit="return false" #f="ngForm">

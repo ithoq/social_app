@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
                       }
                       this.auth.setUser(JSON.stringify({profile:user,timelines:data.json().payload.Timelines}));
                       if(this.auth.getUser().timelines != null)
-                          this.router.navigate([this.auth.getUser().timelines[0].Id]);
+                          this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
                       else
                           this.router.navigate(['manage-profile']);
                   },

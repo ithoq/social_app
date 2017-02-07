@@ -11,7 +11,7 @@ export class AuthService {
   private user:any = null;
   public currentUser:User = null;
   constructor(private http:Http, private appService:AppService) {
-    this.currentUser = this.getUser().profile;
+    this.currentUser = (this.getUser() == null)?new User():this.getUser().profile;
   }
 
   getUser() {

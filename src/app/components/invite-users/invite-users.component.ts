@@ -62,10 +62,10 @@ export class InviteUsersComponent implements OnInit {
       escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
       minimumInputLength: 1,
       templateResult: function (repo) {
-        return "<div class='select2-result-repository__title'>" + repo.FirstName + "</div>";
+        return "<div class='select2-result-repository__title'>" + repo.FirstName +' '+ repo.LastName+ "</div>";
       }, // omitted for brevity, see the source of this page
       templateSelection: function (repo) {
-        return repo.FirstName;
+        return repo.FirstName +' '+ repo.LastName;
       } // omitted for brevity, see the source of this page
     });
     invite_users_multi_select.on("select2:select", (e) => {

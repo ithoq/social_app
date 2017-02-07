@@ -20,6 +20,7 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--End Navigation toogle button-->
 
+        <li *ngIf="title != ''"> <a href="javascript:void(0)"> {{title}} </a> </li>
       </ul>
         <ng-content></ng-content>
     </div>

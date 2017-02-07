@@ -7,6 +7,7 @@ import {MapsAPILoader} from "angular2-google-maps/core";
 import {RightContentService} from "../../services/right-content.service";
 import {MediumToManageEntryService} from "../../services/medium-to-manage-entry.service";
 import {Router} from "@angular/router";
+import {isUndefined} from "util";
 
 declare var noUiSlider: any;
 declare var wNumb: any;
@@ -199,16 +200,14 @@ export class ManageEntryComponent implements OnInit {
             data.DateStart = $('#new-post-start-date').val();
             data.DateEnd = $('#new-post-end-date').val();
             let files = new FormData();
-            $.each(this.selectedFiles, function(key, value)
-            {
+            $.each(this.selectedFiles, function(key, value){
                 files.append('Image'+(key+1), value);
             });
             if(this.existingEntry != null){
-                console.log(data);
-                this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(
-                    (data:Response)=>{
+                this.entryService.updateEntry(this.existingEntry.EntryId, data, files).subscribe(
+                    (response:Response)=>{
                         this.uploadingPost = false;
-                        this.entryupdated.emit({data:data.json()});
+                        this.entryupdated.emit({data:data});
                         alert('Post Updated Successfully!');
                         this.rightContentService.aside_in = false;
                     },(error) => {
@@ -224,6 +223,7 @@ export class ManageEntryComponent implements OnInit {
                         this.rightContentService.aside_in = false;
 
                     },(error) => {
+                        this.uploadingPost = false;
                         //alert(error.json().error_message);
                     }
                 );
@@ -315,8 +315,10 @@ export class ManageEntryComponent implements OnInit {
             this.postDateEnd = this.existingEntry.DateEnd;
             this.postDateStart = this.existingEntry.DateStart;
             this.postLocation = this.existingEntry.Location;
-            for(let i = 0; i<this.existingEntry.Timelines.length; i++){
-                this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
+            if(this.existingEntry.Timelines != undefined){
+                for(let i = 0; i<this.existingEntry.Timelines.length; i++){
+                    this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
+                }
             }
             this.selectedModes = this.existingEntry.Mode.split(',');
             this.whatTags = this.existingEntry.WhatTags.split(',');

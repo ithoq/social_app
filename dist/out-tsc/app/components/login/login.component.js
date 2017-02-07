@@ -39,8 +39,9 @@ export var LoginComponent = (function () {
                 user[property] = updatedUser[property];
             }
             _this.auth.setUser(JSON.stringify({ profile: user, timelines: data.json().payload.Timelines }));
-            if (_this.auth.getUser().timelines != null)
-                _this.router.navigate(['home']);
+            if (_this.auth.getUser().timelines != null) {
+                _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
+            }
             else
                 _this.router.navigate(['manage-profile']);
         }, function (e) {

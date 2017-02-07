@@ -30,12 +30,14 @@ export var CreateProfileComponent = (function () {
         this.user = null;
         this.selectedImage = null;
         this.selectedThumbnail = '';
+        this.formBusy = false;
         var profileData = this.profileManagementService.getProfileData();
         if (profileData != null) {
             this.user = profileData.user;
             this.user.Color = this.profileManagementService.getColor();
             this.selectedThumbnail = profileData.selectedThumbnail;
             this.selectedImage = profileData.selectedImage;
+            this.user.DateBirthDay = profileData.DateBirthDay;
         }
         else {
             this.user = this.auth.getUser().profile;
@@ -60,6 +62,7 @@ export var CreateProfileComponent = (function () {
             image = new FormData();
             image.append('Image', this.selectedImage);
         }
+        this.formBusy = true;
         this.userService.updateSettings(inputData, image).subscribe(function (data) {
             var updatedUser = data.json().payload.User;
             for (var property in updatedUser) {
@@ -76,20 +79,26 @@ export var CreateProfileComponent = (function () {
                     entry.Type = 'Celebration';
                     entry.Name = 'Birthday added';
                     entry['TimelineId'] = data.json().payload.TimelineId;
+                    console.log(entry);
                     //adding the first entry
                     var querystr = "";
                     for (var propertyName in entry) {
                         querystr += '&' + propertyName + '=' + entry[propertyName];
                     }
                     _this.http.get(_this.appService.api_end_point + 'entryAdd/' + _this.auth.get_session_token() + "/" + querystr).subscribe(function (data) {
+                        _this.formBusy = false;
                         _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
                     });
-                }, function (error) { });
+                }, function (error) {
+                    _this.formBusy = false;
+                });
             }
             else {
+                _this.formBusy = false;
                 alert('Profile updated successfully');
             }
         }, function (error) {
+            _this.formBusy = false;
             alert('some thing went wrong with the server please try again.');
         });
     };
@@ -97,16 +106,25 @@ export var CreateProfileComponent = (function () {
         var _this = this;
         if (event.target.files.length > 0) {
             this.selectedImage = event.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                _this.selectedThumbnail = e.target.result;
-            };
-            reader.readAsDataURL(this.selectedImage);
+            if (this.selectedImage.type == 'image/jpeg') {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    _this.selectedThumbnail = e.target.result;
+                };
+                reader.readAsDataURL(this.selectedImage);
+            }
+            else {
+                alert('only jpeg images are allowed');
+            }
         }
     };
     CreateProfileComponent.prototype.chooseColor = function (form) {
+        var user = this.auth.currentUser;
+        for (var property in form.value) {
+            user[property] = form.value[property];
+        }
         var data = {
-            user: form.value,
+            user: user,
             selectedImage: this.selectedImage,
             selectedThumbnail: this.selectedThumbnail,
             DateBirthDay: $('.datepicker').val()

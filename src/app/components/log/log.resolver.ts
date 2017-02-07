@@ -10,7 +10,9 @@ import {TimelineService} from "../../services/timeline.service";
 
 @Injectable()
 export class LogResolver implements Resolve<any> {
-    constructor(private auth:AuthService, private timelineService:TimelineService, private route:ActivatedRoute, private router:Router) {}
+    constructor(public auth:AuthService, private timelineService:TimelineService, private route:ActivatedRoute, private router:Router) {
+        console.log(this.auth.currentUser);
+    }
     resolve(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
@@ -20,7 +22,7 @@ export class LogResolver implements Resolve<any> {
         let router = this.router;
         return new Promise(function(resolve, reject){
             let params:any = route.params;
-            timelineService.get(params.id, auth.getUser().profile.UserId).subscribe(
+            timelineService.get(params.id).subscribe(
                 (data:any)=> {
                     resolve(data);
                 },

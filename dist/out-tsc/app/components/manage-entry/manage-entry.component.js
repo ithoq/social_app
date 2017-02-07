@@ -181,10 +181,9 @@ export var ManageEntryComponent = (function () {
                 files_1.append('Image' + (key + 1), value);
             });
             if (this.existingEntry != null) {
-                console.log(data);
-                this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(function (data) {
+                this.entryService.updateEntry(this.existingEntry.EntryId, data, files_1).subscribe(function (response) {
                     _this.uploadingPost = false;
-                    _this.entryupdated.emit({ data: data.json() });
+                    _this.entryupdated.emit({ data: data });
                     alert('Post Updated Successfully!');
                     _this.rightContentService.aside_in = false;
                 }, function (error) {
@@ -198,6 +197,7 @@ export var ManageEntryComponent = (function () {
                     alert('Post Created Successfully!');
                     _this.rightContentService.aside_in = false;
                 }, function (error) {
+                    _this.uploadingPost = false;
                     //alert(error.json().error_message);
                 });
             }
@@ -288,8 +288,10 @@ export var ManageEntryComponent = (function () {
             this.postDateEnd = this.existingEntry.DateEnd;
             this.postDateStart = this.existingEntry.DateStart;
             this.postLocation = this.existingEntry.Location;
-            for (var i = 0; i < this.existingEntry.Timelines.length; i++) {
-                this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
+            if (this.existingEntry.Timelines != undefined) {
+                for (var i = 0; i < this.existingEntry.Timelines.length; i++) {
+                    this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
+                }
             }
             this.selectedModes = this.existingEntry.Mode.split(',');
             this.whatTags = this.existingEntry.WhatTags.split(',');

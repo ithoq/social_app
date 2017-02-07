@@ -34,8 +34,8 @@
 
             <!--carousel-control-->
             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-            <a class="carousel-control left" data-slide="prev" href="#demo-carousel"><i class="text-light demo-pli-arrow-left icon-4x"></i></a>
-            <a class="carousel-control right" data-slide="next" href="#demo-carousel"><i class="text-light demo-pli-arrow-right icon-4x"></i></a>
+            <a *ngIf="post.Files.length > 1" class="carousel-control left" data-slide="prev" href="#demo-carousel"><i class="text-light demo-pli-arrow-left icon-4x"></i></a>
+            <a *ngIf="post.Files.length > 1" class="carousel-control right" data-slide="next" href="#demo-carousel"><i class="text-light demo-pli-arrow-right icon-4x"></i></a>
             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
           </div>
@@ -114,7 +114,7 @@
     </div>
   </sa-body-content>
   <sa-body-right-content>
-    <sa-manage-entry></sa-manage-entry>
+    <sa-manage-entry (EntryUpdated)="updatePost($event)"></sa-manage-entry>
   </sa-body-right-content>
   <sa-aside></sa-aside>
 </sa-body>

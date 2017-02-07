@@ -27,7 +27,8 @@ export var TimelineService = (function () {
         return this.http.get(this.appService.api_end_point + 'timelineCreate/' + this.auth.get_session_token() + "/" + querystr);
     };
     TimelineService.prototype.get = function (timeline_id, user_id) {
-        return this.http.get(this.appService.api_end_point + 'userTimeline/' + this.auth.get_session_token() + "/&TimelineId=" + timeline_id + "&UserId=" + user_id);
+        if (user_id === void 0) { user_id = ''; }
+        return this.http.get(this.appService.api_end_point + 'userTimeline/' + this.auth.get_session_token() + "/&TimelineId=" + timeline_id);
     };
     TimelineService.prototype.getUserTimelines = function () {
         return this.http.get(this.appService.api_end_point + 'timelineDetails/' + this.auth.get_session_token() + "/");
