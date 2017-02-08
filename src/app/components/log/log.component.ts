@@ -29,7 +29,7 @@ export class LogComponent implements OnInit {
     ) {}
 
     showDetail(entry:any){
-        this.mediumToPostDetail.setPost(entry);
+        localStorage.setItem('post', JSON.stringify(entry));
         this.router.navigate(['/post/'+entry.EntryId]);
     }
 

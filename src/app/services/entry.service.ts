@@ -7,7 +7,6 @@ import {Observable} from "rxjs";
 declare var $:any;
 @Injectable()
 export class EntryService {
-
     constructor(private http:Http,  private appService:AppService, private auth:AuthService) { }
 
     addEntry(entry, files={}){
@@ -24,5 +23,4 @@ export class EntryService {
         }
         return this.http.post(this.appService.api_end_point+'entryUpdate/'+this.auth.get_session_token()+"/&EntryId="+entry_id+querystr, files);
     }
-
 }

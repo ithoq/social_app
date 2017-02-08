@@ -134,7 +134,6 @@ export var ManageEntryComponent = (function () {
     };
     ManageEntryComponent.prototype.filesSelected = function (event) {
         this.selectedFiles = event.target.files;
-        console.log('selectedFiles', this.selectedFiles);
         var length = this.selectedFiles.length;
         this.selectedFilesSrc = [];
         var tempSrc = [];
@@ -146,7 +145,6 @@ export var ManageEntryComponent = (function () {
             reader.readAsDataURL(this.selectedFiles[i]);
         }
         this.selectedFilesSrc = tempSrc;
-        console.log(this.selectedFilesSrc);
     };
     ManageEntryComponent.prototype.create = function (form, event) {
         var _this = this;
@@ -288,6 +286,7 @@ export var ManageEntryComponent = (function () {
             this.postDateEnd = this.existingEntry.DateEnd;
             this.postDateStart = this.existingEntry.DateStart;
             this.postLocation = this.existingEntry.Location;
+            this.postWhatelse = this.existingEntry.WhatElse;
             if (this.existingEntry.Timelines != undefined) {
                 for (var i = 0; i < this.existingEntry.Timelines.length; i++) {
                     this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);

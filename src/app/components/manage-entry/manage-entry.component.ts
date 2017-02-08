@@ -163,7 +163,6 @@ export class ManageEntryComponent implements OnInit {
 
     filesSelected(event){
         this.selectedFiles = event.target.files;
-        console.log('selectedFiles', this.selectedFiles);
         var length = this.selectedFiles.length;
         this.selectedFilesSrc = [];
         let tempSrc = [];
@@ -175,8 +174,8 @@ export class ManageEntryComponent implements OnInit {
             reader.readAsDataURL(this.selectedFiles[i]);
         }
         this.selectedFilesSrc = tempSrc;
-        console.log(this.selectedFilesSrc);
     }
+
     create(form:NgForm, event){
         if(this.uploadingPost == true) return false;
         let data = form.value;
@@ -315,6 +314,7 @@ export class ManageEntryComponent implements OnInit {
             this.postDateEnd = this.existingEntry.DateEnd;
             this.postDateStart = this.existingEntry.DateStart;
             this.postLocation = this.existingEntry.Location;
+            this.postWhatelse = this.existingEntry.WhatElse;
             if(this.existingEntry.Timelines != undefined){
                 for(let i = 0; i<this.existingEntry.Timelines.length; i++){
                     this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);

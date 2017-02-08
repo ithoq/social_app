@@ -4,3 +4,11 @@
         left:0px !important;
     }
 }
+@media(max-width:1200px){
+    #content-container{
+        transition: .5s;
+        -webkit-transition: .5s;
+        -moz-transition: .5s;
+        left:0px;
+    }
+}

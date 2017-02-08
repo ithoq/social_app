@@ -1,0 +1,11 @@
+@media(max-width:1200px) {
+    #mainnav-container,
+    .brand-title{
+        transition: .5s;
+        -webkit-transition: .5s;
+        -moz-transition: .5s;
+    }
+    .brand-title{
+        width:67px;
+    }
+}

@@ -9,6 +9,7 @@ import {AuthService} from "../../services/auth.service";
 import {TimelineService} from "../../services/timeline.service";
 import {AppService} from "../../app.service";
 import {MediumToPostDetailService} from "../../services/medium-to-post-detail.service";
+import {Post} from "../../models/Post";
 
 @Injectable()
 export class PostResolver implements Resolve<any> {
@@ -26,7 +27,14 @@ export class PostResolver implements Resolve<any> {
     ): Observable<any>|any {
         let mediumToPostDetail = this.mediumToPostDetail;
         return new Promise(function(resolve, reject){
-            resolve(mediumToPostDetail.getPost());
+            let params:any = route.params;
+            let post:Post = JSON.parse(localStorage.getItem('post'));
+            if(post != null && post.EntryId == params.id){
+                resolve(post);
+            }
+            else{
+                resolve(null);
+            }
         });
     }
 }

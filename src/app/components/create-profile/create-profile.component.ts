@@ -22,8 +22,8 @@ export class CreateProfileComponent implements OnInit {
     public user:any = null;
     public selectedImage:any = null;
     public selectedThumbnail:any = '';
-
     public formBusy:boolean = false;
+    public editMode:boolean = false;
     constructor(
         private userService:UsersService,
         private timelineService:TimelineService,
@@ -58,6 +58,12 @@ export class CreateProfileComponent implements OnInit {
         return 'Save';
     }
 
+    enterEditMode(){
+        this.editMode = true;
+    }
+    exitEditMode(){
+        this.editMode = false;
+    }
     createProfile(form:NgForm){
         let inputData = form.value;
         inputData.DateBirthDay = $('.datepicker').val();
@@ -85,8 +91,6 @@ export class CreateProfileComponent implements OnInit {
                     entry.Type = 'Celebration';
                     entry.Name = 'Birthday added';
                     entry['TimelineId'] = data.json().payload.TimelineId;
-
-                    console.log(entry);
                     //adding the first entry
                     let querystr = "";
                     for(let propertyName in entry) {
@@ -94,6 +98,7 @@ export class CreateProfileComponent implements OnInit {
                     }
                     this.http.get(this.appService.api_end_point+'entryAdd/'+this.auth.get_session_token()+"/"+querystr).subscribe((data:Response)=>{
                         this.formBusy = false;
+                        this.exitEditMode();
                         this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
                     });
                 },(error) => {
@@ -101,7 +106,7 @@ export class CreateProfileComponent implements OnInit {
                 });
             }else{
                 this.formBusy = false;
-                alert('Profile updated successfully');
+                this.exitEditMode();
             }
 
         },(error) => {

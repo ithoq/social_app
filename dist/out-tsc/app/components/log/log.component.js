@@ -29,7 +29,7 @@ export var LogComponent = (function () {
         this.user = null;
     }
     LogComponent.prototype.showDetail = function (entry) {
-        this.mediumToPostDetail.setPost(entry);
+        localStorage.setItem('post', JSON.stringify(entry));
         this.router.navigate(['/post/' + entry.EntryId]);
     };
     LogComponent.prototype.modifiedDate = function (date) {

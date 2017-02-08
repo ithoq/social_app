@@ -32,26 +32,28 @@ export class PostDetailComponent implements OnInit {
         for (var property in event.data) {
             post[property] = event.data[property];
         }
+        localStorage.setItem('post',JSON.stringify(post));
         this.post = post;
-        // console.log(this.post);
     }
-  ngOnInit() {
-    this.route.data
-        .subscribe((data: { post: any }) => {
-          if(data.post == null){
-              this.router.navigate(['/log/custom']);
-          }else{
-              this.post = data.post;
-              let title = this.post.DateStart.split(' ')[0]+
-                            ' ' +this.post.DateEnd.split(' ')[0];
-              this.headerComponent.title = title;
-              if(this.auth.currentUser.UserId == this.post.UserId){
-                  this.addContentBtnComponent.content = 'Edit Post';
-                  this.mediumToManageEntry.setPost(data.post);
-              }
-          }
-        }, (error)=>{});
-  }
+
+    ngOnInit() {
+        this.route.data
+            .subscribe((data: { post: any }) => {
+                if(data.post == null){
+                    this.router.navigate(['/log/custom']);
+                }else{
+                    this.post = data.post;
+                    let title = this.post.DateStart.split(' ')[0]+
+                        ' ' +this.post.DateEnd.split(' ')[0];
+                    this.headerComponent.title = title;
+                    if(this.auth.currentUser.UserId == this.post.UserId){
+                        this.addContentBtnComponent.content = 'Edit Post';
+                        this.mediumToManageEntry.setPost(data.post);
+                    }
+                }
+            }, (error)=>{});
+    }
+
     ngAfterViewInit(){
         //$(document).trigger('ready');
     }

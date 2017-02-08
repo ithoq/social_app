@@ -31,6 +31,7 @@ export var CreateProfileComponent = (function () {
         this.selectedImage = null;
         this.selectedThumbnail = '';
         this.formBusy = false;
+        this.editMode = false;
         var profileData = this.profileManagementService.getProfileData();
         if (profileData != null) {
             this.user = profileData.user;
@@ -52,6 +53,12 @@ export var CreateProfileComponent = (function () {
         if (this.auth.getUser().timelines == null)
             return 'Add';
         return 'Save';
+    };
+    CreateProfileComponent.prototype.enterEditMode = function () {
+        this.editMode = true;
+    };
+    CreateProfileComponent.prototype.exitEditMode = function () {
+        this.editMode = false;
     };
     CreateProfileComponent.prototype.createProfile = function (form) {
         var _this = this;
@@ -79,7 +86,6 @@ export var CreateProfileComponent = (function () {
                     entry.Type = 'Celebration';
                     entry.Name = 'Birthday added';
                     entry['TimelineId'] = data.json().payload.TimelineId;
-                    console.log(entry);
                     //adding the first entry
                     var querystr = "";
                     for (var propertyName in entry) {
@@ -87,6 +93,7 @@ export var CreateProfileComponent = (function () {
                     }
                     _this.http.get(_this.appService.api_end_point + 'entryAdd/' + _this.auth.get_session_token() + "/" + querystr).subscribe(function (data) {
                         _this.formBusy = false;
+                        _this.exitEditMode();
                         _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
                     });
                 }, function (error) {
@@ -95,7 +102,7 @@ export var CreateProfileComponent = (function () {
             }
             else {
                 _this.formBusy = false;
-                alert('Profile updated successfully');
+                _this.exitEditMode();
             }
         }, function (error) {
             _this.formBusy = false;

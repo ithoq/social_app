@@ -28,8 +28,8 @@ export var PostDetailComponent = (function () {
         for (var property in event.data) {
             post[property] = event.data[property];
         }
+        localStorage.setItem('post', JSON.stringify(post));
         this.post = post;
-        // console.log(this.post);
     };
     PostDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
