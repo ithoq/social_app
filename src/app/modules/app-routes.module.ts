@@ -13,8 +13,7 @@ import {ParentComponent} from '../components/parent/parent.component';
 import {TokensResolver} from "../components/parent/tokens.resolver";
 import {AuthParentComponent} from "../components/auth-parent/auth-parent.component";
 import {AntiAuthParentComponent} from "../components/anti-auth-parent/anti-auth-parent.component";
-import {CreateProfileComponent} from "../components/create-profile/create-profile.component";
-import {PickColorComponent} from "../components/create-profile/pick-color/pick-color.component";
+import {PickColorComponent} from "../components/manage-profiles/pick-color/pick-color.component";
 import {ProfileManagementService} from "../services/profile-management.service";
 import {ProfileCreatedGuardService} from "../services/profile-created-guard.service";
 import {ManageLogsComponent} from "../components/manage-logs/manage-logs.component";
@@ -31,6 +30,9 @@ import {CustomLogResolver} from "../components/log/customLog.resolver";
 import {TestComponent} from "../components/test/test.component";
 import {ViewProfileComponent} from "../components/view-profile/view-profile.component";
 import {ViewProfileResolver} from "../components/view-profile/view-profile.resolver";
+import {ManageProfilesComponent} from "../components/manage-profiles/manage-profiles.component";
+import {CreateProfileComponent} from "../components/create-profile/create-profile.component";
+import {AntiProfileCreatedGuardService} from "../services/anti-profile-created-guard.service";
 
 const appRoutes: Routes = [
     {
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
                 {path: 'log/custom', resolve:{log:CustomLogResolver}, component: LogComponent , canActivate:[ProfileCreatedGuardService]},
                 {path: 'log/:id', resolve:{log:LogResolver}, component: LogComponent , canActivate:[ProfileCreatedGuardService]},
                 {path: 'log/:id/invite-users', resolve:{log:LogResolver}, component: InviteUsersComponent , canActivate:[ProfileCreatedGuardService]},
-                {path: "manage-profile", component:CreateProfileComponent},
+                {path: "manage-profiles", component:ManageProfilesComponent, canActivate:[ProfileCreatedGuardService]},
+                {path: "create-profile", component:CreateProfileComponent, canActivate:[AntiProfileCreatedGuardService]},
                 {path: "manage-logs", resolve:{logs:LogsResolver}, component:ManageLogsComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "create-log", component:CreateLogComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "create-custom-log", component:CreateCustomLogComponent, canActivate:[ProfileCreatedGuardService]},
@@ -86,7 +89,8 @@ const appRoutes: Routes = [
       ProfileCreatedGuardService,
       PostDetailGuardService,
       CustomLogResolver,
-      ViewProfileResolver
+      ViewProfileResolver,
+      AntiProfileCreatedGuardService
   ]
 })
 export class AppRoutingModule {}

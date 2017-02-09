@@ -22,13 +22,14 @@ export class ProfileComponent implements OnInit {
   @Output() profileUpdated = new EventEmitter();
   @Output() enteringEditingMode = new EventEmitter();
   @Output() exitingEditingMode = new EventEmitter();
-
+  @Output() someThingWentWrong = new EventEmitter();
   @Input() user: User;
+  @Input() editMode:boolean;
+  @Input() manualControls:boolean; //used to control loaders etc by parent component
+  @Input() formBusy:boolean;
 
   public selectedImage:any = null;
   public selectedThumbnail:any = '';
-  public formBusy:boolean = false;
-  public editMode:boolean = false;
   constructor(
       private userService:UsersService,
       private timelineService:TimelineService,
@@ -40,6 +41,9 @@ export class ProfileComponent implements OnInit {
       public appService:AppService
   ) {
     this.user = new User();
+    this.editMode = false;
+    this.manualControls = false;
+    this.formBusy = false;
   }
 
   getTitle(){
@@ -64,13 +68,19 @@ export class ProfileComponent implements OnInit {
       image = new FormData();
       image.append('Image', this.selectedImage);
     }
-    this.formBusy = true;
+
+    if(!this.manualControls)
+      this.formBusy = true;
+
     this.profileUpdating.emit({
       data:form.value
     });
     this.userService.updateSettings(this.getUser().UserId, inputData, image).subscribe((data:Response)=>{
-        this.exitEditMode();
-        this.formBusy = false;
+        if(!this.manualControls){
+          this.formBusy = false;
+          this.exitEditMode();
+        }
+
         let user = _.cloneDeep(this.getUser());
         let updatedUser = data.json().payload.User;
         for (var property in updatedUser) {
@@ -81,8 +91,13 @@ export class ProfileComponent implements OnInit {
           user:this.getUser()
         });
     },(error) => {
-      this.formBusy = false;
-      alert('some thing went wrong with the server please try again.');
+      this.someThingWentWrong.emit({
+        error:{msg:'some thing went wrong with the server'}
+      });
+      if(!this.manualControls){
+        this.formBusy = false;
+        alert('some thing went wrong with the server please try again.');
+      }
     });
   }
 

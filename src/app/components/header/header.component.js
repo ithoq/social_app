@@ -8,26 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require('@angular/core');
 var HeaderComponent = (function () {
     function HeaderComponent() {
+        this.title = '';
     }
     HeaderComponent.prototype.ngOnInit = function () {
     };
     HeaderComponent.prototype.ngAfterViewInit = function () {
         var toggleBtn = $('.mainnav-toggle');
+        //alert(toggleBtn);
+        //  $(document).on('click', '.mainnav-toggle', function(e){
         toggleBtn.on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            if (toggleBtn.hasClass('push')) {
-                $.niftyNav('pushToggle');
-            }
-            else if (toggleBtn.hasClass('slide')) {
-                $.niftyNav('slideToggle');
-            }
-            else if (toggleBtn.hasClass('reveal')) {
-                $.niftyNav('revealToggle');
+            var niftyContainer = $('#container');
+            var niftyWindow = $(window);
+            var widnowwidth = niftyWindow.width();
+            if (widnowwidth > 767) {
+                niftyContainer.toggleClass('mainnav-lg mainnav-sm');
             }
             else {
-                $.niftyNav('colExpToggle');
-                console.log('hiii');
+                niftyContainer.toggleClass('mainnav-sm mainnav-in');
             }
         });
     };

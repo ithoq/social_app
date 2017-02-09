@@ -9,6 +9,7 @@ var core_1 = require('@angular/core');
 var AddContentBtnComponent = (function () {
     function AddContentBtnComponent(rightContent) {
         this.rightContent = rightContent;
+        this.content = 'Add Content';
     }
     AddContentBtnComponent.prototype.asideToggle = function () {
         this.rightContent.aside_in = !this.rightContent.aside_in;

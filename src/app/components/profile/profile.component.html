@@ -19,9 +19,9 @@
           </div>
           <br>
           <p class="text-main text-bold">Name</p>
-          <input type="text" placeholder="First name" class="form-control input-lg" [ngModel]="user.FirstName" name="FirstName" id="demo-is-inputlarge">
+          <input type="text" placeholder="First name" class="form-control input-lg" [ngModel]="user.FirstName" name="FirstName" id="demo-is-inputlarge" required>
           <br>
-          <input type="text" placeholder="Last name" class="form-control input-lg"  [ngModel]="user.LastName" name="LastName" id="demo-is-inputlarge">
+          <input type="text" placeholder="Last name" class="form-control input-lg"  [ngModel]="user.LastName" name="LastName" id="demo-is-inputlarge" required>
           <br>
           <!--                <hr class="new-section-xs bord-no">
 -->
@@ -33,7 +33,7 @@
           <!--===================================================-->
           <div id="demo-dp-component">
             <div class="input-group date">
-              <input type="text" class="form-control datepicker"  [ngModel]="user.DateBirthDay" name="DateBirthDay">
+              <input required type="text" class="form-control datepicker"  [ngModel]="user.DateBirthDay" name="DateBirthDay">
               <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span> </div>
             <small class="text-muted">Your birthday is used to build your timeline.</small> </div>
           <!--===================================================-->

@@ -117,7 +117,7 @@ export var ManageEntryComponent = (function () {
             if (_this.auth.getUser().timelines.length > 0)
                 _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
             else
-                _this.router.navigate(['/manage-profile']);
+                _this.router.navigate(['/create-profile']);
         }, function (error) {
             alert(error.json().error_message);
         });

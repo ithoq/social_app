@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
                       if(this.auth.getUser().timelines != null)
                           this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
                       else
-                          this.router.navigate(['manage-profile']);
+                          this.router.navigate(['create-profile']);
                   },
                   (e) => {
                       this.errors = (e.json()['error_message'] != undefined)?e.json()['error_message']:'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';

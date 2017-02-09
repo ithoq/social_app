@@ -15,6 +15,7 @@ var LogResolver = (function () {
         this.timelineService = timelineService;
         this.route = route;
         this.router = router;
+        console.log(this.auth.currentUser);
     }
     LogResolver.prototype.resolve = function (route, state) {
         var auth = this.auth;
@@ -22,7 +23,7 @@ var LogResolver = (function () {
         var router = this.router;
         return new Promise(function (resolve, reject) {
             var params = route.params;
-            timelineService.get(params.id, auth.getUser().profile.UserId).subscribe(function (data) {
+            timelineService.get(params.id).subscribe(function (data) {
                 resolve(data);
             }, function (error) {
                 resolve(null);

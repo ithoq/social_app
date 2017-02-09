@@ -25,8 +25,7 @@ var parent_component_1 = require('./components/parent/parent.component');
 var users_service_1 = require("./services/users.service");
 var auth_parent_component_1 = require('./components/auth-parent/auth-parent.component');
 var anti_auth_parent_component_1 = require('./components/anti-auth-parent/anti-auth-parent.component');
-var create_profile_component_1 = require('./components/create-profile/create-profile.component');
-var pick_color_component_1 = require('./components/create-profile/pick-color/pick-color.component');
+var pick_color_component_1 = require('./components/manage-profiles/pick-color/pick-color.component');
 var timeline_service_1 = require("./services/timeline.service");
 var entry_service_1 = require("./services/entry.service");
 var header_component_1 = require('./components/header/header.component');
@@ -48,6 +47,11 @@ var invite_users_component_1 = require('./components/invite-users/invite-users.c
 var add_content_btn_component_1 = require('./components/add-content-btn/add-content-btn.component');
 var post_detail_component_1 = require('./components/post-detail/post-detail.component');
 var medium_to_post_detail_service_1 = require("./services/medium-to-post-detail.service");
+var medium_to_manage_entry_service_1 = require("./services/medium-to-manage-entry.service");
+var create_custom_log_component_1 = require('./components/create-custom-log/create-custom-log.component');
+var test_component_1 = require('./components/test/test.component');
+var profile_component_1 = require('./components/profile/profile.component');
+var view_profile_component_1 = require('./components/view-profile/view-profile.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -65,7 +69,7 @@ var AppModule = (function () {
                 parent_component_1.ParentComponent,
                 auth_parent_component_1.AuthParentComponent,
                 anti_auth_parent_component_1.AntiAuthParentComponent,
-                create_profile_component_1.CreateProfileComponent,
+                CreateProfileComponent,
                 pick_color_component_1.PickColorComponent,
                 header_component_1.HeaderComponent,
                 header_component_1.HeaderComponent,
@@ -82,7 +86,12 @@ var AppModule = (function () {
                 log_component_1.LogComponent,
                 invite_users_component_1.InviteUsersComponent,
                 add_content_btn_component_1.AddContentBtnComponent,
-                post_detail_component_1.PostDetailComponent
+                post_detail_component_1.PostDetailComponent,
+                create_custom_log_component_1.CreateCustomLogComponent,
+                create_custom_log_component_1.CreateCustomLogComponent,
+                test_component_1.TestComponent,
+                profile_component_1.ProfileComponent,
+                view_profile_component_1.ViewProfileComponent
             ],
             imports: [
                 app_routes_module_1.AppRoutingModule,
@@ -104,7 +113,8 @@ var AppModule = (function () {
                 timeline_service_1.TimelineService,
                 entry_service_1.EntryService,
                 profile_management_service_1.ProfileManagementService,
-                right_content_service_1.RightContentService
+                right_content_service_1.RightContentService,
+                medium_to_manage_entry_service_1.MediumToManageEntryService
             ],
             bootstrap: [app_component_1.AppComponent]
         })

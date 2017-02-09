@@ -16,6 +16,7 @@ var InviteUsersComponent = (function () {
         this.auth = auth;
         this.searchedUsers = [];
         this.timeline = null;
+        this.email = '';
         this.selectedUsers = [];
     }
     InviteUsersComponent.prototype.invite = function (form) {
@@ -60,10 +61,10 @@ var InviteUsersComponent = (function () {
             escapeMarkup: function (markup) { return markup; },
             minimumInputLength: 1,
             templateResult: function (repo) {
-                return "<div class='select2-result-repository__title'>" + repo.FirstName + "</div>";
+                return "<div class='select2-result-repository__title'>" + repo.FirstName + ' ' + repo.LastName + "</div>";
             },
             templateSelection: function (repo) {
-                return repo.FirstName;
+                return repo.FirstName + ' ' + repo.LastName;
             } // omitted for brevity, see the source of this page
         });
         invite_users_multi_select.on("select2:select", function (e) {

@@ -28,7 +28,7 @@ export var PostDetailGuardService = (function () {
             if (this.auth.getUser().timelines.length > 0)
                 this.router.navigate(['/log/' + this.auth.getUser().timelines[0].Id]);
             else
-                this.router.navigate(['/manage-profile']);
+                this.router.navigate(['/create-profile']);
         }
         else {
             this.mediumToPostDetailService.setPost(post);

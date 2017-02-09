@@ -21,7 +21,14 @@ var PostResolver = (function () {
     PostResolver.prototype.resolve = function (route, state) {
         var mediumToPostDetail = this.mediumToPostDetail;
         return new Promise(function (resolve, reject) {
-            resolve(mediumToPostDetail.getPost());
+            var params = route.params;
+            var post = JSON.parse(localStorage.getItem('post'));
+            if (post != null && post.EntryId == params.id) {
+                resolve(post);
+            }
+            else {
+                resolve(null);
+            }
         });
     };
     PostResolver = __decorate([

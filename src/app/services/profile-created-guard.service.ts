@@ -21,7 +21,7 @@ export class ProfileCreatedGuardService implements CanActivate{
 
   canActivate(){
     if(this.auth.getUser().timelines == null){
-      this.router.navigate(['manage-profile']);
+      this.router.navigate(['create-profile']);
       return false;
     }
     return true;

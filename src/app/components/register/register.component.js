@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('@angular/core');
+var User_1 = require("../../models/User");
 var RegisterComponent = (function () {
     function RegisterComponent(authenticator, rootService, httpService, appRouter, route, users) {
         this.authenticator = authenticator;
@@ -13,6 +14,11 @@ var RegisterComponent = (function () {
         this.httpService = httpService;
         this.route = route;
         this.users = users;
+        //default values
+        this.email = '';
+        this.username = '';
+        this.pass = '';
+        this.passagain = '';
         this.auth = authenticator;
         this.appService = rootService;
         this.http = httpService;
@@ -21,6 +27,12 @@ var RegisterComponent = (function () {
             email: '',
             password: ''
         };
+        // if(localStorage.getItem('user_num') == null){
+        //     localStorage.setItem('user_num', '5');
+        // }
+        // localStorage.setItem('user_num',(parseInt(localStorage.getItem('user_num'))+1)+'');
+        // this.email = 'newuser'+localStorage.getItem('user_num')+'@gmail.com';
+        // this.username = 'newuser'+localStorage.getItem('user_num');
     }
     RegisterComponent.prototype.registerUser = function (form) {
         var _this = this;
@@ -28,7 +40,23 @@ var RegisterComponent = (function () {
             return false;
         }
         this.users.register(form.value).subscribe(function (data) {
-            _this.router.navigate(['login']);
+            _this.auth.attempt({ Email: form.value.email, Password: form.value.password }).subscribe(function (data) {
+                /*
+                 saving the authenticated user in the localStorage
+                 */
+                var user = new User_1.User();
+                var updatedUser = data.json().payload.User;
+                for (var property in updatedUser) {
+                    user[property] = updatedUser[property];
+                }
+                _this.auth.setUser(JSON.stringify({ profile: user, timelines: data.json().payload.Timelines }));
+                if (_this.auth.getUser().timelines != null)
+                    _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
+                else
+                    _this.router.navigate(['create-profile']);
+            }, function (e) {
+                _this.errors = (e.json()['error_message'] != undefined) ? e.json()['error_message'] : 'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
+            });
         }, function (e) {
             _this.errors = e.json()['error_message'];
         });

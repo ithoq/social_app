@@ -12,12 +12,21 @@ var EntryService = (function () {
         this.appService = appService;
         this.auth = auth;
     }
-    EntryService.prototype.addEntry = function (entry) {
+    EntryService.prototype.addEntry = function (entry, files) {
+        if (files === void 0) { files = {}; }
         var querystr = "";
         for (var propertyName in entry) {
             querystr += '&' + propertyName + '=' + entry[propertyName];
         }
-        return this.http.get(this.appService.api_end_point + 'entryAdd/' + this.auth.get_session_token() + "/" + querystr);
+        return this.http.post(this.appService.api_end_point + 'entryAdd/' + this.auth.get_session_token() + "/" + querystr, files);
+    };
+    EntryService.prototype.updateEntry = function (entry_id, entry, files) {
+        if (files === void 0) { files = {}; }
+        var querystr = "";
+        for (var propertyName in entry) {
+            querystr += '&' + propertyName + '=' + entry[propertyName];
+        }
+        return this.http.post(this.appService.api_end_point + 'entryUpdate/' + this.auth.get_session_token() + "/&EntryId=" + entry_id + querystr, files);
     };
     EntryService = __decorate([
         core_1.Injectable()

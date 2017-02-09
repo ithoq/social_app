@@ -21,7 +21,6 @@ var HomeComponent = (function () {
     HomeComponent.prototype.logout = function () {
         var _this = this;
         this.auth.logout().subscribe(function (response) {
-            console.log('loggedout');
             _this.appRouter.navigate(['login']);
         }, function (error) { });
     };
@@ -32,6 +31,12 @@ var HomeComponent = (function () {
     };
     HomeComponent.prototype.showMap = function () {
         this.showmap = !this.showmap;
+    };
+    HomeComponent.prototype.profileUpdating = function (event) {
+        console.log(event);
+    };
+    HomeComponent.prototype.profileUpdated = function (event) {
+        console.log(event);
     };
     HomeComponent = __decorate([
         core_1.Component({

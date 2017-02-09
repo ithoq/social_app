@@ -7,10 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('@angular/core');
 var ManageLogsComponent = (function () {
-    function ManageLogsComponent(auth, route, timelineService) {
+    function ManageLogsComponent(auth, route, timelineService, app) {
         this.auth = auth;
         this.route = route;
         this.timelineService = timelineService;
+        this.app = app;
         this.timelines = [];
         //this.timelines = this.auth.getUser().timelines;
         this.user = this.auth.getUser().profile;
@@ -18,7 +19,6 @@ var ManageLogsComponent = (function () {
     ManageLogsComponent.prototype.removeUser = function (timelineId, userId) {
         var _this = this;
         this.timelineService.removeUsers(timelineId, userId).subscribe(function (data) {
-            console.log(timelineId, userId);
             _this.timelineService.getUserTimelines().subscribe(function (data) {
                 _this.timelines = data.json().payload;
             });
@@ -29,6 +29,7 @@ var ManageLogsComponent = (function () {
         this.route.data
             .subscribe(function (data) {
             _this.timelines = data.logs.json().payload;
+            console.log(_this.timelines);
         }, function (error) { });
     };
     ManageLogsComponent = __decorate([

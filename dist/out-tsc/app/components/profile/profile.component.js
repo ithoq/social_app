@@ -32,11 +32,13 @@ export var ProfileComponent = (function () {
         this.profileUpdated = new EventEmitter();
         this.enteringEditingMode = new EventEmitter();
         this.exitingEditingMode = new EventEmitter();
+        this.someThingWentWrong = new EventEmitter();
         this.selectedImage = null;
         this.selectedThumbnail = '';
-        this.formBusy = false;
-        this.editMode = false;
         this.user = new User();
+        this.editMode = false;
+        this.manualControls = false;
+        this.formBusy = false;
     }
     ProfileComponent.prototype.getTitle = function () {
         return 'Profile';
@@ -59,13 +61,16 @@ export var ProfileComponent = (function () {
             image = new FormData();
             image.append('Image', this.selectedImage);
         }
-        this.formBusy = true;
+        if (!this.manualControls)
+            this.formBusy = true;
         this.profileUpdating.emit({
             data: form.value
         });
         this.userService.updateSettings(this.getUser().UserId, inputData, image).subscribe(function (data) {
-            _this.exitEditMode();
-            _this.formBusy = false;
+            if (!_this.manualControls) {
+                _this.formBusy = false;
+                _this.exitEditMode();
+            }
             var user = _.cloneDeep(_this.getUser());
             var updatedUser = data.json().payload.User;
             for (var property in updatedUser) {
@@ -76,8 +81,13 @@ export var ProfileComponent = (function () {
                 user: _this.getUser()
             });
         }, function (error) {
-            _this.formBusy = false;
-            alert('some thing went wrong with the server please try again.');
+            _this.someThingWentWrong.emit({
+                error: { msg: 'some thing went wrong with the server' }
+            });
+            if (!_this.manualControls) {
+                _this.formBusy = false;
+                alert('some thing went wrong with the server please try again.');
+            }
         });
     };
     ProfileComponent.prototype.loggedInUsrCanEdit = function () {
@@ -154,9 +164,26 @@ export var ProfileComponent = (function () {
         __metadata('design:type', Object)
     ], ProfileComponent.prototype, "exitingEditingMode", void 0);
     __decorate([
+        Output(), 
+        __metadata('design:type', Object)
+    ], ProfileComponent.prototype, "someThingWentWrong", void 0);
+    __decorate([
         Input(), 
         __metadata('design:type', User)
     ], ProfileComponent.prototype, "user", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], ProfileComponent.prototype, "editMode", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], ProfileComponent.prototype, "manualControls", void 0);
+    __decorate([
+        //used to control loaders etc by parent component
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], ProfileComponent.prototype, "formBusy", void 0);
     ProfileComponent = __decorate([
         Component({
             selector: 'app-profile',

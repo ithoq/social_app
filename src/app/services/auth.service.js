@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('@angular/core');
 var rxjs_1 = require("rxjs");
+var User_1 = require("../models/User");
 var AuthService = (function () {
     function AuthService(http, appService) {
         this.http = http;
@@ -14,6 +15,8 @@ var AuthService = (function () {
         this.app_token = '';
         this.session_token = '';
         this.user = null;
+        this.currentUser = null;
+        this.currentUser = (this.getUser() == null) ? new User_1.User() : this.getUser().profile;
     }
     AuthService.prototype.getUser = function () {
         return (localStorage.getItem('user') != null) ? JSON.parse(localStorage.getItem('user')) : null;
@@ -24,7 +27,7 @@ var AuthService = (function () {
         });
     };
     AuthService.prototype.grab_session_token = function (app_key) {
-        return this.http.get(this.appService.api_end_point + "getSession/&AppKey=" + app_key);
+        return this.http.post(this.appService.api_end_point + "getSession/&AppKey=" + app_key, {});
     };
     AuthService.prototype.get_app_token = function () {
         return localStorage.getItem('app_token');
@@ -51,9 +54,10 @@ var AuthService = (function () {
     AuthService.prototype.setUser = function (user) {
         localStorage.setItem('user', user);
         this.user = user;
+        this.currentUser = JSON.parse(user).profile;
     };
     AuthService.prototype.attempt = function (credentials) {
-        return this.http.get(this.appService.api_end_point + 'userSignin/' + this.get_session_token() + '/&Email=&Username=' + credentials.username + '&Pass=' + credentials.password);
+        return this.http.get(this.appService.api_end_point + 'userSignin/' + this.get_session_token() + '/&Email=' + credentials.Email + '&Pass=' + credentials.Password);
     };
     //removes the user from the localStorage
     AuthService.prototype.logout = function () {

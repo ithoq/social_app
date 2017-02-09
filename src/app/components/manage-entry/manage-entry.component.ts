@@ -143,7 +143,7 @@ export class ManageEntryComponent implements OnInit {
                 if(this.auth.getUser().timelines.length > 0)
                     this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
                 else
-                    this.router.navigate(['/manage-profile']);
+                    this.router.navigate(['/create-profile']);
             },(error) => {
                 alert(error.json().error_message);
             }

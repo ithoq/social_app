@@ -20,8 +20,8 @@ import { ParentComponent } from './components/parent/parent.component';
 import {UsersService} from "./services/users.service";
 import { AuthParentComponent } from './components/auth-parent/auth-parent.component';
 import { AntiAuthParentComponent } from './components/anti-auth-parent/anti-auth-parent.component';
-import { CreateProfileComponent } from './components/create-profile/create-profile.component';
-import { PickColorComponent } from './components/create-profile/pick-color/pick-color.component';
+import { ManageProfilesComponent } from './components/manage-profiles/manage-profiles.component';
+import { PickColorComponent } from './components/manage-profiles/pick-color/pick-color.component';
 import {TimelineService} from "./services/timeline.service";
 import {EntryService} from "./services/entry.service";
 import { HeaderComponent } from './components/header/header.component';
@@ -49,6 +49,7 @@ import { CreateCustomLogComponent } from './components/create-custom-log/create-
 import { TestComponent } from './components/test/test.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ViewProfileComponent } from './components/view-profile/view-profile.component';
+import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,7 @@ import { ViewProfileComponent } from './components/view-profile/view-profile.com
     ParentComponent,
     AuthParentComponent,
     AntiAuthParentComponent,
-    CreateProfileComponent,
+    ManageProfilesComponent,
     PickColorComponent,
     HeaderComponent,
     HeaderComponent,
@@ -85,7 +86,8 @@ import { ViewProfileComponent } from './components/view-profile/view-profile.com
     CreateCustomLogComponent,
     TestComponent,
     ProfileComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    CreateProfileComponent
   ],
   imports: [
     AppRoutingModule,

@@ -30,7 +30,6 @@ export class PickColorComponent implements OnInit {
   clicked(color:any){
     this.profileService.setColor(color);
       this._location.back();
-    //this.router.navigate(['manage-profile']);
   }
 
   ngOnInit() {}

@@ -20,8 +20,8 @@ var parent_component_1 = require('../components/parent/parent.component');
 var tokens_resolver_1 = require("../components/parent/tokens.resolver");
 var auth_parent_component_1 = require("../components/auth-parent/auth-parent.component");
 var anti_auth_parent_component_1 = require("../components/anti-auth-parent/anti-auth-parent.component");
-var create_profile_component_1 = require("../components/create-profile/create-profile.component");
-var pick_color_component_1 = require("../components/create-profile/pick-color/pick-color.component");
+var create_profile_component_1 = require("../components/manage-profiles/create-profile.component");
+var pick_color_component_1 = require("../components/manage-profiles/pick-color/pick-color.component");
 var profile_management_service_1 = require("../services/profile-management.service");
 var profile_created_guard_service_1 = require("../services/profile-created-guard.service");
 var manage_logs_component_1 = require("../components/manage-logs/manage-logs.component");
@@ -33,6 +33,10 @@ var invite_users_component_1 = require("../components/invite-users/invite-users.
 var post_detail_component_1 = require("../components/post-detail/post-detail.component");
 var post_resolver_1 = require("../components/post-detail/post.resolver");
 var post_detail_guard_service_1 = require("../services/post-detail-guard.service");
+var create_custom_log_component_1 = require("../components/create-custom-log/create-custom-log.component");
+var customLog_resolver_1 = require("../components/log/customLog.resolver");
+var view_profile_component_1 = require("../components/view-profile/view-profile.component");
+var view_profile_resolver_1 = require("../components/view-profile/view-profile.resolver");
 var appRoutes = [
     {
         path: '',
@@ -43,14 +47,17 @@ var appRoutes = [
         children: [
             { path: "", component: auth_parent_component_1.AuthParentComponent, canActivate: [auth_guard_service_1.AuthGuardService], children: [
                     { path: "home", component: home_component_1.HomeComponent, canActivate: [profile_created_guard_service_1.ProfileCreatedGuardService] },
-                    { path: 'log/:id', resolve: { log: log_resolver_1.LogResolver }, component: log_component_1.LogComponent },
-                    { path: 'log/:id/invite-users', resolve: { log: log_resolver_1.LogResolver }, component: invite_users_component_1.InviteUsersComponent },
+                    { path: "profile/:id", resolve: { user: view_profile_resolver_1.ViewProfileResolver }, component: view_profile_component_1.ViewProfileComponent, canActivate: [profile_created_guard_service_1.ProfileCreatedGuardService] },
+                    { path: 'log/custom', resolve: { log: customLog_resolver_1.CustomLogResolver }, component: log_component_1.LogComponent, canActivate: [profile_created_guard_service_1.ProfileCreatedGuardService] },
+                    { path: 'log/:id', resolve: { log: log_resolver_1.LogResolver }, component: log_component_1.LogComponent, canActivate: [profile_created_guard_service_1.ProfileCreatedGuardService] },
+                    { path: 'log/:id/invite-users', resolve: { log: log_resolver_1.LogResolver }, component: invite_users_component_1.InviteUsersComponent, canActivate: [profile_created_guard_service_1.ProfileCreatedGuardService] },
                     { path: "manage-profile", component: create_profile_component_1.CreateProfileComponent },
                     { path: "manage-logs", resolve: { logs: logs_resolver_1.LogsResolver }, component: manage_logs_component_1.ManageLogsComponent, canActivate: [profile_created_guard_service_1.ProfileCreatedGuardService] },
                     { path: "create-log", component: create_log_component_1.CreateLogComponent, canActivate: [profile_created_guard_service_1.ProfileCreatedGuardService] },
+                    { path: "create-custom-log", component: create_custom_log_component_1.CreateCustomLogComponent, canActivate: [profile_created_guard_service_1.ProfileCreatedGuardService] },
                     { path: "pick-color", component: pick_color_component_1.PickColorComponent, canActivate: [profile_management_service_1.ProfileManagementService] },
-                    { path: "post/:id", resolve: { post: post_resolver_1.PostResolver }, component: post_detail_component_1.PostDetailComponent, canActivate: [post_detail_guard_service_1.PostDetailGuardService] },
-                    { path: '', redirectTo: "/home", pathMatch: "full" }
+                    { path: "post/:id", resolve: { post: post_resolver_1.PostResolver }, component: post_detail_component_1.PostDetailComponent, canActivate: [profile_created_guard_service_1.ProfileCreatedGuardService] },
+                    { path: '', redirectTo: "/log/custom", pathMatch: "full" }
                 ] },
             { path: "", component: anti_auth_parent_component_1.AntiAuthParentComponent, canActivate: [anti_auth_guard_service_1.AntiAuthGuardService], children: [
                     { path: "login", component: login_component_1.LoginComponent },
@@ -83,7 +90,9 @@ var AppRoutingModule = (function () {
                 tokens_resolver_1.TokensResolver,
                 post_resolver_1.PostResolver,
                 profile_created_guard_service_1.ProfileCreatedGuardService,
-                post_detail_guard_service_1.PostDetailGuardService
+                post_detail_guard_service_1.PostDetailGuardService,
+                customLog_resolver_1.CustomLogResolver,
+                view_profile_resolver_1.ViewProfileResolver
             ]
         })
     ], AppRoutingModule);

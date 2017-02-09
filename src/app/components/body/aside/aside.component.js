@@ -7,11 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('@angular/core');
 var AsideComponent = (function () {
-    function AsideComponent(auth, appRouter, timelineService) {
+    function AsideComponent(auth, appRouter, timelineService, app) {
         this.auth = auth;
         this.appRouter = appRouter;
         this.timelineService = timelineService;
+        this.app = app;
         this.timelines = this.auth.getUser().timelines;
+        this.user = this.auth.getUser().profile;
     }
     AsideComponent.prototype.ngOnInit = function () {
     };

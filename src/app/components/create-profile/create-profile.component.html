@@ -1,114 +1,28 @@
 <sa-header>
-    <sa-title></sa-title>
-    <sa-action>
-        <li class="pad-rgt"> <a href="javascript:void(0)" > Profile </a> </li>
-    </sa-action>
+  <sa-title></sa-title>
+  <sa-action>
+    <li class="pad-rgt"> <a href="javascript:void(0)" > Create Profile </a> </li>
+  </sa-action>
 </sa-header>
 <!--===================================================-->
 <!--END NAVBAR-->
 
 <sa-body>
-    <sa-body-content>
-        <div *ngIf="editMode && loggedInUsrCanEdit(user)" class="row">
-            <div class="col-lg-12">
-                <div class="panel">
-
-                    <form id="demo-bvd-notempty" action="#" class="form-horizontal" (submit)="createProfile(f)" #f="ngForm" [ngClass]="{'form-busy': formBusy == true}">
-                        <div class="panel-heading">
-                            <div class="panel-control">
-                                <button type="submit" class="demo-panel-ref-btn btn btn-default" data-target="#demo-panel-ref" data-toggle="panel-overlay"> <i class="fa fa-share fa-fw"></i> {{getAction()}} </button>
-                            </div>
-                            <h3 class="panel-title">{{getTitle()}} Profile</h3>
-                        </div>
-
-                        <div class="panel-body">
-                            <div class="text-center pad-ver">
-                                <figure (click)="chooseFile()">
-                                    <img alt="Avatar" class="img-lg img-circle img-border-aquamarine mar-btm" [src]="(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '')?appService.default_user_profile_pic:user.ImageURL)">
-                                </figure>
-                                <p class="text-sm">Add photo <input id="profile-img-chooser" style="display: none;" type="file" (change)="filesSelected($event)"></p>
-                            </div>
-                            <br>
-                            <p class="text-main text-bold">Name</p>
-                            <input type="text" placeholder="First name" class="form-control input-lg" [ngModel]="user.FirstName" name="FirstName" id="demo-is-inputlarge">
-                            <br>
-                            <input type="text" placeholder="Last name" class="form-control input-lg"  [ngModel]="user.LastName" name="LastName" id="demo-is-inputlarge">
-                            <br>
-                            <!--                <hr class="new-section-xs bord-no">
-            -->
-                            <input type="text" placeholder="Profile name / nickname"  [ngModel]="user.Nickname" required="required" name="Nickname" class="form-control input-lg" id="demo-is-inputlarge">
-                            <hr class="new-section-xs bord-no">
-                            <p class="text-main text-bold">Birthday</p>
-
-                            <!--Bootstrap Datepicker : Component-->
-                            <!--===================================================-->
-                            <div id="demo-dp-component">
-                                <div class="input-group date">
-                                    <input type="text" class="form-control datepicker"  [ngModel]="user.DateBirthDay" name="DateBirthDay">
-                                    <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span> </div>
-                                <small class="text-muted">Your birthday is used to build your timeline.</small> </div>
-                            <!--===================================================-->
-
-                            <hr class="new-section-xs bord-no">
-                            <p class="text-main text-bold">Location / address</p>
-                            <input type="text" placeholder=" " class="form-control input-lg"  [ngModel]="user.address" name="address" id="demo-is-inputlarge">
-                            <hr class="new-section-xs bord-no">
-                            <p class="text-main text-bold">Color</p>
-                            <div class=" mar-btm">
-                                <input type="hidden" [ngModel]="user.Color" name="Color">
-                                <button type="button" class="btn btn-{{user.Color}} fa fa-check pad-all mar-rgt"> </button>
-                                <button type="button" class="btn btn-default" (click)="chooseColor(f)">Select Color</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="editMode == false" class="row">
-            <div class="col-lg-12">
-                <div class="panel">
-                    <div class="panel-head">
-                        <div class="panel-control">
-                            <span>Managed by {{user.FirstName}} {{user.LastName}}</span>
-                            <button class="demo-panel-ref-btn btn btn-default" type="button" (click)="enterEditMode()"> <i class="fa fa-pencil fa-fw"></i> Edit </button>
-                        </div>
-                        <h3>Profile</h3>
-                    </div>
-                    <div class="text-center pro-image">
-                        <figure>
-                            <img alt="Avatar" class="img-lg img-circle img-border-aquamarine mar-btm" [src]="(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '')?appService.default_user_profile_pic:user.ImageURL)">
-                        </figure>
-                    </div>
-                    <div class="text-center pro-content">
-                        <label>
-                            <strong>Name</strong>
-                            <span>{{user.FirstName}} {{user.LastName}}</span>
-                        </label>
-                        <label>
-                            <strong>Nick Name</strong>
-                            <span>{{user.NickName}}</span>
-                        </label>
-                        <label>
-                            <strong>Birthday</strong>
-                            <span>{{user.DateBirthDay}}</span>
-                        </label>
-                        <label>
-                            <strong>Location</strong>
-                            <span>{{user.address}}</span>
-                        </label>
-                        <label>
-                            <strong>Color</strong>
-                            <span class="color-box btn-{{user.Color}}"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </sa-body-content>
-    <sa-body-right-content>
-        <sa-manage-entry></sa-manage-entry>
-    </sa-body-right-content>
-    <sa-aside></sa-aside>
+  <sa-body-content>
+    <app-profile
+            [user]="auth.currentUser"
+            [manualControls]="true"
+            [editMode]="editMode"
+            (profileUpdating)="profileUpdating($event)"
+            [formBusy]="formBusy"
+            (profileUpdated)="profileUpdated($event)"
+            (someThingWentWrong)="someThingWentWrong($event)"
+    ></app-profile>
+  </sa-body-content>
+  <sa-body-right-content>
+    <sa-manage-entry></sa-manage-entry>
+  </sa-body-right-content>
+  <sa-aside></sa-aside>
 </sa-body>
 <!-- FOOTER -->
 <!--===================================================-->

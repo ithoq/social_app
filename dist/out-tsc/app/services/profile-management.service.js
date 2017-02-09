@@ -69,7 +69,7 @@ export var ProfileManagementService = (function () {
     };
     ProfileManagementService.prototype.canActivate = function () {
         if (!this.getAllowColorChooser()) {
-            this.router.navigate(['manage-profile']);
+            this.router.navigate(['create-profile']);
         }
         else {
             return true;

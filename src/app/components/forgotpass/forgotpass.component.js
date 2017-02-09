@@ -28,7 +28,6 @@ var ForgotpassComponent = (function () {
             _this.router.navigate(['pass-reset']);
         }, function (e) {
             _this.errors = e.json()['error_message'];
-            console.log(e.json());
         });
     };
     ;

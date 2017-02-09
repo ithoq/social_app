@@ -60,7 +60,7 @@ export var RegisterComponent = (function () {
                 if (_this.auth.getUser().timelines != null)
                     _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
                 else
-                    _this.router.navigate(['manage-profile']);
+                    _this.router.navigate(['create-profile']);
             }, function (e) {
                 _this.errors = (e.json()['error_message'] != undefined) ? e.json()['error_message'] : 'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
             });
