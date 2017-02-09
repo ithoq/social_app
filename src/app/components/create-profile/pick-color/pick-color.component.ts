@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProfileManagementService} from "../../../services/profile-management.service";
 import {Router} from "@angular/router";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'sa-pick-color',
@@ -24,11 +25,12 @@ export class PickColorComponent implements OnInit {
       'cream'
 
   ];
-  constructor(private profileService:ProfileManagementService, private router:Router) { }
+  constructor(private profileService:ProfileManagementService, private router:Router, private _location:Location) { }
 
   clicked(color:any){
     this.profileService.setColor(color);
-    this.router.navigate(['manage-profile']);
+      this._location.back();
+    //this.router.navigate(['manage-profile']);
   }
 
   ngOnInit() {}

@@ -115,6 +115,10 @@ export class CreateProfileComponent implements OnInit {
         });
     }
 
+    loggedInUsrCanEdit(user:User){
+        return (this.auth.currentUser.UserId == user.UserId);
+    }
+
     filesSelected(event){
         if(event.target.files.length > 0){
             this.selectedImage = event.target.files[0];

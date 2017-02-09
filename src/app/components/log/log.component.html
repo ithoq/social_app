@@ -21,7 +21,7 @@
               <div (click)="showDetail(entry)" *ngIf="entry.Files.length > 0" class="img-holder mar-btm"> <img alt="Image" src="{{entry.Files[0].FileURL}}"> </div>
               <p><a href="javascript:void(0)" (click)="showDetail(entry)" class="text-main btn-link text-semibold"><i  class="fa text-muted"></i>
                 <span class="type-icon-grey" *ngFor="let type of getEntryTypes(entry.Type)"><img src="{{app.domain}}/assets/img/{{type.img}}"></span>
-                {{entry.Name}}</a> <a class="pull-right btn-link text-semibold" routerLink="/log/{{timeline.Id}}">{{(entry.NickName == "")?entry.User:entry.NickName}}</a></p>
+                {{entry.Name}}</a> <a class="pull-right btn-link text-semibold" (click)="showUserProfile(entry.UserId)">{{(entry.NickName == "")?entry.User:entry.NickName}}</a></p>
             </div>
           </div>
           <div class="clearfix"></div>

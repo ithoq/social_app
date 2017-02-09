@@ -42,4 +42,10 @@ export class HomeComponent implements OnInit {
     this.showmap = !this.showmap;
   }
 
+  profileUpdating(event){
+    console.log(event);
+  }
+  profileUpdated(event){
+    console.log(event);
+  }
 }

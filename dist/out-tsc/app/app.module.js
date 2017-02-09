@@ -53,6 +53,8 @@ import { MediumToPostDetailService } from "./services/medium-to-post-detail.serv
 import { MediumToManageEntryService } from "./services/medium-to-manage-entry.service";
 import { CreateCustomLogComponent } from './components/create-custom-log/create-custom-log.component';
 import { TestComponent } from './components/test/test.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ViewProfileComponent } from './components/view-profile/view-profile.component';
 export var AppModule = (function () {
     function AppModule() {
     }
@@ -90,7 +92,9 @@ export var AppModule = (function () {
                 PostDetailComponent,
                 CreateCustomLogComponent,
                 CreateCustomLogComponent,
-                TestComponent
+                TestComponent,
+                ProfileComponent,
+                ViewProfileComponent
             ],
             imports: [
                 AppRoutingModule,

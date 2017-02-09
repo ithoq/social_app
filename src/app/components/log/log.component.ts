@@ -7,6 +7,8 @@ import {AuthService} from "../../services/auth.service";
 import {TimelineService} from "../../services/timeline.service";
 import {AppService} from "../../app.service";
 import {HeaderComponent} from "../header/header.component";
+import {User} from "../../models/User";
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-log',
@@ -70,12 +72,18 @@ export class LogComponent implements OnInit {
         return foundTypes;
     }
 
+    showUserProfile(UserId:string){
+        let user:User = _.cloneDeep(this.auth.getUser().profile);
+        user.UserId = UserId;
+        localStorage.setItem('viewUserProfile',JSON.stringify(user));
+        console.log(localStorage.getItem('viewUserProfile'));
+        this.router.navigate(['/profile/'+UserId]);
+    }
     ngOnInit() {
         this.route.data
             .subscribe((data: { log: any }) => {
                 if(data.log == null){ this.router.navigate(['/log/custom']); }
                 this.timeline = data.log.json().payload;
-                console.log(this.timeline);
                 this.headerComponent.title = this.timeline.Name;
                 this.manageEntryComponent.setSelectedTimelines([this.timeline.Id]); //seting up timeline id for auto select in add entry component
             }, (error)=>{});

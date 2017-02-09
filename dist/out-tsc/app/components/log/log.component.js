@@ -16,6 +16,7 @@ import { AuthService } from "../../services/auth.service";
 import { TimelineService } from "../../services/timeline.service";
 import { AppService } from "../../app.service";
 import { HeaderComponent } from "../header/header.component";
+import * as _ from 'lodash';
 export var LogComponent = (function () {
     function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry, auth, timelineService, app) {
         this.route = route;
@@ -65,6 +66,13 @@ export var LogComponent = (function () {
         }
         return foundTypes;
     };
+    LogComponent.prototype.showUserProfile = function (UserId) {
+        var user = _.cloneDeep(this.auth.getUser().profile);
+        user.UserId = UserId;
+        localStorage.setItem('viewUserProfile', JSON.stringify(user));
+        console.log(localStorage.getItem('viewUserProfile'));
+        this.router.navigate(['/profile/' + UserId]);
+    };
     LogComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.data
@@ -73,7 +81,6 @@ export var LogComponent = (function () {
                 _this.router.navigate(['/log/custom']);
             }
             _this.timeline = data.log.json().payload;
-            console.log(_this.timeline);
             _this.headerComponent.title = _this.timeline.Name;
             _this.manageEntryComponent.setSelectedTimelines([_this.timeline.Id]); //seting up timeline id for auto select in add entry component
         }, function (error) { });

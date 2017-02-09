@@ -37,6 +37,12 @@ export var HomeComponent = (function () {
     HomeComponent.prototype.showMap = function () {
         this.showmap = !this.showmap;
     };
+    HomeComponent.prototype.profileUpdating = function (event) {
+        console.log(event);
+    };
+    HomeComponent.prototype.profileUpdated = function (event) {
+        console.log(event);
+    };
     HomeComponent = __decorate([
         Component({
             selector: 'sa-home',

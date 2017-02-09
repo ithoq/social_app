@@ -109,6 +109,9 @@ export var CreateProfileComponent = (function () {
             alert('some thing went wrong with the server please try again.');
         });
     };
+    CreateProfileComponent.prototype.loggedInUsrCanEdit = function (user) {
+        return (this.auth.currentUser.UserId == user.UserId);
+    };
     CreateProfileComponent.prototype.filesSelected = function (event) {
         var _this = this;
         if (event.target.files.length > 0) {

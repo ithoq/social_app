@@ -13,12 +13,13 @@ export class UsersService {
     }
 
     
-    updateSettings(settings:any, image=null){
+    updateSettings(userId:string, settings:any, image=null){
         let querystr = "";
         for(let propertyName in settings) {
             querystr+= '&'+propertyName+'='+settings[propertyName];
         }
-        return this.http.post(this.appService.api_end_point+'userSettings/'+this.auth.get_session_token()+"/"+querystr, image);
+        console.log(querystr);
+        return this.http.post(this.appService.api_end_point+'userSettings/'+this.auth.get_session_token()+"/&UserId="+userId+'/'+querystr, image);
     }
 
     searchByKeyword(keyword = "")

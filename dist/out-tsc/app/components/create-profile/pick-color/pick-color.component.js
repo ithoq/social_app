@@ -10,10 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { ProfileManagementService } from "../../../services/profile-management.service";
 import { Router } from "@angular/router";
+import { Location } from "@angular/common";
 export var PickColorComponent = (function () {
-    function PickColorComponent(profileService, router) {
+    function PickColorComponent(profileService, router, _location) {
         this.profileService = profileService;
         this.router = router;
+        this._location = _location;
         this.colors = [
             'aquamarine',
             'beachblue',
@@ -31,7 +33,8 @@ export var PickColorComponent = (function () {
     }
     PickColorComponent.prototype.clicked = function (color) {
         this.profileService.setColor(color);
-        this.router.navigate(['manage-profile']);
+        this._location.back();
+        //this.router.navigate(['manage-profile']);
     };
     PickColorComponent.prototype.ngOnInit = function () { };
     PickColorComponent = __decorate([
@@ -40,7 +43,7 @@ export var PickColorComponent = (function () {
             templateUrl: './pick-color.component.html',
             styleUrls: ['./pick-color.component.css']
         }), 
-        __metadata('design:paramtypes', [ProfileManagementService, Router])
+        __metadata('design:paramtypes', [ProfileManagementService, Router, Location])
     ], PickColorComponent);
     return PickColorComponent;
 }());

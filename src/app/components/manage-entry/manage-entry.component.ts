@@ -223,7 +223,6 @@ export class ManageEntryComponent implements OnInit {
 
                     },(error) => {
                         this.uploadingPost = false;
-                        //alert(error.json().error_message);
                     }
                 );
             }

@@ -574,12 +574,13 @@ var EntryService = (function () {
         }
         return this.http.post(this.appService.api_end_point + 'entryAdd/' + this.auth.get_session_token() + "/" + querystr, files);
     };
-    EntryService.prototype.updateEntry = function (entry_id, entry) {
+    EntryService.prototype.updateEntry = function (entry_id, entry, files) {
+        if (files === void 0) { files = {}; }
         var querystr = "";
         for (var propertyName in entry) {
             querystr += '&' + propertyName + '=' + entry[propertyName];
         }
-        return this.http.get(this.appService.api_end_point + 'entryUpdate/' + this.auth.get_session_token() + "/&EntryId=" + entry_id + querystr);
+        return this.http.post(this.appService.api_end_point + 'entryUpdate/' + this.auth.get_session_token() + "/&EntryId=" + entry_id + querystr, files);
     };
     EntryService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
@@ -1256,6 +1257,7 @@ var CreateProfileComponent = (function () {
         this.selectedImage = null;
         this.selectedThumbnail = '';
         this.formBusy = false;
+        this.editMode = false;
         var profileData = this.profileManagementService.getProfileData();
         if (profileData != null) {
             this.user = profileData.user;
@@ -1277,6 +1279,12 @@ var CreateProfileComponent = (function () {
         if (this.auth.getUser().timelines == null)
             return 'Add';
         return 'Save';
+    };
+    CreateProfileComponent.prototype.enterEditMode = function () {
+        this.editMode = true;
+    };
+    CreateProfileComponent.prototype.exitEditMode = function () {
+        this.editMode = false;
     };
     CreateProfileComponent.prototype.createProfile = function (form) {
         var _this = this;
@@ -1304,7 +1312,6 @@ var CreateProfileComponent = (function () {
                     entry.Type = 'Celebration';
                     entry.Name = 'Birthday added';
                     entry['TimelineId'] = data.json().payload.TimelineId;
-                    console.log(entry);
                     //adding the first entry
                     var querystr = "";
                     for (var propertyName in entry) {
@@ -1312,6 +1319,7 @@ var CreateProfileComponent = (function () {
                     }
                     _this.http.get(_this.appService.api_end_point + 'entryAdd/' + _this.auth.get_session_token() + "/" + querystr).subscribe(function (data) {
                         _this.formBusy = false;
+                        _this.exitEditMode();
                         _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
                     });
                 }, function (error) {
@@ -1320,7 +1328,7 @@ var CreateProfileComponent = (function () {
             }
             else {
                 _this.formBusy = false;
-                alert('Profile updated successfully');
+                _this.exitEditMode();
             }
         }, function (error) {
             _this.formBusy = false;
@@ -1735,7 +1743,7 @@ var LogComponent = (function () {
         this.user = null;
     }
     LogComponent.prototype.showDetail = function (entry) {
-        this.mediumToPostDetail.setPost(entry);
+        localStorage.setItem('post', JSON.stringify(entry));
         this.router.navigate(['/post/' + entry.EntryId]);
     };
     LogComponent.prototype.modifiedDate = function (date) {
@@ -2037,7 +2045,6 @@ var ManageEntryComponent = (function () {
     };
     ManageEntryComponent.prototype.filesSelected = function (event) {
         this.selectedFiles = event.target.files;
-        console.log('selectedFiles', this.selectedFiles);
         var length = this.selectedFiles.length;
         this.selectedFilesSrc = [];
         var tempSrc = [];
@@ -2049,7 +2056,6 @@ var ManageEntryComponent = (function () {
             reader.readAsDataURL(this.selectedFiles[i]);
         }
         this.selectedFilesSrc = tempSrc;
-        console.log(this.selectedFilesSrc);
     };
     ManageEntryComponent.prototype.create = function (form, event) {
         var _this = this;
@@ -2084,7 +2090,7 @@ var ManageEntryComponent = (function () {
                 files_1.append('Image' + (key + 1), value);
             });
             if (this.existingEntry != null) {
-                this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(function (response) {
+                this.entryService.updateEntry(this.existingEntry.EntryId, data, files_1).subscribe(function (response) {
                     _this.uploadingPost = false;
                     _this.entryupdated.emit({ data: data });
                     alert('Post Updated Successfully!');
@@ -2191,6 +2197,7 @@ var ManageEntryComponent = (function () {
             this.postDateEnd = this.existingEntry.DateEnd;
             this.postDateStart = this.existingEntry.DateStart;
             this.postLocation = this.existingEntry.Location;
+            this.postWhatelse = this.existingEntry.WhatElse;
             if (this.existingEntry.Timelines != undefined) {
                 for (var i = 0; i < this.existingEntry.Timelines.length; i++) {
                     this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
@@ -2534,8 +2541,8 @@ var PostDetailComponent = (function () {
         for (var property in event.data) {
             post[property] = event.data[property];
         }
+        localStorage.setItem('post', JSON.stringify(post));
         this.post = post;
-        // console.log(this.post);
     };
     PostDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3514,7 +3521,14 @@ var PostResolver = (function () {
     PostResolver.prototype.resolve = function (route, state) {
         var mediumToPostDetail = this.mediumToPostDetail;
         return new Promise(function (resolve, reject) {
-            resolve(mediumToPostDetail.getPost());
+            var params = route.params;
+            var post = JSON.parse(localStorage.getItem('post'));
+            if (post != null && post.EntryId == params.id) {
+                resolve(post);
+            }
+            else {
+                resolve(null);
+            }
         });
     };
     PostResolver = __decorate([
@@ -4087,14 +4101,14 @@ module.exports = ""
 /***/ 776:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = "@media(max-width:1200px) {\n    #mainnav-container,\n    .brand-title{\n        transition: .5s;\n        -webkit-transition: .5s;\n        -moz-transition: .5s;\n    }\n    .brand-title{\n        width:67px;\n    }\n}"
 
 /***/ },
 
 /***/ 777:
 /***/ function(module, exports) {
 
-module.exports = "@media (min-width: 769px){\n    #content-container {\n        padding-left: 220px;\n        left:0px !important;\n    }\n}"
+module.exports = "@media (min-width: 769px){\n    #content-container {\n        padding-left: 220px;\n        left:0px !important;\n    }\n}\n@media(max-width:1200px){\n    #content-container{\n        transition: .5s;\n        -webkit-transition: .5s;\n        -moz-transition: .5s;\n        left:0px;\n    }\n}"
 
 /***/ },
 
@@ -4136,7 +4150,7 @@ module.exports = ""
 /***/ 783:
 /***/ function(module, exports) {
 
-module.exports = ".pad-ver figure{\n    display: block;\n    width: 100px;\n    height: 100px;\n    margin: 0 auto 10px;\n}"
+module.exports = ".pad-ver figure{\n    display: block;\n    width: 100px;\n    height: 100px;\n    margin: 0 auto 10px;\n}\n.panel-head{\n    padding: 15px;\n    margin-bottom: 30px;\n    border-bottom: 1px solid #f3f3f3;\n}\n\n.panel-head h3 {\n    color: #344a61;\n    font-size:22px;\n}\n\n.panel-head .demo-panel-ref-btn,\n.panel-head span{\n    font-size: 16px;\n    padding:0px;\n    display: inline-block;\n    vertical-align: middle;\n}\n.panel-head .demo-panel-ref-btn{\n    padding-left: 10px;\n    color: #394f65;\n}\n\n.panel-head .panel-control{\n    padding-right:0px;\n}\n.panel-head span {\n    color: #c5ccd3;\n}\n.panel-head h3 {\n    margin:0px;\n}\n\n.pro-image{\n    margin-bottom: 40px;\n}\n\n.pro-content{\n    padding-bottom: 30px;\n}\n\n.pro-content label {\n    display: block;\n    margin-bottom: 30px;\n    font-size: 16px;\n    color: #344a61;\n}\n\n.pro-content label .color-box{\n    width: 20px;\n    height:20px;\n    display: inline-block;\n    vertical-align: middle;\n}\n\n@media (max-width: 414px){\n    .panel-head h3 {\n        font-size:16px;\n    }\n    .panel-head .demo-panel-ref-btn,\n    .panel-head span{\n        font-size:12px;\n    }\n    .pro-content label {\n        font-size:12px;\n        margin-bottom: 20px;\n    }\n    .pro-content label strong,\n    .pro-content label span{\n        display: block;\n    }\n}"
 
 /***/ },
 
@@ -4171,7 +4185,7 @@ module.exports = ""
 /***/ 788:
 /***/ function(module, exports) {
 
-module.exports = "#navbar{\n    position: fixed;\n}\n"
+module.exports = "#navbar{\n    position: fixed;\n}"
 
 /***/ },
 
@@ -4339,7 +4353,7 @@ module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===============================
 /***/ 812:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n    <sa-title></sa-title>\n    <sa-action>\n        <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Profile </a> </li>\n    </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n    <sa-body-content>\n        <div class=\"row\">\n            <div class=\"col-lg-12\">\n                <div class=\"panel\">\n\n                    <form id=\"demo-bvd-notempty\" action=\"#\" class=\"form-horizontal\" (submit)=\"createProfile(f)\" #f=\"ngForm\" [ngClass]=\"{'form-busy': formBusy == true}\">\n                        <div class=\"panel-heading\">\n                            <div class=\"panel-control\">\n                                <button type=\"submit\" class=\"demo-panel-ref-btn btn btn-default\" data-target=\"#demo-panel-ref\" data-toggle=\"panel-overlay\"> <i class=\"fa fa-share fa-fw\"></i> {{getAction()}} </button>\n                            </div>\n                            <h3 class=\"panel-title\">{{getTitle()}} Profile</h3>\n                        </div>\n\n                        <div class=\"panel-body\">\n                            <div class=\"text-center pad-ver\">\n                                <figure (click)=\"chooseFile()\">\n                                    <img alt=\"Avatar\" class=\"img-lg img-circle img-border-aquamarine mar-btm\" [src]=\"(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '')?appService.default_user_profile_pic:user.ImageURL)\">\n                                </figure>\n                                <p class=\"text-sm\">Add photo <input id=\"profile-img-chooser\" style=\"display: none;\" type=\"file\" (change)=\"filesSelected($event)\"></p>\n                            </div>\n                            <br>\n                            <p class=\"text-main text-bold\">Name</p>\n                            <input type=\"text\" placeholder=\"First name\" class=\"form-control input-lg\" [ngModel]=\"user.FirstName\" name=\"FirstName\" id=\"demo-is-inputlarge\">\n                            <br>\n                            <input type=\"text\" placeholder=\"Last name\" class=\"form-control input-lg\"  [ngModel]=\"user.LastName\" name=\"LastName\" id=\"demo-is-inputlarge\">\n                            <br>\n                            <!--                <hr class=\"new-section-xs bord-no\">\n            -->\n                            <input type=\"text\" placeholder=\"Profile name / nickname\"  [ngModel]=\"user.Nickname\" required=\"required\" name=\"Nickname\" class=\"form-control input-lg\" id=\"demo-is-inputlarge\">\n                            <hr class=\"new-section-xs bord-no\">\n                            <p class=\"text-main text-bold\">Birthday</p>\n\n                            <!--Bootstrap Datepicker : Component-->\n                            <!--===================================================-->\n                            <div id=\"demo-dp-component\">\n                                <div class=\"input-group date\">\n                                    <input type=\"text\" class=\"form-control datepicker\"  [ngModel]=\"user.DateBirthDay\" name=\"DateBirthDay\">\n                                    <span class=\"input-group-addon\"><i class=\"demo-pli-calendar-4\"></i></span> </div>\n                                <small class=\"text-muted\">Your birthday is used to build your timeline.</small> </div>\n                            <!--===================================================-->\n\n                            <hr class=\"new-section-xs bord-no\">\n                            <p class=\"text-main text-bold\">Location / address</p>\n                            <input type=\"text\" placeholder=\" \" class=\"form-control input-lg\"  [ngModel]=\"user.address\" name=\"address\" id=\"demo-is-inputlarge\">\n                            <hr class=\"new-section-xs bord-no\">\n                            <p class=\"text-main text-bold\">Color</p>\n                            <div class=\" mar-btm\">\n                                <input type=\"hidden\" [ngModel]=\"user.Color\" name=\"Color\">\n                                <button type=\"button\" class=\"btn btn-{{user.Color}} fa fa-check pad-all mar-rgt\"> </button>\n                                <button type=\"button\" class=\"btn btn-default\" (click)=\"chooseColor(f)\">Select Color</button>\n                            </div>\n                        </div>\n                    </form>\n                </div>\n            </div>\n        </div>\n    </sa-body-content>\n    <sa-body-right-content>\n        <sa-manage-entry></sa-manage-entry>\n    </sa-body-right-content>\n    <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
+module.exports = "<sa-header>\n    <sa-title></sa-title>\n    <sa-action>\n        <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Profile </a> </li>\n    </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n    <sa-body-content>\n        <div *ngIf=\"editMode\" class=\"row\">\n            <div class=\"col-lg-12\">\n                <div class=\"panel\">\n\n                    <form id=\"demo-bvd-notempty\" action=\"#\" class=\"form-horizontal\" (submit)=\"createProfile(f)\" #f=\"ngForm\" [ngClass]=\"{'form-busy': formBusy == true}\">\n                        <div class=\"panel-heading\">\n                            <div class=\"panel-control\">\n                                <button type=\"submit\" class=\"demo-panel-ref-btn btn btn-default\" data-target=\"#demo-panel-ref\" data-toggle=\"panel-overlay\"> <i class=\"fa fa-share fa-fw\"></i> {{getAction()}} </button>\n                            </div>\n                            <h3 class=\"panel-title\">{{getTitle()}} Profile</h3>\n                        </div>\n\n                        <div class=\"panel-body\">\n                            <div class=\"text-center pad-ver\">\n                                <figure (click)=\"chooseFile()\">\n                                    <img alt=\"Avatar\" class=\"img-lg img-circle img-border-aquamarine mar-btm\" [src]=\"(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '')?appService.default_user_profile_pic:user.ImageURL)\">\n                                </figure>\n                                <p class=\"text-sm\">Add photo <input id=\"profile-img-chooser\" style=\"display: none;\" type=\"file\" (change)=\"filesSelected($event)\"></p>\n                            </div>\n                            <br>\n                            <p class=\"text-main text-bold\">Name</p>\n                            <input type=\"text\" placeholder=\"First name\" class=\"form-control input-lg\" [ngModel]=\"user.FirstName\" name=\"FirstName\" id=\"demo-is-inputlarge\">\n                            <br>\n                            <input type=\"text\" placeholder=\"Last name\" class=\"form-control input-lg\"  [ngModel]=\"user.LastName\" name=\"LastName\" id=\"demo-is-inputlarge\">\n                            <br>\n                            <!--                <hr class=\"new-section-xs bord-no\">\n            -->\n                            <input type=\"text\" placeholder=\"Profile name / nickname\"  [ngModel]=\"user.Nickname\" required=\"required\" name=\"Nickname\" class=\"form-control input-lg\" id=\"demo-is-inputlarge\">\n                            <hr class=\"new-section-xs bord-no\">\n                            <p class=\"text-main text-bold\">Birthday</p>\n\n                            <!--Bootstrap Datepicker : Component-->\n                            <!--===================================================-->\n                            <div id=\"demo-dp-component\">\n                                <div class=\"input-group date\">\n                                    <input type=\"text\" class=\"form-control datepicker\"  [ngModel]=\"user.DateBirthDay\" name=\"DateBirthDay\">\n                                    <span class=\"input-group-addon\"><i class=\"demo-pli-calendar-4\"></i></span> </div>\n                                <small class=\"text-muted\">Your birthday is used to build your timeline.</small> </div>\n                            <!--===================================================-->\n\n                            <hr class=\"new-section-xs bord-no\">\n                            <p class=\"text-main text-bold\">Location / address</p>\n                            <input type=\"text\" placeholder=\" \" class=\"form-control input-lg\"  [ngModel]=\"user.address\" name=\"address\" id=\"demo-is-inputlarge\">\n                            <hr class=\"new-section-xs bord-no\">\n                            <p class=\"text-main text-bold\">Color</p>\n                            <div class=\" mar-btm\">\n                                <input type=\"hidden\" [ngModel]=\"user.Color\" name=\"Color\">\n                                <button type=\"button\" class=\"btn btn-{{user.Color}} fa fa-check pad-all mar-rgt\"> </button>\n                                <button type=\"button\" class=\"btn btn-default\" (click)=\"chooseColor(f)\">Select Color</button>\n                            </div>\n                        </div>\n                    </form>\n                </div>\n            </div>\n        </div>\n        <div *ngIf=\"editMode == false\" class=\"row\">\n            <div class=\"col-lg-12\">\n                <div class=\"panel\">\n                    <div class=\"panel-head\">\n                        <div class=\"panel-control\">\n                            <span>Managed by {{user.FirstName}} {{user.LastName}}</span>\n                            <button class=\"demo-panel-ref-btn btn btn-default\" type=\"button\" (click)=\"enterEditMode()\"> <i class=\"fa fa-pencil fa-fw\"></i> Edit </button>\n                        </div>\n                        <h3>Profile</h3>\n                    </div>\n                    <div class=\"text-center pro-image\">\n                        <figure>\n                            <img alt=\"Avatar\" class=\"img-lg img-circle img-border-aquamarine mar-btm\" [src]=\"(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '')?appService.default_user_profile_pic:user.ImageURL)\">\n                        </figure>\n                    </div>\n                    <div class=\"text-center pro-content\">\n                        <label>\n                            <strong>Name</strong>\n                            <span>{{user.FirstName}} {{user.LastName}}</span>\n                        </label>\n                        <label>\n                            <strong>Nick Name</strong>\n                            <span>{{user.NickName}}</span>\n                        </label>\n                        <label>\n                            <strong>Birthday</strong>\n                            <span>{{user.DateBirthDay}}</span>\n                        </label>\n                        <label>\n                            <strong>Location</strong>\n                            <span>{{user.address}}</span>\n                        </label>\n                        <label>\n                            <strong>Color</strong>\n                            <span class=\"color-box btn-{{user.Color}}\"></span>\n                        </label>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </sa-body-content>\n    <sa-body-right-content>\n        <sa-manage-entry></sa-manage-entry>\n    </sa-body-right-content>\n    <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
 
 /***/ },
 

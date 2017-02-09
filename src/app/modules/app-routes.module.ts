@@ -29,6 +29,8 @@ import {PostDetailGuardService} from "../services/post-detail-guard.service";
 import {CreateCustomLogComponent} from "../components/create-custom-log/create-custom-log.component";
 import {CustomLogResolver} from "../components/log/customLog.resolver";
 import {TestComponent} from "../components/test/test.component";
+import {ViewProfileComponent} from "../components/view-profile/view-profile.component";
+import {ViewProfileResolver} from "../components/view-profile/view-profile.resolver";
 
 const appRoutes: Routes = [
     {
@@ -40,6 +42,7 @@ const appRoutes: Routes = [
         children:[
             {path: "", component:AuthParentComponent, canActivate:[AuthGuardService], children:[
                 {path: "home", component:HomeComponent, canActivate:[ProfileCreatedGuardService]},
+                {path: "profile/:id", resolve:{user:ViewProfileResolver}, component:ViewProfileComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: 'log/custom', resolve:{log:CustomLogResolver}, component: LogComponent , canActivate:[ProfileCreatedGuardService]},
                 {path: 'log/:id', resolve:{log:LogResolver}, component: LogComponent , canActivate:[ProfileCreatedGuardService]},
                 {path: 'log/:id/invite-users', resolve:{log:LogResolver}, component: InviteUsersComponent , canActivate:[ProfileCreatedGuardService]},
@@ -82,7 +85,8 @@ const appRoutes: Routes = [
       PostResolver,
       ProfileCreatedGuardService,
       PostDetailGuardService,
-      CustomLogResolver
+      CustomLogResolver,
+      ViewProfileResolver
   ]
 })
 export class AppRoutingModule {}

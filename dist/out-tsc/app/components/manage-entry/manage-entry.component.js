@@ -196,7 +196,6 @@ export var ManageEntryComponent = (function () {
                     _this.rightContentService.aside_in = false;
                 }, function (error) {
                     _this.uploadingPost = false;
-                    //alert(error.json().error_message);
                 });
             }
         }
