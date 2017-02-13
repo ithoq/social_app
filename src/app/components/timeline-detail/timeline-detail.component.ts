@@ -36,8 +36,9 @@ export class TimelineDetailComponent implements OnInit {
     user.UserId == this.auth.getUser().profile.UserId);
   }
   currentUserCanDeleteThis(user:User){
-    return (this.usersService.findMangedUserById(user.UserId) != null ||
-    this.timeline.CreatedByUserId == this.auth.getUser().profile.UserId);
+    return ((this.usersService.findMangedUserById(user.UserId) != null ||
+              this.timeline.CreatedByUserId == this.auth.getUser().profile.UserId) &&
+            (user.UserId != this.auth.getUser().profile.UserId));
   }
 
   updateLog(form:NgForm){

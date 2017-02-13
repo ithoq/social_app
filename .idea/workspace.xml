@@ -4,7 +4,6 @@
     <list default="true" id="f405f1b4-bc75-4d88-ab59-f33d19d289ab" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/timeline-detail/timeline-detail.component.js" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/timeline-detail/timeline-detail.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/out-tsc/app/components/timeline-detail/timeline-detail.component.js.map" afterPath="$PROJECT_DIR$/dist/out-tsc/app/components/timeline-detail/timeline-detail.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/timeline-detail/timeline-detail.component.html" afterPath="$PROJECT_DIR$/src/app/components/timeline-detail/timeline-detail.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/timeline-detail/timeline-detail.component.ts" afterPath="$PROJECT_DIR$/src/app/components/timeline-detail/timeline-detail.component.ts" />
     </list>
     <ignored path="dev.iws" />
@@ -107,7 +106,7 @@
         <entry file="file://$PROJECT_DIR$/src/app/components/timeline-detail/timeline-detail.component.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="294">
-              <caret line="40" column="3" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+              <caret line="40" column="26" lean-forward="false" selection-start-line="40" selection-start-column="26" selection-end-line="40" selection-end-column="26" />
               <folding>
                 <element signature="e#0#55#0" expanded="true" />
               </folding>
@@ -261,8 +260,8 @@
         <option value="$PROJECT_DIR$/src/app/models/Timeline.ts" />
         <option value="$PROJECT_DIR$/src/app/components/log/log.component.ts" />
         <option value="$PROJECT_DIR$/src/app/app.service.ts" />
-        <option value="$PROJECT_DIR$/src/app/components/timeline-detail/timeline-detail.component.ts" />
         <option value="$PROJECT_DIR$/src/app/components/timeline-detail/timeline-detail.component.html" />
+        <option value="$PROJECT_DIR$/src/app/components/timeline-detail/timeline-detail.component.ts" />
       </list>
     </option>
   </component>
@@ -540,12 +539,12 @@
       <workItem from="1486649354692" duration="5039000" />
       <workItem from="1486699845608" duration="13961000" />
       <workItem from="1486779670723" duration="63000" />
-      <workItem from="1486962161524" duration="22249000" />
+      <workItem from="1486962161524" duration="22512000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="403412000" />
+    <option name="totallyTimeSpent" value="403675000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -1146,7 +1145,7 @@
     <entry file="file://$PROJECT_DIR$/src/app/components/timeline-detail/timeline-detail.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
-          <caret line="40" column="3" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+          <caret line="40" column="26" lean-forward="false" selection-start-line="40" selection-start-column="26" selection-end-line="40" selection-end-column="26" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
           </folding>

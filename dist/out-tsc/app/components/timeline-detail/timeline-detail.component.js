@@ -31,8 +31,9 @@ export var TimelineDetailComponent = (function () {
             user.UserId == this.auth.getUser().profile.UserId);
     };
     TimelineDetailComponent.prototype.currentUserCanDeleteThis = function (user) {
-        return (this.usersService.findMangedUserById(user.UserId) != null ||
-            this.timeline.CreatedByUserId == this.auth.getUser().profile.UserId);
+        return ((this.usersService.findMangedUserById(user.UserId) != null ||
+            this.timeline.CreatedByUserId == this.auth.getUser().profile.UserId) &&
+            (user.UserId != this.auth.getUser().profile.UserId));
     };
     TimelineDetailComponent.prototype.updateLog = function (form) {
         var _this = this;
