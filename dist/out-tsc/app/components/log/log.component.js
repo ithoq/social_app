@@ -17,6 +17,7 @@ import { TimelineService } from "../../services/timeline.service";
 import { AppService } from "../../app.service";
 import { HeaderComponent } from "../header/header.component";
 import * as _ from 'lodash';
+import { Timeline } from "../../models/Timeline";
 export var LogComponent = (function () {
     function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry, auth, timelineService, app) {
         this.route = route;
@@ -28,6 +29,7 @@ export var LogComponent = (function () {
         this.app = app;
         this.timeline = null;
         this.user = null;
+        this.timeline = new Timeline();
     }
     LogComponent.prototype.showDetail = function (entry) {
         localStorage.setItem('post', JSON.stringify(entry));
@@ -49,7 +51,6 @@ export var LogComponent = (function () {
                 _this.timeline = data.json().payload;
                 resolve(true);
             }, function (error) {
-                console.log(error);
                 reject(false);
             });
         });
@@ -66,12 +67,29 @@ export var LogComponent = (function () {
         }
         return foundTypes;
     };
+    LogComponent.prototype.findUserByIdInTimelineUsers = function (userId) {
+        if (userId == this.auth.getUser().profile.UserId) {
+            return this.auth.getUser().profile;
+        }
+        for (var _i = 0, _a = this.timeline.Users; _i < _a.length; _i++) {
+            var user = _a[_i];
+            if (user.UserId == userId) {
+                return user;
+            }
+        }
+        return null;
+    };
     LogComponent.prototype.showUserProfile = function (UserId) {
-        var user = _.cloneDeep(this.auth.getUser().profile);
-        user.UserId = UserId;
-        localStorage.setItem('viewUserProfile', JSON.stringify(user));
-        console.log(localStorage.getItem('viewUserProfile'));
-        this.router.navigate(['/profile/' + UserId]);
+        var user = this.findUserByIdInTimelineUsers(UserId);
+        if (user != null) {
+            var clonedUser = _.cloneDeep(user); //TODO: search the actual user. (may be api is not available yet)
+            clonedUser.UserId = UserId;
+            localStorage.setItem('viewUserProfile', JSON.stringify(clonedUser));
+            this.router.navigate(['/profile/' + UserId]);
+        }
+        else {
+            alert('user not found.');
+        }
     };
     LogComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -80,7 +98,7 @@ export var LogComponent = (function () {
             if (data.log == null) {
                 _this.router.navigate(['/log/custom']);
             }
-            _this.timeline = data.log.json().payload;
+            _this.timeline = _this.app.map(data.log.json().payload, _this.timeline);
             _this.headerComponent.title = _this.timeline.Name;
             _this.manageEntryComponent.setSelectedTimelines([_this.timeline.Id]); //seting up timeline id for auto select in add entry component
         }, function (error) { });

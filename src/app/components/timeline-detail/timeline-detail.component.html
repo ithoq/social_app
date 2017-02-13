@@ -1,0 +1,78 @@
+<div class="col-lg-6">
+  <div class="panel">
+    <div class="panel-heading">
+      <div class="panel-control">
+        <ul class="pager pager-rounded">
+          <a routerLink="/log/{{timeline.Id}}/invite-users" id="demo-btn-addrow" class="btn"><i
+                  class="fa fa-plus text-info"></i></a>
+        </ul>
+      </div>
+      <h3 class="panel-title">{{timeline.Name}}<span class="text-sm text-muted mar-lft"> Admin: {{timeline.Users[0].Nickname}}</span>
+        <button data-toggle="modal" [attr.data-target]="'#'+edit_log_modal_id" class="btn"><i class="fa fa-pencil text-info"></i></button>
+      </h3>
+
+    </div>
+
+
+    <!--Hover Rows-->
+    <!--===================================================-->
+    <div class="panel-body">
+
+
+      <table class="table table-hover table-vcenter">
+        <thead>
+        <tr>
+          <th class="min-width">Image</th>
+          <th>Name</th>
+          <th class="text-center">Profile managed by</th>
+          <th class="text-center">Profile</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of timeline.Users">
+          <td class="text-center"><img class="img-xs img-circle"
+                                       [src]="(user.ImageURL == undefined)?app.default_user_profile_pic:user.ImageURL"
+                                       alt="Profile picture"></td>
+          <td>
+            <span class="text-main text-semibold">{{user.FirstName}} {{user.LastName}}</span>
+          </td>
+          <td class="text-center"><span
+                  class="text-muted text-semibold">{{user.FirstName}}</span></td>
+          <td class="text-center">
+            <span *ngIf="currentUserCanEditThis(user)" (click)="editUser(user)" class="text-info text-semibold">Edit</span>
+            <span *ngIf="currentUserCanEditThis(user)" class="text-info text-semibold" (click)="removeUser(user.UserId)">Del</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--===================================================-->
+    <!--End Hover Rows-->
+
+  </div>
+  <div id="{{edit_log_modal_id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create new log</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover table-vcenter">
+            <thead>
+            <tr>
+              <th>
+                <form (submit)="updateLog(f)" #f="ngForm">
+                  <input type="text" class="input_text" [ngModel]="timeline.Name" name="Name" placeholder="Enter New Log Name Here.." required>
+                  <button type="submit" class="btn btn-info">Save</button>
+                </form>
+              </th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

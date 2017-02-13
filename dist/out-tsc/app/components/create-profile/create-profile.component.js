@@ -36,8 +36,10 @@ export var CreateProfileComponent = (function () {
     CreateProfileComponent.prototype.profileUpdated = function (event) {
         var _this = this;
         var inputData = event.user;
-        this.auth.setUser(JSON.stringify({ profile: event.user, timelines: this.auth.getUser().timelines }));
-        if (this.auth.getUser().timelines == null) {
+        var userStuff = this.auth.getUser();
+        userStuff.profile = event.user;
+        this.auth.setUser(JSON.stringify(userStuff));
+        if (this.auth.getUser().timelines.length == 0) {
             this.timelineService.create({ Name: 'My Private Timeline' }).subscribe(function (data) {
                 var user = _this.auth.getUser();
                 user.timelines = [{ Id: data.json().payload.TimelineId, Name: 'My Private Timeline' }];
@@ -45,7 +47,7 @@ export var CreateProfileComponent = (function () {
                 var entry = new Post();
                 entry.DateStart = inputData.DateBirthDay;
                 entry.Type = 'Celebration';
-                entry.Name = 'Birthday added';
+                entry.Name = 'Birthday';
                 entry['TimelineId'] = data.json().payload.TimelineId;
                 //adding the first entry
                 var querystr = "";

@@ -20,7 +20,7 @@ export var AntiProfileCreatedGuardService = (function () {
         this.currentRoute = activatedRoute;
     }
     AntiProfileCreatedGuardService.prototype.canActivate = function () {
-        if (this.auth.getUser().timelines != null) {
+        if (this.auth.getUser().timelines.length > 0) {
             this.router.navigate(['manage-profiles']);
             return false;
         }

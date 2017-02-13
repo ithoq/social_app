@@ -20,8 +20,12 @@ export class AsideComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
+  refreshTimelines(){
+    this.timelines = this.auth.getUser().timelines;
+  }
 
   logout(){
     this.auth.logout().subscribe(

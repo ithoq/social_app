@@ -9,9 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
 export var ViewProfileComponent = (function () {
-    function ViewProfileComponent(route) {
+    function ViewProfileComponent(route, location) {
         this.route = route;
+        this.location = location;
         this.user = null;
     }
     ViewProfileComponent.prototype.ngOnInit = function () {
@@ -20,7 +22,8 @@ export var ViewProfileComponent = (function () {
             .subscribe(function (data) {
             if (data.user == null) {
                 alert('no user found');
-            } //Todo: handel this case later.
+                _this.location.back();
+            }
             _this.user = data.user;
         }, function (error) { });
     };
@@ -30,7 +33,7 @@ export var ViewProfileComponent = (function () {
             templateUrl: './view-profile.component.html',
             styleUrls: ['./view-profile.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute])
+        __metadata('design:paramtypes', [ActivatedRoute, Location])
     ], ViewProfileComponent);
     return ViewProfileComponent;
 }());

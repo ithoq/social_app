@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import * as _ from 'lodash';
 @Injectable()
 export class AppService {
 
@@ -10,4 +10,24 @@ export class AppService {
     this.default_user_profile_pic = this.domain+'/assets/img/profile-photos/profile-default.png';
   }
 
+  //generate a random hashed string
+  s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+  }
+  unique_id(){
+    return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
+        this.s4() + '-' + this.s4() + this.s4() + this.s4();
+  }
+
+  //TODO: replace all manual mapings in the project by this function.
+  map(object:any, target:any){
+    object = _.cloneDeep(object);
+    target = _.cloneDeep(target);
+    for (var property in object) {
+      target[property] = object[property];
+    }
+    return target;
+  }
 }

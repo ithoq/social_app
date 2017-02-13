@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
 import {AppService} from "../app.service";
 import {AuthService} from "./auth.service";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class UsersService {
@@ -18,7 +19,6 @@ export class UsersService {
         for(let propertyName in settings) {
             querystr+= '&'+propertyName+'='+settings[propertyName];
         }
-        console.log(querystr);
         return this.http.post(this.appService.api_end_point+'userSettings/'+this.auth.get_session_token()+"/&UserId="+userId+'/'+querystr, image);
     }
 
@@ -27,4 +27,22 @@ export class UsersService {
         return this.http.get(this.appService.api_end_point+'userSearch/'+this.auth.get_session_token()+"/&SearchFor="+keyword);
     }
 
+    getUserTimelinesAndStuff(){
+        return this.http.get(this.appService.api_end_point+'userSignin/'+this.auth.get_session_token());
+    }
+
+    findMangedUserById(userId:String)
+    {
+        if(userId == this.auth.getUser().profile.UserId) {
+            return this.auth.getUser().profile;
+        }
+
+        for(var user of this.auth.getUser().managedUsers){
+            if(user.UserId == userId){
+                return user;
+            }
+        }
+        return null;
+
+    }
 }

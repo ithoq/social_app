@@ -3,6 +3,7 @@ import {Http} from "@angular/http";
 import {AppService} from "../app.service";
 import {Observable} from "rxjs";
 import {User} from "../models/User";
+import {UserStuff} from "../models/UserStuff";
 
 @Injectable()
 export class AuthService {
@@ -14,13 +15,13 @@ export class AuthService {
     this.currentUser = (this.getUser() == null)?new User():this.getUser().profile;
   }
 
-  getUser() {
+  getUser():UserStuff {
       return (localStorage.getItem('user') != null)?JSON.parse(localStorage.getItem('user')):null;
   }
 
   grab_app_key(){
     return new Observable(observable=>{
-      observable.next("WebClient");
+      observable.next("WebClient"); //Todo: put it in the config file.
     });
   }
   grab_session_token(app_key:any){

@@ -14,4 +14,5 @@ export class User {
     DateBirthDay:string = "";
     ImageURL:string = "";
     ThumbURL:string = "";
+
 }

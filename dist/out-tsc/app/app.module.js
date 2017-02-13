@@ -56,6 +56,8 @@ import { TestComponent } from './components/test/test.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ViewProfileComponent } from './components/view-profile/view-profile.component';
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
+import { TimelineDetailComponent } from './components/timeline-detail/timeline-detail.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 export var AppModule = (function () {
     function AppModule() {
     }
@@ -96,7 +98,9 @@ export var AppModule = (function () {
                 TestComponent,
                 ProfileComponent,
                 ViewProfileComponent,
-                CreateProfileComponent
+                CreateProfileComponent,
+                TimelineDetailComponent,
+                EditProfileComponent
             ],
             imports: [
                 AppRoutingModule,

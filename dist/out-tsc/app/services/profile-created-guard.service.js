@@ -20,7 +20,7 @@ export var ProfileCreatedGuardService = (function () {
         this.currentRoute = activatedRoute;
     }
     ProfileCreatedGuardService.prototype.canActivate = function () {
-        if (this.auth.getUser().timelines == null) {
+        if (this.auth.getUser().timelines.length == 0) {
             this.router.navigate(['create-profile']);
             return false;
         }

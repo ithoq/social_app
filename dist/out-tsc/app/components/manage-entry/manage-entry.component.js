@@ -174,6 +174,8 @@ export var ManageEntryComponent = (function () {
             data.Location = this.location;
             data.DateStart = $('#new-post-start-date').val();
             data.DateEnd = $('#new-post-end-date').val();
+            data.Lat = this.lat;
+            data.Lng = this.lng;
             var files_1 = new FormData();
             $.each(this.selectedFiles, function (key, value) {
                 files_1.append('Image' + (key + 1), value);
@@ -286,6 +288,8 @@ export var ManageEntryComponent = (function () {
             this.postDateStart = this.existingEntry.DateStart;
             this.postLocation = this.existingEntry.Location;
             this.postWhatelse = this.existingEntry.WhatElse;
+            this.lat = this.existingEntry.Lat;
+            this.lng = this.existingEntry.Lng;
             if (this.existingEntry.Timelines != undefined) {
                 for (var i = 0; i < this.existingEntry.Timelines.length; i++) {
                     this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);

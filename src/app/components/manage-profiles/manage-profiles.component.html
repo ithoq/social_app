@@ -9,10 +9,7 @@
 
 <sa-body>
     <sa-body-content>
-        <app-profile
-                [user]="auth.currentUser"
-                (profileUpdated)="profileUpdated($event)"
-        ></app-profile>
+        <app-profile [user]="auth.currentUser" (profileUpdated)="profileUpdated($event)" ></app-profile>
     </sa-body-content>
     <sa-body-right-content>
         <sa-manage-entry></sa-manage-entry>

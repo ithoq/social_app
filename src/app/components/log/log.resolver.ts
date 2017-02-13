@@ -11,7 +11,7 @@ import {TimelineService} from "../../services/timeline.service";
 @Injectable()
 export class LogResolver implements Resolve<any> {
     constructor(public auth:AuthService, private timelineService:TimelineService, private route:ActivatedRoute, private router:Router) {
-        console.log(this.auth.currentUser);
+
     }
     resolve(
         route: ActivatedRouteSnapshot,

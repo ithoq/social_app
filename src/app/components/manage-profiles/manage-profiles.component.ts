@@ -18,9 +18,9 @@ export class ManageProfilesComponent implements OnInit {
     constructor(private auth:AuthService, public appService:AppService) {}
 
     profileUpdated(event){
-        let inputData = event.user;
-        this.auth.setUser(JSON.stringify({profile:event.user,timelines:this.auth.getUser().timelines}));
-        this.auth.currentUser = inputData;
+        let userStuff = this.auth.getUser();
+        userStuff.profile = event.user;
+        this.auth.setUser(JSON.stringify(userStuff));
     }
 
     ngOnInit() {}

@@ -8,6 +8,7 @@ import {RightContentService} from "../../services/right-content.service";
 import {MediumToManageEntryService} from "../../services/medium-to-manage-entry.service";
 import {Router} from "@angular/router";
 import {isUndefined} from "util";
+import {Post} from "../../models/Post";
 
 declare var noUiSlider: any;
 declare var wNumb: any;
@@ -198,6 +199,8 @@ export class ManageEntryComponent implements OnInit {
             data.Location = this.location;
             data.DateStart = $('#new-post-start-date').val();
             data.DateEnd = $('#new-post-end-date').val();
+            data.Lat = this.lat;
+            data.Lng = this.lng;
             let files = new FormData();
             $.each(this.selectedFiles, function(key, value){
                 files.append('Image'+(key+1), value);
@@ -297,7 +300,7 @@ export class ManageEntryComponent implements OnInit {
         }
     }
 
-    setExistingPost(post:any){
+    setExistingPost(post:Post){
         this.existingEntry = post;
         if(this.existingEntry != null){
             if(this.existingEntry.BestSelfRating != '' && this.existingEntry.BestSelfRating != undefined){
@@ -314,6 +317,8 @@ export class ManageEntryComponent implements OnInit {
             this.postDateStart = this.existingEntry.DateStart;
             this.postLocation = this.existingEntry.Location;
             this.postWhatelse = this.existingEntry.WhatElse;
+            this.lat = this.existingEntry.Lat;
+            this.lng = this.existingEntry.Lng;
             if(this.existingEntry.Timelines != undefined){
                 for(let i = 0; i<this.existingEntry.Timelines.length; i++){
                     this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);

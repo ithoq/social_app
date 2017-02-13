@@ -7,6 +7,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {UsersService} from "../../services/users.service";
 import {User} from "../../models/User";
+import {UserStuff} from "../../models/UserStuff";
 
 @Component({
   selector: 'sa-register',
@@ -64,8 +65,10 @@ export class RegisterComponent implements OnInit {
                       for (var property in updatedUser) {
                           user[property] = updatedUser[property];
                       }
-                      this.auth.setUser(JSON.stringify({profile:user,timelines:data.json().payload.Timelines}));
-                      if(this.auth.getUser().timelines != null)
+                      let userTimelines = (data.json().payload.Timelines == null)?[]:data.json().payload.Timelines;
+                      let userStuff = new UserStuff(user, userTimelines, data.json().ManagedUsers);
+                      this.auth.setUser(JSON.stringify(userStuff));
+                      if(this.auth.getUser().timelines.length > 0)
                           this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
                       else
                           this.router.navigate(['create-profile']);

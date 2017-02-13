@@ -21,9 +21,9 @@ export var ManageProfilesComponent = (function () {
         this.editMode = false;
     }
     ManageProfilesComponent.prototype.profileUpdated = function (event) {
-        var inputData = event.user;
-        this.auth.setUser(JSON.stringify({ profile: event.user, timelines: this.auth.getUser().timelines }));
-        this.auth.currentUser = inputData;
+        var userStuff = this.auth.getUser();
+        userStuff.profile = event.user;
+        this.auth.setUser(JSON.stringify(userStuff));
     };
     ManageProfilesComponent.prototype.ngOnInit = function () { };
     ManageProfilesComponent = __decorate([

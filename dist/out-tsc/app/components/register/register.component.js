@@ -14,6 +14,7 @@ import { Http } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UsersService } from "../../services/users.service";
 import { User } from "../../models/User";
+import { UserStuff } from "../../models/UserStuff";
 export var RegisterComponent = (function () {
     function RegisterComponent(authenticator, rootService, httpService, appRouter, route, users) {
         this.authenticator = authenticator;
@@ -56,8 +57,10 @@ export var RegisterComponent = (function () {
                 for (var property in updatedUser) {
                     user[property] = updatedUser[property];
                 }
-                _this.auth.setUser(JSON.stringify({ profile: user, timelines: data.json().payload.Timelines }));
-                if (_this.auth.getUser().timelines != null)
+                var userTimelines = (data.json().payload.Timelines == null) ? [] : data.json().payload.Timelines;
+                var userStuff = new UserStuff(user, userTimelines, data.json().ManagedUsers);
+                _this.auth.setUser(JSON.stringify(userStuff));
+                if (_this.auth.getUser().timelines.length > 0)
                     _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
                 else
                     _this.router.navigate(['create-profile']);

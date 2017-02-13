@@ -23,6 +23,9 @@ export var AsideComponent = (function () {
     }
     AsideComponent.prototype.ngOnInit = function () {
     };
+    AsideComponent.prototype.refreshTimelines = function () {
+        this.timelines = this.auth.getUser().timelines;
+    };
     AsideComponent.prototype.logout = function () {
         var _this = this;
         this.auth.logout().subscribe(function (response) {

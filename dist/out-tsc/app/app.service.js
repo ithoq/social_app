@@ -8,6 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 export var AppService = (function () {
     function AppService() {
         this.api_end_point = 'http://api-social.apptazer.com/api/';
@@ -15,6 +16,25 @@ export var AppService = (function () {
         this.default_user_profile_pic = '';
         this.default_user_profile_pic = this.domain + '/assets/img/profile-photos/profile-default.png';
     }
+    //generate a random hashed string
+    AppService.prototype.s4 = function () {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    };
+    AppService.prototype.unique_id = function () {
+        return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
+            this.s4() + '-' + this.s4() + this.s4() + this.s4();
+    };
+    //TODO: replace all manual mapings in the project by this function.
+    AppService.prototype.map = function (object, target) {
+        object = _.cloneDeep(object);
+        target = _.cloneDeep(target);
+        for (var property in object) {
+            target[property] = object[property];
+        }
+        return target;
+    };
     AppService = __decorate([
         Injectable(), 
         __metadata('design:paramtypes', [])

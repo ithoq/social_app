@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {TimelineService} from "../../services/timeline.service";
 import {Response} from "@angular/http";
 import {AppService} from "../../app.service";
+import {User} from "../../models/User";
 
 @Component({
   selector: 'app-manage-logs',

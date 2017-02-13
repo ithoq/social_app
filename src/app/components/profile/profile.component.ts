@@ -27,9 +27,20 @@ export class ProfileComponent implements OnInit {
   @Input() editMode:boolean;
   @Input() manualControls:boolean; //used to control loaders etc by parent component
   @Input() formBusy:boolean;
+  @Input() newAccount:boolean;
 
+
+  public colors:any = [
+    'aquamarine','beachblue','bloodred','brownbear','chai',
+    'cream','creamsicleorange','pinkrose','plum','bloodred','brownbear',
+    'cream'
+  ];
   public selectedImage:any = null;
   public selectedThumbnail:any = '';
+  public newUser:any = {email:'', password:''};
+
+  public color_picker_modal_id = '';
+  public photo_chooser_id = '';
   constructor(
       private userService:UsersService,
       private timelineService:TimelineService,
@@ -38,12 +49,14 @@ export class ProfileComponent implements OnInit {
       private router:Router,
       private profileManagementService:ProfileManagementService,
       private http:Http,
-      public appService:AppService
+      public appService:AppService,
+      public users: UsersService
   ) {
     this.user = new User();
     this.editMode = false;
     this.manualControls = false;
     this.formBusy = false;
+    this.newAccount = false;
   }
 
   getTitle(){
@@ -62,20 +75,51 @@ export class ProfileComponent implements OnInit {
   }
   createProfile(form:NgForm){
     let inputData = form.value;
-    inputData.DateBirthDay = $('.datepicker').val();
-    let image = null;
-    if(this.selectedImage != null){
-      image = new FormData();
-      image.append('Image', this.selectedImage);
-    }
+    let profileData = {
+      FirstName: inputData.FirstName,
+      LastName: inputData.LastName,
+      NickName: inputData.NickName,
+      DateBirthDay: $('.datepicker').val(),
+      address:inputData.address,
+      Color:inputData.Color
+    };
+    let newAcountData = {
+      email:inputData.email,
+      password:inputData.password,
+      username:''
+    };
 
-    if(!this.manualControls)
-      this.formBusy = true;
-
-    this.profileUpdating.emit({
-      data:form.value
+    let createProfile = new Promise((resolve, reject)=>{
+      if(this.newAccount){
+        this.users.register(newAcountData).subscribe((data:Response)=>{
+          let newUser = data.json().payload.User;
+          for (var property in newUser) {
+            this.user[property] = newUser[property];
+          }
+          resolve(true);
+        }, (e)=>{
+          let error = (e.json()['error_message'] != undefined)?e.json()['error_message']:'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
+          reject(error);
+        });
+      }else{
+        resolve(true);
+      }
     });
-    this.userService.updateSettings(this.getUser().UserId, inputData, image).subscribe((data:Response)=>{
+
+    createProfile.then((_promise_data)=>{
+      let image = null;
+      if(this.selectedImage != null){
+        image = new FormData();
+        image.append('Image', this.selectedImage);
+      }
+
+      if(!this.manualControls)
+        this.formBusy = true;
+
+      this.profileUpdating.emit({
+        data:form.value
+      });
+      this.userService.updateSettings(this.getUser().UserId, profileData, image).subscribe((data:Response)=>{
         if(!this.manualControls){
           this.formBusy = false;
           this.exitEditMode();
@@ -87,17 +131,21 @@ export class ProfileComponent implements OnInit {
           user[property] = updatedUser[property];
         }
         this.setUser(user);
+
         this.profileUpdated.emit({
           user:this.getUser()
         });
-    },(error) => {
-      this.someThingWentWrong.emit({
-        error:{msg:'some thing went wrong with the server'}
+      },(error) => {
+        this.someThingWentWrong.emit({
+          error:{msg:'some thing went wrong with the server'}
+        });
+        if(!this.manualControls){
+          this.formBusy = false;
+          alert('some thing went wrong with the server please try again.');
+        }
       });
-      if(!this.manualControls){
-        this.formBusy = false;
-        alert('some thing went wrong with the server please try again.');
-      }
+    }, (error)=>{
+      alert(error);
     });
   }
 
@@ -117,40 +165,17 @@ export class ProfileComponent implements OnInit {
       }else{
         alert('only jpeg images are allowed');
       }
-
     }
   }
 
-  chooseColor(form:NgForm){
-    let user = this.getUser();
-    for (var property in form.value) {
-      user[property] = form.value[property];
-    }
-    let data = {
-      user:user,
-      selectedImage: this.selectedImage,
-      selectedThumbnail:this.selectedThumbnail,
-      DateBirthDay : $('.datepicker').val()
-    };
-    this.profileManagementService.setProfileData(data);
-    this.profileManagementService.setAllowColorChooser(true);
-    this.router.navigate(['pick-color']);
-  }
-
-  chooseFile(){
-    jQuery('#profile-img-chooser').click();
+  chooseFile(event){
+    jQuery('#'+this.photo_chooser_id).click();
   }
 
   ngOnInit() {
-    let profileData = this.profileManagementService.getProfileData();
-    if(profileData != null){
-      this.enterEditMode();
-      this.user = profileData.user;
-      this.user.Color = this.profileManagementService.getColor();
-      this.selectedThumbnail = profileData.selectedThumbnail;
-      this.selectedImage = profileData.selectedImage;
-      this.user.DateBirthDay = profileData.DateBirthDay;
-    }
+    this.color_picker_modal_id = 'color-picker-'+this.appService.unique_id();
+    this.photo_chooser_id = 'profile-img-chooser-'+this.appService.unique_id();
+    this.user = _.cloneDeep(this.user);
   }
 
   ngAfterViewInit(){
@@ -162,6 +187,10 @@ export class ProfileComponent implements OnInit {
   }
   getUser(){
     return this.user;
+  }
+
+  colorPicked(event){
+    $('#'+this.color_picker_modal_id).modal('hide');
   }
 
 }

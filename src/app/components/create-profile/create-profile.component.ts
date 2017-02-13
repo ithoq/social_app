@@ -34,8 +34,10 @@ export class CreateProfileComponent implements OnInit {
 
   profileUpdated(event){
     let inputData = event.user;
-    this.auth.setUser(JSON.stringify({profile:event.user,timelines:this.auth.getUser().timelines}));
-    if(this.auth.getUser().timelines == null){
+    let userStuff = this.auth.getUser();
+    userStuff.profile = event.user;
+    this.auth.setUser(JSON.stringify(userStuff));
+    if(this.auth.getUser().timelines.length == 0){
       this.timelineService.create({Name:'My Private Timeline'}).subscribe((data:Response)=>{
 
         let user = this.auth.getUser();
@@ -45,7 +47,7 @@ export class CreateProfileComponent implements OnInit {
         let entry = new Post();
         entry.DateStart = inputData.DateBirthDay;
         entry.Type = 'Celebration';
-        entry.Name = 'Birthday added';
+        entry.Name = 'Birthday';
         entry['TimelineId'] = data.json().payload.TimelineId;
         //adding the first entry
         let querystr = "";

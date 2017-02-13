@@ -39,4 +39,12 @@ export class TimelineService {
     removeUsers(timelineId, users){
         return this.http.get(this.appService.api_end_point+'timelineInviteUsers/'+this.auth.get_session_token()+"/&TimelineId="+timelineId+"&RemoveUsers="+users);
     }
+
+    update(timelineId:string, data:any){
+        let querystr = "";
+        for(let propertyName in data) {
+            querystr+= '&'+propertyName+'='+data[propertyName];
+        }
+        return this.http.get(this.appService.api_end_point+'timelineUpdate/'+this.auth.get_session_token()+"/&TimelineId="+timelineId+querystr);
+    }
 }

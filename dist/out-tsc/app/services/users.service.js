@@ -26,12 +26,26 @@ export var UsersService = (function () {
         for (var propertyName in settings) {
             querystr += '&' + propertyName + '=' + settings[propertyName];
         }
-        console.log(querystr);
         return this.http.post(this.appService.api_end_point + 'userSettings/' + this.auth.get_session_token() + "/&UserId=" + userId + '/' + querystr, image);
     };
     UsersService.prototype.searchByKeyword = function (keyword) {
         if (keyword === void 0) { keyword = ""; }
         return this.http.get(this.appService.api_end_point + 'userSearch/' + this.auth.get_session_token() + "/&SearchFor=" + keyword);
+    };
+    UsersService.prototype.getUserTimelinesAndStuff = function () {
+        return this.http.get(this.appService.api_end_point + 'userSignin/' + this.auth.get_session_token());
+    };
+    UsersService.prototype.findMangedUserById = function (userId) {
+        if (userId == this.auth.getUser().profile.UserId) {
+            return this.auth.getUser().profile;
+        }
+        for (var _i = 0, _a = this.auth.getUser().managedUsers; _i < _a.length; _i++) {
+            var user = _a[_i];
+            if (user.UserId == userId) {
+                return user;
+            }
+        }
+        return null;
     };
     UsersService = __decorate([
         Injectable(), 

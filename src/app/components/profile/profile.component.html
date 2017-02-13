@@ -12,20 +12,27 @@
 
         <div class="panel-body">
           <div class="text-center pad-ver">
-            <figure (click)="chooseFile()">
-              <img alt="Avatar" class="img-lg img-circle img-border-aquamarine mar-btm" [src]="(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '')?appService.default_user_profile_pic:user.ImageURL)">
+            <figure (click)="chooseFile($event)">
+              <img alt="Avatar" class="img-lg img-circle img-border-aquamarine mar-btm" [src]="(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '' || user.ImageURL == undefined)?appService.default_user_profile_pic:user.ImageURL)">
             </figure>
-            <p class="text-sm">Add photo <input id="profile-img-chooser" style="display: none;" type="file" (change)="filesSelected($event)"></p>
+            <p class="text-sm">Add photo <input id="{{photo_chooser_id}}" style="display: none;" type="file" (change)="filesSelected($event)"></p>
           </div>
           <br>
+
+          <div class="new-account-section" *ngIf="newAccount">
+            <p class="text-main text-bold">Account Info</p>
+            <input type="email" placeholder="Email Address"  [ngModel]="newUser.email" required="required" name="email" class="form-control input-lg">
+            <hr class="new-section-xs bord-no">
+            <input type="text" placeholder="Password"  [ngModel]="newUser.password" required="required" name="password" class="form-control input-lg">
+            <hr class="new-section-xs bord-no">
+          </div>
           <p class="text-main text-bold">Name</p>
-          <input type="text" placeholder="First name" class="form-control input-lg" [ngModel]="user.FirstName" name="FirstName" id="demo-is-inputlarge" required>
+          <input type="text" placeholder="First name" class="form-control input-lg" [ngModel]="user.FirstName" name="FirstName" required>
           <br>
-          <input type="text" placeholder="Last name" class="form-control input-lg"  [ngModel]="user.LastName" name="LastName" id="demo-is-inputlarge" required>
+          <input type="text" placeholder="Last name" class="form-control input-lg"  [ngModel]="user.LastName" name="LastName" required>
           <br>
-          <!--                <hr class="new-section-xs bord-no">
--->
-          <input type="text" placeholder="Profile name / nickname"  [ngModel]="user.Nickname" required="required" name="Nickname" class="form-control input-lg" id="demo-is-inputlarge">
+          <!--                <hr class="new-section-xs bord-no"> -->
+          <input type="text" placeholder="Profile name / nickname"  [ngModel]="user.NickName" required="required" name="NickName" class="form-control input-lg">
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Birthday</p>
 
@@ -33,7 +40,11 @@
           <!--===================================================-->
           <div id="demo-dp-component">
             <div class="input-group date">
-              <input required type="text" class="form-control datepicker"  [ngModel]="user.DateBirthDay" name="DateBirthDay">
+              <input required
+                     type="text"
+                     class="form-control datepicker"
+                     [ngModel]="user.DateBirthDay"
+                     name="DateBirthDay">
               <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span> </div>
             <small class="text-muted">Your birthday is used to build your timeline.</small> </div>
           <!--===================================================-->
@@ -44,12 +55,34 @@
           <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Color</p>
           <div class=" mar-btm">
-            <input type="hidden" [ngModel]="user.Color" name="Color">
+            <input type="hidden" [(ngModel)]="user.Color" name="Color">
             <button type="button" class="btn btn-{{user.Color}} fa fa-check pad-all mar-rgt"> </button>
-            <button type="button" class="btn btn-default" (click)="chooseColor(f)">Select Color {{user.Color}}</button>
+            <button type="button" class="btn btn-default" data-toggle="modal" [attr.data-target]="'#'+color_picker_modal_id">Select Color</button>
           </div>
         </div>
       </form>
+      <div id="{{color_picker_modal_id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Choose Color</h4>
+            </div>
+            <div class="modal-body">
+              <div class="chose-color">
+                <label  *ngFor="let option of colors" class="btn-{{option}}">
+                  <input #color type="radio" value="{{option}}" [(ngModel)]="user.Color" name="myColor" (click)="colorPicked($event)">
+                  {{option}}
+                </label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -13,61 +13,7 @@
     <div class="row">
       <div class="row"><a routerLink="/create-log" class="btn btn-info mar-lft">Create New Log </a></div>
       <div class="spacer"></div>
-      <div  *ngFor="let option of timelines" class="col-lg-6">
-        <div class="panel">
-          <div class="panel-heading">
-            <div class="panel-control">
-              <ul class="pager pager-rounded">
-                <a routerLink="/log/{{option.Id}}/invite-users" id="demo-btn-addrow" class="btn"><i
-                        class="fa fa-plus text-info"></i></a>
-              </ul>
-            </div>
-            <h3 class="panel-title">{{option.Name}}<span class="text-sm text-muted mar-lft"> Admin: {{option.Users[0].Nickname}}</span>
-              <button id="demo-btn-addrow" class="btn"><i class="fa fa-pencil text-info"></i></button>
-            </h3>
-
-          </div>
-
-
-          <!--Hover Rows-->
-          <!--===================================================-->
-          <div class="panel-body">
-
-
-            <table class="table table-hover table-vcenter">
-              <thead>
-              <tr>
-                <th class="min-width">Image</th>
-                <th>Name</th>
-                <th class="text-center">Profile managed by</th>
-                <th class="text-center">Profile</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let user of option.Users">
-                <td class="text-center"><img class="img-xs img-circle"
-                                             [src]="(user.ImageURL == undefined)?app.default_user_profile_pic:user.ImageURL"
-                                             alt="Profile picture"></td>
-                <td>
-                  <span class="text-main text-semibold">{{user.FirstName}} {{user.LastName}}</span>
-                </td>
-                <td class="text-center"><span
-                        class="text-muted text-semibold">{{user.FirstName}}</span></td>
-                <td class="text-center">
-                  <span class="text-info text-semibold">Edit</span>
-                  <span class="text-info text-semibold" (click)="removeUser(option.Id, user.UserId)">Del</span>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <!--===================================================-->
-          <!--End Hover Rows-->
-
-        </div>
-      </div>
-
-
+      <app-timeline-detail *ngFor="let timeline of timelines" [timeline]="timeline"></app-timeline-detail>
       <br>
     </div>
 

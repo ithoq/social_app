@@ -41,6 +41,7 @@ import { ViewProfileResolver } from "../components/view-profile/view-profile.res
 import { ManageProfilesComponent } from "../components/manage-profiles/manage-profiles.component";
 import { CreateProfileComponent } from "../components/create-profile/create-profile.component";
 import { AntiProfileCreatedGuardService } from "../services/anti-profile-created-guard.service";
+import { EditProfileComponent } from "../components/edit-profile/edit-profile.component";
 var appRoutes = [
     {
         path: '',
@@ -52,6 +53,7 @@ var appRoutes = [
             { path: "", component: AuthParentComponent, canActivate: [AuthGuardService], children: [
                     { path: "home", component: HomeComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "profile/:id", resolve: { user: ViewProfileResolver }, component: ViewProfileComponent, canActivate: [ProfileCreatedGuardService] },
+                    { path: "profile/:id/edit", resolve: { user: ViewProfileResolver }, component: EditProfileComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: 'log/custom', resolve: { log: CustomLogResolver }, component: LogComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: 'log/:id', resolve: { log: LogResolver }, component: LogComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: 'log/:id/invite-users', resolve: { log: LogResolver }, component: InviteUsersComponent, canActivate: [ProfileCreatedGuardService] },

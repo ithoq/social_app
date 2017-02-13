@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {User} from "../../models/User";
+import {UserStuff} from "../../models/UserStuff";
 
 @Component({
   selector: 'sa-login',
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
   attempt(form:NgForm){
       this.auth.attempt(form.value).subscribe(
           (data:Response) => {
+              console.log(data);
               /*
                saving the authenticated user in the localStorage
                */
@@ -43,8 +45,9 @@ export class LoginComponent implements OnInit {
               for (var property in updatedUser) {
                   user[property] = updatedUser[property];
               }
-              this.auth.setUser(JSON.stringify({profile:user,timelines:data.json().payload.Timelines}));
-              if(this.auth.getUser().timelines != null){
+              let userStuff = new UserStuff(user, data.json().payload.Timelines, data.json().ManagedUsers);
+              this.auth.setUser(JSON.stringify(userStuff));
+              if(this.auth.getUser().timelines.length > 0){
                   this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
               }
               else

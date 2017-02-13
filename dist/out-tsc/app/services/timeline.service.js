@@ -42,6 +42,13 @@ export var TimelineService = (function () {
     TimelineService.prototype.removeUsers = function (timelineId, users) {
         return this.http.get(this.appService.api_end_point + 'timelineInviteUsers/' + this.auth.get_session_token() + "/&TimelineId=" + timelineId + "&RemoveUsers=" + users);
     };
+    TimelineService.prototype.update = function (timelineId, data) {
+        var querystr = "";
+        for (var propertyName in data) {
+            querystr += '&' + propertyName + '=' + data[propertyName];
+        }
+        return this.http.get(this.appService.api_end_point + 'timelineUpdate/' + this.auth.get_session_token() + "/&TimelineId=" + timelineId + querystr);
+    };
     TimelineService = __decorate([
         Injectable(), 
         __metadata('design:paramtypes', [Http, AppService, AuthService])

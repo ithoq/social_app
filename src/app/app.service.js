@@ -13,6 +13,16 @@ var AppService = (function () {
         this.default_user_profile_pic = '';
         this.default_user_profile_pic = this.domain + '/assets/img/profile-photos/profile-default.png';
     }
+    //generate a random hashed string
+    AppService.prototype.s4 = function () {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    };
+    AppService.prototype.unique_id = function () {
+        return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
+            this.s4() + '-' + this.s4() + this.s4() + this.s4();
+    };
     AppService = __decorate([
         core_1.Injectable()
     ], AppService);

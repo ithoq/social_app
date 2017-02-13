@@ -14,6 +14,7 @@ import { MediumToLoginService } from '../../services/medium-to-login.service';
 import { Http } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from "../../models/User";
+import { UserStuff } from "../../models/UserStuff";
 export var LoginComponent = (function () {
     function LoginComponent(authenticator, rootService, httpService, appRouter, route, mediumToLogin) {
         this.authenticator = authenticator;
@@ -30,6 +31,7 @@ export var LoginComponent = (function () {
     LoginComponent.prototype.attempt = function (form) {
         var _this = this;
         this.auth.attempt(form.value).subscribe(function (data) {
+            console.log(data);
             /*
              saving the authenticated user in the localStorage
              */
@@ -38,8 +40,9 @@ export var LoginComponent = (function () {
             for (var property in updatedUser) {
                 user[property] = updatedUser[property];
             }
-            _this.auth.setUser(JSON.stringify({ profile: user, timelines: data.json().payload.Timelines }));
-            if (_this.auth.getUser().timelines != null) {
+            var userStuff = new UserStuff(user, data.json().payload.Timelines, data.json().ManagedUsers);
+            _this.auth.setUser(JSON.stringify(userStuff));
+            if (_this.auth.getUser().timelines.length > 0) {
                 _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
             }
             else

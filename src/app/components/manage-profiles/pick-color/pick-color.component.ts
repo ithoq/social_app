@@ -23,7 +23,6 @@ export class PickColorComponent implements OnInit {
       'bloodred',
       'brownbear',
       'cream'
-
   ];
   constructor(private profileService:ProfileManagementService, private router:Router, private _location:Location) { }
 

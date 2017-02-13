@@ -20,7 +20,6 @@ export var LogResolver = (function () {
         this.timelineService = timelineService;
         this.route = route;
         this.router = router;
-        console.log(this.auth.currentUser);
     }
     LogResolver.prototype.resolve = function (route, state) {
         var auth = this.auth;

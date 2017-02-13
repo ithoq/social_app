@@ -12,6 +12,8 @@ export class Post {
     EntryId:string = "";
     Files:Array<any> = [];
     Location:string = "";
+    Lat:string = '';
+    Lng:string = '';
     Mode:string = "";
     Name:string = "";
     Tags:string = "";
