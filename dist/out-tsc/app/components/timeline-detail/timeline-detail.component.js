@@ -27,7 +27,12 @@ export var TimelineDetailComponent = (function () {
         this.timeline = new TimelineDetail();
     }
     TimelineDetailComponent.prototype.currentUserCanEditThis = function (user) {
-        return this.usersService.findMangedUserById(user.UserId) != null;
+        return (this.usersService.findMangedUserById(user.UserId) != null ||
+            user.UserId == this.auth.getUser().profile.UserId);
+    };
+    TimelineDetailComponent.prototype.currentUserCanDeleteThis = function (user) {
+        return (this.usersService.findMangedUserById(user.UserId) != null ||
+            this.timeline.CreatedByUserId == this.auth.getUser().profile.UserId);
     };
     TimelineDetailComponent.prototype.updateLog = function (form) {
         var _this = this;
@@ -73,6 +78,7 @@ export var TimelineDetailComponent = (function () {
     };
     TimelineDetailComponent.prototype.ngOnInit = function () {
         this.edit_log_modal_id = 'edit-log-' + this.app.unique_id();
+        console.log(this.timeline);
     };
     __decorate([
         Input(), 

@@ -32,7 +32,12 @@ export class TimelineDetailComponent implements OnInit {
   }
 
   currentUserCanEditThis(user:User){
-    return this.usersService.findMangedUserById(user.UserId) != null;
+    return (this.usersService.findMangedUserById(user.UserId) != null ||
+    user.UserId == this.auth.getUser().profile.UserId);
+  }
+  currentUserCanDeleteThis(user:User){
+    return (this.usersService.findMangedUserById(user.UserId) != null ||
+    this.timeline.CreatedByUserId == this.auth.getUser().profile.UserId);
   }
 
   updateLog(form:NgForm){
@@ -78,5 +83,6 @@ export class TimelineDetailComponent implements OnInit {
 
   ngOnInit() {
     this.edit_log_modal_id = 'edit-log-'+this.app.unique_id();
+    console.log(this.timeline);
   }
 }

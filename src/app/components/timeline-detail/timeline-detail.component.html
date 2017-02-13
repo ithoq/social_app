@@ -40,7 +40,7 @@
                   class="text-muted text-semibold">{{user.FirstName}}</span></td>
           <td class="text-center">
             <span *ngIf="currentUserCanEditThis(user)" (click)="editUser(user)" class="text-info text-semibold">Edit</span>
-            <span *ngIf="currentUserCanEditThis(user)" class="text-info text-semibold" (click)="removeUser(user.UserId)">Del</span>
+            <span *ngIf="currentUserCanDeleteThis(user)" class="text-info text-semibold" (click)="removeUser(user.UserId)">Del</span>
           </td>
         </tr>
         </tbody>
