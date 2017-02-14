@@ -1,3 +1,5 @@
+import { User } from "./User";
+import { AppService } from "../app.service";
 /**
  * Created by officeaccount on 13/02/2017.
  */
@@ -9,9 +11,10 @@ export var UserStuff = (function () {
         this.profile = null;
         this.timelines = [];
         this.managedUsers = [];
-        this.profile = profile;
+        var app = new AppService();
+        this.profile = app.map(profile, new User());
         this.timelines = timelines;
-        this.managedUsers = managedUsers;
+        this.managedUsers = app.mapCollection(managedUsers, new User());
     }
     return UserStuff;
 }());

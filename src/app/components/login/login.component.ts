@@ -40,12 +40,8 @@ export class LoginComponent implements OnInit {
               /*
                saving the authenticated user in the localStorage
                */
-              let user = new User();
-              let updatedUser = data.json().payload.User;
-              for (var property in updatedUser) {
-                  user[property] = updatedUser[property];
-              }
-              let userStuff = new UserStuff(user, data.json().payload.Timelines, data.json().ManagedUsers);
+              let mapedData:any = data.json().payload;
+              let userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
               this.auth.setUser(JSON.stringify(userStuff));
               if(this.auth.getUser().timelines.length > 0){
                   this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);

@@ -98,6 +98,7 @@ export var LogComponent = (function () {
             if (data.log == null) {
                 _this.router.navigate(['/log/custom']);
             }
+            //TODO: users array is not returned by the api yet.
             _this.timeline = _this.app.map(data.log.json().payload, _this.timeline);
             _this.headerComponent.title = _this.timeline.Name;
             _this.manageEntryComponent.setSelectedTimelines([_this.timeline.Id]); //seting up timeline id for auto select in add entry component

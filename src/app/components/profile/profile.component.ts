@@ -28,6 +28,8 @@ export class ProfileComponent implements OnInit {
   @Input() manualControls:boolean; //used to control loaders etc by parent component
   @Input() formBusy:boolean;
   @Input() newAccount:boolean;
+  @Input() title:string;
+  @Input() managedProfile:boolean;
 
 
   public colors:any = [
@@ -57,10 +59,12 @@ export class ProfileComponent implements OnInit {
     this.manualControls = false;
     this.formBusy = false;
     this.newAccount = false;
+    this.title = 'Profile';
+    this.managedProfile = false;
   }
 
   getTitle(){
-    return 'Profile';
+    return this.title;
   }
 
   getAction(){
@@ -81,21 +85,21 @@ export class ProfileComponent implements OnInit {
       NickName: inputData.NickName,
       DateBirthDay: $('.datepicker').val(),
       address:inputData.address,
-      Color:inputData.Color
+      Color:inputData.Color,
+      ManagedByUserId:this.auth.currentUser.UserId,
+      ManagedByUserName: this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName,
+      ManagedByUserNickName: this.auth.currentUser.Nickname
     };
     let newAcountData = {
-      email:inputData.email,
-      password:inputData.password,
-      username:''
+      Email:inputData.email,
+      Pass:inputData.password,
+      Username:''
     };
 
     let createProfile = new Promise((resolve, reject)=>{
       if(this.newAccount){
-        this.users.register(newAcountData).subscribe((data:Response)=>{
-          let newUser = data.json().payload.User;
-          for (var property in newUser) {
-            this.user[property] = newUser[property];
-          }
+        this.users.createManagedUser(newAcountData, this.auth.currentUser.UserId).subscribe((data:Response)=>{
+          this.user.UserId = data.json().payload.UserId;
           resolve(true);
         }, (e)=>{
           let error = (e.json()['error_message'] != undefined)?e.json()['error_message']:'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
@@ -119,18 +123,14 @@ export class ProfileComponent implements OnInit {
       this.profileUpdating.emit({
         data:form.value
       });
-      this.userService.updateSettings(this.getUser().UserId, profileData, image).subscribe((data:Response)=>{
+      this.userService.updateSettings(this.managedProfile, this.getUser().UserId, profileData, image).subscribe((data:Response)=>{
         if(!this.manualControls){
           this.formBusy = false;
           this.exitEditMode();
         }
 
-        let user = _.cloneDeep(this.getUser());
         let updatedUser = data.json().payload.User;
-        for (var property in updatedUser) {
-          user[property] = updatedUser[property];
-        }
-        this.setUser(user);
+        this.setUser(this.appService.map(updatedUser, new User()));
 
         this.profileUpdated.emit({
           user:this.getUser()
@@ -150,7 +150,7 @@ export class ProfileComponent implements OnInit {
   }
 
   loggedInUsrCanEdit(){
-      return (this.auth.currentUser.UserId == this.getUser().UserId);
+      return (this.auth.currentUser.UserId == this.getUser().UserId || this.newAccount || this.auth.currentUser.UserId == this.getUser().ManagedByUserId);
   }
 
   filesSelected(event){
@@ -176,6 +176,8 @@ export class ProfileComponent implements OnInit {
     this.color_picker_modal_id = 'color-picker-'+this.appService.unique_id();
     this.photo_chooser_id = 'profile-img-chooser-'+this.appService.unique_id();
     this.user = _.cloneDeep(this.user);
+    if(this.newAccount)
+      this.managedProfile = true;
   }
 
   ngAfterViewInit(){

@@ -102,6 +102,7 @@ export class LogComponent implements OnInit {
         this.route.data
             .subscribe((data: { log: any }) => {
                 if(data.log == null){ this.router.navigate(['/log/custom']); }
+                //TODO: users array is not returned by the api yet.
                 this.timeline = this.app.map(data.log.json().payload, this.timeline);
                 this.headerComponent.title = this.timeline.Name;
                 this.manageEntryComponent.setSelectedTimelines([this.timeline.Id]); //seting up timeline id for auto select in add entry component

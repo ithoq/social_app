@@ -9,29 +9,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TimelineService } from "../../services/timeline.service";
 import { AppService } from "../../app.service";
+import * as _ from 'lodash';
+import { TimelineDetail } from "../../models/TimelineDetail";
 export var ManageLogsComponent = (function () {
-    function ManageLogsComponent(auth, route, timelineService, app) {
+    function ManageLogsComponent(auth, route, app, timelineService, router) {
         this.auth = auth;
         this.route = route;
-        this.timelineService = timelineService;
         this.app = app;
+        this.timelineService = timelineService;
+        this.router = router;
         this.timelines = [];
+        this.create_log_modal_id = '';
         //this.timelines = this.auth.getUser().timelines;
         this.user = this.auth.getUser().profile;
     }
-    ManageLogsComponent.prototype.removeUser = function (timelineId, userId) {
+    ManageLogsComponent.prototype.createLog = function (form) {
         var _this = this;
-        this.timelineService.removeUsers(timelineId, userId).subscribe(function (data) {
-            _this.timelineService.getUserTimelines().subscribe(function (data) {
-                _this.timelines = data.json().payload;
-            });
+        this.timelineService.create({ Name: form.value.Name }).subscribe(function (data) {
+            var timelineDetails = new TimelineDetail();
+            timelineDetails.CreatedByUser = _this.auth.currentUser.FirstName + ' ' + _this.auth.currentUser.LastName;
+            timelineDetails.CreatedByUserId = _this.auth.currentUser.UserId;
+            timelineDetails.Id = data.json().payload.TimelineId;
+            timelineDetails.Name = form.value.Name;
+            timelineDetails.Users = [_this.auth.currentUser];
+            var currentUser = _.cloneDeep(_this.auth.getUser());
+            currentUser.timelines.push({ Id: timelineDetails.Id, Name: timelineDetails.Name });
+            _this.timelineService.setUserTimelines(currentUser.timelines);
+            _this.auth.setUser(JSON.stringify(currentUser));
+            _this.timelines.push(timelineDetails);
+            $('#' + _this.create_log_modal_id).modal('hide');
         });
     };
     ManageLogsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.create_log_modal_id = 'edit-log-' + this.app.unique_id();
         this.route.data
             .subscribe(function (data) {
             _this.timelines = data.logs.json().payload;
@@ -44,7 +58,7 @@ export var ManageLogsComponent = (function () {
             templateUrl: './manage-logs.component.html',
             styleUrls: ['./manage-logs.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, ActivatedRoute, TimelineService, AppService])
+        __metadata('design:paramtypes', [AuthService, ActivatedRoute, AppService, TimelineService, Router])
     ], ManageLogsComponent);
     return ManageLogsComponent;
 }());

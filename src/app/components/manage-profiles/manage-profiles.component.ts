@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {AppService} from "../../app.service";
+import {User} from "../../models/User";
+import * as _ from 'lodash';
 
 declare var $:any;
 
@@ -15,6 +17,7 @@ export class ManageProfilesComponent implements OnInit {
     public selectedThumbnail:any = '';
     public formBusy:boolean = false;
     public editMode:boolean = false;
+    public managedUsers:Array<User> = [];
     constructor(private auth:AuthService, public appService:AppService) {}
 
     profileUpdated(event){
@@ -23,5 +26,12 @@ export class ManageProfilesComponent implements OnInit {
         this.auth.setUser(JSON.stringify(userStuff));
     }
 
-    ngOnInit() {}
+    managedUserProfileUpdated(event){
+        alert('managed user profile updated');
+    }
+
+    ngOnInit() {
+        this.managedUsers = _.cloneDeep(this.auth.getUser().managedUsers);
+        console.log(this.managedUsers);
+    }
 }

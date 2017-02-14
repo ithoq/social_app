@@ -30,4 +30,12 @@ export class AppService {
     }
     return target;
   }
+
+  mapCollection(collection:Array<any>, target:any){
+    let mapedCollection:Array<any> = [];
+    for(var object of collection){
+      mapedCollection.push(this.map(object, target))
+    }
+    return mapedCollection;
+  }
 }

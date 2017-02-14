@@ -12,19 +12,29 @@ import { AuthService } from "../../../services/auth.service";
 import { Router } from "@angular/router";
 import { TimelineService } from "../../../services/timeline.service";
 import { AppService } from "../../../app.service";
+import { UsersService } from "../../../services/users.service";
+import { UserStuff } from "../../../models/UserStuff";
 export var AsideComponent = (function () {
-    function AsideComponent(auth, appRouter, timelineService, app) {
+    function AsideComponent(auth, appRouter, timelineService, app, usersService) {
         this.auth = auth;
         this.appRouter = appRouter;
         this.timelineService = timelineService;
         this.app = app;
-        this.timelines = this.auth.getUser().timelines;
-        this.user = this.auth.getUser().profile;
+        this.usersService = usersService;
     }
     AsideComponent.prototype.ngOnInit = function () {
+        this.timelineService.setUserTimelines(this.auth.getUser().timelines);
     };
     AsideComponent.prototype.refreshTimelines = function () {
-        this.timelines = this.auth.getUser().timelines;
+        var _this = this;
+        this.loadingUserStuff = true;
+        this.usersService.getUserTimelinesAndStuff().subscribe(function (data) {
+            var mapedData = data.json().payload;
+            var userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
+            _this.timelineService.setUserTimelines(userStuff.timelines);
+            _this.auth.setUser(JSON.stringify(userStuff));
+            _this.loadingUserStuff = false;
+        });
     };
     AsideComponent.prototype.logout = function () {
         var _this = this;
@@ -38,7 +48,7 @@ export var AsideComponent = (function () {
             templateUrl: './aside.component.html',
             styleUrls: ['./aside.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, Router, TimelineService, AppService])
+        __metadata('design:paramtypes', [AuthService, Router, TimelineService, AppService, UsersService])
     ], AsideComponent);
     return AsideComponent;
 }());

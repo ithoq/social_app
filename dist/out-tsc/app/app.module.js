@@ -58,6 +58,8 @@ import { ViewProfileComponent } from './components/view-profile/view-profile.com
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { TimelineDetailComponent } from './components/timeline-detail/timeline-detail.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { CreateManagedUserComponent } from './components/create-managed-user/create-managed-user.component';
+import { InviteManagedUserComponent } from './components/invite-managed-user/invite-managed-user.component';
 export var AppModule = (function () {
     function AppModule() {
     }
@@ -100,7 +102,9 @@ export var AppModule = (function () {
                 ViewProfileComponent,
                 CreateProfileComponent,
                 TimelineDetailComponent,
-                EditProfileComponent
+                EditProfileComponent,
+                CreateManagedUserComponent,
+                InviteManagedUserComponent
             ],
             imports: [
                 AppRoutingModule,

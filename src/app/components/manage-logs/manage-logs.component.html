@@ -11,7 +11,34 @@
   <sa-body-content>
 
     <div class="row">
-      <div class="row"><a routerLink="/create-log" class="btn btn-info mar-lft">Create New Log </a></div>
+      <div class="row">
+        <button data-toggle="modal" [attr.data-target]="'#'+create_log_modal_id" class="btn btn-info"><i class="fa fa-add"></i>Create New Log</button>
+      </div>
+      <div id="{{create_log_modal_id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Create new log</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table table-hover table-vcenter">
+                <thead>
+                <tr>
+                  <th>
+                    <form (submit)="createLog(f)" #f="ngForm">
+                      <input type="text" class="input_text" ngModel name="Name" placeholder="Enter New Log Name Here.." required>
+                      <button type="submit" class="btn btn-info">Save</button>
+                    </form>
+                  </th>
+                </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="spacer"></div>
       <app-timeline-detail *ngFor="let timeline of timelines" [timeline]="timeline"></app-timeline-detail>
       <br>

@@ -14,5 +14,7 @@ export class User {
     DateBirthDay:string = "";
     ImageURL:string = "";
     ThumbURL:string = "";
-
+    ManagedByUserId:string = "";
+    ManagedByUserName:string = "";
+    ManagedByUserNickName:string = "";
 }

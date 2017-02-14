@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { AppService } from "../../app.service";
+import * as _ from 'lodash';
 export var ManageProfilesComponent = (function () {
     function ManageProfilesComponent(auth, appService) {
         this.auth = auth;
@@ -19,13 +20,20 @@ export var ManageProfilesComponent = (function () {
         this.selectedThumbnail = '';
         this.formBusy = false;
         this.editMode = false;
+        this.managedUsers = [];
     }
     ManageProfilesComponent.prototype.profileUpdated = function (event) {
         var userStuff = this.auth.getUser();
         userStuff.profile = event.user;
         this.auth.setUser(JSON.stringify(userStuff));
     };
-    ManageProfilesComponent.prototype.ngOnInit = function () { };
+    ManageProfilesComponent.prototype.managedUserProfileUpdated = function (event) {
+        alert('managed user profile updated');
+    };
+    ManageProfilesComponent.prototype.ngOnInit = function () {
+        this.managedUsers = _.cloneDeep(this.auth.getUser().managedUsers);
+        console.log(this.managedUsers);
+    };
     ManageProfilesComponent = __decorate([
         Component({
             selector: 'sa-create-profile',

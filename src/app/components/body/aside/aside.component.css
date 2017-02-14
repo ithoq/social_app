@@ -13,3 +13,7 @@
 #mainnav-container{
     position: fixed;
 }
+
+.pull-to-refresh{
+    float: right;
+}

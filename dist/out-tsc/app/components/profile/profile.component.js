@@ -49,9 +49,11 @@ export var ProfileComponent = (function () {
         this.manualControls = false;
         this.formBusy = false;
         this.newAccount = false;
+        this.title = 'Profile';
+        this.managedProfile = false;
     }
     ProfileComponent.prototype.getTitle = function () {
-        return 'Profile';
+        return this.title;
     };
     ProfileComponent.prototype.getAction = function () {
         return 'Save';
@@ -71,20 +73,20 @@ export var ProfileComponent = (function () {
             NickName: inputData.NickName,
             DateBirthDay: $('.datepicker').val(),
             address: inputData.address,
-            Color: inputData.Color
+            Color: inputData.Color,
+            ManagedByUserId: this.auth.currentUser.UserId,
+            ManagedByUserName: this.auth.currentUser.FirstName + ' ' + this.auth.currentUser.LastName,
+            ManagedByUserNickName: this.auth.currentUser.Nickname
         };
         var newAcountData = {
-            email: inputData.email,
-            password: inputData.password,
-            username: ''
+            Email: inputData.email,
+            Pass: inputData.password,
+            Username: ''
         };
         var createProfile = new Promise(function (resolve, reject) {
             if (_this.newAccount) {
-                _this.users.register(newAcountData).subscribe(function (data) {
-                    var newUser = data.json().payload.User;
-                    for (var property in newUser) {
-                        _this.user[property] = newUser[property];
-                    }
+                _this.users.createManagedUser(newAcountData, _this.auth.currentUser.UserId).subscribe(function (data) {
+                    _this.user.UserId = data.json().payload.UserId;
                     resolve(true);
                 }, function (e) {
                     var error = (e.json()['error_message'] != undefined) ? e.json()['error_message'] : 'Something went wrong with the server or may be you internet connection is lost. please try a few moments later.';
@@ -106,17 +108,13 @@ export var ProfileComponent = (function () {
             _this.profileUpdating.emit({
                 data: form.value
             });
-            _this.userService.updateSettings(_this.getUser().UserId, profileData, image).subscribe(function (data) {
+            _this.userService.updateSettings(_this.managedProfile, _this.getUser().UserId, profileData, image).subscribe(function (data) {
                 if (!_this.manualControls) {
                     _this.formBusy = false;
                     _this.exitEditMode();
                 }
-                var user = _.cloneDeep(_this.getUser());
                 var updatedUser = data.json().payload.User;
-                for (var property in updatedUser) {
-                    user[property] = updatedUser[property];
-                }
-                _this.setUser(user);
+                _this.setUser(_this.appService.map(updatedUser, new User()));
                 _this.profileUpdated.emit({
                     user: _this.getUser()
                 });
@@ -134,7 +132,7 @@ export var ProfileComponent = (function () {
         });
     };
     ProfileComponent.prototype.loggedInUsrCanEdit = function () {
-        return (this.auth.currentUser.UserId == this.getUser().UserId);
+        return (this.auth.currentUser.UserId == this.getUser().UserId || this.newAccount || this.auth.currentUser.UserId == this.getUser().ManagedByUserId);
     };
     ProfileComponent.prototype.filesSelected = function (event) {
         var _this = this;
@@ -159,6 +157,8 @@ export var ProfileComponent = (function () {
         this.color_picker_modal_id = 'color-picker-' + this.appService.unique_id();
         this.photo_chooser_id = 'profile-img-chooser-' + this.appService.unique_id();
         this.user = _.cloneDeep(this.user);
+        if (this.newAccount)
+            this.managedProfile = true;
     };
     ProfileComponent.prototype.ngAfterViewInit = function () {
         $('.datepicker').datepicker();
@@ -213,6 +213,14 @@ export var ProfileComponent = (function () {
         Input(), 
         __metadata('design:type', Boolean)
     ], ProfileComponent.prototype, "newAccount", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], ProfileComponent.prototype, "title", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], ProfileComponent.prototype, "managedProfile", void 0);
     ProfileComponent = __decorate([
         Component({
             selector: 'app-profile',

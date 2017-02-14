@@ -35,6 +35,14 @@ export var AppService = (function () {
         }
         return target;
     };
+    AppService.prototype.mapCollection = function (collection, target) {
+        var mapedCollection = [];
+        for (var _i = 0, collection_1 = collection; _i < collection_1.length; _i++) {
+            var object = collection_1[_i];
+            mapedCollection.push(this.map(object, target));
+        }
+        return mapedCollection;
+    };
     AppService = __decorate([
         Injectable(), 
         __metadata('design:paramtypes', [])

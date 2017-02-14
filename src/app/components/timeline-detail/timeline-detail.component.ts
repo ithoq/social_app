@@ -84,6 +84,5 @@ export class TimelineDetailComponent implements OnInit {
 
   ngOnInit() {
     this.edit_log_modal_id = 'edit-log-'+this.app.unique_id();
-    console.log(this.timeline);
   }
 }
