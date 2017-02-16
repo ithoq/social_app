@@ -27,11 +27,7 @@ export class PostDetailComponent implements OnInit {
     this.user = this.auth.getUser().profile;
   }
     updatePost(event){
-      console.log(event);
-        let post = this.post;
-        for (var property in event.data) {
-            post[property] = event.data[property];
-        }
+        let post = event.data;
         localStorage.setItem('post',JSON.stringify(post));
         this.post = post;
     }
@@ -43,6 +39,7 @@ export class PostDetailComponent implements OnInit {
                     this.router.navigate(['/log/custom']);
                 }else{
                     this.post = data.post;
+                    console.log(this.post);
                     let title = this.post.DateStart.split(' ')[0]+
                         ' ' +this.post.DateEnd.split(' ')[0];
                     this.headerComponent.title = title;

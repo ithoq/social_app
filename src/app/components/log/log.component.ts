@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, Input} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MediumToPostDetailService} from "../../services/medium-to-post-detail.service";
 import {MediumToManageEntryService} from "../../services/medium-to-manage-entry.service";
@@ -17,9 +17,7 @@ import {Timeline} from "../../models/Timeline";
     styleUrls: ['./log.component.css']
 })
 export class LogComponent implements OnInit {
-    @ViewChild(ManageEntryComponent) manageEntryComponent;
-    @ViewChild(HeaderComponent) headerComponent;
-    public timeline:Timeline = null;
+    @Input() timeline:Timeline = null;
     public user:any = null;
     constructor(
         private route:ActivatedRoute,
@@ -52,8 +50,9 @@ export class LogComponent implements OnInit {
         let timelineId = this.timeline.Id;
         return new Promise((resolve, reject)=>{
             timelineService.get(timelineId, auth.getUser().profile.UserId).subscribe(
-                (data:any)=> {
-                    this.timeline = data.json().payload;
+                (data:any)=> { //TODO: push these changes to local storage
+                    this.timeline = this.app.map(data.json().payload, new Timeline());
+
                     resolve(true);
                 },
                 (error)=>{
@@ -66,9 +65,9 @@ export class LogComponent implements OnInit {
     getEntryTypes(givenTypes:string){
         let foundTypes = [];
         for(let givenType of givenTypes.split(',')){
-            for(let hostedType of this.manageEntryComponent.types){
-                if(hostedType.value == givenType)
-                    foundTypes.push(hostedType);
+            let givenTypeObj = this.app.find_obj_by_prop('value',givenType,this.app.entryContentCategories);
+            if(givenTypeObj != null){
+                foundTypes.push(givenTypeObj)
             }
         }
         return foundTypes;
@@ -99,14 +98,6 @@ export class LogComponent implements OnInit {
         }
     }
     ngOnInit() {
-        this.route.data
-            .subscribe((data: { log: any }) => {
-                if(data.log == null){ this.router.navigate(['/log/custom']); }
-                //TODO: users array is not returned by the api yet.
-                this.timeline = this.app.map(data.log.json().payload, this.timeline);
-                this.headerComponent.title = this.timeline.Name;
-                this.manageEntryComponent.setSelectedTimelines([this.timeline.Id]); //seting up timeline id for auto select in add entry component
-            }, (error)=>{});
         this.user = this.auth.getUser().profile;
     }
 }

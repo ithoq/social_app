@@ -1,0 +1,27 @@
+<sa-header>
+  <sa-title></sa-title>
+  <sa-action>
+    <li class="pad-rgt"> <app-add-content-btn></app-add-content-btn> </li>
+  </sa-action>
+</sa-header>
+<!--===================================================-->
+<!--END NAVBAR-->
+
+<sa-body>
+  <sa-body-content>
+    <div class="row">
+      <app-log [timeline]="timeline"></app-log>
+    </div>
+  </sa-body-content>
+  <sa-body-right-content>
+    <sa-manage-entry #manageEntryComponent
+                     (EntryCreated)="timelineUpdated($event)"
+                     (EntryUpdated)="timelineUpdated($event)"
+            [seletedTimelines]="[timeline.Id]"></sa-manage-entry>
+  </sa-body-right-content>
+  <sa-aside></sa-aside>
+</sa-body>
+<!-- FOOTER -->
+<!--===================================================-->
+<sa-footer></sa-footer>
+

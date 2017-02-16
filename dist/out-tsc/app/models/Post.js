@@ -25,6 +25,8 @@ export var Post = (function () {
         this.WhoTags = "";
         this.YouTags = "";
         this.images = "";
+        this.User = "";
+        this.UserId = "";
     }
     return Post;
 }());

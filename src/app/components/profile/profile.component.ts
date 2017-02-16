@@ -128,7 +128,6 @@ export class ProfileComponent implements OnInit {
           this.formBusy = false;
           this.exitEditMode();
         }
-
         let updatedUser = data.json().payload.User;
         this.setUser(this.appService.map(updatedUser, new User()));
 

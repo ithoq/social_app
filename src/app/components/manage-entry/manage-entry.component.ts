@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, Output, ChangeDetectorRef, EventEmitter} from '@angular/core';
+import {Component, OnInit, Inject, Output, ChangeDetectorRef, EventEmitter, Input} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {EntryService} from "../../services/entry.service";
@@ -9,6 +9,10 @@ import {MediumToManageEntryService} from "../../services/medium-to-manage-entry.
 import {Router} from "@angular/router";
 import {isUndefined} from "util";
 import {Post} from "../../models/Post";
+import {EntryCategory} from "../../models/EntryCategory";
+import {AppService} from "../../app.service";
+import * as _ from 'lodash';
+import {TimelineService} from "../../services/timeline.service";
 
 declare var noUiSlider: any;
 declare var wNumb: any;
@@ -56,22 +60,10 @@ export class ManageEntryComponent implements OnInit {
         {value:'embarrassed',img:'emoji-embarrassed.png'}
     ];
 
-    public types = [
-        {value:'Place',img:'icon-places-big.png', desc:'Lorem ipsum dolor sit amet, maiorum ponderum consulatu ut has. Id phaedrum similique appellantur mel, ad dolorem accusamus eum, vim te graeco eruditi. Cu posse ornatus duo, qui quidam oportere ad. Agam sanctus eum id. Iisque complectitur est cu.'},
-        {value:'Learning',img:'icon-learning-big.png', desc:'Prompta habemus cu mel, pri an feugait laboramus consequuntur. At eum fugit lobortis scripserit. Graeco eligendi ne est, munere deseruisse mea te, ea eros phaedrum torquatos est. In vim mazim mentitum. Mei putent maiorum in, atomorum intellegebat mea an. Te ius homero nostro, ei mea nostro feugiat conceptam, ex vis euismod alienum expetendis.'},
-        {value:'Work',img:'icon-work-big.png', desc:'Luptatum platonem instr vivendo inciderint ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.'},
-        {value:'Health',img:'icon-health-big.png', desc:'Conceptam abhorreant quas ipsum decore pro no. Te usu mandamus conceptam voluptatum, vim ei erat delenit volutpat. Ei per tollit dicant, per wisi mandamus salutatus ex. At persius delectus perpetua vel.'},
-        {value:'Fitness',img:'icon-fitness-big.png', desc:'Conceptam abhorreant pro no. Te usu mandamus conceptam voluptatum, vim ei erat delenit volutpat. Ei per tollit dicant, per wisi mandamus salutatus ex. At persius delectus perpetua vel.'},
-        {value:'Celebration',img:'icon-celebration-big.png', desc:'Tantas lucilius facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.'},
-        {value:'Faves',img:'icon-faves-big.png', desc:'Luptatum platonem instructior id  ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.'},
-        {value:'Purpose',img:'icon-world-big.png', desc:'Tantas lucilius no vis, cu aliquid nominavi eloquentiam duo. Clita timeam duo an. Te eam postea facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.'},
-        {value:'People',img:'icon-images-big.png', desc:'Conceptam abhorreant est cu, possit reprehendunt sit at. Ius augue legimus in, sit cibo essent et, quas ipsum decore pro no. Te usu mandamus conceptam voluptatum, vim ei erat delenit volutpat. Ei per tollit dicant, per wisi mandamus salutatus ex. At persius delectus perpetua vel.'},
-        {value:'Bigs',img:'logo.png', desc:'Tantas lucilius no vis, cu aliquid nominavi eloquentiam duo. Clita timeam duo an. Te eam postea facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.'},
-        {value:'Other',img:'icon-growth-big.png', desc:'Luptatum platonem instructior id nec, ea eam sale comprehensam, sit suas dicat eu. Ei mel sapientem constituto, cetero vivendo inciderint ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.'}
-    ];
+    @Input() seletedTimelines = [];
+    public types:Array<EntryCategory> = [];
     public someRange;
     public timelines = [];
-    public seletedTimelines = [];
     public selectedTypes = [];
     public selectedModes = [];
     public showDefinitions = false;
@@ -101,8 +93,11 @@ export class ManageEntryComponent implements OnInit {
         private rightContentService:RightContentService,
         private chRef: ChangeDetectorRef,
         private mediumToManageEntry:MediumToManageEntryService,
-        private router:Router
+        private router:Router,
+        public app:AppService,
+        public timelineService:TimelineService
     ) {
+        this.types = _.cloneDeep(this.app.entryContentCategories);
         this.timelines = this.auth.getUser().timelines;
         this.noUiSlider = noUiSlider;
         this.wNumb = wNumb;
@@ -138,7 +133,7 @@ export class ManageEntryComponent implements OnInit {
     }
     deletePost(){
         this.entryService.updateEntry(this.existingEntry.EntryId, {Delete:true}).subscribe(
-            (data:Response)=>{
+            (data:Response)=>{ //TODO: push these changes to local storage
                 alert('Post Deleted Successfully!');
                 this.rightContentService.aside_in = false;
                 if(this.auth.getUser().timelines.length > 0)
@@ -177,6 +172,47 @@ export class ManageEntryComponent implements OnInit {
         this.selectedFilesSrc = tempSrc;
     }
 
+    mapUpdatedEntryData(data){
+        data = _.cloneDeep(data);
+        let updatedPost = new Post();
+        updatedPost.About = data.About;
+        updatedPost.BestSelfRating = data.BestSelfRating;
+        updatedPost.CloseToOthers = data.CloseToOthers;
+        updatedPost.DateStart = data.DateStart;
+        updatedPost.DateEnd = data.DateEnd;
+        updatedPost.EntryId = data.EntryId;
+        updatedPost.Lat = data.Lat;
+        updatedPost.Lng = data.Lng;
+        updatedPost.Location = data.Location;
+        updatedPost.Mode = data.Mode;
+        updatedPost.Name = data.Name;
+        updatedPost.Tags = data.Tags.join(',');
+        for(let timelineId of data.TimelineId.split(',')){
+            let timelines:Array<any> = this.auth.getUser().timelines;
+            for(let existingTimeline of timelines){
+                if(existingTimeline.Id == timelineId){
+                    updatedPost.Timelines.push(existingTimeline);
+                }
+            }
+        }
+        updatedPost.Type = data.Type;
+        updatedPost.WhatElse = data.WhatElse;
+        updatedPost.WhatTags = data.WhatTags;
+        updatedPost.WhoTags = data.WhoTags;
+        updatedPost.YouTags = data.YouTags;
+        updatedPost.User = data.User;
+        updatedPost.UserId = data.UserId;
+        //TODO: Files are not being handeled yet.
+        return updatedPost;
+    }
+
+    updateEntryInLocalStorage(updatedEntry:Post){
+        this.timelineService.removeEntriesFromTimelines(this.app.property_to_array('Id',updatedEntry.Timelines),[updatedEntry.EntryId])
+        for(let timeline of updatedEntry.Timelines){
+            this.timelineService.pushEntryInTimeline(timeline.Id, updatedEntry);
+        }
+        return true;
+    }
     create(form:NgForm, event){
         if(this.uploadingPost == true) return false;
         let data = form.value;
@@ -207,9 +243,14 @@ export class ManageEntryComponent implements OnInit {
             });
             if(this.existingEntry != null){
                 this.entryService.updateEntry(this.existingEntry.EntryId, data, files).subscribe(
-                    (response:Response)=>{
+                    (response:Response)=>{//TODO: push these changes to local storage
+                        data.EntryId = this.existingEntry.EntryId;
+                        data.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
+                        data.UserId = this.auth.currentUser.UserId;
+                        let updatedEntry:Post = this.mapUpdatedEntryData(data);
+                        this.updateEntryInLocalStorage(updatedEntry);
                         this.uploadingPost = false;
-                        this.entryupdated.emit({data:data});
+                        this.entryupdated.emit({data:updatedEntry});
                         alert('Post Updated Successfully!');
                         this.rightContentService.aside_in = false;
                     },(error) => {
@@ -218,7 +259,14 @@ export class ManageEntryComponent implements OnInit {
                 );
             }else{
                 this.entryService.addEntry(data,files).subscribe(
-                    (data:any)=>{
+                    (response:any)=>{//TODO: push these changes to local storage
+                        let createdEntryId = response.json().payload.EntryId;
+                        data.EntryId = createdEntryId;
+                        data.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
+                        data.UserId = this.auth.currentUser.UserId;
+                        let updatedEntry:Post = this.mapUpdatedEntryData(data);
+                        console.log(updatedEntry);
+                        this.updateEntryInLocalStorage(updatedEntry);
                         this.uploadingPost = false;
                         this.entrycreated.emit({data:this.seletedTimelines});
                         alert('Post Created Successfully!');
@@ -234,7 +282,7 @@ export class ManageEntryComponent implements OnInit {
     }
     modeChanged(data:any){
         var parts = data.split(',');
-        var alreadyExists = false;``
+        var alreadyExists = false;
         for (let entry of this.selectedModes) {
             if(entry == parts[1]){
                 alreadyExists = true;

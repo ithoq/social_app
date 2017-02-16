@@ -23,11 +23,7 @@ export var PostDetailComponent = (function () {
         this.user = this.auth.getUser().profile;
     }
     PostDetailComponent.prototype.updatePost = function (event) {
-        console.log(event);
-        var post = this.post;
-        for (var property in event.data) {
-            post[property] = event.data[property];
-        }
+        var post = event.data;
         localStorage.setItem('post', JSON.stringify(post));
         this.post = post;
     };
@@ -40,6 +36,7 @@ export var PostDetailComponent = (function () {
             }
             else {
                 _this.post = data.post;
+                console.log(_this.post);
                 var title = _this.post.DateStart.split(' ')[0] +
                     ' ' + _this.post.DateEnd.split(' ')[0];
                 _this.headerComponent.title = title;

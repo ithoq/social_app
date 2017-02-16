@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
+import {AppService} from "../../app.service";
 
 declare var $:any;
 
@@ -22,19 +23,7 @@ export class CreateCustomLogComponent implements OnInit {
     {value:'down',img:'emoji-down.png'},
     {value:'embarrassed',img:'emoji-embarrassed.png'}
   ];
-  public types = [
-    {value:'Place',img:'icon-places-big.png', desc:'description'},
-    {value:'Learning',img:'icon-learning-big.png', desc:'description'},
-    {value:'Work',img:'icon-work-big.png', desc:'description'},
-    {value:'Health',img:'icon-health-big.png', desc:'description'},
-    {value:'Fitness',img:'icon-fitness-big.png', desc:'description'},
-    {value:'Celebration',img:'icon-celebration-big.png', desc:'description'},
-    {value:'Faves',img:'icon-faves-big.png', desc:'description'},
-    {value:'Purpose',img:'icon-world-big.png', desc:'description'},
-    {value:'People',img:'icon-images-big.png', desc:'description'},
-    {value:'Bigs',img:'logo.png', desc:'description'},
-    {value:'Other',img:'icon-growth-big.png', desc:'description'}
-  ];
+  public types = [];
   public tags:any = [
     'angry', 'blah', 'brilliant','calm'
   ];
@@ -45,7 +34,9 @@ export class CreateCustomLogComponent implements OnInit {
   public seletedTimelines:any = [];
   public selectedTypes:any = [];
   public selectedTags:any = ['blah'];
-  constructor(private auth:AuthService) { }
+  constructor(private auth:AuthService, public app:AppService) {
+    this.types = this.app.entryContentCategories;
+  }
 
   isModeSelected(mode:any){
     if(this.selectedModes.indexOf(mode)>= 0){
@@ -203,6 +194,10 @@ export class CreateCustomLogComponent implements OnInit {
   }
   unselectAllMoods(){
     this.selectedModes = [];
+  }
+
+  viewCustomLog($event){
+    console.log(JSON.parse(localStorage.getItem('custom_log_settings')));
   }
 
   ngOnInit() {

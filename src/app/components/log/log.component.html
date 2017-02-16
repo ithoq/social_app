@@ -1,40 +1,17 @@
-<sa-header>
-  <sa-title></sa-title>
-  <sa-action>
-    <li class="pad-rgt"> <app-add-content-btn></app-add-content-btn> </li>
-  </sa-action>
-</sa-header>
-<!--===================================================-->
-<!--END NAVBAR-->
-
-<sa-body>
-  <sa-body-content>
-    <div class="row">
-      <div class="col-sm-12">
-        <div *ngIf="timeline.Entries != null" class="timeline">
-          <div class="timeline-entry" *ngFor="let entry of timeline.Entries">
-            <div class="timeline-stat">
-              <div class="timeline-icon"></div>
-              <div class="timeline-time">{{modifiedDate(entry.DateStart)}} {{(entry.DateEnd != '')?'-':''}} {{modifiedDate(entry.DateEnd)}}</div>
-            </div>
-            <div class="timeline-label">
-              <div (click)="showDetail(entry)" *ngIf="entry.Files.length > 0" class="img-holder mar-btm"> <img alt="Image" src="{{entry.Files[0].FileURL}}"> </div>
-              <p><a href="javascript:void(0)" (click)="showDetail(entry)" class="text-main btn-link text-semibold"><i  class="fa text-muted"></i>
-                <span class="type-icon-grey" *ngFor="let type of getEntryTypes(entry.Type)"><img src="{{app.domain}}/assets/img/{{type.img}}"></span>
-                {{entry.Name}}</a> <a class="pull-right btn-link text-semibold" (click)="showUserProfile(entry.UserId)">{{(entry.NickName == "")?entry.User:entry.NickName}}</a></p>
-            </div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
+<div class="col-sm-12">
+  <div *ngIf="timeline.Entries != null" class="timeline">
+    <div class="timeline-entry" *ngFor="let entry of timeline.Entries">
+      <div class="timeline-stat">
+        <div class="timeline-icon"></div>
+        <div class="timeline-time">{{modifiedDate(entry.DateStart)}} {{(entry.DateEnd != '')?'-':''}} {{modifiedDate(entry.DateEnd)}}</div>
+      </div>
+      <div class="timeline-label">
+        <div (click)="showDetail(entry)" *ngIf="entry.Files.length > 0" class="img-holder mar-btm"> <img alt="Image" src="{{entry.Files[0].FileURL}}"> </div>
+        <p><a href="javascript:void(0)" (click)="showDetail(entry)" class="text-main btn-link text-semibold"><i  class="fa text-muted"></i>
+          <span class="type-icon-grey" *ngFor="let type of getEntryTypes(entry.Type)"><img src="{{app.domain}}/assets/img/{{type.img}}"></span>
+          {{entry.Name}}</a> <a class="pull-right btn-link text-semibold" (click)="showUserProfile(entry.UserId)">{{(entry.NickName == "")?entry.User:entry.NickName}}</a></p>
       </div>
     </div>
-  </sa-body-content>
-  <sa-body-right-content>
-    <sa-manage-entry (EntryCreated)="timelineUpdated($event)"></sa-manage-entry>
-  </sa-body-right-content>
-  <sa-aside></sa-aside>
-</sa-body>
-<!-- FOOTER -->
-<!--===================================================-->
-<sa-footer></sa-footer>
-
+    <div class="clearfix"></div>
+  </div>
+</div>

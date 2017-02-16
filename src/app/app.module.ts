@@ -54,6 +54,7 @@ import { TimelineDetailComponent } from './components/timeline-detail/timeline-d
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { CreateManagedUserComponent } from './components/create-managed-user/create-managed-user.component';
 import { InviteManagedUserComponent } from './components/invite-managed-user/invite-managed-user.component';
+import { ViewLogComponent } from './components/view-log/view-log.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { InviteManagedUserComponent } from './components/invite-managed-user/inv
     TimelineDetailComponent,
     EditProfileComponent,
     CreateManagedUserComponent,
-    InviteManagedUserComponent
+    InviteManagedUserComponent,
+    ViewLogComponent
   ],
   imports: [
     AppRoutingModule,

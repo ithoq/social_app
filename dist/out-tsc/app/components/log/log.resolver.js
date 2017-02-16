@@ -14,29 +14,43 @@ import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { TimelineService } from "../../services/timeline.service";
+import { AppService } from "../../app.service";
+import { Timeline } from "../../models/Timeline";
 export var LogResolver = (function () {
-    function LogResolver(auth, timelineService, route, router) {
+    function LogResolver(auth, timelineService, route, router, app) {
         this.auth = auth;
         this.timelineService = timelineService;
         this.route = route;
         this.router = router;
+        this.app = app;
     }
     LogResolver.prototype.resolve = function (route, state) {
+        var _this = this;
         var auth = this.auth;
         var timelineService = this.timelineService;
         var router = this.router;
         return new Promise(function (resolve, reject) {
             var params = route.params;
-            timelineService.get(params.id).subscribe(function (data) {
-                resolve(data);
-            }, function (error) {
-                resolve(null);
-            });
+            var existingTimelines = _this.timelineService.getAllTimelinesWithEntries();
+            var foundTimeline = _this.app.find_obj_by_prop('Id', params.id, existingTimelines);
+            if (foundTimeline != null) {
+                resolve(foundTimeline);
+            }
+            else {
+                timelineService.get(params.id).subscribe(function (data) {
+                    console.log(data.json().payload);
+                    var mapedTimeline = _this.app.map(data.json().payload, new Timeline());
+                    _this.timelineService.pushTimelineWithEntires(mapedTimeline);
+                    resolve(mapedTimeline);
+                }, function (error) {
+                    resolve(null);
+                });
+            }
         });
     };
     LogResolver = __decorate([
         Injectable(), 
-        __metadata('design:paramtypes', [AuthService, TimelineService, ActivatedRoute, Router])
+        __metadata('design:paramtypes', [AuthService, TimelineService, ActivatedRoute, Router, AppService])
     ], LogResolver);
     return LogResolver;
 }());

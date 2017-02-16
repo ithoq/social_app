@@ -24,4 +24,6 @@ export class Post {
     WhoTags:string = "";
     YouTags:string = "";
     images:string = "";
+    User:string = "";
+    UserId:string = "";
 }

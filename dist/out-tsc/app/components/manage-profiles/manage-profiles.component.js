@@ -25,6 +25,7 @@ export var ManageProfilesComponent = (function () {
     ManageProfilesComponent.prototype.profileUpdated = function (event) {
         var userStuff = this.auth.getUser();
         userStuff.profile = event.user;
+        console.log(userStuff);
         this.auth.setUser(JSON.stringify(userStuff));
     };
     ManageProfilesComponent.prototype.managedUserProfileUpdated = function (event) {

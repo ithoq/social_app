@@ -7,12 +7,18 @@ import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute, Ro
 import {Observable} from "rxjs";
 import {AuthService} from "../../services/auth.service";
 import {TimelineService} from "../../services/timeline.service";
+import {AppService} from "../../app.service";
+import {Timeline} from "../../models/Timeline";
 
 @Injectable()
 export class LogResolver implements Resolve<any> {
-    constructor(public auth:AuthService, private timelineService:TimelineService, private route:ActivatedRoute, private router:Router) {
-
-    }
+    constructor(
+        public auth:AuthService,
+        private timelineService:TimelineService,
+        private route:ActivatedRoute,
+        private router:Router,
+        public app:AppService
+    ) {}
     resolve(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
@@ -20,16 +26,25 @@ export class LogResolver implements Resolve<any> {
         let auth = this.auth;
         let timelineService = this.timelineService;
         let router = this.router;
-        return new Promise(function(resolve, reject){
+        return new Promise((resolve, reject)=>{
             let params:any = route.params;
-            timelineService.get(params.id).subscribe(
-                (data:any)=> {
-                    resolve(data);
-                },
-                (error)=>{
-                    resolve(null);
-                }
-            );
+            let existingTimelines:Array<Timeline> = this.timelineService.getAllTimelinesWithEntries();
+            let foundTimeline:Array<Timeline> = this.app.find_obj_by_prop('Id',params.id,existingTimelines);
+            if(foundTimeline != null){
+                resolve(foundTimeline);
+            }else{
+                timelineService.get(params.id).subscribe(
+                    (data:any)=> {
+                        console.log(data.json().payload);
+                        let mapedTimeline:Timeline = this.app.map(data.json().payload, new Timeline());
+                        this.timelineService.pushTimelineWithEntires(mapedTimeline);
+                        resolve(mapedTimeline);
+                    },
+                    (error)=>{
+                        resolve(null);
+                    }
+                );
+            }
         });
     }
 }

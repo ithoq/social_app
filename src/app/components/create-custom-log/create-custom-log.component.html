@@ -1,7 +1,7 @@
 <sa-header>
   <sa-title></sa-title>
   <sa-action>
-    <li class="pad-rgt"> <a routerLink="/log/custom" > <em class="fa fa-fw fa-eye"></em> View </a> </li>
+    <li class="pad-rgt" (click)="viewCustomLog($event)"> <a href="javascript:void(0)"> <em class="fa fa-fw fa-eye"></em> View </a> </li>
   </sa-action>
 </sa-header>
 <!--===================================================-->
@@ -27,17 +27,14 @@
             <div class="row">
               <div class="col-sm-4 col-md-3">
                 <div class="mar-btm">
-
                   <p class="dropdown-header">
-
-                                                    <span>
-                                                        <button class="btn btn-xs btn-rounded btn-default pull-right" (click)="unselectAllTimelines()"> None</button>
-                                                        <button class="btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm" (click)="selectAllTimelines()">All</button>
-                                                    </span>
+                      <span>
+                          <button class="btn btn-xs btn-rounded btn-default pull-right" (click)="unselectAllTimelines()"> None</button>
+                          <button class="btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm" (click)="selectAllTimelines()">All</button>
+                      </span>
                   </p>
 
                   <div class="form-group pad-hor">
-                    <!-- Checkboxes -->
                     <span *ngFor="let option of timelines">
                       <div class="checkbox" >
                         <input class="magic-checkbox" id="demo-form-checkbox{{option.Id}}" #timeline type="checkbox" value="{{option.Id}}" [checked]="isTimelineSelected(option.Id)" name="timeline{{option.Id}}" (change)="timelinesChanged(timeline.checked+','+timeline.value)" />

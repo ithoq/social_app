@@ -16,9 +16,6 @@ export class MediumToLoginService {
     this.title.current = title;
   };
 
-
-
-
   /*
     returns the current title from the title object
     set current title with the default one.

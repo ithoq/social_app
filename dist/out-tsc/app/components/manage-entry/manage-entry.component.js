@@ -7,15 +7,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Output, ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { Component, Output, ChangeDetectorRef, EventEmitter, Input } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { EntryService } from "../../services/entry.service";
 import { MapsAPILoader } from "angular2-google-maps/core";
 import { RightContentService } from "../../services/right-content.service";
 import { MediumToManageEntryService } from "../../services/medium-to-manage-entry.service";
 import { Router } from "@angular/router";
+import { Post } from "../../models/Post";
+import { AppService } from "../../app.service";
+import * as _ from 'lodash';
+import { TimelineService } from "../../services/timeline.service";
 export var ManageEntryComponent = (function () {
-    function ManageEntryComponent(auth, entryService, _loader, rightContentService, chRef, mediumToManageEntry, router) {
+    function ManageEntryComponent(auth, entryService, _loader, rightContentService, chRef, mediumToManageEntry, router, app, timelineService) {
         this.auth = auth;
         this.entryService = entryService;
         this._loader = _loader;
@@ -23,6 +27,8 @@ export var ManageEntryComponent = (function () {
         this.chRef = chRef;
         this.mediumToManageEntry = mediumToManageEntry;
         this.router = router;
+        this.app = app;
+        this.timelineService = timelineService;
         // Events of the components
         this.entrycreated = new EventEmitter();
         this.entryupdated = new EventEmitter();
@@ -47,21 +53,9 @@ export var ManageEntryComponent = (function () {
             { value: 'down', img: 'emoji-down.png' },
             { value: 'embarrassed', img: 'emoji-embarrassed.png' }
         ];
-        this.types = [
-            { value: 'Place', img: 'icon-places-big.png', desc: 'Lorem ipsum dolor sit amet, maiorum ponderum consulatu ut has. Id phaedrum similique appellantur mel, ad dolorem accusamus eum, vim te graeco eruditi. Cu posse ornatus duo, qui quidam oportere ad. Agam sanctus eum id. Iisque complectitur est cu.' },
-            { value: 'Learning', img: 'icon-learning-big.png', desc: 'Prompta habemus cu mel, pri an feugait laboramus consequuntur. At eum fugit lobortis scripserit. Graeco eligendi ne est, munere deseruisse mea te, ea eros phaedrum torquatos est. In vim mazim mentitum. Mei putent maiorum in, atomorum intellegebat mea an. Te ius homero nostro, ei mea nostro feugiat conceptam, ex vis euismod alienum expetendis.' },
-            { value: 'Work', img: 'icon-work-big.png', desc: 'Luptatum platonem instr vivendo inciderint ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.' },
-            { value: 'Health', img: 'icon-health-big.png', desc: 'Conceptam abhorreant quas ipsum decore pro no. Te usu mandamus conceptam voluptatum, vim ei erat delenit volutpat. Ei per tollit dicant, per wisi mandamus salutatus ex. At persius delectus perpetua vel.' },
-            { value: 'Fitness', img: 'icon-fitness-big.png', desc: 'Conceptam abhorreant pro no. Te usu mandamus conceptam voluptatum, vim ei erat delenit volutpat. Ei per tollit dicant, per wisi mandamus salutatus ex. At persius delectus perpetua vel.' },
-            { value: 'Celebration', img: 'icon-celebration-big.png', desc: 'Tantas lucilius facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.' },
-            { value: 'Faves', img: 'icon-faves-big.png', desc: 'Luptatum platonem instructior id  ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.' },
-            { value: 'Purpose', img: 'icon-world-big.png', desc: 'Tantas lucilius no vis, cu aliquid nominavi eloquentiam duo. Clita timeam duo an. Te eam postea facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.' },
-            { value: 'People', img: 'icon-images-big.png', desc: 'Conceptam abhorreant est cu, possit reprehendunt sit at. Ius augue legimus in, sit cibo essent et, quas ipsum decore pro no. Te usu mandamus conceptam voluptatum, vim ei erat delenit volutpat. Ei per tollit dicant, per wisi mandamus salutatus ex. At persius delectus perpetua vel.' },
-            { value: 'Bigs', img: 'logo.png', desc: 'Tantas lucilius no vis, cu aliquid nominavi eloquentiam duo. Clita timeam duo an. Te eam postea facete eirmod. Ad epicurei antiopam vim. Cibo errem dissentiet ius ea, ad sed ignota insolens.' },
-            { value: 'Other', img: 'icon-growth-big.png', desc: 'Luptatum platonem instructior id nec, ea eam sale comprehensam, sit suas dicat eu. Ei mel sapientem constituto, cetero vivendo inciderint ad pro. Nobis feugait fierent cu pri. Ex eos vidisse scriptorem. Id ridens insolens moderatius has. Delicata dissentiet philosophia vis at, nec movet omnes prodesset ei.' }
-        ];
-        this.timelines = [];
         this.seletedTimelines = [];
+        this.types = [];
+        this.timelines = [];
         this.selectedTypes = [];
         this.selectedModes = [];
         this.showDefinitions = false;
@@ -78,6 +72,7 @@ export var ManageEntryComponent = (function () {
         this.postBestSelf = 0;
         this.postCloseToOthers = 0;
         this.uploadingPost = false;
+        this.types = _.cloneDeep(this.app.entryContentCategories);
         this.timelines = this.auth.getUser().timelines;
         this.noUiSlider = noUiSlider;
         this.wNumb = wNumb;
@@ -146,6 +141,49 @@ export var ManageEntryComponent = (function () {
         }
         this.selectedFilesSrc = tempSrc;
     };
+    ManageEntryComponent.prototype.mapUpdatedEntryData = function (data) {
+        data = _.cloneDeep(data);
+        var updatedPost = new Post();
+        updatedPost.About = data.About;
+        updatedPost.BestSelfRating = data.BestSelfRating;
+        updatedPost.CloseToOthers = data.CloseToOthers;
+        updatedPost.DateStart = data.DateStart;
+        updatedPost.DateEnd = data.DateEnd;
+        updatedPost.EntryId = data.EntryId;
+        updatedPost.Lat = data.Lat;
+        updatedPost.Lng = data.Lng;
+        updatedPost.Location = data.Location;
+        updatedPost.Mode = data.Mode;
+        updatedPost.Name = data.Name;
+        updatedPost.Tags = data.Tags.join(',');
+        for (var _i = 0, _a = data.TimelineId.split(','); _i < _a.length; _i++) {
+            var timelineId = _a[_i];
+            var timelines = this.auth.getUser().timelines;
+            for (var _b = 0, timelines_1 = timelines; _b < timelines_1.length; _b++) {
+                var existingTimeline = timelines_1[_b];
+                if (existingTimeline.Id == timelineId) {
+                    updatedPost.Timelines.push(existingTimeline);
+                }
+            }
+        }
+        updatedPost.Type = data.Type;
+        updatedPost.WhatElse = data.WhatElse;
+        updatedPost.WhatTags = data.WhatTags;
+        updatedPost.WhoTags = data.WhoTags;
+        updatedPost.YouTags = data.YouTags;
+        updatedPost.User = data.User;
+        updatedPost.UserId = data.UserId;
+        //TODO: Files are not being handeled yet.
+        return updatedPost;
+    };
+    ManageEntryComponent.prototype.updateEntryInLocalStorage = function (updatedEntry) {
+        this.timelineService.removeEntriesFromTimelines(this.app.property_to_array('Id', updatedEntry.Timelines), [updatedEntry.EntryId]);
+        for (var _i = 0, _a = updatedEntry.Timelines; _i < _a.length; _i++) {
+            var timeline = _a[_i];
+            this.timelineService.pushEntryInTimeline(timeline.Id, updatedEntry);
+        }
+        return true;
+    };
     ManageEntryComponent.prototype.create = function (form, event) {
         var _this = this;
         if (this.uploadingPost == true)
@@ -182,8 +220,13 @@ export var ManageEntryComponent = (function () {
             });
             if (this.existingEntry != null) {
                 this.entryService.updateEntry(this.existingEntry.EntryId, data, files_1).subscribe(function (response) {
+                    data.EntryId = _this.existingEntry.EntryId;
+                    data.User = _this.auth.currentUser.FirstName + ' ' + _this.auth.currentUser.LastName;
+                    data.UserId = _this.auth.currentUser.UserId;
+                    var updatedEntry = _this.mapUpdatedEntryData(data);
+                    _this.updateEntryInLocalStorage(updatedEntry);
                     _this.uploadingPost = false;
-                    _this.entryupdated.emit({ data: data });
+                    _this.entryupdated.emit({ data: updatedEntry });
                     alert('Post Updated Successfully!');
                     _this.rightContentService.aside_in = false;
                 }, function (error) {
@@ -191,7 +234,14 @@ export var ManageEntryComponent = (function () {
                 });
             }
             else {
-                this.entryService.addEntry(data, files_1).subscribe(function (data) {
+                this.entryService.addEntry(data, files_1).subscribe(function (response) {
+                    var createdEntryId = response.json().payload.EntryId;
+                    data.EntryId = createdEntryId;
+                    data.User = _this.auth.currentUser.FirstName + ' ' + _this.auth.currentUser.LastName;
+                    data.UserId = _this.auth.currentUser.UserId;
+                    var updatedEntry = _this.mapUpdatedEntryData(data);
+                    console.log(updatedEntry);
+                    _this.updateEntryInLocalStorage(updatedEntry);
                     _this.uploadingPost = false;
                     _this.entrycreated.emit({ data: _this.seletedTimelines });
                     alert('Post Created Successfully!');
@@ -205,7 +255,6 @@ export var ManageEntryComponent = (function () {
     ManageEntryComponent.prototype.modeChanged = function (data) {
         var parts = data.split(',');
         var alreadyExists = false;
-        "";
         for (var _i = 0, _a = this.selectedModes; _i < _a.length; _i++) {
             var entry = _a[_i];
             if (entry == parts[1]) {
@@ -437,13 +486,17 @@ export var ManageEntryComponent = (function () {
         Output('EntryUpdated'), 
         __metadata('design:type', Object)
     ], ManageEntryComponent.prototype, "entryupdated", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], ManageEntryComponent.prototype, "seletedTimelines", void 0);
     ManageEntryComponent = __decorate([
         Component({
             selector: 'sa-manage-entry',
             templateUrl: './manage-entry.component.html',
             styleUrls: ['./manage-entry.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, EntryService, MapsAPILoader, RightContentService, ChangeDetectorRef, MediumToManageEntryService, Router])
+        __metadata('design:paramtypes', [AuthService, EntryService, MapsAPILoader, RightContentService, ChangeDetectorRef, MediumToManageEntryService, Router, AppService, TimelineService])
     ], ManageEntryComponent);
     return ManageEntryComponent;
 }());

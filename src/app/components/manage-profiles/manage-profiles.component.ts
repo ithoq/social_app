@@ -23,6 +23,7 @@ export class ManageProfilesComponent implements OnInit {
     profileUpdated(event){
         let userStuff = this.auth.getUser();
         userStuff.profile = event.user;
+        console.log(userStuff);
         this.auth.setUser(JSON.stringify(userStuff));
     }
 

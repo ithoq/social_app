@@ -43,6 +43,7 @@ import { AntiProfileCreatedGuardService } from "../services/anti-profile-created
 import { EditProfileComponent } from "../components/edit-profile/edit-profile.component";
 import { CreateManagedUserComponent } from "../components/create-managed-user/create-managed-user.component";
 import { InviteManagedUserComponent } from "../components/invite-managed-user/invite-managed-user.component";
+import { ViewLogComponent } from "../components/view-log/view-log.component";
 var appRoutes = [
     {
         path: '',
@@ -56,7 +57,8 @@ var appRoutes = [
                     { path: "profile/:id", resolve: { user: ViewProfileResolver }, component: ViewProfileComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "profile/:id/edit", resolve: { user: ViewProfileResolver }, component: EditProfileComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: 'log/custom', resolve: { log: CustomLogResolver }, component: LogComponent, canActivate: [ProfileCreatedGuardService] },
-                    { path: 'log/:id', resolve: { log: LogResolver }, component: LogComponent, canActivate: [ProfileCreatedGuardService] },
+                    { path: 'log/:id', resolve: { log: LogResolver }, component: ViewLogComponent, canActivate: [ProfileCreatedGuardService] },
+                    // {path: 'log/:id', resolve:{log:LogResolver}, component: LogComponent , canActivate:[ProfileCreatedGuardService]},
                     { path: 'log/:id/invite-users', resolve: { log: LogResolver }, component: InviteUsersComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: 'log/:id/invite-users/managed', component: InviteManagedUserComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "manage-profiles", component: ManageProfilesComponent, canActivate: [ProfileCreatedGuardService] },

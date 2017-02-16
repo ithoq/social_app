@@ -9,9 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
+import { AppService } from "../../app.service";
 export var CreateCustomLogComponent = (function () {
-    function CreateCustomLogComponent(auth) {
+    function CreateCustomLogComponent(auth, app) {
         this.auth = auth;
+        this.app = app;
         this.timelines = [];
         this.modes = [
             { value: 'angry', img: 'emoji-angry.png' },
@@ -24,19 +26,7 @@ export var CreateCustomLogComponent = (function () {
             { value: 'down', img: 'emoji-down.png' },
             { value: 'embarrassed', img: 'emoji-embarrassed.png' }
         ];
-        this.types = [
-            { value: 'Place', img: 'icon-places-big.png', desc: 'description' },
-            { value: 'Learning', img: 'icon-learning-big.png', desc: 'description' },
-            { value: 'Work', img: 'icon-work-big.png', desc: 'description' },
-            { value: 'Health', img: 'icon-health-big.png', desc: 'description' },
-            { value: 'Fitness', img: 'icon-fitness-big.png', desc: 'description' },
-            { value: 'Celebration', img: 'icon-celebration-big.png', desc: 'description' },
-            { value: 'Faves', img: 'icon-faves-big.png', desc: 'description' },
-            { value: 'Purpose', img: 'icon-world-big.png', desc: 'description' },
-            { value: 'People', img: 'icon-images-big.png', desc: 'description' },
-            { value: 'Bigs', img: 'logo.png', desc: 'description' },
-            { value: 'Other', img: 'icon-growth-big.png', desc: 'description' }
-        ];
+        this.types = [];
         this.tags = [
             'angry', 'blah', 'brilliant', 'calm'
         ];
@@ -44,6 +34,7 @@ export var CreateCustomLogComponent = (function () {
         this.seletedTimelines = [];
         this.selectedTypes = [];
         this.selectedTags = ['blah'];
+        this.types = this.app.entryContentCategories;
     }
     CreateCustomLogComponent.prototype.isModeSelected = function (mode) {
         if (this.selectedModes.indexOf(mode) >= 0) {
@@ -205,6 +196,9 @@ export var CreateCustomLogComponent = (function () {
     CreateCustomLogComponent.prototype.unselectAllMoods = function () {
         this.selectedModes = [];
     };
+    CreateCustomLogComponent.prototype.viewCustomLog = function ($event) {
+        console.log(JSON.parse(localStorage.getItem('custom_log_settings')));
+    };
     CreateCustomLogComponent.prototype.ngOnInit = function () {
         this.timelines = this.auth.getUser().timelines;
         /* settings up pre selected data */
@@ -237,7 +231,7 @@ export var CreateCustomLogComponent = (function () {
             templateUrl: './create-custom-log.component.html',
             styleUrls: ['./create-custom-log.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService])
+        __metadata('design:paramtypes', [AuthService, AppService])
     ], CreateCustomLogComponent);
     return CreateCustomLogComponent;
 }());

@@ -41,7 +41,7 @@ export class TimelineDetailComponent implements OnInit {
             (user.UserId != this.auth.getUser().profile.UserId));
   }
 
-  updateLog(form:NgForm){
+  updateLog(form:NgForm){ //TODO: push these changes to local storage
     this.timelineService.update(this.timeline.Id, form.value).subscribe((data:Response)=>{
         this.timeline.Name = form.value.Name;
       $('#'+this.edit_log_modal_id).modal('hide');
@@ -51,7 +51,7 @@ export class TimelineDetailComponent implements OnInit {
     });
   }
 
-  editUser(user:User){
+  editUser(user:User){ //TODO: push these changes to local storage
     let userfound = this.usersService.findMangedUserById(user.UserId);
     let actualUser = new User();
     for (var property in userfound) {
@@ -62,7 +62,7 @@ export class TimelineDetailComponent implements OnInit {
     this.router.navigate(['/profile/'+userfound.UserId+'/edit']);
   }
 
-  removeUser(userId:string){
+  removeUser(userId:string){ //TODO: push these changes to local storage
     if(userId == this.auth.currentUser.UserId){
       alert('Can not remove yourself');
     }else{
