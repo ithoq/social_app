@@ -14,6 +14,9 @@ var User = (function () {
         this.DateBirthDay = "";
         this.ImageURL = "";
         this.ThumbURL = "";
+        this.ManagedByUserId = "";
+        this.ManagedByUserName = "";
+        this.ManagedByUserNickName = "";
     }
     return User;
 }());

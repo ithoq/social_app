@@ -14,6 +14,8 @@ var Post = (function () {
         this.EntryId = "";
         this.Files = [];
         this.Location = "";
+        this.Lat = '';
+        this.Lng = '';
         this.Mode = "";
         this.Name = "";
         this.Tags = "";
@@ -24,6 +26,8 @@ var Post = (function () {
         this.WhoTags = "";
         this.YouTags = "";
         this.images = "";
+        this.User = "";
+        this.UserId = "";
     }
     return Post;
 }());

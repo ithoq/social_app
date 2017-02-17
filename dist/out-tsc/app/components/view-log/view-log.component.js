@@ -33,11 +33,14 @@ export var ViewLogComponent = (function () {
         this.route.data
             .subscribe(function (data) {
             if (data.log == null) {
-                _this.router.navigate(['/log/custom']);
+                _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
             }
-            //TODO: users array is not returned by the api yet.
-            _this.timeline = data.log;
-            _this.headerComponent.title = _this.timeline.Name;
+            else {
+                //TODO: users array is not returned by the api yet.
+                _this.timeline = data.log;
+                console.log(_this.timeline);
+                _this.headerComponent.title = _this.timeline.Name;
+            }
         }, function (error) { });
     };
     __decorate([

@@ -50,9 +50,13 @@ export class TimelineService {
         return this.http.get(this.appService.api_end_point+'timelineUpdate/'+this.auth.get_session_token()+"/&TimelineId="+timelineId+querystr);
     }
 
-    getAllTimelinesWithEntries(){
-        let timelines = JSON.parse(LZString.decompress(localStorage.getItem('allTimelinesWithEntries')));
-        return (timelines == null)?[]:timelines;
+    getAllTimelinesWithEntries():Array<Timeline>{
+        let timelinesString:any = localStorage.getItem('allTimelinesWithEntries');
+        if(timelinesString != null){
+            let timelines = JSON.parse(LZString.decompress(localStorage.getItem('allTimelinesWithEntries')));
+            return (timelines == null)?[]:timelines;
+        }
+        return [];
     }
 
     pushTimelineWithEntires(timeline:Timeline){

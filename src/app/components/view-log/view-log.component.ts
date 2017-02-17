@@ -33,10 +33,14 @@ export class ViewLogComponent implements OnInit {
   ngOnInit() {
     this.route.data
         .subscribe((data: { log: any }) => {
-          if(data.log == null){ this.router.navigate(['/log/custom']); }
-          //TODO: users array is not returned by the api yet.
-          this.timeline = data.log;
-          this.headerComponent.title = this.timeline.Name;
+          if(data.log == null){
+              this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
+          }else{
+              //TODO: users array is not returned by the api yet.
+              this.timeline = data.log;
+              console.log(this.timeline);
+              this.headerComponent.title = this.timeline.Name;
+          }
         }, (error)=>{});
   }
 

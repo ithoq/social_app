@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {AppService} from "../../app.service";
+import {Timeline} from "../../models/Timeline";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Location} from "@angular/common";
+import {TimelineService} from "../../services/timeline.service";
+import {Post} from "../../models/Post";
 
 declare var $:any;
+declare var LZString:any;
 
 @Component({
   selector: 'app-create-custom-log',
@@ -12,6 +18,8 @@ declare var $:any;
 export class CreateCustomLogComponent implements OnInit {
 
   public timelines:any = [];
+  public entries:Array<Timeline> = [];
+  public settings:any = null;
   public modes = [
     {value:'angry',img:'emoji-angry.png'},
     {value:'blah',img:'emoji-blah.png'},
@@ -34,7 +42,14 @@ export class CreateCustomLogComponent implements OnInit {
   public seletedTimelines:any = [];
   public selectedTypes:any = [];
   public selectedTags:any = ['blah'];
-  constructor(private auth:AuthService, public app:AppService) {
+  constructor(
+      private auth:AuthService,
+      public app:AppService,
+      public route:ActivatedRoute,
+      public location:Location,
+      public router:Router,
+      public timelineService:TimelineService
+  ) {
     this.types = this.app.entryContentCategories;
   }
 
@@ -196,21 +211,129 @@ export class CreateCustomLogComponent implements OnInit {
     this.selectedModes = [];
   }
 
+  passedThroughTimelinesFilter(settingsTimelines, entryTimelines){
+    let passed:boolean = false;
+    for(let t_id of settingsTimelines){
+      if(this.app.property_in_array('Id', t_id, entryTimelines)){
+        passed = true;
+      }
+    }
+    return passed;
+  }
+
+  passedThroughTypesFilter(settingsTypes, entryTypes){
+    let passed:boolean = false;
+    let entryTypesArr:Array<any> = entryTypes.split(',');
+    for(let t_id of settingsTypes){
+      if(this.app.in_array(t_id, entryTypesArr)){
+        passed = true;
+      }
+    }
+    return passed;
+  }
+  passedThroughModesFilter(settingsModes, entryModes){
+    let passed:boolean = false;
+    let entryModesArr:Array<any> = entryModes.split(',');
+    for(let t_id of settingsModes){
+      if(this.app.in_array(t_id, entryModesArr)){
+        passed = true;
+      }
+    }
+    return passed;
+  }
+
+  passedThroughDatesFilter(fromDate:string, toDate:string, entry:Post):boolean{
+    let from = (fromDate != '')? new Date(fromDate): new Date('01/01/1971');
+    let entryFrom = new Date(entry.DateStart);
+    if(toDate == '')
+      return (entryFrom >= from);
+    else{
+      let to = new Date(toDate);
+      return (entryFrom >= from && entryFrom <= to);
+    }
+  }
+
+  filterThroughEntries(entries:Array<Post>, settings:any):Array<Post>{
+    let filteredEntries:Array<Post> = [];
+    for(let entry of entries){
+      let filtrationTestPassed:boolean = false;
+      if(this.passedThroughTimelinesFilter(settings.timelines, entry.Timelines)
+          && this.passedThroughDatesFilter(settings.fromDate, settings.toDate, entry)
+          && this.passedThroughTypesFilter(settings.types, entry.Type)
+          && this.passedThroughModesFilter(settings.modes, entry.Mode)
+      ){
+        filtrationTestPassed = true;
+      }
+
+      if(filtrationTestPassed){
+        filteredEntries.push(entry);
+      }
+    }
+    return filteredEntries; //TODO: apply filteres here.
+  }
+
+  getUniquePosts(entries:Array<Post>):Array<Post>{
+    let uniquePosts:Array<Post> = [];
+    for(let entry of entries){
+      if(!this.app.property_in_array('EntryId',entry.EntryId, uniquePosts)){
+        uniquePosts.push(entry);
+      }
+    }
+    return uniquePosts;  //TODO: niquie these posts.
+  }
+
+  sortEntriesByDate(entries:Array<Post>){
+    return entries.sort( (firstObject, secondObject)=>{
+      let keyA = new Date(firstObject.DateStart),
+          keyB = new Date(secondObject.DateEnd);
+      if(keyA < keyB) return 1;
+      if(keyA > keyB) return -1;
+      return 0;
+    });
+  }
+
+  getFinalizedEntries():Array<Post>{
+    let timelines:Array<Timeline> = this.timelineService.getAllTimelinesWithEntries();
+    let entries:Array<Post> = [];
+    for(let timeline of timelines){
+      let filteredEntries:Array<Post> = this.filterThroughEntries(timeline.Entries, this.settings);
+      for(let entry of filteredEntries){
+        entries.push(entry);
+      }
+    }
+    return this.sortEntriesByDate(this.getUniquePosts(entries));
+  }
+
+  createCustomTimeline(){
+    let timeline:Timeline = new Timeline();
+    timeline.CreatedByUser = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
+    timeline.CreatedByUserId = this.auth.currentUser.UserId;
+    timeline.Name = 'Custom Log';
+    timeline.Entries = this.getFinalizedEntries();
+    return timeline;
+  }
+
   viewCustomLog($event){
-    console.log(JSON.parse(localStorage.getItem('custom_log_settings')));
+    let customTimeline:Timeline = this.createCustomTimeline();
+    localStorage.setItem('custom_log',LZString.compress(JSON.stringify(customTimeline)));
+    this.router.navigate(['/log/custom'])
   }
 
   ngOnInit() {
-    this.timelines = this.auth.getUser().timelines;
-
-    /* settings up pre selected data */
-    let settings = JSON.parse(localStorage.getItem('custom_log_settings'));
-    if(settings != null){
-      this.selectedModes = settings.modes;
-      this.selectedTypes = settings.types;
-      this.selectedTags = settings.tags;
-      this.seletedTimelines = settings.timelines;
-    }
+    this.route.data
+        .subscribe((data: { entries: Array<Timeline> }) => {
+          this.entries = data.entries;
+          this.timelines = this.auth.getUser().timelines;
+          this.settings = JSON.parse(localStorage.getItem('custom_log_settings'));
+          if(this.settings != null) {
+            this.selectedModes = this.settings.modes;
+            this.selectedTypes = this.settings.types;
+            this.selectedTags = this.settings.tags;
+            this.seletedTimelines = this.settings.timelines;
+            $('#from-date').val(this.settings.fromDate);
+            $('#to-date').val(this.settings.toDate);
+          }
+        }, (error)=>{});
     /*---------------------------------*/
   }
 

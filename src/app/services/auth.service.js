@@ -23,7 +23,7 @@ var AuthService = (function () {
     };
     AuthService.prototype.grab_app_key = function () {
         return new rxjs_1.Observable(function (observable) {
-            observable.next("WebClient");
+            observable.next("WebClient"); //Todo: put it in the config file.
         });
     };
     AuthService.prototype.grab_session_token = function (app_key) {

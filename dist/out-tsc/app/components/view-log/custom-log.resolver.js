@@ -1,6 +1,3 @@
-/**
- * Created by officeaccount on 11/01/2017.
- */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11,27 +8,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
-import { TimelineService } from "../../services/timeline.service";
+import { AppService } from "../../app.service";
 export var CustomLogResolver = (function () {
-    function CustomLogResolver(auth, timelineService, route, router) {
+    function CustomLogResolver(auth, app) {
         this.auth = auth;
-        this.timelineService = timelineService;
-        this.route = route;
-        this.router = router;
+        this.app = app;
     }
     CustomLogResolver.prototype.resolve = function (route, state) {
-        var auth = this.auth;
-        var timelineService = this.timelineService;
-        var router = this.router;
         return new Promise(function (resolve, reject) {
+            var customLogString = localStorage.getItem('custom_log');
+            if (customLogString != null) {
+                resolve(JSON.parse(LZString.decompress(customLogString)));
+            }
+            else {
+                resolve(null);
+            }
         });
     };
     CustomLogResolver = __decorate([
         Injectable(), 
-        __metadata('design:paramtypes', [AuthService, TimelineService, ActivatedRoute, Router])
+        __metadata('design:paramtypes', [AuthService, AppService])
     ], CustomLogResolver);
     return CustomLogResolver;
 }());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/log/customLog.resolver.js.map
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/components/view-log/custom-log.resolver.js.map

@@ -17,8 +17,6 @@ import {PickColorComponent} from "../components/manage-profiles/pick-color/pick-
 import {ProfileManagementService} from "../services/profile-management.service";
 import {ProfileCreatedGuardService} from "../services/profile-created-guard.service";
 import {ManageLogsComponent} from "../components/manage-logs/manage-logs.component";
-import {CreateLogComponent} from "../components/create-log/create-log.component";
-import {LogComponent} from "../components/log/log.component";
 import {LogResolver} from "../components/log/log.resolver";
 import {LogsResolver} from "../components/manage-logs/logs.resolver";
 import {InviteUsersComponent} from "../components/invite-users/invite-users.component";
@@ -26,8 +24,6 @@ import {PostDetailComponent} from "../components/post-detail/post-detail.compone
 import {PostResolver} from "../components/post-detail/post.resolver";
 import {PostDetailGuardService} from "../services/post-detail-guard.service";
 import {CreateCustomLogComponent} from "../components/create-custom-log/create-custom-log.component";
-import {CustomLogResolver} from "../components/log/customLog.resolver";
-import {TestComponent} from "../components/test/test.component";
 import {ViewProfileComponent} from "../components/view-profile/view-profile.component";
 import {ViewProfileResolver} from "../components/view-profile/view-profile.resolver";
 import {ManageProfilesComponent} from "../components/manage-profiles/manage-profiles.component";
@@ -37,6 +33,8 @@ import {EditProfileComponent} from "../components/edit-profile/edit-profile.comp
 import {CreateManagedUserComponent} from "../components/create-managed-user/create-managed-user.component";
 import {InviteManagedUserComponent} from "../components/invite-managed-user/invite-managed-user.component";
 import {ViewLogComponent} from "../components/view-log/view-log.component";
+import {CreateCustomLogResolver} from "../components/create-custom-log/create-custom-log.resolver";
+import {CustomLogResolver} from "../components/view-log/custom-log.resolver";
 
 const appRoutes: Routes = [
     {
@@ -50,16 +48,15 @@ const appRoutes: Routes = [
                 {path: "home", component:HomeComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "profile/:id", resolve:{user:ViewProfileResolver}, component:ViewProfileComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "profile/:id/edit", resolve:{user:ViewProfileResolver}, component:EditProfileComponent, canActivate:[ProfileCreatedGuardService]},
-                {path: 'log/custom', resolve:{log:CustomLogResolver}, component: LogComponent , canActivate:[ProfileCreatedGuardService]},
+                {path: 'log/custom', resolve:{log:CustomLogResolver}, component: ViewLogComponent , canActivate:[ProfileCreatedGuardService]},
                 {path: 'log/:id', resolve:{log:LogResolver}, component: ViewLogComponent , canActivate:[ProfileCreatedGuardService]},
-                // {path: 'log/:id', resolve:{log:LogResolver}, component: LogComponent , canActivate:[ProfileCreatedGuardService]},
                 {path: 'log/:id/invite-users', resolve:{log:LogResolver}, component: InviteUsersComponent , canActivate:[ProfileCreatedGuardService]},
                 {path: 'log/:id/invite-users/managed', component: InviteManagedUserComponent , canActivate:[ProfileCreatedGuardService]},
                 {path: "manage-profiles", component:ManageProfilesComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "create-profile", component:CreateProfileComponent, canActivate:[AntiProfileCreatedGuardService]},
                 {path: "create-managed-profile", component:CreateManagedUserComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "manage-logs", resolve:{logs:LogsResolver}, component:ManageLogsComponent, canActivate:[ProfileCreatedGuardService]},
-                {path: "create-custom-log", component:CreateCustomLogComponent, canActivate:[ProfileCreatedGuardService]},
+                {path: "create-custom-log", resolve:{entries: CreateCustomLogResolver}, component:CreateCustomLogComponent, canActivate:[ProfileCreatedGuardService]},
                 {path: "pick-color", component:PickColorComponent, canActivate:[ProfileManagementService]},
                 {path: "post/:id", resolve:{post:PostResolver}, component:PostDetailComponent, canActivate:[ProfileCreatedGuardService]},
                 {path:'',redirectTo:"/log/custom",pathMatch:"full"}
@@ -97,7 +94,8 @@ const appRoutes: Routes = [
       PostDetailGuardService,
       CustomLogResolver,
       ViewProfileResolver,
-      AntiProfileCreatedGuardService
+      AntiProfileCreatedGuardService,
+      CreateCustomLogResolver
   ]
 })
 export class AppRoutingModule {}

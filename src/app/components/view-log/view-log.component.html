@@ -17,7 +17,7 @@
     <sa-manage-entry #manageEntryComponent
                      (EntryCreated)="timelineUpdated($event)"
                      (EntryUpdated)="timelineUpdated($event)"
-            [seletedTimelines]="[timeline.Id]"></sa-manage-entry>
+            [seletedTimelines]="(timeline.Id == '')?[]:[timeline.Id]"></sa-manage-entry>
   </sa-body-right-content>
   <sa-aside></sa-aside>
 </sa-body>

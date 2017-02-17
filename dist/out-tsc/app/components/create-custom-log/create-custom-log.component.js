@@ -10,11 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { AppService } from "../../app.service";
+import { Timeline } from "../../models/Timeline";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Location } from "@angular/common";
+import { TimelineService } from "../../services/timeline.service";
 export var CreateCustomLogComponent = (function () {
-    function CreateCustomLogComponent(auth, app) {
+    function CreateCustomLogComponent(auth, app, route, location, router, timelineService) {
         this.auth = auth;
         this.app = app;
+        this.route = route;
+        this.location = location;
+        this.router = router;
+        this.timelineService = timelineService;
         this.timelines = [];
+        this.entries = [];
+        this.settings = null;
         this.modes = [
             { value: 'angry', img: 'emoji-angry.png' },
             { value: 'blah', img: 'emoji-blah.png' },
@@ -196,19 +206,127 @@ export var CreateCustomLogComponent = (function () {
     CreateCustomLogComponent.prototype.unselectAllMoods = function () {
         this.selectedModes = [];
     };
+    CreateCustomLogComponent.prototype.passedThroughTimelinesFilter = function (settingsTimelines, entryTimelines) {
+        var passed = false;
+        for (var _i = 0, settingsTimelines_1 = settingsTimelines; _i < settingsTimelines_1.length; _i++) {
+            var t_id = settingsTimelines_1[_i];
+            if (this.app.property_in_array('Id', t_id, entryTimelines)) {
+                passed = true;
+            }
+        }
+        return passed;
+    };
+    CreateCustomLogComponent.prototype.passedThroughTypesFilter = function (settingsTypes, entryTypes) {
+        var passed = false;
+        var entryTypesArr = entryTypes.split(',');
+        for (var _i = 0, settingsTypes_1 = settingsTypes; _i < settingsTypes_1.length; _i++) {
+            var t_id = settingsTypes_1[_i];
+            if (this.app.in_array(t_id, entryTypesArr)) {
+                passed = true;
+            }
+        }
+        return passed;
+    };
+    CreateCustomLogComponent.prototype.passedThroughModesFilter = function (settingsModes, entryModes) {
+        var passed = false;
+        var entryModesArr = entryModes.split(',');
+        for (var _i = 0, settingsModes_1 = settingsModes; _i < settingsModes_1.length; _i++) {
+            var t_id = settingsModes_1[_i];
+            if (this.app.in_array(t_id, entryModesArr)) {
+                passed = true;
+            }
+        }
+        return passed;
+    };
+    CreateCustomLogComponent.prototype.passedThroughDatesFilter = function (fromDate, toDate, entry) {
+        var from = (fromDate != '') ? new Date(fromDate) : new Date('01/01/1971');
+        var entryFrom = new Date(entry.DateStart);
+        if (toDate == '')
+            return (entryFrom >= from);
+        else {
+            var to = new Date(toDate);
+            return (entryFrom >= from && entryFrom <= to);
+        }
+    };
+    CreateCustomLogComponent.prototype.filterThroughEntries = function (entries, settings) {
+        var filteredEntries = [];
+        for (var _i = 0, entries_1 = entries; _i < entries_1.length; _i++) {
+            var entry = entries_1[_i];
+            var filtrationTestPassed = false;
+            if (this.passedThroughTimelinesFilter(settings.timelines, entry.Timelines)
+                && this.passedThroughDatesFilter(settings.fromDate, settings.toDate, entry)
+                && this.passedThroughTypesFilter(settings.types, entry.Type)
+                && this.passedThroughModesFilter(settings.modes, entry.Mode)) {
+                filtrationTestPassed = true;
+            }
+            if (filtrationTestPassed) {
+                filteredEntries.push(entry);
+            }
+        }
+        return filteredEntries; //TODO: apply filteres here.
+    };
+    CreateCustomLogComponent.prototype.getUniquePosts = function (entries) {
+        var uniquePosts = [];
+        for (var _i = 0, entries_2 = entries; _i < entries_2.length; _i++) {
+            var entry = entries_2[_i];
+            if (!this.app.property_in_array('EntryId', entry.EntryId, uniquePosts)) {
+                uniquePosts.push(entry);
+            }
+        }
+        return uniquePosts; //TODO: niquie these posts.
+    };
+    CreateCustomLogComponent.prototype.sortEntriesByDate = function (entries) {
+        return entries.sort(function (firstObject, secondObject) {
+            var keyA = new Date(firstObject.DateStart), keyB = new Date(secondObject.DateEnd);
+            if (keyA < keyB)
+                return 1;
+            if (keyA > keyB)
+                return -1;
+            return 0;
+        });
+    };
+    CreateCustomLogComponent.prototype.getFinalizedEntries = function () {
+        var timelines = this.timelineService.getAllTimelinesWithEntries();
+        var entries = [];
+        for (var _i = 0, timelines_1 = timelines; _i < timelines_1.length; _i++) {
+            var timeline = timelines_1[_i];
+            var filteredEntries = this.filterThroughEntries(timeline.Entries, this.settings);
+            for (var _a = 0, filteredEntries_1 = filteredEntries; _a < filteredEntries_1.length; _a++) {
+                var entry = filteredEntries_1[_a];
+                entries.push(entry);
+            }
+        }
+        return this.sortEntriesByDate(this.getUniquePosts(entries));
+    };
+    CreateCustomLogComponent.prototype.createCustomTimeline = function () {
+        var timeline = new Timeline();
+        timeline.CreatedByUser = this.auth.currentUser.FirstName + ' ' + this.auth.currentUser.LastName;
+        timeline.CreatedByUserId = this.auth.currentUser.UserId;
+        timeline.Name = 'Custom Log';
+        timeline.Entries = this.getFinalizedEntries();
+        return timeline;
+    };
     CreateCustomLogComponent.prototype.viewCustomLog = function ($event) {
-        console.log(JSON.parse(localStorage.getItem('custom_log_settings')));
+        var customTimeline = this.createCustomTimeline();
+        localStorage.setItem('custom_log', LZString.compress(JSON.stringify(customTimeline)));
+        this.router.navigate(['/log/custom']);
     };
     CreateCustomLogComponent.prototype.ngOnInit = function () {
-        this.timelines = this.auth.getUser().timelines;
-        /* settings up pre selected data */
-        var settings = JSON.parse(localStorage.getItem('custom_log_settings'));
-        if (settings != null) {
-            this.selectedModes = settings.modes;
-            this.selectedTypes = settings.types;
-            this.selectedTags = settings.tags;
-            this.seletedTimelines = settings.timelines;
-        }
+        var _this = this;
+        this.route.data
+            .subscribe(function (data) {
+            _this.entries = data.entries;
+            _this.timelines = _this.auth.getUser().timelines;
+            _this.settings = JSON.parse(localStorage.getItem('custom_log_settings'));
+            if (_this.settings != null) {
+                _this.selectedModes = _this.settings.modes;
+                _this.selectedTypes = _this.settings.types;
+                _this.selectedTags = _this.settings.tags;
+                _this.seletedTimelines = _this.settings.timelines;
+                $('#from-date').val(_this.settings.fromDate);
+                $('#to-date').val(_this.settings.toDate);
+            }
+        }, function (error) { });
         /*---------------------------------*/
     };
     CreateCustomLogComponent.prototype.ngAfterViewInit = function () {
@@ -231,7 +349,7 @@ export var CreateCustomLogComponent = (function () {
             templateUrl: './create-custom-log.component.html',
             styleUrls: ['./create-custom-log.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, AppService])
+        __metadata('design:paramtypes', [AuthService, AppService, ActivatedRoute, Location, Router, TimelineService])
     ], CreateCustomLogComponent);
     return CreateCustomLogComponent;
 }());

@@ -243,7 +243,7 @@ export class ManageEntryComponent implements OnInit {
             });
             if(this.existingEntry != null){
                 this.entryService.updateEntry(this.existingEntry.EntryId, data, files).subscribe(
-                    (response:Response)=>{//TODO: push these changes to local storage
+                    (response:Response)=>{
                         data.EntryId = this.existingEntry.EntryId;
                         data.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
                         data.UserId = this.auth.currentUser.UserId;
@@ -259,7 +259,7 @@ export class ManageEntryComponent implements OnInit {
                 );
             }else{
                 this.entryService.addEntry(data,files).subscribe(
-                    (response:any)=>{//TODO: push these changes to local storage
+                    (response:any)=>{
                         let createdEntryId = response.json().payload.EntryId;
                         data.EntryId = createdEntryId;
                         data.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;

@@ -29,7 +29,7 @@ export class LogResolver implements Resolve<any> {
         return new Promise((resolve, reject)=>{
             let params:any = route.params;
             let existingTimelines:Array<Timeline> = this.timelineService.getAllTimelinesWithEntries();
-            let foundTimeline:Array<Timeline> = this.app.find_obj_by_prop('Id',params.id,existingTimelines);
+            let foundTimeline:Timeline = this.app.find_obj_by_prop('Id',params.id,existingTimelines);
             if(foundTimeline != null){
                 resolve(foundTimeline);
             }else{

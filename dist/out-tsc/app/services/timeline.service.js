@@ -50,8 +50,12 @@ export var TimelineService = (function () {
         return this.http.get(this.appService.api_end_point + 'timelineUpdate/' + this.auth.get_session_token() + "/&TimelineId=" + timelineId + querystr);
     };
     TimelineService.prototype.getAllTimelinesWithEntries = function () {
-        var timelines = JSON.parse(LZString.decompress(localStorage.getItem('allTimelinesWithEntries')));
-        return (timelines == null) ? [] : timelines;
+        var timelinesString = localStorage.getItem('allTimelinesWithEntries');
+        if (timelinesString != null) {
+            var timelines = JSON.parse(LZString.decompress(localStorage.getItem('allTimelinesWithEntries')));
+            return (timelines == null) ? [] : timelines;
+        }
+        return [];
     };
     TimelineService.prototype.pushTimelineWithEntires = function (timeline) {
         var existingTimelines = this.getAllTimelinesWithEntries();
