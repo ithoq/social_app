@@ -60,7 +60,11 @@ export var ManageEntryComponent = (function () {
         this.selectedModes = [];
         this.showDefinitions = false;
         this.selectedFiles = [];
+        this.existingFiles = [];
+        this.uploadedFiles = [];
+        this.uploadedFileIds = '';
         this.selectedFilesSrc = [];
+        this.removedFileIds = '';
         this.existingEntry = null;
         this.postType = '';
         this.postName = '';
@@ -72,6 +76,7 @@ export var ManageEntryComponent = (function () {
         this.postBestSelf = 0;
         this.postCloseToOthers = 0;
         this.uploadingPost = false;
+        this.uploadingFiles = false;
         this.types = _.cloneDeep(this.app.entryContentCategories);
         this.timelines = this.auth.getUser().timelines;
         this.noUiSlider = noUiSlider;
@@ -117,29 +122,31 @@ export var ManageEntryComponent = (function () {
             alert(error.json().error_message);
         });
     };
-    ManageEntryComponent.prototype.removeImage = function (index) {
-        var tempFiles = [];
-        for (var i = 0; i < this.selectedFiles.length; i++) {
-            if (index != i) {
-                tempFiles.push(this.selectedFiles[i]);
-            }
-        }
-        this.selectedFiles = tempFiles;
-        this.selectedFilesSrc.splice(index, 1);
+    ManageEntryComponent.prototype.removeImage = function (image_id) {
+        this.uploadedFiles = this.app.remove_obj_by_property('Id', image_id, this.uploadedFiles);
+        this.uploadedFileIds = this.app.property_to_array('Id', this.uploadedFiles).join(',');
+        this.existingFiles = this.app.remove_obj_by_property('Id', image_id, this.existingFiles);
+        this.removedFileIds += image_id;
     };
     ManageEntryComponent.prototype.filesSelected = function (event) {
-        this.selectedFiles = event.target.files;
-        var length = this.selectedFiles.length;
-        this.selectedFilesSrc = [];
-        var tempSrc = [];
-        for (var i = 0; i < length; i++) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                tempSrc.push(e.target.result);
-            };
-            reader.readAsDataURL(this.selectedFiles[i]);
-        }
-        this.selectedFilesSrc = tempSrc;
+        var _this = this;
+        this.uploadingFiles = true;
+        var files = new FormData();
+        // operation starts here.....
+        $.each(event.target.files, function (key, value) {
+            files.append('Image' + (key + 1), value);
+        });
+        this.entryService.uploadImages(files, function (evt) {
+            if (evt.lengthComputable) {
+                var percentComplete = (evt.loaded / evt.total) * 100;
+                console.log(percentComplete);
+            }
+        }).subscribe(function (files) {
+            _this.uploadedFiles = files;
+            _this.uploadedFileIds = _this.app.property_to_array('Id', files).join(',');
+            //this.selectedFiles = this.app.array_unique_merge(this.existingFiles, this.uploadedFiles, 'Id');
+            _this.uploadingFiles = false;
+        });
     };
     ManageEntryComponent.prototype.mapUpdatedEntryData = function (data) {
         data = _.cloneDeep(data);
@@ -150,6 +157,7 @@ export var ManageEntryComponent = (function () {
         updatedPost.DateStart = data.DateStart;
         updatedPost.DateEnd = data.DateEnd;
         updatedPost.EntryId = data.EntryId;
+        updatedPost.Files = data.Files;
         updatedPost.Lat = data.Lat;
         updatedPost.Lng = data.Lng;
         updatedPost.Location = data.Location;
@@ -186,8 +194,12 @@ export var ManageEntryComponent = (function () {
     };
     ManageEntryComponent.prototype.create = function (form, event) {
         var _this = this;
-        if (this.uploadingPost == true)
+        if (this.uploadingPost)
             return false;
+        if (this.uploadingFiles) {
+            alert('please wait until your files are being uploaded.');
+            return false;
+        }
         var data = form.value;
         if (data.Name == '') {
             alert('Post Title is required');
@@ -214,15 +226,15 @@ export var ManageEntryComponent = (function () {
             data.DateEnd = $('#new-post-end-date').val();
             data.Lat = this.lat;
             data.Lng = this.lng;
-            var files_1 = new FormData();
-            $.each(this.selectedFiles, function (key, value) {
-                files_1.append('Image' + (key + 1), value);
-            });
+            data.AddFileIds = this.uploadedFileIds;
+            //TODO: add functionality to create a post for a managed user.
             if (this.existingEntry != null) {
-                this.entryService.updateEntry(this.existingEntry.EntryId, data, files_1).subscribe(function (response) {
+                data.DeleteFileIds = this.removedFileIds;
+                this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(function (response) {
                     data.EntryId = _this.existingEntry.EntryId;
                     data.User = _this.auth.currentUser.FirstName + ' ' + _this.auth.currentUser.LastName;
                     data.UserId = _this.auth.currentUser.UserId;
+                    data.Files = _this.app.array_unique_merge(_this.existingFiles, _this.uploadedFiles, 'Id');
                     var updatedEntry = _this.mapUpdatedEntryData(data);
                     _this.updateEntryInLocalStorage(updatedEntry);
                     _this.uploadingPost = false;
@@ -234,11 +246,12 @@ export var ManageEntryComponent = (function () {
                 });
             }
             else {
-                this.entryService.addEntry(data, files_1).subscribe(function (response) {
+                this.entryService.addEntry(data).subscribe(function (response) {
                     var createdEntryId = response.json().payload.EntryId;
                     data.EntryId = createdEntryId;
                     data.User = _this.auth.currentUser.FirstName + ' ' + _this.auth.currentUser.LastName;
                     data.UserId = _this.auth.currentUser.UserId;
+                    data.Files = _this.uploadedFiles;
                     var updatedEntry = _this.mapUpdatedEntryData(data);
                     console.log(updatedEntry);
                     _this.updateEntryInLocalStorage(updatedEntry);
@@ -248,6 +261,7 @@ export var ManageEntryComponent = (function () {
                     _this.rightContentService.aside_in = false;
                 }, function (error) {
                     _this.uploadingPost = false;
+                    alert('some thing went wrong with the server. please try again.');
                 });
             }
         }
@@ -348,6 +362,7 @@ export var ManageEntryComponent = (function () {
             this.whatTags = this.existingEntry.WhatTags.split(',');
             this.whoTags = this.existingEntry.WhoTags.split(',');
             this.youTags = this.existingEntry.YouTags.split(',');
+            this.existingFiles = this.existingEntry.Files;
         }
     };
     ManageEntryComponent.prototype.ngOnInit = function () {

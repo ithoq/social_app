@@ -33,7 +33,7 @@ export class ManageLogsComponent implements OnInit {
 
   createLog(form:NgForm){
     this.timelineService.create({Name:form.value.Name}).subscribe((data:Response)=>{
-      let timelineDetails = new TimelineDetail();
+      let timelineDetails:TimelineDetail = new TimelineDetail();
       timelineDetails.CreatedByUser = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
       timelineDetails.CreatedByUserId = this.auth.currentUser.UserId;
       timelineDetails.Id = data.json().payload.TimelineId;
@@ -44,7 +44,6 @@ export class ManageLogsComponent implements OnInit {
       currentUser.timelines.push({Id:timelineDetails.Id,Name:timelineDetails.Name});
       this.timelineService.setUserTimelines(currentUser.timelines);
       this.auth.setUser(JSON.stringify(currentUser));
-
       this.timelines.push(timelineDetails);
       $('#'+this.create_log_modal_id).modal('hide');
     });
@@ -55,7 +54,6 @@ export class ManageLogsComponent implements OnInit {
     this.route.data
         .subscribe((data: { logs: any }) => {
           this.timelines = data.logs.json().payload;
-          console.log(this.timelines);
         }, (error)=>{});
   }
 

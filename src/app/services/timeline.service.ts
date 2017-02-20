@@ -11,7 +11,10 @@ export class TimelineService {
 
     public userTimelines = [];
     constructor(private http:Http, private appService:AppService, private auth:AuthService) {
-        this.setUserTimelines(this.auth.getUser().timelines);
+        let loggedInUser:any = this.auth.getUser();
+        if(loggedInUser != null){
+            this.setUserTimelines(this.auth.getUser().timelines);
+        }
     }
 
     create(data:any){
@@ -57,6 +60,10 @@ export class TimelineService {
             return (timelines == null)?[]:timelines;
         }
         return [];
+    }
+
+    flushAllTimelinesFromLocalStorage(){
+        return localStorage.removeItem('allTimelinesWithEntries');
     }
 
     pushTimelineWithEntires(timeline:Timeline){

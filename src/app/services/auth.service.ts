@@ -63,9 +63,9 @@ export class AuthService {
   //removes the user from the localStorage
   logout(){
     return new Observable(observable => {
-      localStorage.removeItem('user');
-      this.user = null;
-      observable.next({success:"true"});
+        localStorage.removeItem('user');
+        this.user = null;
+        observable.next({success:"true"});
     });
   };
 }

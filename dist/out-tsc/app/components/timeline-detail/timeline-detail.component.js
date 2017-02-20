@@ -79,6 +79,7 @@ export var TimelineDetailComponent = (function () {
     };
     TimelineDetailComponent.prototype.ngOnInit = function () {
         this.edit_log_modal_id = 'edit-log-' + this.app.unique_id();
+        console.log(this.timeline.Users);
     };
     __decorate([
         Input(), 

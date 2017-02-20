@@ -17,7 +17,10 @@ export var TimelineService = (function () {
         this.appService = appService;
         this.auth = auth;
         this.userTimelines = [];
-        this.setUserTimelines(this.auth.getUser().timelines);
+        var loggedInUser = this.auth.getUser();
+        if (loggedInUser != null) {
+            this.setUserTimelines(this.auth.getUser().timelines);
+        }
     }
     TimelineService.prototype.create = function (data) {
         var querystr = "";
@@ -56,6 +59,9 @@ export var TimelineService = (function () {
             return (timelines == null) ? [] : timelines;
         }
         return [];
+    };
+    TimelineService.prototype.flushAllTimelinesFromLocalStorage = function () {
+        return localStorage.removeItem('allTimelinesWithEntries');
     };
     TimelineService.prototype.pushTimelineWithEntires = function (timeline) {
         var existingTimelines = this.getAllTimelinesWithEntries();

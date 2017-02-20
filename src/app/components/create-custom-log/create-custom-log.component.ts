@@ -15,6 +15,7 @@ declare var LZString:any;
   templateUrl: './create-custom-log.component.html',
   styleUrls: ['./create-custom-log.component.css']
 })
+
 export class CreateCustomLogComponent implements OnInit {
 
   public timelines:any = [];
@@ -35,8 +36,6 @@ export class CreateCustomLogComponent implements OnInit {
   public tags:any = [
     'angry', 'blah', 'brilliant','calm'
   ];
-
-
 
   public selectedModes:any = ['blah'];
   public seletedTimelines:any = [];
@@ -257,10 +256,11 @@ export class CreateCustomLogComponent implements OnInit {
     let filteredEntries:Array<Post> = [];
     for(let entry of entries){
       let filtrationTestPassed:boolean = false;
-      if(this.passedThroughTimelinesFilter(settings.timelines, entry.Timelines)
+      if(
+          ((settings.timelines.length > 0?this.passedThroughTimelinesFilter(settings.timelines, entry.Timelines):true))
           && this.passedThroughDatesFilter(settings.fromDate, settings.toDate, entry)
-          && this.passedThroughTypesFilter(settings.types, entry.Type)
-          && this.passedThroughModesFilter(settings.modes, entry.Mode)
+          && ((settings.types.length > 0?this.passedThroughTypesFilter(settings.types, entry.Type):true))
+          && ((settings.modes.length > 0?this.passedThroughModesFilter(settings.modes, entry.Mode):true))
       ){
         filtrationTestPassed = true;
       }

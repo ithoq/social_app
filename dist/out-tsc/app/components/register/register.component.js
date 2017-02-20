@@ -15,16 +15,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UsersService } from "../../services/users.service";
 import { User } from "../../models/User";
 import { UserStuff } from "../../models/UserStuff";
+import { TimelineService } from "../../services/timeline.service";
 export var RegisterComponent = (function () {
-    function RegisterComponent(authenticator, rootService, httpService, appRouter, route, users) {
+    function RegisterComponent(authenticator, rootService, httpService, appRouter, route, users, timelineService) {
         this.authenticator = authenticator;
         this.rootService = rootService;
         this.httpService = httpService;
         this.route = route;
         this.users = users;
+        this.timelineService = timelineService;
         //default values
         this.email = '';
-        this.username = '';
         this.pass = '';
         this.passagain = '';
         this.auth = authenticator;
@@ -60,6 +61,7 @@ export var RegisterComponent = (function () {
                 var userTimelines = (data.json().payload.Timelines == null) ? [] : data.json().payload.Timelines;
                 var userStuff = new UserStuff(user, userTimelines, data.json().ManagedUsers);
                 _this.auth.setUser(JSON.stringify(userStuff));
+                _this.timelineService.flushAllTimelinesFromLocalStorage();
                 if (_this.auth.getUser().timelines.length > 0)
                     _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
                 else
@@ -87,7 +89,7 @@ export var RegisterComponent = (function () {
             templateUrl: './register.component.html',
             styleUrls: ['./register.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, AppService, Http, Router, ActivatedRoute, UsersService])
+        __metadata('design:paramtypes', [AuthService, AppService, Http, Router, ActivatedRoute, UsersService, TimelineService])
     ], RegisterComponent);
     return RegisterComponent;
 }());

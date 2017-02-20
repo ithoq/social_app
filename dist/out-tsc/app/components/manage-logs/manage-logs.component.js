@@ -49,7 +49,6 @@ export var ManageLogsComponent = (function () {
         this.route.data
             .subscribe(function (data) {
             _this.timelines = data.logs.json().payload;
-            console.log(_this.timelines);
         }, function (error) { });
     };
     ManageLogsComponent = __decorate([

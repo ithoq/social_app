@@ -11,6 +11,8 @@ import { Injectable } from '@angular/core';
 import { Http } from "@angular/http";
 import { AppService } from "../app.service";
 import { AuthService } from "./auth.service";
+import { Observable } from "rxjs";
+import { UploadedFile } from "../models/UploadedFile";
 export var EntryService = (function () {
     function EntryService(http, appService, auth) {
         this.http = http;
@@ -32,6 +34,37 @@ export var EntryService = (function () {
             querystr += '&' + propertyName + '=' + entry[propertyName];
         }
         return this.http.post(this.appService.api_end_point + 'entryUpdate/' + this.auth.get_session_token() + "/&EntryId=" + entry_id + querystr, files);
+    };
+    EntryService.prototype.uploadImages = function (files, progress) {
+        var _this = this;
+        if (files === void 0) { files = {}; }
+        if (progress === void 0) { progress = null; }
+        return new Observable(function (observable) {
+            $.ajax({
+                method: 'POST',
+                url: 'http://api-social.apptazer.com/api/entryFileUpload/ses012617-02d0ceae14c66a181ef92dd099e3aadb',
+                dataType: 'json',
+                data: files,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var Files = [];
+                    for (var _i = 0, _a = data.payload.Files; _i < _a.length; _i++) {
+                        var file = _a[_i];
+                        Files.push(_this.appService.map(file, new UploadedFile()));
+                    }
+                    observable.next(Files);
+                },
+                error: function (error) {
+                    observable.next({ data: error });
+                },
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", progress, false);
+                    return xhr;
+                },
+            });
+        });
     };
     EntryService = __decorate([
         Injectable(), 

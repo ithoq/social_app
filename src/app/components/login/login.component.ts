@@ -8,6 +8,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {User} from "../../models/User";
 import {UserStuff} from "../../models/UserStuff";
+import {TimelineService} from "../../services/timeline.service";
 
 @Component({
   selector: 'sa-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authenticator: AuthService, private rootService:AppService,
      private httpService: Http, appRouter: Router, private route: ActivatedRoute,
-     private mediumToLogin:MediumToLoginService
+     private mediumToLogin:MediumToLoginService, public timelineService:TimelineService
    ) {
       this.auth = authenticator;
       this.appService = rootService;
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
               let mapedData:any = data.json().payload;
               let userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
               this.auth.setUser(JSON.stringify(userStuff));
+              this.timelineService.flushAllTimelinesFromLocalStorage();
               if(this.auth.getUser().timelines.length > 0){
                   this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
               }

@@ -81,7 +81,7 @@ export class InviteUsersComponent implements OnInit {
     this.route.data
         .subscribe((data: { log: any }) => {
           if(data.log == null){this.router.navigate(['/manage-logs']); }
-          this.timeline = data.log.json().payload;
+          this.timeline = data.log;
         }, (error)=>{});
   }
 

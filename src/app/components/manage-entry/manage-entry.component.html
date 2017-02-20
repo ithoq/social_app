@@ -123,11 +123,15 @@
 
             <div class="bord-top pad-ver">
               <!-- The fileinput-button span is used to style the file input field as button -->
-              <span class="btn btn-default fileinput-button dz-clickable"> <i class="fa fa-plus"></i> <span>Add Images<input id="post-images" (change)="filesSelected($event)" type="file" ngModel name="images" multiple  /></span> </span>
+              <span class="btn btn-default fileinput-button dz-clickable"> <i class="fa fa-plus"></i> <span>Add Images<input id="post-images" (change)="filesSelected($event)" type="file" ngModel name="images" accept=".jpg" multiple  /></span> </span>
               <ul class="clearfix imglisting">
-                <li class="selectimge" *ngFor="let img of selectedFilesSrc; let i = index" >
-                  <img src="{{img}}" >
-                  <span class="cross" (click)="removeImage(i)">x</span>
+                <li class="selectimge" *ngFor="let img of existingFiles; let i = index" >
+                  <img src="{{img.ThumbURL}}" >
+                  <span class="cross" (click)="removeImage(img.Id)">x</span>
+                </li>
+                <li class="selectimge" *ngFor="let img of uploadedFiles; let i = index" >
+                  <img src="{{img.ThumbURL}}" >
+                  <span class="cross" (click)="removeImage(img.Id)">x</span>
                 </li>
               </ul>
               <div class="btn-group pull-right">

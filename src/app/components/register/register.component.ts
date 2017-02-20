@@ -8,6 +8,7 @@ import {NgForm} from '@angular/forms';
 import {UsersService} from "../../services/users.service";
 import {User} from "../../models/User";
 import {UserStuff} from "../../models/UserStuff";
+import {TimelineService} from "../../services/timeline.service";
 
 @Component({
   selector: 'sa-register',
@@ -25,13 +26,12 @@ export class RegisterComponent implements OnInit {
 
   //default values
     public email = '';
-    public username = '';
     public pass = '';
     public passagain = '';
   constructor(
     private authenticator: AuthService, private rootService:AppService,
      private httpService: Http, appRouter: Router, private route: ActivatedRoute,
-    private users:UsersService
+    private users:UsersService, public timelineService:TimelineService
    ) {
       this.auth = authenticator;
       this.appService = rootService;
@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit {
                       let userTimelines = (data.json().payload.Timelines == null)?[]:data.json().payload.Timelines;
                       let userStuff = new UserStuff(user, userTimelines, data.json().ManagedUsers);
                       this.auth.setUser(JSON.stringify(userStuff));
+                      this.timelineService.flushAllTimelinesFromLocalStorage();
                       if(this.auth.getUser().timelines.length > 0)
                           this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
                       else

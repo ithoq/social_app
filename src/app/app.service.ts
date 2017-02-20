@@ -102,4 +102,15 @@ export class AppService {
     }
     return updatedStack;
   }
+
+  array_unique_merge(array1, array2, unique_property){
+    let merged = array1.concat(array2);
+    //return merged;
+    let unique_array = [];
+    for(let obj of merged){
+      unique_array = this.remove_obj_by_property(unique_property, obj[unique_property],unique_array)
+      unique_array.push(obj);
+    }
+    return unique_array;
+  }
 }

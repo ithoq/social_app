@@ -18,7 +18,7 @@ export var UsersService = (function () {
         this.auth = auth;
     }
     UsersService.prototype.register = function (user) {
-        return this.http.get(this.appService.api_end_point + 'userRegister/' + this.auth.get_session_token() + '/&Email=' + user.email + '&Username=' + user.username + '&Pass=' + user.password + '');
+        return this.http.get(this.appService.api_end_point + 'userRegister/' + this.auth.get_session_token() + '/&Email=' + user.email + '&Pass=' + user.password + '');
     };
     UsersService.prototype.createManagedUser = function (user, managedById) {
         var querystr = "";

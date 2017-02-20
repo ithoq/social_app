@@ -106,6 +106,17 @@ export var AppService = (function () {
         }
         return updatedStack;
     };
+    AppService.prototype.array_unique_merge = function (array1, array2, unique_property) {
+        var merged = array1.concat(array2);
+        //return merged;
+        var unique_array = [];
+        for (var _i = 0, merged_1 = merged; _i < merged_1.length; _i++) {
+            var obj = merged_1[_i];
+            unique_array = this.remove_obj_by_property(unique_property, obj[unique_property], unique_array);
+            unique_array.push(obj);
+        }
+        return unique_array;
+    };
     AppService = __decorate([
         Injectable(), 
         __metadata('design:paramtypes', [])

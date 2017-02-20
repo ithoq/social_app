@@ -253,10 +253,10 @@ export var CreateCustomLogComponent = (function () {
         for (var _i = 0, entries_1 = entries; _i < entries_1.length; _i++) {
             var entry = entries_1[_i];
             var filtrationTestPassed = false;
-            if (this.passedThroughTimelinesFilter(settings.timelines, entry.Timelines)
+            if (((settings.timelines.length > 0 ? this.passedThroughTimelinesFilter(settings.timelines, entry.Timelines) : true))
                 && this.passedThroughDatesFilter(settings.fromDate, settings.toDate, entry)
-                && this.passedThroughTypesFilter(settings.types, entry.Type)
-                && this.passedThroughModesFilter(settings.modes, entry.Mode)) {
+                && ((settings.types.length > 0 ? this.passedThroughTypesFilter(settings.types, entry.Type) : true))
+                && ((settings.modes.length > 0 ? this.passedThroughModesFilter(settings.modes, entry.Mode) : true))) {
                 filtrationTestPassed = true;
             }
             if (filtrationTestPassed) {

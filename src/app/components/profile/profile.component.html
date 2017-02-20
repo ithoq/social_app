@@ -15,7 +15,7 @@
             <figure (click)="chooseFile($event)">
               <img alt="Avatar" class="img-lg img-circle img-border-aquamarine mar-btm" [src]="(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '' || user.ImageURL == undefined)?appService.default_user_profile_pic:user.ImageURL)">
             </figure>
-            <p class="text-sm">Add photo <input id="{{photo_chooser_id}}" style="display: none;" type="file" (change)="filesSelected($event)"></p>
+            <p class="text-sm">Add photo <input id="{{photo_chooser_id}}" style="display: none;" type="file" accept=".jpg" (change)="filesSelected($event)"></p>
           </div>
           <br>
 

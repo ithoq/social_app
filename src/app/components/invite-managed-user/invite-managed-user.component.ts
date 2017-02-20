@@ -35,7 +35,6 @@ export class InviteManagedUserComponent implements OnInit {
   }
 
   profileCreated(event){
-    console.log(event.user);
     this.usersService.getUserTimelinesAndStuff().subscribe((data:Response)=>{
       let mapedData = data.json().payload;
       let userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);

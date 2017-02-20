@@ -1,5 +1,5 @@
 <div class="col-sm-12">
-  <div *ngIf="timeline.Entries != null" class="timeline">
+  <div *ngIf="timeline.Entries.length > 0" class="timeline">
     <div class="timeline-entry" *ngFor="let entry of timeline.Entries">
       <div class="timeline-stat">
         <div class="timeline-icon"></div>

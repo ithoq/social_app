@@ -13,6 +13,7 @@ import {EntryCategory} from "../../models/EntryCategory";
 import {AppService} from "../../app.service";
 import * as _ from 'lodash';
 import {TimelineService} from "../../services/timeline.service";
+import {UploadedFile} from "../../models/UploadedFile";
 
 declare var noUiSlider: any;
 declare var wNumb: any;
@@ -20,6 +21,8 @@ declare var $: any;
 declare var foooo:any;
 declare var initMap;
 declare var google;
+declare var window:any;
+declare var XMLHttpRequest:any;
 @Component({
     selector: 'sa-manage-entry',
     templateUrl: './manage-entry.component.html',
@@ -71,8 +74,11 @@ export class ManageEntryComponent implements OnInit {
     public CloseToOthers:any;
     public location:any;
     public selectedFiles:any = [];
+    public existingFiles:any = [];
+    public uploadedFiles:Array<UploadedFile> = [];
+    public uploadedFileIds:string = '';
     public selectedFilesSrc:any = [];
-
+    public removedFileIds:string = '';
     public existingEntry:any = null;
 
     public postType:any = '';
@@ -86,6 +92,7 @@ export class ManageEntryComponent implements OnInit {
     public postCloseToOthers:any=0;
 
     public uploadingPost:any = false;
+    public uploadingFiles:boolean = false;
     constructor(
         private auth:AuthService,
         private entryService:EntryService,
@@ -146,30 +153,32 @@ export class ManageEntryComponent implements OnInit {
         );
     }
 
-    removeImage(index){
-        let tempFiles = [];
-        for(let i = 0; i< this.selectedFiles.length; i++){
-            if(index != i){
-                tempFiles.push(this.selectedFiles[i]);
-            }
-        }
-        this.selectedFiles = tempFiles;
-        this.selectedFilesSrc.splice(index, 1);
+    removeImage(image_id){
+        this.uploadedFiles = this.app.remove_obj_by_property('Id',image_id,this.uploadedFiles);
+        this.uploadedFileIds = this.app.property_to_array('Id', this.uploadedFiles).join(',');
+        this.existingFiles = this.app.remove_obj_by_property('Id', image_id, this.existingFiles);
+        this.removedFileIds += image_id;
     }
 
     filesSelected(event){
-        this.selectedFiles = event.target.files;
-        var length = this.selectedFiles.length;
-        this.selectedFilesSrc = [];
-        let tempSrc = [];
-        for(let i = 0; i< length; i++){
-            let reader = new FileReader();
-            reader.onload = function (e:any) {
-               tempSrc.push(e.target.result);
-            };
-            reader.readAsDataURL(this.selectedFiles[i]);
-        }
-        this.selectedFilesSrc = tempSrc;
+        this.uploadingFiles = true;
+        let files = new FormData();
+        // operation starts here.....
+        $.each(event.target.files, function(key, value){
+            files.append('Image'+(key+1), value);
+        });
+
+        this.entryService.uploadImages(files, function (evt) {
+            if (evt.lengthComputable) {
+                let percentComplete:any = (evt.loaded / evt.total)*100;
+                console.log(percentComplete);
+            }
+        }).subscribe((files:Array<UploadedFile>)=>{
+            this.uploadedFiles = files;
+            this.uploadedFileIds = this.app.property_to_array('Id', files).join(',');
+            //this.selectedFiles = this.app.array_unique_merge(this.existingFiles, this.uploadedFiles, 'Id');
+            this.uploadingFiles = false;
+        });
     }
 
     mapUpdatedEntryData(data){
@@ -181,6 +190,7 @@ export class ManageEntryComponent implements OnInit {
         updatedPost.DateStart = data.DateStart;
         updatedPost.DateEnd = data.DateEnd;
         updatedPost.EntryId = data.EntryId;
+        updatedPost.Files = data.Files;
         updatedPost.Lat = data.Lat;
         updatedPost.Lng = data.Lng;
         updatedPost.Location = data.Location;
@@ -214,13 +224,17 @@ export class ManageEntryComponent implements OnInit {
         return true;
     }
     create(form:NgForm, event){
-        if(this.uploadingPost == true) return false;
+        if(this.uploadingPost) return false;
+        if(this.uploadingFiles){
+            alert('please wait until your files are being uploaded.');
+            return false;
+        }
         let data = form.value;
         if (data.Name == ''){
             alert('Post Title is required');
-        }else if(this.seletedTimelines.length <=0){
+        }else if(this.seletedTimelines.length <= 0){
             alert('please select atleast one timeline')
-        }else if(this.selectedTypes.length <=0){
+        }else if(this.selectedTypes.length <= 0){
             alert('please select atleast one Type')
         }else if($('#new-post-start-date').val() == ''){
             alert('please select Start Date')
@@ -237,16 +251,17 @@ export class ManageEntryComponent implements OnInit {
             data.DateEnd = $('#new-post-end-date').val();
             data.Lat = this.lat;
             data.Lng = this.lng;
-            let files = new FormData();
-            $.each(this.selectedFiles, function(key, value){
-                files.append('Image'+(key+1), value);
-            });
+            data.AddFileIds = this.uploadedFileIds;
+            //TODO: add functionality to create a post for a managed user.
+
             if(this.existingEntry != null){
-                this.entryService.updateEntry(this.existingEntry.EntryId, data, files).subscribe(
+                data.DeleteFileIds = this.removedFileIds;
+                this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(
                     (response:Response)=>{
                         data.EntryId = this.existingEntry.EntryId;
                         data.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
                         data.UserId = this.auth.currentUser.UserId;
+                        data.Files = this.app.array_unique_merge(this.existingFiles, this.uploadedFiles, 'Id');
                         let updatedEntry:Post = this.mapUpdatedEntryData(data);
                         this.updateEntryInLocalStorage(updatedEntry);
                         this.uploadingPost = false;
@@ -258,12 +273,13 @@ export class ManageEntryComponent implements OnInit {
                     }
                 );
             }else{
-                this.entryService.addEntry(data,files).subscribe(
+                this.entryService.addEntry(data).subscribe(
                     (response:any)=>{
                         let createdEntryId = response.json().payload.EntryId;
                         data.EntryId = createdEntryId;
                         data.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
                         data.UserId = this.auth.currentUser.UserId;
+                        data.Files = this.uploadedFiles;
                         let updatedEntry:Post = this.mapUpdatedEntryData(data);
                         console.log(updatedEntry);
                         this.updateEntryInLocalStorage(updatedEntry);
@@ -274,6 +290,7 @@ export class ManageEntryComponent implements OnInit {
 
                     },(error) => {
                         this.uploadingPost = false;
+                        alert('some thing went wrong with the server. please try again.')
                     }
                 );
             }
@@ -376,6 +393,7 @@ export class ManageEntryComponent implements OnInit {
             this.whatTags = this.existingEntry.WhatTags.split(',');
             this.whoTags = this.existingEntry.WhoTags.split(',');
             this.youTags = this.existingEntry.YouTags.split(',');
+            this.existingFiles = this.existingEntry.Files;
         }
     }
   ngOnInit() {

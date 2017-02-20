@@ -88,7 +88,7 @@ export var InviteUsersComponent = (function () {
             if (data.log == null) {
                 _this.router.navigate(['/manage-logs']);
             }
-            _this.timeline = data.log.json().payload;
+            _this.timeline = data.log;
         }, function (error) { });
     };
     InviteUsersComponent = __decorate([

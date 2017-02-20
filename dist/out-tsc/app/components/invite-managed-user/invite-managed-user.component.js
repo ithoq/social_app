@@ -34,7 +34,6 @@ export var InviteManagedUserComponent = (function () {
     };
     InviteManagedUserComponent.prototype.profileCreated = function (event) {
         var _this = this;
-        console.log(event.user);
         this.usersService.getUserTimelinesAndStuff().subscribe(function (data) {
             var mapedData = data.json().payload;
             var userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);

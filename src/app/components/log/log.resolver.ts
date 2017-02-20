@@ -35,8 +35,8 @@ export class LogResolver implements Resolve<any> {
             }else{
                 timelineService.get(params.id).subscribe(
                     (data:any)=> {
-                        console.log(data.json().payload);
                         let mapedTimeline:Timeline = this.app.map(data.json().payload, new Timeline());
+                        mapedTimeline.Entries = (mapedTimeline.Entries == null)?[]:mapedTimeline.Entries;
                         this.timelineService.pushTimelineWithEntires(mapedTimeline);
                         resolve(mapedTimeline);
                     },

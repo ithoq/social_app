@@ -14,13 +14,15 @@ import { MediumToLoginService } from '../../services/medium-to-login.service';
 import { Http } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserStuff } from "../../models/UserStuff";
+import { TimelineService } from "../../services/timeline.service";
 export var LoginComponent = (function () {
-    function LoginComponent(authenticator, rootService, httpService, appRouter, route, mediumToLogin) {
+    function LoginComponent(authenticator, rootService, httpService, appRouter, route, mediumToLogin, timelineService) {
         this.authenticator = authenticator;
         this.rootService = rootService;
         this.httpService = httpService;
         this.route = route;
         this.mediumToLogin = mediumToLogin;
+        this.timelineService = timelineService;
         this.auth = authenticator;
         this.appService = rootService;
         this.http = httpService;
@@ -37,6 +39,7 @@ export var LoginComponent = (function () {
             var mapedData = data.json().payload;
             var userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
             _this.auth.setUser(JSON.stringify(userStuff));
+            _this.timelineService.flushAllTimelinesFromLocalStorage();
             if (_this.auth.getUser().timelines.length > 0) {
                 _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
             }
@@ -55,7 +58,7 @@ export var LoginComponent = (function () {
             templateUrl: './login.component.html',
             styleUrls: ['./login.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, AppService, Http, Router, ActivatedRoute, MediumToLoginService])
+        __metadata('design:paramtypes', [AuthService, AppService, Http, Router, ActivatedRoute, MediumToLoginService, TimelineService])
     ], LoginComponent);
     return LoginComponent;
 }());

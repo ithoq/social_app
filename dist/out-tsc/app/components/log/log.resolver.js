@@ -38,8 +38,8 @@ export var LogResolver = (function () {
             }
             else {
                 timelineService.get(params.id).subscribe(function (data) {
-                    console.log(data.json().payload);
                     var mapedTimeline = _this.app.map(data.json().payload, new Timeline());
+                    mapedTimeline.Entries = (mapedTimeline.Entries == null) ? [] : mapedTimeline.Entries;
                     _this.timelineService.pushTimelineWithEntires(mapedTimeline);
                     resolve(mapedTimeline);
                 }, function (error) {
