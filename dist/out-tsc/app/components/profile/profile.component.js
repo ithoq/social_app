@@ -157,8 +157,16 @@ export var ProfileComponent = (function () {
         this.color_picker_modal_id = 'color-picker-' + this.appService.unique_id();
         this.photo_chooser_id = 'profile-img-chooser-' + this.appService.unique_id();
         this.user = _.cloneDeep(this.user);
-        if (this.newAccount)
+        if (this.newAccount) {
             this.managedProfile = true;
+        }
+        var managedUsers = _.cloneDeep(this.auth.getUser().managedUsers);
+        for (var _i = 0, managedUsers_1 = managedUsers; _i < managedUsers_1.length; _i++) {
+            var managedUser = managedUsers_1[_i];
+            if (managedUser.UserId == this.getUser().UserId) {
+                this.managedProfile = true;
+            }
+        }
     };
     ProfileComponent.prototype.ngAfterViewInit = function () {
         $('.datepicker').datepicker();

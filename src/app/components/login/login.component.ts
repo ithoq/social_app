@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   attempt(form:NgForm){
       this.auth.attempt(form.value).subscribe(
           (data:Response) => {
-              console.log(data);
+              console.log(data); //TODO: please map this data te prevent issues if timeline is null
               /*
                saving the authenticated user in the localStorage
                */

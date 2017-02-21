@@ -32,7 +32,7 @@ export var LoginComponent = (function () {
     LoginComponent.prototype.attempt = function (form) {
         var _this = this;
         this.auth.attempt(form.value).subscribe(function (data) {
-            console.log(data);
+            console.log(data); //TODO: please map this data te prevent issues if timeline is null
             /*
              saving the authenticated user in the localStorage
              */

@@ -175,8 +175,15 @@ export class ProfileComponent implements OnInit {
     this.color_picker_modal_id = 'color-picker-'+this.appService.unique_id();
     this.photo_chooser_id = 'profile-img-chooser-'+this.appService.unique_id();
     this.user = _.cloneDeep(this.user);
-    if(this.newAccount)
+    if(this.newAccount){
       this.managedProfile = true;
+    }
+    let managedUsers:Array<User> = _.cloneDeep(this.auth.getUser().managedUsers);
+    for(let managedUser of managedUsers){
+      if(managedUser.UserId == this.getUser().UserId){
+        this.managedProfile = true;
+      }
+    }
   }
 
   ngAfterViewInit(){

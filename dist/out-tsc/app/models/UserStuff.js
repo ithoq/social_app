@@ -13,7 +13,7 @@ export var UserStuff = (function () {
         this.managedUsers = [];
         var app = new AppService();
         this.profile = app.map(profile, new User());
-        this.timelines = timelines;
+        this.timelines = (timelines == null || timelines == undefined) ? [] : timelines;
         this.managedUsers = app.mapCollection(managedUsers, new User());
     }
     return UserStuff;
