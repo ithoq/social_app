@@ -108,7 +108,7 @@ export class AppService {
     //return merged;
     let unique_array = [];
     for(let obj of merged){
-      unique_array = this.remove_obj_by_property(unique_property, obj[unique_property],unique_array)
+      unique_array = this.remove_obj_by_property(unique_property, obj[unique_property],unique_array);
       unique_array.push(obj);
     }
     return unique_array;

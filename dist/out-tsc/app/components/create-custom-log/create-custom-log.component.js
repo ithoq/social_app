@@ -14,14 +14,16 @@ import { Timeline } from "../../models/Timeline";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { TimelineService } from "../../services/timeline.service";
+import { EntryService } from "../../services/entry.service";
 export var CreateCustomLogComponent = (function () {
-    function CreateCustomLogComponent(auth, app, route, location, router, timelineService) {
+    function CreateCustomLogComponent(auth, app, route, location, router, timelineService, entryService) {
         this.auth = auth;
         this.app = app;
         this.route = route;
         this.location = location;
         this.router = router;
         this.timelineService = timelineService;
+        this.entryService = entryService;
         this.timelines = [];
         this.entries = [];
         this.settings = null;
@@ -275,16 +277,6 @@ export var CreateCustomLogComponent = (function () {
         }
         return uniquePosts; //TODO: niquie these posts.
     };
-    CreateCustomLogComponent.prototype.sortEntriesByDate = function (entries) {
-        return entries.sort(function (firstObject, secondObject) {
-            var keyA = new Date(firstObject.DateStart), keyB = new Date(secondObject.DateEnd);
-            if (keyA < keyB)
-                return 1;
-            if (keyA > keyB)
-                return -1;
-            return 0;
-        });
-    };
     CreateCustomLogComponent.prototype.getFinalizedEntries = function () {
         var timelines = this.timelineService.getAllTimelinesWithEntries();
         var entries = [];
@@ -296,7 +288,7 @@ export var CreateCustomLogComponent = (function () {
                 entries.push(entry);
             }
         }
-        return this.sortEntriesByDate(this.getUniquePosts(entries));
+        return this.entryService.sortEntriesByDate(this.getUniquePosts(entries));
     };
     CreateCustomLogComponent.prototype.createCustomTimeline = function () {
         var timeline = new Timeline();
@@ -349,7 +341,7 @@ export var CreateCustomLogComponent = (function () {
             templateUrl: './create-custom-log.component.html',
             styleUrls: ['./create-custom-log.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, AppService, ActivatedRoute, Location, Router, TimelineService])
+        __metadata('design:paramtypes', [AuthService, AppService, ActivatedRoute, Location, Router, TimelineService, EntryService])
     ], CreateCustomLogComponent);
     return CreateCustomLogComponent;
 }());

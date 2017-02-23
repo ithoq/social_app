@@ -4,6 +4,7 @@ import {AppService} from "../app.service";
 import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
 import {UploadedFile} from "../models/UploadedFile";
+import {Post} from "../models/Post";
 
 declare var $:any;
 declare var window:any;
@@ -11,6 +12,16 @@ declare var window:any;
 @Injectable()
 export class EntryService {
     constructor(private http:Http,  private appService:AppService, private auth:AuthService) { }
+
+    sortEntriesByDate(entries:Array<Post>){
+        return entries.sort( (firstObject, secondObject)=>{
+            let keyA = new Date(firstObject.DateStart),
+                keyB = new Date(secondObject.DateEnd);
+            if(keyA < keyB) return 1;
+            if(keyA > keyB) return -1;
+            return 0;
+        });
+    }
 
     addEntry(entry, files={}){
         let querystr = "";

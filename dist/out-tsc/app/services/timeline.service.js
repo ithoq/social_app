@@ -11,11 +11,13 @@ import { Injectable } from '@angular/core';
 import { Http } from "@angular/http";
 import { AppService } from "../app.service";
 import { AuthService } from "./auth.service";
+import { EntryService } from "./entry.service";
 export var TimelineService = (function () {
-    function TimelineService(http, appService, auth) {
+    function TimelineService(http, appService, auth, entryService) {
         this.http = http;
         this.appService = appService;
         this.auth = auth;
+        this.entryService = entryService;
         this.userTimelines = [];
         var loggedInUser = this.auth.getUser();
         if (loggedInUser != null) {
@@ -76,7 +78,7 @@ export var TimelineService = (function () {
             var entries = timeline.Entries;
             entries = this.appService.remove_obj_by_property('EntryId', entry.EntryId, timeline.Entries);
             entries.push(entry);
-            timeline.Entries = entries;
+            timeline.Entries = this.entryService.sortEntriesByDate(entries);
             this.pushTimelineWithEntires(timeline);
         }
         return this.getAllTimelinesWithEntries();
@@ -104,7 +106,7 @@ export var TimelineService = (function () {
     };
     TimelineService = __decorate([
         Injectable(), 
-        __metadata('design:paramtypes', [Http, AppService, AuthService])
+        __metadata('design:paramtypes', [Http, AppService, AuthService, EntryService])
     ], TimelineService);
     return TimelineService;
 }());

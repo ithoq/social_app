@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {TimelineService} from "../../services/timeline.service";
 import {Post} from "../../models/Post";
+import {EntryService} from "../../services/entry.service";
 
 declare var $:any;
 declare var LZString:any;
@@ -47,7 +48,8 @@ export class CreateCustomLogComponent implements OnInit {
       public route:ActivatedRoute,
       public location:Location,
       public router:Router,
-      public timelineService:TimelineService
+      public timelineService:TimelineService,
+      public entryService:EntryService
   ) {
     this.types = this.app.entryContentCategories;
   }
@@ -282,16 +284,6 @@ export class CreateCustomLogComponent implements OnInit {
     return uniquePosts;  //TODO: niquie these posts.
   }
 
-  sortEntriesByDate(entries:Array<Post>){
-    return entries.sort( (firstObject, secondObject)=>{
-      let keyA = new Date(firstObject.DateStart),
-          keyB = new Date(secondObject.DateEnd);
-      if(keyA < keyB) return 1;
-      if(keyA > keyB) return -1;
-      return 0;
-    });
-  }
-
   getFinalizedEntries():Array<Post>{
     let timelines:Array<Timeline> = this.timelineService.getAllTimelinesWithEntries();
     let entries:Array<Post> = [];
@@ -301,7 +293,7 @@ export class CreateCustomLogComponent implements OnInit {
         entries.push(entry);
       }
     }
-    return this.sortEntriesByDate(this.getUniquePosts(entries));
+    return this.entryService.sortEntriesByDate(this.getUniquePosts(entries));
   }
 
   createCustomTimeline(){

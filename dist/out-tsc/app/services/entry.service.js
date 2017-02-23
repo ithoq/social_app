@@ -19,6 +19,16 @@ export var EntryService = (function () {
         this.appService = appService;
         this.auth = auth;
     }
+    EntryService.prototype.sortEntriesByDate = function (entries) {
+        return entries.sort(function (firstObject, secondObject) {
+            var keyA = new Date(firstObject.DateStart), keyB = new Date(secondObject.DateEnd);
+            if (keyA < keyB)
+                return 1;
+            if (keyA > keyB)
+                return -1;
+            return 0;
+        });
+    };
     EntryService.prototype.addEntry = function (entry, files) {
         if (files === void 0) { files = {}; }
         var querystr = "";

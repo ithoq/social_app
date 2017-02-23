@@ -5,12 +5,18 @@ import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
 import {Timeline} from "../models/Timeline";
 import {Post} from "../models/Post";
+import {EntryService} from "./entry.service";
 declare var LZString:any;
 @Injectable()
 export class TimelineService {
 
     public userTimelines = [];
-    constructor(private http:Http, private appService:AppService, private auth:AuthService) {
+    constructor(
+        private http:Http,
+        private appService:AppService,
+        private auth:AuthService,
+        public entryService:EntryService
+    ) {
         let loggedInUser:any = this.auth.getUser();
         if(loggedInUser != null){
             this.setUserTimelines(this.auth.getUser().timelines);
@@ -80,7 +86,7 @@ export class TimelineService {
             let entries:Array<Post> = timeline.Entries;
             entries = this.appService.remove_obj_by_property('EntryId',entry.EntryId,timeline.Entries);
             entries.push(entry);
-            timeline.Entries = entries;
+            timeline.Entries = this.entryService.sortEntriesByDate(entries);
             this.pushTimelineWithEntires(timeline);
         }
         return this.getAllTimelinesWithEntries();

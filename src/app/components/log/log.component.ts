@@ -25,8 +25,8 @@ export class LogComponent implements OnInit {
         private mediumToPostDetail:MediumToPostDetailService,
         private mediumToManageEntry:MediumToManageEntryService,
         private auth:AuthService,
-        private timelineService:TimelineService,
-        public app:AppService
+        public app:AppService,
+        public timelineService:TimelineService
     ) {
         this.timeline = new Timeline();
     }
@@ -44,6 +44,12 @@ export class LogComponent implements OnInit {
         this.refreshLog();
     }
 
+    pullToRefresh(event){
+        this.refreshLog().then(function(){},function (error) {
+            alert('something went wrong! please try again.')
+        });
+    }
+
     refreshLog(){
         let auth = this.auth;
         let timelineService = this.timelineService;
@@ -52,8 +58,8 @@ export class LogComponent implements OnInit {
             timelineService.get(timelineId, auth.getUser().profile.UserId).subscribe(
                 (data:any)=> { //TODO: push these changes to local storage
                     this.timeline = this.app.map(data.json().payload, new Timeline());
-
-                    resolve(true);
+                    this.timelineService.pushTimelineWithEntires(this.timeline);
+                    resolve(this.timeline);
                 },
                 (error)=>{
                     reject(false);

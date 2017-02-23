@@ -60,7 +60,7 @@ var UserStuff = (function () {
         this.managedUsers = [];
         var app = new __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* AppService */]();
         this.profile = app.map(profile, new __WEBPACK_IMPORTED_MODULE_0__User__["a" /* User */]());
-        this.timelines = timelines;
+        this.timelines = (timelines == null || timelines == undefined) ? [] : timelines;
         this.managedUsers = app.mapCollection(managedUsers, new __WEBPACK_IMPORTED_MODULE_0__User__["a" /* User */]());
     }
     return UserStuff;
@@ -1978,7 +1978,7 @@ var LoginComponent = (function () {
     LoginComponent.prototype.attempt = function (form) {
         var _this = this;
         this.auth.attempt(form.value).subscribe(function (data) {
-            console.log(data);
+            console.log(data); //TODO: please map this data te prevent issues if timeline is null
             /*
              saving the authenticated user in the localStorage
              */
@@ -4648,8 +4648,16 @@ var ProfileComponent = (function () {
         this.color_picker_modal_id = 'color-picker-' + this.appService.unique_id();
         this.photo_chooser_id = 'profile-img-chooser-' + this.appService.unique_id();
         this.user = __WEBPACK_IMPORTED_MODULE_10_lodash__["cloneDeep"](this.user);
-        if (this.newAccount)
+        if (this.newAccount) {
             this.managedProfile = true;
+        }
+        var managedUsers = __WEBPACK_IMPORTED_MODULE_10_lodash__["cloneDeep"](this.auth.getUser().managedUsers);
+        for (var _i = 0, managedUsers_1 = managedUsers; _i < managedUsers_1.length; _i++) {
+            var managedUser = managedUsers_1[_i];
+            if (managedUser.UserId == this.getUser().UserId) {
+                this.managedProfile = true;
+            }
+        }
     };
     ProfileComponent.prototype.ngAfterViewInit = function () {
         $('.datepicker').datepicker();

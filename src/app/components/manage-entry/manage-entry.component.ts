@@ -141,6 +141,8 @@ export class ManageEntryComponent implements OnInit {
     deletePost(){
         this.entryService.updateEntry(this.existingEntry.EntryId, {Delete:true}).subscribe(
             (data:Response)=>{ //TODO: push these changes to local storage
+                this.timelineService.removeEntriesFromTimelines(
+                    this.app.property_to_array('Id', this.auth.getUser().timelines), [this.existingEntry.EntryId]);
                 alert('Post Deleted Successfully!');
                 this.rightContentService.aside_in = false;
                 if(this.auth.getUser().timelines.length > 0)
@@ -148,7 +150,7 @@ export class ManageEntryComponent implements OnInit {
                 else
                     this.router.navigate(['/create-profile']);
             },(error) => {
-                alert(error.json().error_message);
+                console.log(error.json().error_message);
             }
         );
     }
@@ -230,6 +232,7 @@ export class ManageEntryComponent implements OnInit {
             return false;
         }
         let data = form.value;
+        console.log(data);
         if (data.Name == ''){
             alert('Post Title is required');
         }else if(this.seletedTimelines.length <= 0){
@@ -258,11 +261,12 @@ export class ManageEntryComponent implements OnInit {
                 data.DeleteFileIds = this.removedFileIds;
                 this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(
                     (response:Response)=>{
-                        data.EntryId = this.existingEntry.EntryId;
-                        data.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
-                        data.UserId = this.auth.currentUser.UserId;
-                        data.Files = this.app.array_unique_merge(this.existingFiles, this.uploadedFiles, 'Id');
-                        let updatedEntry:Post = this.mapUpdatedEntryData(data);
+                        let uploadedEntry:any = _.cloneDeep(data);
+                        uploadedEntry.EntryId = this.existingEntry.EntryId;
+                        uploadedEntry.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
+                        uploadedEntry.UserId = this.auth.currentUser.UserId;
+                        uploadedEntry.Files = this.app.array_unique_merge(this.existingFiles, this.uploadedFiles, 'Id');
+                        let updatedEntry:Post = this.mapUpdatedEntryData(uploadedEntry);
                         this.updateEntryInLocalStorage(updatedEntry);
                         this.uploadingPost = false;
                         this.entryupdated.emit({data:updatedEntry});
@@ -275,19 +279,17 @@ export class ManageEntryComponent implements OnInit {
             }else{
                 this.entryService.addEntry(data).subscribe(
                     (response:any)=>{
-                        let createdEntryId = response.json().payload.EntryId;
-                        data.EntryId = createdEntryId;
-                        data.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
-                        data.UserId = this.auth.currentUser.UserId;
-                        data.Files = this.uploadedFiles;
-                        let updatedEntry:Post = this.mapUpdatedEntryData(data);
-                        console.log(updatedEntry);
+                        let uploadedEntry:any = _.cloneDeep(data);
+                        uploadedEntry.EntryId = response.json().payload.EntryId;
+                        uploadedEntry.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
+                        uploadedEntry.UserId = this.auth.currentUser.UserId;
+                        uploadedEntry.Files = this.uploadedFiles;
+                        let updatedEntry:Post = this.mapUpdatedEntryData(uploadedEntry);
                         this.updateEntryInLocalStorage(updatedEntry);
                         this.uploadingPost = false;
                         this.entrycreated.emit({data:this.seletedTimelines});
                         alert('Post Created Successfully!');
                         this.rightContentService.aside_in = false;
-
                     },(error) => {
                         this.uploadingPost = false;
                         alert('some thing went wrong with the server. please try again.')

@@ -17,14 +17,14 @@ import { AppService } from "../../app.service";
 import * as _ from 'lodash';
 import { Timeline } from "../../models/Timeline";
 export var LogComponent = (function () {
-    function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry, auth, timelineService, app) {
+    function LogComponent(route, router, mediumToPostDetail, mediumToManageEntry, auth, app, timelineService) {
         this.route = route;
         this.router = router;
         this.mediumToPostDetail = mediumToPostDetail;
         this.mediumToManageEntry = mediumToManageEntry;
         this.auth = auth;
-        this.timelineService = timelineService;
         this.app = app;
+        this.timelineService = timelineService;
         this.timeline = null;
         this.user = null;
         this.timeline = new Timeline();
@@ -39,6 +39,11 @@ export var LogComponent = (function () {
     LogComponent.prototype.timelineUpdated = function (event) {
         this.refreshLog();
     };
+    LogComponent.prototype.pullToRefresh = function (event) {
+        this.refreshLog().then(function () { }, function (error) {
+            alert('something went wrong! please try again.');
+        });
+    };
     LogComponent.prototype.refreshLog = function () {
         var _this = this;
         var auth = this.auth;
@@ -47,7 +52,8 @@ export var LogComponent = (function () {
         return new Promise(function (resolve, reject) {
             timelineService.get(timelineId, auth.getUser().profile.UserId).subscribe(function (data) {
                 _this.timeline = _this.app.map(data.json().payload, new Timeline());
-                resolve(true);
+                _this.timelineService.pushTimelineWithEntires(_this.timeline);
+                resolve(_this.timeline);
             }, function (error) {
                 reject(false);
             });
@@ -101,7 +107,7 @@ export var LogComponent = (function () {
             templateUrl: './log.component.html',
             styleUrls: ['./log.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService, MediumToManageEntryService, AuthService, TimelineService, AppService])
+        __metadata('design:paramtypes', [ActivatedRoute, Router, MediumToPostDetailService, MediumToManageEntryService, AuthService, AppService, TimelineService])
     ], LogComponent);
     return LogComponent;
 }());

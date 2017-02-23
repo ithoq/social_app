@@ -112,6 +112,7 @@ export var ManageEntryComponent = (function () {
     ManageEntryComponent.prototype.deletePost = function () {
         var _this = this;
         this.entryService.updateEntry(this.existingEntry.EntryId, { Delete: true }).subscribe(function (data) {
+            _this.timelineService.removeEntriesFromTimelines(_this.app.property_to_array('Id', _this.auth.getUser().timelines), [_this.existingEntry.EntryId]);
             alert('Post Deleted Successfully!');
             _this.rightContentService.aside_in = false;
             if (_this.auth.getUser().timelines.length > 0)
@@ -119,7 +120,7 @@ export var ManageEntryComponent = (function () {
             else
                 _this.router.navigate(['/create-profile']);
         }, function (error) {
-            alert(error.json().error_message);
+            console.log(error.json().error_message);
         });
     };
     ManageEntryComponent.prototype.removeImage = function (image_id) {
@@ -201,6 +202,7 @@ export var ManageEntryComponent = (function () {
             return false;
         }
         var data = form.value;
+        console.log(data);
         if (data.Name == '') {
             alert('Post Title is required');
         }
@@ -231,11 +233,12 @@ export var ManageEntryComponent = (function () {
             if (this.existingEntry != null) {
                 data.DeleteFileIds = this.removedFileIds;
                 this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(function (response) {
-                    data.EntryId = _this.existingEntry.EntryId;
-                    data.User = _this.auth.currentUser.FirstName + ' ' + _this.auth.currentUser.LastName;
-                    data.UserId = _this.auth.currentUser.UserId;
-                    data.Files = _this.app.array_unique_merge(_this.existingFiles, _this.uploadedFiles, 'Id');
-                    var updatedEntry = _this.mapUpdatedEntryData(data);
+                    var uploadedEntry = _.cloneDeep(data);
+                    uploadedEntry.EntryId = _this.existingEntry.EntryId;
+                    uploadedEntry.User = _this.auth.currentUser.FirstName + ' ' + _this.auth.currentUser.LastName;
+                    uploadedEntry.UserId = _this.auth.currentUser.UserId;
+                    uploadedEntry.Files = _this.app.array_unique_merge(_this.existingFiles, _this.uploadedFiles, 'Id');
+                    var updatedEntry = _this.mapUpdatedEntryData(uploadedEntry);
                     _this.updateEntryInLocalStorage(updatedEntry);
                     _this.uploadingPost = false;
                     _this.entryupdated.emit({ data: updatedEntry });
@@ -247,13 +250,12 @@ export var ManageEntryComponent = (function () {
             }
             else {
                 this.entryService.addEntry(data).subscribe(function (response) {
-                    var createdEntryId = response.json().payload.EntryId;
-                    data.EntryId = createdEntryId;
-                    data.User = _this.auth.currentUser.FirstName + ' ' + _this.auth.currentUser.LastName;
-                    data.UserId = _this.auth.currentUser.UserId;
-                    data.Files = _this.uploadedFiles;
-                    var updatedEntry = _this.mapUpdatedEntryData(data);
-                    console.log(updatedEntry);
+                    var uploadedEntry = _.cloneDeep(data);
+                    uploadedEntry.EntryId = response.json().payload.EntryId;
+                    uploadedEntry.User = _this.auth.currentUser.FirstName + ' ' + _this.auth.currentUser.LastName;
+                    uploadedEntry.UserId = _this.auth.currentUser.UserId;
+                    uploadedEntry.Files = _this.uploadedFiles;
+                    var updatedEntry = _this.mapUpdatedEntryData(uploadedEntry);
                     _this.updateEntryInLocalStorage(updatedEntry);
                     _this.uploadingPost = false;
                     _this.entrycreated.emit({ data: _this.seletedTimelines });
