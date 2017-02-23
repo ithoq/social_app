@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { AppService } from "../../app.service";
 import * as _ from 'lodash';
+import { UserStuff } from "../../models/UserStuff";
 export var ManageProfilesComponent = (function () {
     function ManageProfilesComponent(auth, appService) {
         this.auth = auth;
@@ -29,7 +30,9 @@ export var ManageProfilesComponent = (function () {
         this.auth.setUser(JSON.stringify(userStuff));
     };
     ManageProfilesComponent.prototype.managedUserProfileUpdated = function (event) {
-        alert('managed user profile updated');
+        var user = this.auth.getUser();
+        var userStuff = new UserStuff(user.profile, user.timelines, user.managedUsers);
+        this.auth.setUser(JSON.stringify(userStuff.updateManagedUser(event.user)));
     };
     ManageProfilesComponent.prototype.ngOnInit = function () {
         this.managedUsers = _.cloneDeep(this.auth.getUser().managedUsers);

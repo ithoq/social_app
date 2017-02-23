@@ -272,6 +272,7 @@ export class ManageEntryComponent implements OnInit {
                         this.entryupdated.emit({data:updatedEntry});
                         alert('Post Updated Successfully!');
                         this.rightContentService.aside_in = false;
+                        $('#add-entry-form-wizard').bootstrapWizard('show',0); //reset form
                     },(error) => {
                         alert(error.json().error_message);
                     }
@@ -290,6 +291,8 @@ export class ManageEntryComponent implements OnInit {
                         this.entrycreated.emit({data:this.seletedTimelines});
                         alert('Post Created Successfully!');
                         this.rightContentService.aside_in = false;
+                        $('#add-entry-form-wizard').bootstrapWizard('show',0) //reset form
+                        form.resetForm(); //reset form
                     },(error) => {
                         this.uploadingPost = false;
                         alert('some thing went wrong with the server. please try again.')
@@ -320,6 +323,7 @@ export class ManageEntryComponent implements OnInit {
                 this.selectedModes.push(parts[1]);
             }
         }
+        console.log(this.selectedModes);
     }
     typeChanged(data:any){
         var parts = data.split(',');
@@ -391,7 +395,7 @@ export class ManageEntryComponent implements OnInit {
                     this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
                 }
             }
-            this.selectedModes = this.existingEntry.Mode.split(',');
+            this.selectedModes = (this.existingEntry.Mode == '')?[]:this.existingEntry.Mode.split(',');
             this.whatTags = this.existingEntry.WhatTags.split(',');
             this.whoTags = this.existingEntry.WhoTags.split(',');
             this.youTags = this.existingEntry.YouTags.split(',');
@@ -523,10 +527,17 @@ export class ManageEntryComponent implements OnInit {
         $('.datepicker').datepicker();
     }
 
-    movedToNextSlide(){
+    refreshMap(){
+        this.showmap = false;
         setTimeout(() => {
             this.showmap = true;
         },500);
+    }
+    movedToNextSlide(){
+        this.refreshMap();
+    }
+    movedToPrevSlide(){
+        this.refreshMap();
     }
 
     initMap(){

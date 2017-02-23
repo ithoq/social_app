@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
                saving the authenticated user in the localStorage
                */
               let mapedData:any = data.json().payload;
+              console.log(mapedData);
               let userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
               this.auth.setUser(JSON.stringify(userStuff));
               this.timelineService.flushAllTimelinesFromLocalStorage();

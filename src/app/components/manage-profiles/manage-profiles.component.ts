@@ -3,6 +3,7 @@ import {AuthService} from "../../services/auth.service";
 import {AppService} from "../../app.service";
 import {User} from "../../models/User";
 import * as _ from 'lodash';
+import {UserStuff} from "../../models/UserStuff";
 
 declare var $:any;
 
@@ -28,7 +29,9 @@ export class ManageProfilesComponent implements OnInit {
     }
 
     managedUserProfileUpdated(event){
-        alert('managed user profile updated');
+        let user:any = this.auth.getUser();
+        let userStuff:UserStuff = new UserStuff(user.profile, user.timelines, user.managedUsers);
+        this.auth.setUser(JSON.stringify(userStuff.updateManagedUser(event.user)));
     }
 
     ngOnInit() {

@@ -244,6 +244,7 @@ export var ManageEntryComponent = (function () {
                     _this.entryupdated.emit({ data: updatedEntry });
                     alert('Post Updated Successfully!');
                     _this.rightContentService.aside_in = false;
+                    $('#add-entry-form-wizard').bootstrapWizard('show', 0); //reset form
                 }, function (error) {
                     alert(error.json().error_message);
                 });
@@ -261,6 +262,8 @@ export var ManageEntryComponent = (function () {
                     _this.entrycreated.emit({ data: _this.seletedTimelines });
                     alert('Post Created Successfully!');
                     _this.rightContentService.aside_in = false;
+                    $('#add-entry-form-wizard').bootstrapWizard('show', 0); //reset form
+                    form.resetForm(); //reset form
                 }, function (error) {
                     _this.uploadingPost = false;
                     alert('some thing went wrong with the server. please try again.');
@@ -290,6 +293,7 @@ export var ManageEntryComponent = (function () {
                 this.selectedModes.push(parts[1]);
             }
         }
+        console.log(this.selectedModes);
     };
     ManageEntryComponent.prototype.typeChanged = function (data) {
         var parts = data.split(',');
@@ -360,7 +364,7 @@ export var ManageEntryComponent = (function () {
                     this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
                 }
             }
-            this.selectedModes = this.existingEntry.Mode.split(',');
+            this.selectedModes = (this.existingEntry.Mode == '') ? [] : this.existingEntry.Mode.split(',');
             this.whatTags = this.existingEntry.WhatTags.split(',');
             this.whoTags = this.existingEntry.WhoTags.split(',');
             this.youTags = this.existingEntry.YouTags.split(',');
@@ -485,11 +489,18 @@ export var ManageEntryComponent = (function () {
         });
         $('.datepicker').datepicker();
     };
-    ManageEntryComponent.prototype.movedToNextSlide = function () {
+    ManageEntryComponent.prototype.refreshMap = function () {
         var _this = this;
+        this.showmap = false;
         setTimeout(function () {
             _this.showmap = true;
         }, 500);
+    };
+    ManageEntryComponent.prototype.movedToNextSlide = function () {
+        this.refreshMap();
+    };
+    ManageEntryComponent.prototype.movedToPrevSlide = function () {
+        this.refreshMap();
     };
     ManageEntryComponent.prototype.initMap = function () {
         var input = document.getElementById('pac-input');

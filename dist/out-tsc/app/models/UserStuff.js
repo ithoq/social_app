@@ -1,5 +1,6 @@
 import { User } from "./User";
 import { AppService } from "../app.service";
+import * as _ from 'lodash';
 /**
  * Created by officeaccount on 13/02/2017.
  */
@@ -16,6 +17,18 @@ export var UserStuff = (function () {
         this.timelines = (timelines == null || timelines == undefined) ? [] : timelines;
         this.managedUsers = app.mapCollection(managedUsers, new User());
     }
+    UserStuff.prototype.updateManagedUser = function (user) {
+        var managedUsers = [];
+        for (var _i = 0, _a = this.managedUsers; _i < _a.length; _i++) {
+            var managedUser = _a[_i];
+            if (managedUser.UserId == user.UserId) {
+                managedUser = _.cloneDeep(user);
+            }
+            managedUsers.push(managedUser);
+        }
+        this.managedUsers = managedUsers;
+        return this;
+    };
     return UserStuff;
 }());
 //# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app/models/UserStuff.js.map

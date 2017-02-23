@@ -65,7 +65,7 @@ export class TimelineDetailComponent implements OnInit {
   removeUser(userId:string){ //TODO: push these changes to local storage
     if(userId == this.auth.currentUser.UserId){
       alert('Can not remove yourself');
-    }else{
+    }else if(confirm("are you sure you want to delete this user?")){
       //TODO: Couldn't test it at the time for some reason.
       this.timelineService.removeUsers(this.timeline.Id,userId).subscribe((data:Response)=>{
         let updatedUsers:Array<User> = [];

@@ -37,6 +37,7 @@ export var LoginComponent = (function () {
              saving the authenticated user in the localStorage
              */
             var mapedData = data.json().payload;
+            console.log(mapedData);
             var userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
             _this.auth.setUser(JSON.stringify(userStuff));
             _this.timelineService.flushAllTimelinesFromLocalStorage();
