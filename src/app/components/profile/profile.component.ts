@@ -87,8 +87,12 @@ export class ProfileComponent implements OnInit {
       address:inputData.address,
       Color:inputData.Color,
       ManagedByUserId:this.auth.currentUser.UserId,
-      ManagedByUserName: this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName,
-      ManagedByUserNickName: this.auth.currentUser.Nickname
+      ManagedByUserName: ((this.getUser().UserId == this.auth.currentUser.UserId)?
+                            inputData.FirstName+' '+inputData.LastName:
+                            this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName),
+      ManagedByUserNickName: ((this.getUser().UserId == this.auth.currentUser.UserId)?
+                                inputData.NickName:
+                                this.auth.currentUser.Nickname),
     };
     let newAcountData = {
       Email:inputData.email,
@@ -128,7 +132,11 @@ export class ProfileComponent implements OnInit {
           this.formBusy = false;
           this.exitEditMode();
         }
-        let updatedUser = data.json().payload.User;
+        let updatedUser:any = data.json().payload.User;
+        if(this.selectedImage == null){
+          updatedUser.ImageURL = this.getUser().ImageURL;
+          updatedUser.ThumbURL = this.getUser().ThumbURL;
+        }
         this.setUser(this.appService.map(updatedUser, new User()));
 
         this.profileUpdated.emit({

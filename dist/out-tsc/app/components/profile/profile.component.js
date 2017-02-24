@@ -75,8 +75,12 @@ export var ProfileComponent = (function () {
             address: inputData.address,
             Color: inputData.Color,
             ManagedByUserId: this.auth.currentUser.UserId,
-            ManagedByUserName: this.auth.currentUser.FirstName + ' ' + this.auth.currentUser.LastName,
-            ManagedByUserNickName: this.auth.currentUser.Nickname
+            ManagedByUserName: ((this.getUser().UserId == this.auth.currentUser.UserId) ?
+                inputData.FirstName + ' ' + inputData.LastName :
+                this.auth.currentUser.FirstName + ' ' + this.auth.currentUser.LastName),
+            ManagedByUserNickName: ((this.getUser().UserId == this.auth.currentUser.UserId) ?
+                inputData.NickName :
+                this.auth.currentUser.Nickname),
         };
         var newAcountData = {
             Email: inputData.email,
@@ -114,6 +118,10 @@ export var ProfileComponent = (function () {
                     _this.exitEditMode();
                 }
                 var updatedUser = data.json().payload.User;
+                if (_this.selectedImage == null) {
+                    updatedUser.ImageURL = _this.getUser().ImageURL;
+                    updatedUser.ThumbURL = _this.getUser().ThumbURL;
+                }
                 _this.setUser(_this.appService.map(updatedUser, new User()));
                 _this.profileUpdated.emit({
                     user: _this.getUser()

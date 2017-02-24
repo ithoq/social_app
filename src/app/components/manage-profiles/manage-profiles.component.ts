@@ -22,10 +22,10 @@ export class ManageProfilesComponent implements OnInit {
     constructor(private auth:AuthService, public appService:AppService) {}
 
     profileUpdated(event){
-        let userStuff = this.auth.getUser();
-        userStuff.profile = event.user;
-        console.log(userStuff);
+        let oldUserStuff = this.auth.getUser();
+        let userStuff = new UserStuff(event.user, oldUserStuff.timelines, oldUserStuff.managedUsers);
         this.auth.setUser(JSON.stringify(userStuff));
+        this.managedUsers = userStuff.managedUsers;
     }
 
     managedUserProfileUpdated(event){
@@ -36,6 +36,5 @@ export class ManageProfilesComponent implements OnInit {
 
     ngOnInit() {
         this.managedUsers = _.cloneDeep(this.auth.getUser().managedUsers);
-        console.log(this.managedUsers);
     }
 }

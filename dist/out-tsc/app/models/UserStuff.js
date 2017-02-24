@@ -15,8 +15,20 @@ export var UserStuff = (function () {
         var app = new AppService();
         this.profile = app.map(profile, new User());
         this.timelines = (timelines == null || timelines == undefined) ? [] : timelines;
-        this.managedUsers = app.mapCollection(managedUsers, new User());
+        this.managedUsers = this.postProcessManagedUsers(app.mapCollection(managedUsers, new User()));
     }
+    UserStuff.prototype.postProcessManagedUsers = function (users) {
+        var updatedUsers = [];
+        for (var _i = 0, users_1 = users; _i < users_1.length; _i++) {
+            var user = users_1[_i];
+            if (user.ManagedByUserId == this.profile.UserId) {
+                user.ManagedByUserName = this.profile.FirstName + ' ' + this.profile.LastName;
+                user.ManagedByUserNickName = this.profile.ManagedByUserNickName;
+            }
+            updatedUsers.push(user);
+        }
+        return updatedUsers;
+    };
     UserStuff.prototype.updateManagedUser = function (user) {
         var managedUsers = [];
         for (var _i = 0, _a = this.managedUsers; _i < _a.length; _i++) {

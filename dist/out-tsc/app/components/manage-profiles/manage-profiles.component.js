@@ -24,10 +24,10 @@ export var ManageProfilesComponent = (function () {
         this.managedUsers = [];
     }
     ManageProfilesComponent.prototype.profileUpdated = function (event) {
-        var userStuff = this.auth.getUser();
-        userStuff.profile = event.user;
-        console.log(userStuff);
+        var oldUserStuff = this.auth.getUser();
+        var userStuff = new UserStuff(event.user, oldUserStuff.timelines, oldUserStuff.managedUsers);
         this.auth.setUser(JSON.stringify(userStuff));
+        this.managedUsers = userStuff.managedUsers;
     };
     ManageProfilesComponent.prototype.managedUserProfileUpdated = function (event) {
         var user = this.auth.getUser();
@@ -36,7 +36,6 @@ export var ManageProfilesComponent = (function () {
     };
     ManageProfilesComponent.prototype.ngOnInit = function () {
         this.managedUsers = _.cloneDeep(this.auth.getUser().managedUsers);
-        console.log(this.managedUsers);
     };
     ManageProfilesComponent = __decorate([
         Component({

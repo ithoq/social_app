@@ -384,12 +384,12 @@ export class ManageEntryComponent implements OnInit {
             this.selectedTypes = this.existingEntry.Type.split(',');
             this.postName = this.existingEntry.Name;
             this.postAbout = this.existingEntry.About;
-            this.postDateEnd = this.existingEntry.DateEnd;
-            this.postDateStart = this.existingEntry.DateStart;
-            this.postLocation = this.existingEntry.Location;
+            this.postDateEnd = this.existingEntry.DateEnd.split(' ')[0];
+            this.postDateStart = this.existingEntry.DateStart.split(' ')[0];
+            this.postLocation = (this.existingEntry.Location == "undefined")?"":this.existingEntry.Location;
             this.postWhatelse = this.existingEntry.WhatElse;
-            this.lat = this.existingEntry.Lat;
-            this.lng = this.existingEntry.Lng;
+            this.lat = (this.existingEntry.Location == "undefined")?45.523111:this.existingEntry.Lat;
+            this.lng = (this.existingEntry.Location == "undefined")?-122.672970:this.existingEntry.Lng;
             if(this.existingEntry.Timelines != undefined){
                 for(let i = 0; i<this.existingEntry.Timelines.length; i++){
                     this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);

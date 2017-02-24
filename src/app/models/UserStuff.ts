@@ -13,7 +13,19 @@ export class UserStuff {
 
         this.profile = app.map(profile, new User());
         this.timelines = (timelines == null || timelines == undefined)?[]:timelines;
-        this.managedUsers = app.mapCollection(managedUsers,new User());
+        this.managedUsers = this.postProcessManagedUsers(app.mapCollection(managedUsers,new User()));
+    }
+
+    postProcessManagedUsers(users:Array<User>){
+        let updatedUsers:Array<User> = [];
+        for(let user of users){
+            if(user.ManagedByUserId == this.profile.UserId){
+                user.ManagedByUserName = this.profile.FirstName+' '+this.profile.LastName;
+                user.ManagedByUserNickName = this.profile.ManagedByUserNickName;
+            }
+            updatedUsers.push(user);
+        }
+        return updatedUsers;
     }
 
     updateManagedUser(user:User){
