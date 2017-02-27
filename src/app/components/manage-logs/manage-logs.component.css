@@ -1,3 +1,20 @@
 .spacer {
     height:10px;
 }
+
+.log-modal .table th {
+    border: none !important;
+}
+.log-modal .table form {
+    text-align: center;
+}
+.log-modal .table form input[type=text] {
+    padding: 5px;
+    vertical-align: top;
+    width: 100%;
+    max-width: 200px;
+}
+
+button.btn.info-btn {
+    margin-left: 15px;
+}

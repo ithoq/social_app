@@ -17,3 +17,6 @@
 .pull-to-refresh{
     float: right;
 }
+#mainnav-menu i {
+    padding: 0;
+}

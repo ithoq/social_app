@@ -18,11 +18,10 @@
     <!--===================================================-->
     <div class="panel-body">
 
-
       <table class="table table-hover table-vcenter">
         <thead>
         <tr>
-          <th class="min-width">Image</th>
+          <th class="mins-width">Image</th>
           <th>Name</th>
           <th class="text-center">Profile managed by</th>
           <th class="text-center">Profile</th>
@@ -39,8 +38,8 @@
           <td class="text-center"><span
                   class="text-muted text-semibold">{{user.FirstName}}</span></td>
           <td class="text-center">
-            <span *ngIf="currentUserCanEditThis(user)" (click)="editUser(user)" class="text-info text-semibold">Edit</span>
-            <span *ngIf="currentUserCanDeleteThis(user)" class="text-info text-semibold" (click)="removeUser(user.UserId)">Del</span>
+            <span *ngIf="currentUserCanEditThis(user)" (click)="editUser(user)" class="link text-info text-semibold">Edit</span>
+            <span *ngIf="currentUserCanDeleteThis(user)" class="link text-info text-semibold" (click)="removeUser(user.UserId)">Del</span>
           </td>
         </tr>
         </tbody>

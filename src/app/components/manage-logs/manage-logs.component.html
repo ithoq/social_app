@@ -12,9 +12,9 @@
 
     <div class="row">
       <div class="row">
-        <button data-toggle="modal" [attr.data-target]="'#'+create_log_modal_id" class="btn btn-info"><i class="fa fa-add"></i>Create New Log</button>
+        <button data-toggle="modal" [attr.data-target]="'#'+create_log_modal_id" class="btn btn-info info-btn"><i class="fa fa-add"></i>Create New Log</button>
       </div>
-      <div id="{{create_log_modal_id}}" class="modal fade" role="dialog">
+      <div id="{{create_log_modal_id}}" class="modal fade log-modal" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
@@ -28,7 +28,7 @@
                 <tr>
                   <th>
                     <form (submit)="createLog(f)" #f="ngForm">
-                      <input type="text" class="input_text" ngModel name="Name" placeholder="Enter New Log Name Here.." required>
+                      <input type="text" class="input_text" ngModel name="Name" placeholder="Enter New Log Name" required>
                       <button type="submit" class="btn btn-info">Save</button>
                     </form>
                   </th>

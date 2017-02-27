@@ -86,14 +86,15 @@
 <div *ngIf="editMode == false" class="row">
   <div class="col-lg-12">
     <div class="panel">
-      <div class="panel-head">
+      <div class="panel-head profile-head">
+        <h3>Profile</h3>
         <div class="panel-control">
 
           <!-- Todo:Decide how to check who is managing this user. -->
           <span>Managed by {{user.ManagedByUserName}}</span>
           <button *ngIf="loggedInUsrCanEdit()" class="demo-panel-ref-btn btn btn-default" type="button" (click)="enterEditMode()"> <i class="fa fa-pencil fa-fw"></i> Edit </button>
         </div>
-        <h3>Profile</h3>
+
       </div>
       <div class="text-center pro-image">
         <figure>

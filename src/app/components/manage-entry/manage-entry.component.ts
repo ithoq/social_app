@@ -14,6 +14,8 @@ import {AppService} from "../../app.service";
 import * as _ from 'lodash';
 import {TimelineService} from "../../services/timeline.service";
 import {UploadedFile} from "../../models/UploadedFile";
+import {User} from "../../models/User";
+import {UserStuff} from "../../models/UserStuff";
 
 declare var noUiSlider: any;
 declare var wNumb: any;
@@ -93,7 +95,8 @@ export class ManageEntryComponent implements OnInit {
 
     public uploadingPost:any = false;
     public uploadingFiles:boolean = false;
-    constructor(
+    public managedUsers:Array<User> = []
+;    constructor(
         private auth:AuthService,
         private entryService:EntryService,
         private _loader: MapsAPILoader,
@@ -105,7 +108,9 @@ export class ManageEntryComponent implements OnInit {
         public timelineService:TimelineService
     ) {
         this.types = _.cloneDeep(this.app.entryContentCategories);
-        this.timelines = this.auth.getUser().timelines;
+        let userStuff:UserStuff = this.auth.getUser();
+        this.timelines = userStuff.timelines;
+        this.managedUsers = userStuff.managedUsers;
         this.noUiSlider = noUiSlider;
         this.wNumb = wNumb;
         this.$ = $;

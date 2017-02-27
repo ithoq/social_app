@@ -1,3 +1,15 @@
+.profile-head h3 {
+    display: inline-block;
+}
+.profile-head .panel-control {
+    display: inline-block;
+    width: calc(100% - 75px);
+    float: none;
+    vertical-align: middle;
+}
+.profile-head .panel-control span {
+    width: calc(100% - 70px);
+}
 .pad-ver figure{
     display: block;
     width: 100px;
@@ -133,5 +145,11 @@
     .pro-content label strong,
     .pro-content label span{
         display: block;
+    }
+    .profile-head .panel-control {
+        width: calc(100% - 55px);
+    }
+    .profile-head .panel-control span {
+        width: calc(100% - 70px);
     }
 }
