@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {Timeline} from "../models/Timeline";
 import {Post} from "../models/Post";
 import {EntryService} from "./entry.service";
+import {TimelineDetail} from "../models/TimelineDetail";
 declare var LZString:any;
 @Injectable()
 export class TimelineService {
@@ -109,5 +110,10 @@ export class TimelineService {
         }
         localStorage.setItem('allTimelinesWithEntries', LZString.compress(JSON.stringify(updatedTimelines)));
         return updatedTimelines;
+    }
+
+    saveLogsWithUsersInLocalStorage(logs:Array<TimelineDetail>){ //TODO: don't need this if server provide users array at the end of each timeline.
+        //TODO: save to local array
+        return true;
     }
 }

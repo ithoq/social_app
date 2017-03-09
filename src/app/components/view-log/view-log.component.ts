@@ -38,7 +38,6 @@ export class ViewLogComponent implements OnInit {
           }else{
               //TODO: users array is not returned by the api yet.
               this.timeline = data.log;
-              console.log(this.timeline);
               this.headerComponent.title = this.timeline.Name;
           }
         }, (error)=>{});

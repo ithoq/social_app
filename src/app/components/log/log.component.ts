@@ -19,6 +19,7 @@ import {Timeline} from "../../models/Timeline";
 export class LogComponent implements OnInit {
     @Input() timeline:Timeline = null;
     public user:any = null;
+    public refreshingLog:boolean = false;
     constructor(
         private route:ActivatedRoute,
         private router:Router,
@@ -45,8 +46,12 @@ export class LogComponent implements OnInit {
     }
 
     pullToRefresh(event){
-        this.refreshLog().then(function(){},function (error) {
-            alert('something went wrong! please try again.')
+        this.refreshingLog = true;
+        this.refreshLog().then(()=>{
+            this.refreshingLog = false;
+        },(error)=>{
+            this.refreshingLog = false;
+            alert(error)
         });
     }
 
@@ -55,16 +60,21 @@ export class LogComponent implements OnInit {
         let timelineService = this.timelineService;
         let timelineId = this.timeline.Id;
         return new Promise((resolve, reject)=>{
-            timelineService.get(timelineId, auth.getUser().profile.UserId).subscribe(
-                (data:any)=> { //TODO: push these changes to local storage
-                    this.timeline = this.app.map(data.json().payload, new Timeline());
-                    this.timelineService.pushTimelineWithEntires(this.timeline);
-                    resolve(this.timeline);
-                },
-                (error)=>{
-                    reject(false);
-                }
-            );
+            if(timelineId == ''){
+                reject('timeline id is required');
+            }else{
+                timelineService.get(timelineId, auth.getUser().profile.UserId).subscribe(
+                    (data:any)=> { //TODO: push these changes to local storage
+                        console.log(data.json().payload);
+                        this.timeline = this.app.map(data.json().payload, new Timeline());
+                        this.timelineService.pushTimelineWithEntires(this.timeline);
+                        resolve(this.timeline);
+                    },
+                    (error)=>{
+                        reject('Some thing went wrong with the server');
+                    }
+                );
+            }
         });
     }
 

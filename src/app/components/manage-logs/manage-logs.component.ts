@@ -53,7 +53,7 @@ export class ManageLogsComponent implements OnInit {
     this.create_log_modal_id = 'edit-log-'+this.app.unique_id();
     this.route.data
         .subscribe((data: { logs: any }) => {
-          this.timelines = data.logs.json().payload;
+          this.timelines = data.logs.json().payload; //TODO: map this to TimelineDetail Object
         }, (error)=>{});
   }
 

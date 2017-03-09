@@ -144,20 +144,22 @@ export class ManageEntryComponent implements OnInit {
         this.seletedTimelines = timelines;
     }
     deletePost(){
-        this.entryService.updateEntry(this.existingEntry.EntryId, {Delete:true}).subscribe(
-            (data:Response)=>{ //TODO: push these changes to local storage
-                this.timelineService.removeEntriesFromTimelines(
-                    this.app.property_to_array('Id', this.auth.getUser().timelines), [this.existingEntry.EntryId]);
-                alert('Post Deleted Successfully!');
-                this.rightContentService.aside_in = false;
-                if(this.auth.getUser().timelines.length > 0)
-                    this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
-                else
-                    this.router.navigate(['/create-profile']);
-            },(error) => {
-                console.log(error.json().error_message);
-            }
-        );
+        if(confirm('Are you sure you want to delete this post?')){
+            this.entryService.updateEntry(this.existingEntry.EntryId, {Delete:true}).subscribe(
+                (data:Response)=>{ //TODO: push these changes to local storage
+                    this.timelineService.removeEntriesFromTimelines(
+                        this.app.property_to_array('Id', this.auth.getUser().timelines), [this.existingEntry.EntryId]);
+                    alert('Post Deleted Successfully!');
+                    this.rightContentService.aside_in = false;
+                    if(this.auth.getUser().timelines.length > 0)
+                        this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
+                    else
+                        this.router.navigate(['/create-profile']);
+                },(error) => {
+                    alert(error.json().error_message);
+                }
+            );
+        }
     }
 
     removeImage(image_id){
@@ -168,24 +170,27 @@ export class ManageEntryComponent implements OnInit {
     }
 
     filesSelected(event){
-        this.uploadingFiles = true;
-        let files = new FormData();
-        // operation starts here.....
-        $.each(event.target.files, function(key, value){
-            files.append('Image'+(key+1), value);
-        });
+        if(event.target.files.length > 10){
+            alert('maximum 10 images are allowed in a post');
+        }else{
+            this.uploadingFiles = true;
+            let files = new FormData();
+            // operation starts here.....
+            $.each(event.target.files, function(key, value){
+                files.append('Image'+(key+1), value);
+            });
 
-        this.entryService.uploadImages(files, function (evt) {
-            if (evt.lengthComputable) {
-                let percentComplete:any = (evt.loaded / evt.total)*100;
-                console.log(percentComplete);
-            }
-        }).subscribe((files:Array<UploadedFile>)=>{
-            this.uploadedFiles = files;
-            this.uploadedFileIds = this.app.property_to_array('Id', files).join(',');
-            //this.selectedFiles = this.app.array_unique_merge(this.existingFiles, this.uploadedFiles, 'Id');
-            this.uploadingFiles = false;
-        });
+            this.entryService.uploadImages(files, function (evt) {
+                if (evt.lengthComputable) {
+                    let percentComplete:any = (evt.loaded / evt.total)*100;
+                }
+            }).subscribe((files:Array<UploadedFile>)=>{
+                this.uploadedFiles = files;
+                this.uploadedFileIds = this.app.property_to_array('Id', files).join(',');
+                //this.selectedFiles = this.app.array_unique_merge(this.existingFiles, this.uploadedFiles, 'Id');
+                this.uploadingFiles = false;
+            });
+        }
     }
 
     mapUpdatedEntryData(data){
@@ -237,7 +242,6 @@ export class ManageEntryComponent implements OnInit {
             return false;
         }
         let data = form.value;
-        console.log(data);
         if (data.Name == ''){
             alert('Post Title is required');
         }else if(this.seletedTimelines.length <= 0){
@@ -254,14 +258,13 @@ export class ManageEntryComponent implements OnInit {
             data.WhatTags = $('#what-tags-input').val();
             data.WhoTags = $('#who-tags-input').val();
             data.YouTags = $('#you-tags-input').val();
-            data.Location = this.location;
+            data.Location = (this.location == undefined)?this.postLocation:this.location;
             data.DateStart = $('#new-post-start-date').val();
             data.DateEnd = $('#new-post-end-date').val();
             data.Lat = this.lat;
             data.Lng = this.lng;
             data.AddFileIds = this.uploadedFileIds;
             //TODO: add functionality to create a post for a managed user.
-
             if(this.existingEntry != null){
                 data.DeleteFileIds = this.removedFileIds;
                 this.entryService.updateEntry(this.existingEntry.EntryId, data).subscribe(
@@ -296,8 +299,10 @@ export class ManageEntryComponent implements OnInit {
                         this.entrycreated.emit({data:this.seletedTimelines});
                         alert('Post Created Successfully!');
                         this.rightContentService.aside_in = false;
-                        $('#add-entry-form-wizard').bootstrapWizard('show',0) //reset form
-                        form.resetForm(); //reset form
+                        $('#add-entry-form-wizard').bootstrapWizard('show',0); //reset form
+                        this.resetForm(form); //reset form
+                        console.log(this.uploadedFiles);
+                        console.log(this.existingFiles);
                     },(error) => {
                         this.uploadingPost = false;
                         alert('some thing went wrong with the server. please try again.')
@@ -305,8 +310,17 @@ export class ManageEntryComponent implements OnInit {
                 );
             }
         }
-
     }
+
+    resetForm(form:NgForm){
+        form.resetForm();
+        this.selectedTypes = [];
+        this.selectedModes = [];
+        this.selectedFiles = [];
+        this.existingFiles = [];
+        this.uploadedFiles = [];
+    }
+
     modeChanged(data:any){
         var parts = data.split(',');
         var alreadyExists = false;
@@ -328,7 +342,6 @@ export class ManageEntryComponent implements OnInit {
                 this.selectedModes.push(parts[1]);
             }
         }
-        console.log(this.selectedModes);
     }
     typeChanged(data:any){
         var parts = data.split(',');
@@ -410,6 +423,7 @@ export class ManageEntryComponent implements OnInit {
   ngOnInit() {
         //setting up existing entry if on edit mode
       this.setExistingPost(this.mediumToManageEntry.getPost());
+      console.log(this.timelineService.getAllTimelinesWithEntries());
       //this.seletedTimelines = this.seletedTimelines.concat(this.mediumToManageEntry.getTempPostTimelines());
       /*---------------------------------------------------*/
 

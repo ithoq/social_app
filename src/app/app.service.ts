@@ -16,16 +16,16 @@ export class AppService {
 
   private setDefaultEntryCategories(){
     this.entryContentCategories = [
-      new EntryCategory('Place', 'icon-places-big.png', 'Lorem ipsum dolor sit amet'),
-      new EntryCategory('Learning', 'icon-learning-big.png', 'Lorem ipsum dolor sit amet'),
-      new EntryCategory('Health', 'icon-health-big.png', 'Lorem ipsum dolor sit amet'),
-      new EntryCategory('Fitness', 'icon-fitness-big.png', 'Lorem ipsum dolor sit amet'),
-      new EntryCategory('Celebration', 'icon-celebration-big.png', 'Lorem ipsum dolor sit amet'),
-      new EntryCategory('Faves', 'icon-faves-big.png', 'Lorem ipsum dolor sit amet'),
-      new EntryCategory('Purpose', 'icon-world-big.png', 'Lorem ipsum dolor sit amet'),
-      new EntryCategory('People', 'icon-images-big.png', 'Lorem ipsum dolor sit amet'),
-      new EntryCategory('Bigs', 'logo.png', 'Lorem ipsum dolor sit amet'),
-      new EntryCategory('Other', 'icon-growth-big.png', 'Lorem ipsum dolor sit amet'),
+      new EntryCategory('Place', 'icon-places-big.png', 'A place that you\'ve lived, a place you\'ve stayed or a place that means a lot to you.'),
+      new EntryCategory('Learning', 'icon-learning-big.png', 'Your school(s), for sure, but also a class that you\'ve loved, a camp, a project, your subjects, a skill, a trade. Important teachers, inspiring ideas, and anything else that would go include here!'),
+      new EntryCategory('Health', 'icon-health-big.png', 'Anything that would go in your health file. Next time you need to rememer when you had your last tetanus short, you\'ll have it right here! When did you break your arm or have your appendix removed? If you got a diagnosis or started a new medicine, add it. But also here\'s a great place to note health solutions - what practices, tools, medicines, and life-changes.'),
+      new EntryCategory('Fitness', 'icon-fitness-big.png', ''),
+      new EntryCategory('Celebration', 'icon-celebration-big.png', ''),
+      new EntryCategory('Faves', 'icon-faves-big.png', ''),
+      new EntryCategory('Purpose', 'icon-world-big.png', ''),
+      new EntryCategory('People', 'icon-images-big.png', ''),
+      new EntryCategory('Bigs', 'logo.png', ''),
+      new EntryCategory('Other', 'icon-growth-big.png', ''),
     ];
   }
   //generate a random hashed string

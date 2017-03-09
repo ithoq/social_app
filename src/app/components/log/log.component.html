@@ -1,5 +1,5 @@
 <div class="col-sm-12">
-  <button type="button" (click)="pullToRefresh($event)">refresh</button>
+  <button *ngIf="timeline.Id != ''" type="button" (click)="pullToRefresh($event)">refresh <i *ngIf="refreshingLog" class="fa fa-refresh fa-spin"></i></button>
   <div *ngIf="timeline.Entries.length > 0" class="timeline">
     <div class="timeline-entry" *ngFor="let entry of timeline.Entries">
       <div class="timeline-stat">

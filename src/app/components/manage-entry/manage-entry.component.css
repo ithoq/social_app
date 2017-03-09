@@ -67,10 +67,10 @@
 .show_definitions .type-left{
     text-align: center;
 }
-
 .show_definitions .type-left,
 .show_definitions .type-definitions{
-    display: table-cell;
+    display: inline-block;
+    width: 82%;
     vertical-align: top;
     padding: 10px;
     font-size: 12px;
@@ -134,4 +134,21 @@
     height: 120px;
     transform: translate(-50%, -50%);
     left: 50%;
+}
+
+.show_definitions .type-left {
+    width:18% !important;
+}
+
+
+@media (max-width: 767px) {
+    .show_definitions .type-left {
+        width: 100%
+    }
+    .show_definitions .type-left,
+    .show_definitions .type-definitions{
+        display: table-cell;
+        width: 100% ;
+    }
+
 }

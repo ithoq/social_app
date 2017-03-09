@@ -43,9 +43,9 @@ export class HomeComponent implements OnInit {
   }
 
   profileUpdating(event){
-    console.log(event);
+
   }
   profileUpdated(event){
-    console.log(event);
+
   }
 }

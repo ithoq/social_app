@@ -39,7 +39,6 @@ export class PostDetailComponent implements OnInit {
                     this.router.navigate(['/log/custom']);
                 }else{
                     this.post = data.post;
-                    console.log(this.post);
                     let title = this.post.DateStart.split(' ')[0]+
                         ' ' +this.post.DateEnd.split(' ')[0];
                     this.headerComponent.title = title;

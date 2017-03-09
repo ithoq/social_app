@@ -126,7 +126,7 @@
               <span class="btn btn-default fileinput-button dz-clickable">
                 <i class="fa fa-plus"></i>
                 <span>Add Images<input id="post-images" (change)="filesSelected($event)" type="file" ngModel name="images" accept=".jpg" multiple  /></span>
-                <i class="fa fa-refresh fa-spin"></i>
+                <i *ngIf="uploadingFiles" class="fa fa-refresh fa-spin"></i>
               </span>
               <ul class="clearfix imglisting">
                 <li class="selectimge" *ngFor="let img of existingFiles; let i = index" >
