@@ -28,7 +28,7 @@
                 <tr>
                   <th>
                     <form (submit)="createLog(f)" #f="ngForm">
-                      <input type="text" class="input_text" ngModel name="Name" placeholder="Enter New Log Name" required>
+                      <input type="text" class="input_text" [(ngModel)]="NewLogName" name="Name" placeholder="Enter New Log Name" required>
                       <button type="submit" class="btn btn-info">Save</button>
                     </form>
                   </th>

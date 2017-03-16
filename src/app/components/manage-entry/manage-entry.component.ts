@@ -95,8 +95,12 @@ export class ManageEntryComponent implements OnInit {
 
     public uploadingPost:any = false;
     public uploadingFiles:boolean = false;
-    public managedUsers:Array<User> = []
-;    constructor(
+    public managedUsers:Array<User> = [];
+    public selectedManagedUserId:string;
+
+    public bestSelfSlider:any;
+    public closeToOthersSlider:any;
+    constructor(
         private auth:AuthService,
         private entryService:EntryService,
         private _loader: MapsAPILoader,
@@ -111,12 +115,11 @@ export class ManageEntryComponent implements OnInit {
         let userStuff:UserStuff = this.auth.getUser();
         this.timelines = userStuff.timelines;
         this.managedUsers = userStuff.managedUsers;
+        this.selectedManagedUserId = this.auth.currentUser.UserId;
         this.noUiSlider = noUiSlider;
         this.wNumb = wNumb;
         this.$ = $;
     }
-
-
     autocomplete() {
         this._loader.load().then(() => {
             let autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocompleteInput"), {});
@@ -185,8 +188,9 @@ export class ManageEntryComponent implements OnInit {
                     let percentComplete:any = (evt.loaded / evt.total)*100;
                 }
             }).subscribe((files:Array<UploadedFile>)=>{
-                this.uploadedFiles = files;
-                this.uploadedFileIds = this.app.property_to_array('Id', files).join(',');
+                this.uploadedFiles = this.app.array_unique_merge(this.uploadedFiles,files,'Id');
+                //this.uploadedFiles = files;
+                this.uploadedFileIds = this.app.property_to_array('Id', this.uploadedFiles).join(',');
                 //this.selectedFiles = this.app.array_unique_merge(this.existingFiles, this.uploadedFiles, 'Id');
                 this.uploadingFiles = false;
             });
@@ -264,6 +268,9 @@ export class ManageEntryComponent implements OnInit {
             data.Lat = this.lat;
             data.Lng = this.lng;
             data.AddFileIds = this.uploadedFileIds;
+            data.UserId = (data.UserId == this.auth.currentUser.UserId || data.UserId == null)?'':data.UserId;
+            let selectedManagedUser:User =(data.UserId == '')?this.auth.currentUser: this.app.find_obj_by_prop('UserId', data.UserId, this.managedUsers);
+
             //TODO: add functionality to create a post for a managed user.
             if(this.existingEntry != null){
                 data.DeleteFileIds = this.removedFileIds;
@@ -271,8 +278,8 @@ export class ManageEntryComponent implements OnInit {
                     (response:Response)=>{
                         let uploadedEntry:any = _.cloneDeep(data);
                         uploadedEntry.EntryId = this.existingEntry.EntryId;
-                        uploadedEntry.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
-                        uploadedEntry.UserId = this.auth.currentUser.UserId;
+                        uploadedEntry.User = selectedManagedUser.FirstName+' '+selectedManagedUser.LastName;
+                        // uploadedEntry.UserId = this.auth.currentUser.UserId;
                         uploadedEntry.Files = this.app.array_unique_merge(this.existingFiles, this.uploadedFiles, 'Id');
                         let updatedEntry:Post = this.mapUpdatedEntryData(uploadedEntry);
                         this.updateEntryInLocalStorage(updatedEntry);
@@ -290,8 +297,8 @@ export class ManageEntryComponent implements OnInit {
                     (response:any)=>{
                         let uploadedEntry:any = _.cloneDeep(data);
                         uploadedEntry.EntryId = response.json().payload.EntryId;
-                        uploadedEntry.User = this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName;
-                        uploadedEntry.UserId = this.auth.currentUser.UserId;
+                        uploadedEntry.User = selectedManagedUser.FirstName+' '+selectedManagedUser.LastName;
+                        // uploadedEntry.UserId = this.auth.currentUser.UserId;
                         uploadedEntry.Files = this.uploadedFiles;
                         let updatedEntry:Post = this.mapUpdatedEntryData(uploadedEntry);
                         this.updateEntryInLocalStorage(updatedEntry);
@@ -301,8 +308,6 @@ export class ManageEntryComponent implements OnInit {
                         this.rightContentService.aside_in = false;
                         $('#add-entry-form-wizard').bootstrapWizard('show',0); //reset form
                         this.resetForm(form); //reset form
-                        console.log(this.uploadedFiles);
-                        console.log(this.existingFiles);
                     },(error) => {
                         this.uploadingPost = false;
                         alert('some thing went wrong with the server. please try again.')
@@ -311,7 +316,6 @@ export class ManageEntryComponent implements OnInit {
             }
         }
     }
-
     resetForm(form:NgForm){
         form.resetForm();
         this.selectedTypes = [];
@@ -319,8 +323,17 @@ export class ManageEntryComponent implements OnInit {
         this.selectedFiles = [];
         this.existingFiles = [];
         this.uploadedFiles = [];
+        this.bestSelfSlider.set([0]);
+        this.closeToOthersSlider.set([0]);
+        this.youTags = [];
+        this.whatTags = [];
+        this.whoTags = [];
+        $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput('removeAll');
     }
 
+    managedUserSelected(){
+        this.timelines = this.timelineService.findTimelinesOfManagedUser(this.selectedManagedUserId);
+    }
     modeChanged(data:any){
         var parts = data.split(',');
         var alreadyExists = false;
@@ -413,6 +426,7 @@ export class ManageEntryComponent implements OnInit {
                     this.seletedTimelines.push(this.existingEntry.Timelines[i].Id);
                 }
             }
+            this.selectedManagedUserId = this.existingEntry.UserId;
             this.selectedModes = (this.existingEntry.Mode == '')?[]:this.existingEntry.Mode.split(',');
             this.whatTags = this.existingEntry.WhatTags.split(',');
             this.whoTags = this.existingEntry.WhoTags.split(',');
@@ -420,47 +434,35 @@ export class ManageEntryComponent implements OnInit {
             this.existingFiles = this.existingEntry.Files;
         }
     }
+
+    create_ui_slider(target:any, start){
+        return noUiSlider.create(target,{
+            start   : [ start ],
+            connect : 'lower',
+            step    : 1,
+            range   : {
+                'min': [  0 ],
+                'max': [ 100 ]
+            },
+            format: wNumb({
+                decimals: 0,
+                thousand: '.',
+
+            })
+        })
+    }
+
   ngOnInit() {
         //setting up existing entry if on edit mode
       this.setExistingPost(this.mediumToManageEntry.getPost());
-      console.log(this.timelineService.getAllTimelinesWithEntries());
       //this.seletedTimelines = this.seletedTimelines.concat(this.mediumToManageEntry.getTempPostTimelines());
       /*---------------------------------------------------*/
-
-      var best_self_slider = document.getElementById('test_slider');
-      noUiSlider.create(best_self_slider,{
-          start   : [ this.postBestSelf ],
-          connect : 'lower',
-          step    : 1,
-          range   : {
-              'min': [  0 ],
-              'max': [ 100 ]
-          },
-          format: wNumb({
-              decimals: 0,
-              thousand: '.',
-
-          })
-      }).on('update', ( values, handle ) =>{
+      this.bestSelfSlider = this.create_ui_slider(document.getElementById('test_slider'),this.postBestSelf);
+      this.closeToOthersSlider = this.create_ui_slider(document.getElementById('close_to_others_slider'), this.postCloseToOthers);
+      this.bestSelfSlider.on('update', ( values, handle ) =>{
           this.BestSelfRating = values[handle];
       });
-
-    /*------ ------ ----- ----- -----*/
-      var close_to_others_slider = document.getElementById('close_to_others_slider');
-      noUiSlider.create(close_to_others_slider,{
-          start   : [ this.postCloseToOthers ],
-          connect : 'lower',
-          step    : 1,
-          range   : {
-              'min': [  0 ],
-              'max': [ 100 ]
-          },
-          format: wNumb({
-              decimals: 0,
-              thousand: '.',
-
-          })
-      }).on('update', ( values, handle ) =>{
+      this.closeToOthersSlider.on('update', ( values, handle ) =>{
           this.CloseToOthers = values[handle];
       });
   }

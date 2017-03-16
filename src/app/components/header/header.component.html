@@ -3,17 +3,22 @@
 
     <!--Brand logo & name-->
     <!--================================-->
-    <div class="navbar-header"> <a href="#" class="navbar-brand"> <img src="assets/img/logo.png" alt="Nifty Logo" class="brand-icon">
-      <div class="brand-title"> <span class="brand-text">RIZA</span> </div>
-    </a> </div>
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">
+        <img src="assets/img/logo.png" alt="Nifty Logo" class="brand-icon">
+        <div class="brand-title">
+          <img src="assets/img/logo-text-img.png" alt="Nifty Logo" class="brand-icon-text-img mar-no">
+        </div>
+      </a>
+    </div>
     <!--================================-->
-    <!--End brand logo & name-->
+    <!--End brand logo & name—>
 
     <!--Navbar Dropdown-->
     <!--================================-->
     <div class="navbar-content bg-navbar clearfix">
       <ul class="nav navbar-top-links pull-left">
-
+        <button (click)="goBack()">Back</button>
         <!--Navigation toogle button-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <li class="tgl-menu-btn"> <a class="mainnav-toggle" href="javascript:void(0)"> <i class="fa fa-fw fa-bars"></i> </a> </li>

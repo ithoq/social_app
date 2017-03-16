@@ -12,3 +12,7 @@
 .btn.btn-active-highlight img:focus {
     outline: none;
 }
+.type-icon-grey img {
+    width:25px;
+    filter: grayscale(100%);
+}

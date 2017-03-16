@@ -20,6 +20,7 @@ export class ManageLogsComponent implements OnInit {
   private timelines:any = [];
   public user:any;
   public create_log_modal_id:string = '';
+  public NewLogName:string;
   constructor(
       public auth:AuthService,
       private route:ActivatedRoute,
@@ -45,6 +46,7 @@ export class ManageLogsComponent implements OnInit {
       this.timelineService.setUserTimelines(currentUser.timelines);
       this.auth.setUser(JSON.stringify(currentUser));
       this.timelines.push(timelineDetails);
+      this.NewLogName = '';
       $('#'+this.create_log_modal_id).modal('hide');
     });
   }
@@ -54,6 +56,7 @@ export class ManageLogsComponent implements OnInit {
     this.route.data
         .subscribe((data: { logs: any }) => {
           this.timelines = data.logs.json().payload; //TODO: map this to TimelineDetail Object
+          console.log(this.timelines);
         }, (error)=>{});
   }
 

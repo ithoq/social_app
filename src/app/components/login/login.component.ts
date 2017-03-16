@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
               console.log(mapedData);
               let userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
               this.auth.setUser(JSON.stringify(userStuff));
-              this.timelineService.flushAllTimelinesFromLocalStorage();
+              //this.timelineService.flushAllTimelinesFromLocalStorage();
               if(this.auth.getUser().timelines.length > 0){
                   this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
               }

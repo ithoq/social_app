@@ -20,6 +20,7 @@ export class EditProfileComponent implements OnInit {
               this.location.back();
           }
           this.user = data.user;
+          console.log(this.user);
         }, (error)=>{});
   }
 }

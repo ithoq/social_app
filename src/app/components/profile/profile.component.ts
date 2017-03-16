@@ -10,6 +10,7 @@ import {Http, Response} from "@angular/http";
 import {AppService} from "../../app.service";
 import {NgForm} from "@angular/forms";
 import * as _ from "lodash";
+import {UploadedFile} from "../../models/UploadedFile";
 
 declare var $:any;
 @Component({
@@ -43,6 +44,8 @@ export class ProfileComponent implements OnInit {
 
   public color_picker_modal_id = '';
   public photo_chooser_id = '';
+  public uploadedFile:UploadedFile = null;
+  public uploadingFile:boolean = false;
   constructor(
       private userService:UsersService,
       private timelineService:TimelineService,
@@ -94,6 +97,10 @@ export class ProfileComponent implements OnInit {
                                 inputData.NickName:
                                 this.auth.currentUser.Nickname),
     };
+    if(this.uploadedFile != null){
+      profileData['ImageId'] = this.uploadedFile.Id;
+      //TODO: set uploaded file id in profileData object;
+    }
     let newAcountData = {
       Email:inputData.email,
       Pass:inputData.password,
@@ -133,6 +140,7 @@ export class ProfileComponent implements OnInit {
           this.exitEditMode();
         }
         let updatedUser:any = data.json().payload.User;
+        console.log(updatedUser);
         if(this.selectedImage == null){
           updatedUser.ImageURL = this.getUser().ImageURL;
           updatedUser.ThumbURL = this.getUser().ThumbURL;
@@ -164,11 +172,14 @@ export class ProfileComponent implements OnInit {
     if(event.target.files.length > 0){
       this.selectedImage = event.target.files[0];
       if(this.selectedImage.type == 'image/jpeg'){
-        let reader = new FileReader();
-        reader.onload = (e:any)=>{
-          this.selectedThumbnail = e.target.result;
-        };
-        reader.readAsDataURL(this.selectedImage);
+        this.uploadingFile = true;
+        let files = new FormData();
+        files.append('Image', event.target.files[0]);
+        this.userService.uploadUserImage(files, function (evt) {}).subscribe((files:Array<UploadedFile>)=>{
+          this.uploadedFile = files[0];
+          this.selectedThumbnail = this.uploadedFile.ThumbURL;
+          this.uploadingFile = false;
+        });
       }else{
         alert('only jpeg images are allowed');
       }

@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
                       let userTimelines = (data.json().payload.Timelines == null)?[]:data.json().payload.Timelines;
                       let userStuff = new UserStuff(user, userTimelines, data.json().ManagedUsers);
                       this.auth.setUser(JSON.stringify(userStuff));
-                      this.timelineService.flushAllTimelinesFromLocalStorage();
+                      //this.timelineService.flushAllTimelinesFromLocalStorage();
                       if(this.auth.getUser().timelines.length > 0)
                           this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
                       else

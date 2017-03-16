@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 declare var $:any;
+declare var window:any;
 @Component({
   selector: 'sa-header',
   templateUrl: './header.component.html',
@@ -9,34 +10,32 @@ declare var $:any;
 export class HeaderComponent implements OnInit {
 
     public title:any = '';
-  constructor() {
+    constructor() {}
 
-  }
+    ngOnInit() {}
 
-  ngOnInit() {
-  }
+    goBack(){
+        window.history.back();
+    }
 
+    ngAfterViewInit(){
+        var toggleBtn = $('.mainnav-toggle');
+        //alert(toggleBtn);
+        //  $(document).on('click', '.mainnav-toggle', function(e){
+        toggleBtn.on('click', function(e){
+                e.preventDefault();
+                e.stopPropagation();
 
-
-  ngAfterViewInit(){
-
-    var toggleBtn = $('.mainnav-toggle');
-      //alert(toggleBtn);
-      //  $(document).on('click', '.mainnav-toggle', function(e){
-    toggleBtn.on('click', function(e){
-            e.preventDefault();
-            e.stopPropagation();
-
-            var niftyContainer =  $('#container');
-            var niftyWindow =$(window);
-            var widnowwidth = niftyWindow.width();
-            if(widnowwidth > 767) {
-                niftyContainer.toggleClass('mainnav-lg mainnav-sm')
+                var niftyContainer =  $('#container');
+                var niftyWindow =$(window);
+                var widnowwidth = niftyWindow.width();
+                if(widnowwidth > 767) {
+                    niftyContainer.toggleClass('mainnav-lg mainnav-sm')
+                }
+                else {
+                    niftyContainer.toggleClass('mainnav-sm mainnav-in')
+                }
             }
-            else {
-                niftyContainer.toggleClass('mainnav-sm mainnav-in')
-            }
-        }
-    )
-  }
+        )
+    }
 }

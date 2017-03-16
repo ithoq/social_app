@@ -3,6 +3,10 @@ import {Http} from "@angular/http";
 import {AppService} from "../app.service";
 import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
+import {UploadedFile} from "../models/UploadedFile";
+
+declare var $:any;
+declare var window:any;
 
 @Injectable()
 export class UsersService {
@@ -51,5 +55,33 @@ export class UsersService {
         }
         return null;
 
+    }
+
+    uploadUserImage(files:any = {}, progress:any=null){
+        return new Observable(observable=>{
+            $.ajax({
+                method: 'POST',
+                url: 'http://api-social.apptazer.com/api/entryFileUpload/ses012617-02d0ceae14c66a181ef92dd099e3aadb',
+                dataType: 'json',
+                data:files,
+                processData: false, // Don't process the files
+                contentType: false, // Set content type to false
+                success: (data)=>{
+                    let Files:Array<UploadedFile> = [];
+                    for (let file of data.payload.Files){
+                        Files.push(this.appService.map(file, new UploadedFile()))
+                    }
+                    observable.next(Files);
+                },
+                error:(error)=>{
+                    observable.next({data:error});
+                },
+                xhr: ()=>{
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", progress, false);
+                    return xhr;
+                },
+            });
+        });
     }
 }

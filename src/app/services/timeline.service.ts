@@ -61,9 +61,9 @@ export class TimelineService {
     }
 
     getAllTimelinesWithEntries():Array<Timeline>{
-        let timelinesString:any = localStorage.getItem('allTimelinesWithEntries');
+        let timelinesString:any = localStorage.getItem(this.auth.currentUser.UserId+'.allTimelinesWithEntries');
         if(timelinesString != null){
-            let timelines = JSON.parse(LZString.decompress(localStorage.getItem('allTimelinesWithEntries')));
+            let timelines = JSON.parse(LZString.decompress(localStorage.getItem(this.auth.currentUser.UserId+'.allTimelinesWithEntries')));
             return (timelines == null)?[]:timelines;
         }
         return [];
@@ -77,7 +77,7 @@ export class TimelineService {
         let existingTimelines:Array<Timeline> = this.getAllTimelinesWithEntries();
         existingTimelines = this.appService.remove_obj_by_property('Id',timeline.Id,existingTimelines);
         existingTimelines.push(timeline);
-        localStorage.setItem('allTimelinesWithEntries',LZString.compress(JSON.stringify(existingTimelines)));
+        localStorage.setItem(this.auth.currentUser.UserId+'.allTimelinesWithEntries',LZString.compress(JSON.stringify(existingTimelines)));
         return existingTimelines;
     }
 
@@ -108,10 +108,14 @@ export class TimelineService {
             timeline.Entries = entries;
             updatedTimelines.push(timeline);
         }
-        localStorage.setItem('allTimelinesWithEntries', LZString.compress(JSON.stringify(updatedTimelines)));
+        localStorage.setItem(this.auth.currentUser.UserId+'.allTimelinesWithEntries', LZString.compress(JSON.stringify(updatedTimelines)));
         return updatedTimelines;
     }
 
+    findTimelinesOfManagedUser(managedUserId:string){
+        //TODO: implement search
+        return this.getAllTimelinesWithEntries();
+    }
     saveLogsWithUsersInLocalStorage(logs:Array<TimelineDetail>){ //TODO: don't need this if server provide users array at the end of each timeline.
         //TODO: save to local array
         return true;

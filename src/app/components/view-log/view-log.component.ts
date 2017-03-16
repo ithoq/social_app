@@ -27,6 +27,7 @@ export class ViewLogComponent implements OnInit {
   }
 
   timelineUpdated(event){
+      if(this.timeline.Id != '')
         this.timeline = this.app.find_obj_by_prop('Id',this.timeline.Id,this.timelineService.getAllTimelinesWithEntries());
   }
 
@@ -38,6 +39,7 @@ export class ViewLogComponent implements OnInit {
           }else{
               //TODO: users array is not returned by the api yet.
               this.timeline = data.log;
+              console.log(this.timeline);
               this.headerComponent.title = this.timeline.Name;
           }
         }, (error)=>{});

@@ -51,7 +51,7 @@
         <div class="col-sm-12">
           <div class="panel panel-trans">
             <div class="panel-heading">
-              <h3 class="panel-title"><em class="fa fa-globe pad-rgt"></em>{{post.Name}}<span class="pull-right text-thin">{{post.User}}</span> </h3>
+              <h3 class="panel-title"><span class="type-icon-grey" *ngFor="let type of getEntryTypes(post.Type)"><img src="{{app.domain}}/assets/img/{{type.img}}"></span>{{post.Name}}<span class="pull-right text-thin">{{post.User}}</span> </h3>
             </div>
             <div class="panel-body">
               <p class="text-lg pad-btm">{{post.About}}</p>

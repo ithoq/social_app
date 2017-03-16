@@ -24,10 +24,14 @@ export class InviteUsersComponent implements OnInit {
   invite(form:NgForm){
     let users = this.selectedUsers.join(',');
     let emails = form.value.email;
-    this.timelineService.inviteUsers(this.timeline.Id,users,emails).subscribe((data:Response)=>{
-      alert('invitation sent successfully');
-      this.router.navigate(['/manage-logs']);
-    });
+    if(users == '' && emails == ''){
+      alert('please select atleast one user or enter an email address.')
+    }else{
+      this.timelineService.inviteUsers(this.timeline.Id,users,emails).subscribe((data:Response)=>{
+        alert('invitation sent successfully');
+        this.router.navigate(['/manage-logs']);
+      });
+    }
   }
   ngOnInit() {
     let invite_users_multi_select = $('.invite-users-multi-select');
