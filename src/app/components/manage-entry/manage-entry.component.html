@@ -162,17 +162,6 @@
         <!--Third tab-->
         <div id="demo-step-tab3" class="tab-pane">
 
-          <p class="text-main text-bold">I was my <em class="text-success"> best self ?</em></p>
-
-          <!--Range Slider2 : Steps-->
-          <!--===================================================-->
-          <div class="pad-hor mar-btm">
-            <div class="mar-btm text-center"> <span class="h1 text-success">{{BestSelfRating}}</span> </div>
-            <div id="test_slider"></div>
-            <input type="hidden" [ngModel]="BestSelfRating" name="BestSelfRating">
-            <div class="mar-all"><i class="pull-left">Not so much</i><i class="pull-right"> Yes I really was</i> </div>
-          </div>
-          <br><br>
           <p class="text-main text-bold">About</p>
           <textarea rows="4" class="form-control" [(ngModel)]="postAbout" name="About" placeholder="My experiences, highlights, insights, or whatever comes to mind." ></textarea>
           <hr class="new-section-xs bord-no">
@@ -214,6 +203,17 @@
 
         <!--Fourth tab-->
         <div id="demo-step-tab4" class="tab-pane">
+          <p class="text-main text-bold">I was my <em class="text-success"> best self ?</em></p>
+
+          <!--Range Slider2 : Steps-->
+          <!--===================================================-->
+          <div class="pad-hor mar-btm">
+            <div class="mar-btm text-center"> <span class="h1 text-success">{{BestSelfRating}}</span> </div>
+            <div id="test_slider"></div>
+            <input type="hidden" [ngModel]="BestSelfRating" name="BestSelfRating">
+            <div class="mar-all"><i class="pull-left">Not so much</i><i class="pull-right"> Yes I really was</i> </div>
+          </div>
+          <br>
           <hr class="new-section-md bord-no">
           <p class="text-main text-bold">Tags about me related to this post</p>
 

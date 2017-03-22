@@ -16,6 +16,7 @@ import {TimelineService} from "../../services/timeline.service";
 import {UploadedFile} from "../../models/UploadedFile";
 import {User} from "../../models/User";
 import {UserStuff} from "../../models/UserStuff";
+import {EntryMode} from "../../models/EntryMode";
 
 declare var noUiSlider: any;
 declare var wNumb: any;
@@ -53,18 +54,7 @@ export class ManageEntryComponent implements OnInit {
     whoTags = [];
     youTags = [];
 
-    public modes = [
-        {value:'angry',img:'emoji-angry.png'},
-        {value:'blah',img:'emoji-blah.png'},
-        {value:'brilliant',img:'emoji-brilliant.png'},
-        {value:'calm',img:'emoji-calm.png'},
-        {value:'confident',img:'emoji-confident.png'},
-        {value:'confused',img:'emoji-confused.png'},
-        {value:'cool',img:'emoji-cool.png'},
-        {value:'down',img:'emoji-down.png'},
-        {value:'embarrassed',img:'emoji-embarrassed.png'}
-    ];
-
+    public modes:Array<EntryMode> = [];
     @Input() seletedTimelines = [];
     public types:Array<EntryCategory> = [];
     public someRange;
@@ -112,6 +102,7 @@ export class ManageEntryComponent implements OnInit {
         public timelineService:TimelineService
     ) {
         this.types = _.cloneDeep(this.app.entryContentCategories);
+        this.modes = _.cloneDeep(this.app.entryContentModes);
         let userStuff:UserStuff = this.auth.getUser();
         this.timelines = userStuff.timelines;
         this.managedUsers = userStuff.managedUsers;
@@ -189,9 +180,7 @@ export class ManageEntryComponent implements OnInit {
                 }
             }).subscribe((files:Array<UploadedFile>)=>{
                 this.uploadedFiles = this.app.array_unique_merge(this.uploadedFiles,files,'Id');
-                //this.uploadedFiles = files;
                 this.uploadedFileIds = this.app.property_to_array('Id', this.uploadedFiles).join(',');
-                //this.selectedFiles = this.app.array_unique_merge(this.existingFiles, this.uploadedFiles, 'Id');
                 this.uploadingFiles = false;
             });
         }

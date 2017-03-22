@@ -55,6 +55,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { CreateManagedUserComponent } from './components/create-managed-user/create-managed-user.component';
 import { InviteManagedUserComponent } from './components/invite-managed-user/invite-managed-user.component';
 import { ViewLogComponent } from './components/view-log/view-log.component';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { ViewLogComponent } from './components/view-log/view-log.component';
     EditProfileComponent,
     CreateManagedUserComponent,
     InviteManagedUserComponent,
-    ViewLogComponent
+    ViewLogComponent,
+    BackButtonComponent
   ],
   imports: [
     AppRoutingModule,

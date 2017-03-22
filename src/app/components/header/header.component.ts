@@ -14,10 +14,6 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {}
 
-    goBack(){
-        window.history.back();
-    }
-
     ngAfterViewInit(){
         var toggleBtn = $('.mainnav-toggle');
         //alert(toggleBtn);

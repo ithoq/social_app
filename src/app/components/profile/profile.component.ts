@@ -35,8 +35,8 @@ export class ProfileComponent implements OnInit {
 
   public colors:any = [
     'aquamarine','beachblue','bloodred','brownbear','chai',
-    'cream','creamsicleorange','pinkrose','plum','bloodred','brownbear',
-    'cream'
+    'cream','creamsicleorange','forestgreen','graywhale','lemonyellow','mintgreen',
+    'bloodorange', 'pinkrose','plum', 'raspberry', 'seagreen', 'skyblue', 'slateblue'
   ];
   public selectedImage:any = null;
   public selectedThumbnail:any = '';
@@ -134,17 +134,12 @@ export class ProfileComponent implements OnInit {
       this.profileUpdating.emit({
         data:form.value
       });
-      this.userService.updateSettings(this.managedProfile, this.getUser().UserId, profileData, image).subscribe((data:Response)=>{
+      this.userService.updateSettings(this.managedProfile, this.getUser().UserId, profileData).subscribe((data:Response)=>{
         if(!this.manualControls){
           this.formBusy = false;
           this.exitEditMode();
         }
         let updatedUser:any = data.json().payload.User;
-        console.log(updatedUser);
-        if(this.selectedImage == null){
-          updatedUser.ImageURL = this.getUser().ImageURL;
-          updatedUser.ThumbURL = this.getUser().ThumbURL;
-        }
         this.setUser(this.appService.map(updatedUser, new User()));
 
         this.profileUpdated.emit({

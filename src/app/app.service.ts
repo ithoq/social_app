@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import {EntryCategory} from "./models/EntryCategory";
 import {Timeline} from "./models/Timeline";
+import {EntryMode} from "./models/EntryMode";
 @Injectable()
 export class AppService {
 
@@ -9,9 +10,11 @@ export class AppService {
   domain = 'http://dev1-social.apptazer.com/';
   default_user_profile_pic = '';
   public entryContentCategories:Array<EntryCategory> = [];
+  public entryContentModes:Array<EntryMode> = [];
   constructor() {
     this.default_user_profile_pic = this.domain+'/assets/img/profile-photos/profile-default.png';
     this.setDefaultEntryCategories();
+    this.setDefaultEntryModes();
   }
 
   private setDefaultEntryCategories(){
@@ -26,6 +29,33 @@ export class AppService {
       new EntryCategory('People', 'icon-images-big.png', 'Your family, close friends, mentors, and other people (or pets!) who’ve been important to you.'),
       new EntryCategory('Bigs', 'logo.png', 'The “big” memories, experiences, decisions, and moments that, if you were to write your life story, need to be told.'),
       new EntryCategory('Other', 'icon-growth-big.png', ''),
+    ];
+  }
+  private setDefaultEntryModes(){
+    this.entryContentModes = [
+      new EntryMode('angry','emoji-angry.png'),
+      new EntryMode('blah','emoji-blah.png'),
+      new EntryMode('brilliant','emoji-brilliant.png'),
+      new EntryMode('calm','emoji-calm.png'),
+      new EntryMode('confident','emoji-confident.png'),
+      new EntryMode('confused','emoji-confused.png'),
+      new EntryMode('cool','emoji-cool.png'),
+      new EntryMode('down','emoji-down.png'),
+      new EntryMode('excited','emoji-excited.png'),
+      new EntryMode('fantastic','emoji-fantastic.png'),
+      new EntryMode('grateful','emoji-grateful.png'),
+      new EntryMode('happy','emoji-happy.png'),
+      new EntryMode('loved','emoji-loved.png'),
+      new EntryMode('quiet','emoji-quiet.png'),
+      new EntryMode('sad','emoji-sad.png'),
+      new EntryMode('sassy','emoji-sassy.png'),
+      new EntryMode('scared','emoji-scared.png'),
+      new EntryMode('sick','emoji-sick.png'),
+      new EntryMode('sorry','emoji-sorry.png'),
+      new EntryMode('stressed','emoji-stressed.png'),
+      new EntryMode('surprised','emoji-surprised.png'),
+      new EntryMode('tired','emoji-tired.png'),
+      new EntryMode('worried','emoji-worried.png')
     ];
   }
   //generate a random hashed string
