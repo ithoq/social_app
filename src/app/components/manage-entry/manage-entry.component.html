@@ -34,14 +34,23 @@
     </div>
     <div class="panel-body bg-light">
       <div class="tab-content">
-
         <!--First tab-->
         <div id="demo-step-tab1" class="tab-pane">
-          <div class="mar-btm">
-            <p class="text-main text-bold">Type of content:<span class="btn btn-default btn-xs btn-rounded pull-right mar-rgt" (click)="changeTypeOrientation()"> Show Definitions</span></p>
-            <!--Justified Button Group-->
+          <div class="mar-ver">
+            <p class="text-main text-bold">Add to this person's timeline.</p>
+            <!-- Default Bootstrap Select -->
             <!--===================================================-->
-
+            <select class="" name="UserId" [(ngModel)]="selectedManagedUserId" (change)="managedUserSelected()">
+              <option value="{{auth.currentUser.UserId}}">{{auth.currentUser.FirstName}} {{auth.currentUser.LastName}}</option>
+              <option *ngFor="let user of managedUsers" value="{{user.UserId}}">
+                {{user.FirstName}} {{user.LastName}}
+              </option>
+            </select>
+            <!--===================================================-->
+          </div>
+          <hr class="new-section-xs bord-no">
+          <div class="mar-btm">
+            <p class="text-main text-bold">Type of content:<span class="btn btn-default btn-xs btn-rounded pull-right mar-rgt" (click)="changeTypeOrientation()"> {{(showDefinitions)?'Hide Definitions':'Show Definitions'}}</span></p>
             <div class="post-type-panel" [ngClass]="{show_definitions: showDefinitions === true}">
               <label *ngFor="let option of types" [ngClass]="{active: isTypeSelected(option.value)}">
                 <input type="checkbox" #type type="checkbox" value="{{option.value}}" [checked]="isTypeSelected(option.value)" (change)="typeChanged(type.checked+','+type.value)" />
@@ -58,29 +67,15 @@
 
           </div>
           <hr class="new-section-xs bord-no">
-          <div class="mar-ver">
-            <p class="text-main text-bold">Post By Managed User:</p>
-            <!-- Default Bootstrap Select -->
-            <!--===================================================-->
-            <select class="" name="UserId" [(ngModel)]="selectedManagedUserId" (change)="managedUserSelected()">
-              <option value="{{auth.currentUser.UserId}}">{{auth.currentUser.FirstName}} {{auth.currentUser.LastName}}</option>
-              <option *ngFor="let user of managedUsers" value="{{user.UserId}}">
-                {{user.FirstName}} {{user.LastName}}
-              </option>
-            </select>
-            <!--===================================================-->
-          </div>
-          <hr class="new-section-xs bord-no">
           <p class="text-main text-bold">Include this content in these timelines:</p>
           <div class = "mar-lft mar-top">
             <div class="form-group pad-hor">
-              <!-- Checkboxes -->
                 <span  *ngFor="let option of timelines">
                   <div class="checkbox">
                         <input class="magic-checkbox" id="demo-form-checkbox{{option.Id}}" #timeline type="checkbox" value="{{option.Id}}" [checked]="isTimelineSelected(option.Id)" name="timeline{{option.Id}}" (change)="timelinesChanged(timeline.checked+','+timeline.value)" />
                         <label for="demo-form-checkbox{{option.Id}}"> {{option.Name}}</label>
-                    </div>
-                <hr class="new-section-xs bord-no">
+                  </div>
+                  <hr class="new-section-xs bord-no">
               </span>
             </div>
           </div>

@@ -47,7 +47,7 @@ export var LogComponent = (function () {
             _this.refreshingLog = false;
         }, function (error) {
             _this.refreshingLog = false;
-            alert(error);
+            _this.app.show_error_popup(error);
         });
     };
     LogComponent.prototype.refreshLog = function () {
@@ -61,8 +61,8 @@ export var LogComponent = (function () {
             }
             else {
                 timelineService.get(timelineId, auth.getUser().profile.UserId).subscribe(function (data) {
-                    console.log(data.json().payload);
                     _this.timeline = _this.app.map(data.json().payload, new Timeline());
+                    _this.timeline.Entries = (_this.timeline.Entries == null) ? [] : _this.timeline.Entries;
                     _this.timelineService.pushTimelineWithEntires(_this.timeline);
                     resolve(_this.timeline);
                 }, function (error) {
@@ -103,7 +103,7 @@ export var LogComponent = (function () {
             this.router.navigate(['/profile/' + UserId]);
         }
         else {
-            alert('user not found.');
+            this.app.show_error_popup('user not found.');
         }
     };
     LogComponent.prototype.ngOnInit = function () {

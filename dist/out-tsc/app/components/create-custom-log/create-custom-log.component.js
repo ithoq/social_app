@@ -27,17 +27,7 @@ export var CreateCustomLogComponent = (function () {
         this.timelines = [];
         this.entries = [];
         this.settings = null;
-        this.modes = [
-            { value: 'angry', img: 'emoji-angry.png' },
-            { value: 'blah', img: 'emoji-blah.png' },
-            { value: 'brilliant', img: 'emoji-brilliant.png' },
-            { value: 'calm', img: 'emoji-calm.png' },
-            { value: 'confident', img: 'emoji-confident.png' },
-            { value: 'confused', img: 'emoji-confused.png' },
-            { value: 'cool', img: 'emoji-cool.png' },
-            { value: 'down', img: 'emoji-down.png' },
-            { value: 'embarrassed', img: 'emoji-embarrassed.png' }
-        ];
+        this.modes = [];
         this.types = [];
         this.tags = [
             'angry', 'blah', 'brilliant', 'calm'
@@ -47,6 +37,7 @@ export var CreateCustomLogComponent = (function () {
         this.selectedTypes = [];
         this.selectedTags = ['blah'];
         this.types = this.app.entryContentCategories;
+        this.modes = this.app.entryContentModes;
     }
     CreateCustomLogComponent.prototype.isModeSelected = function (mode) {
         if (this.selectedModes.indexOf(mode) >= 0) {

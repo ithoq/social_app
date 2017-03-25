@@ -6,7 +6,7 @@ webpackJsonp([0,3],{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs__ = __webpack_require__(290);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs__);
@@ -101,52 +101,15 @@ var EntryService = (function () {
 
 /***/ },
 
-/***/ 1133:
-/***/ function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(487);
-
-
-/***/ },
-
-/***/ 129:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return User; });
-/**
- * Created by officeaccount on 02/02/2017.
- */
-var User = (function () {
-    function User() {
-        this.Nickname = '';
-        this.address = '';
-        this.FirstName = '';
-        this.LastName = "";
-        this.Email = "";
-        this.UserId = "";
-        this.Color = "";
-        this.DateBirthDay = "";
-        this.ImageURL = "";
-        this.ThumbURL = "";
-        this.ManagedByUserId = "";
-        this.ManagedByUserName = "";
-        this.ManagedByUserNickName = "";
-    }
-    return User;
-}());
-//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/User.js.map
-
-/***/ },
-
-/***/ 13:
+/***/ 11:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__ = __webpack_require__(625);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__ = __webpack_require__(627);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__ = __webpack_require__(628);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -160,14 +123,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AppService = (function () {
     function AppService() {
         this.api_end_point = 'http://api-social.apptazer.com/api/';
         this.domain = 'http://dev1-social.apptazer.com/';
         this.default_user_profile_pic = '';
         this.entryContentCategories = [];
+        this.entryContentModes = [];
         this.default_user_profile_pic = this.domain + '/assets/img/profile-photos/profile-default.png';
         this.setDefaultEntryCategories();
+        this.setDefaultEntryModes();
     }
     AppService.prototype.setDefaultEntryCategories = function () {
         this.entryContentCategories = [
@@ -175,12 +141,39 @@ var AppService = (function () {
             new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Learning', 'icon-learning-big.png', 'Your school(s), for sure, but also a class that you’ve loved, a camp, a project, your subjects, a skill, a trade. Important teachers, inspiring ideas, and anything else that would go into a portfolio of your brain and your abilities can be included here!'),
             new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Health', 'icon-health-big.png', 'Anything that would go in your health file. Next time you need to remember when you had your last tetanus shot, you’ll have it right here! When did you break your arm or have your appendix removed? If you got a diagnosis or started a new medicine, add it. But also here’s a great place to note health solutions - what practices, tools, medicines, and life-changes you’ve tried so you can track them and see how they’ve worked for you over time.'),
             new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Fitness', 'icon-fitness-big.png', 'Your history of physical fitness. You can include a sport, a sporting event (a race, an award, a game), exercise - whatever has helped you stay active and fit. Also include orgs and people that are part of your fitness - a club, a coach, etc. Here’s also a great place to track any changes you’ve made that have (or not) helped you take care of your body as well as any other changes that have impacted your physical fitness.'),
-            new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Celebration', 'icon-celebration-big.png', ''),
-            new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Faves', 'icon-faves-big.png', ''),
-            new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Purpose', 'icon-world-big.png', ''),
+            new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Celebration', 'icon-celebration-big.png', 'Celebrations, holidays, rituals, vacations and trips, special events, and anything else that belongs in your personal and family history.'),
+            new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Faves', 'icon-faves-big.png', 'Your favorites. Include what you like, what you’ve seen or done or counted or found - songs, books, movies, blogs, restaurants, hiking trails, artists, zoos, baseball teams, butterflies…'),
+            new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Purpose', 'icon-world-big.png', 'Community, state, country or world change that matters to you. Track one thing that inspires you or bugs you in your community or the world and how that informs your sense of purpose in your life. Identify a cause - local or global - that you care about and track the problems and solutions you see happening as well as your own involvement in it. Here’s a place to make connections between your passions and your purpose.'),
             new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('People', 'icon-images-big.png', 'Your family, close friends, mentors, and other people (or pets!) who’ve been important to you.'),
             new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Bigs', 'logo.png', 'The “big” memories, experiences, decisions, and moments that, if you were to write your life story, need to be told.'),
             new __WEBPACK_IMPORTED_MODULE_2__models_EntryCategory__["a" /* EntryCategory */]('Other', 'icon-growth-big.png', ''),
+        ];
+    };
+    AppService.prototype.setDefaultEntryModes = function () {
+        this.entryContentModes = [
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('angry', 'emoji-angry.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('blah', 'emoji-blah.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('brilliant', 'emoji-brilliant.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('calm', 'emoji-calm.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('confident', 'emoji-confident.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('confused', 'emoji-confused.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('cool', 'emoji-cool.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('down', 'emoji-down.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('excited', 'emoji-excited.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('fantastic', 'emoji-fantastic.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('grateful', 'emoji-grateful.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('happy', 'emoji-happy.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('loved', 'emoji-loved.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('quiet', 'emoji-quiet.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('sad', 'emoji-sad.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('sassy', 'emoji-sassy.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('scared', 'emoji-scared.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('sick', 'emoji-sick.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('sorry', 'emoji-sorry.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('stressed', 'emoji-stressed.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('surprised', 'emoji-surprised.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('tired', 'emoji-tired.png'),
+            new __WEBPACK_IMPORTED_MODULE_3__models_EntryMode__["a" /* EntryMode */]('worried', 'emoji-worried.png')
         ];
     };
     //generate a random hashed string
@@ -277,6 +270,16 @@ var AppService = (function () {
         }
         return unique_array;
     };
+    AppService.prototype.show_error_popup = function (error_message) {
+        if (error_message === void 0) { error_message = 'Something went wrong!'; }
+        $('#global_error_popup').modal('show');
+        $('#global_error_popup_text').text(error_message);
+    };
+    AppService.prototype.show_success_popup = function (success_message) {
+        if (success_message === void 0) { success_message = 'Done!'; }
+        $('#global_success_popup').modal('show');
+        $('#global_success_popup_text').text(success_message);
+    };
     AppService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
         __metadata('design:paramtypes', [])
@@ -284,6 +287,44 @@ var AppService = (function () {
     return AppService;
 }());
 //# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/app.service.js.map
+
+/***/ },
+
+/***/ 1140:
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(487);
+
+
+/***/ },
+
+/***/ 129:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return User; });
+/**
+ * Created by officeaccount on 02/02/2017.
+ */
+var User = (function () {
+    function User() {
+        this.Nickname = '';
+        this.address = '';
+        this.FirstName = '';
+        this.LastName = "";
+        this.Email = "";
+        this.UserId = "";
+        this.Color = "";
+        this.DateBirthDay = "";
+        this.ImageURL = "";
+        this.ThumbURL = "";
+        this.ManagedByUserId = "";
+        this.ManagedByUserName = "";
+        this.ManagedByUserNickName = "";
+    }
+    return User;
+}());
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/User.js.map
 
 /***/ },
 
@@ -418,7 +459,7 @@ var RightContentService = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__entry_service__ = __webpack_require__(100);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return TimelineService; });
@@ -465,8 +506,9 @@ var TimelineService = (function () {
     TimelineService.prototype.setUserTimelines = function (timelines) {
         this.userTimelines = timelines;
     };
-    TimelineService.prototype.inviteUsers = function (timelineId, users, emails) {
-        return this.http.get(this.appService.api_end_point + 'timelineInviteUsers/' + this.auth.get_session_token() + "/&TimelineId=" + timelineId + "&InviteUsers=" + users + "&InviteEmails=" + emails);
+    TimelineService.prototype.inviteUsers = function (timelineId, users, emails, inviteMessage) {
+        if (inviteMessage === void 0) { inviteMessage = ''; }
+        return this.http.get(this.appService.api_end_point + 'timelineInviteUsers/' + this.auth.get_session_token() + "/&TimelineId=" + timelineId + "&InviteUsers=" + users + "&InviteEmails=" + emails + "&InviteMessage=" + inviteMessage);
     };
     TimelineService.prototype.removeUsers = function (timelineId, users) {
         return this.http.get(this.appService.api_end_point + 'timelineInviteUsers/' + this.auth.get_session_token() + "/&TimelineId=" + timelineId + "&RemoveUsers=" + users);
@@ -786,8 +828,8 @@ var HeaderComponent = (function () {
     HeaderComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-header',
-            template: __webpack_require__(847),
-            styles: [__webpack_require__(809)]
+            template: __webpack_require__(853),
+            styles: [__webpack_require__(813)]
         }), 
         __metadata('design:paramtypes', [])
     ], HeaderComponent);
@@ -876,8 +918,8 @@ var AddContentBtnComponent = (function () {
     AddContentBtnComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-add-content-btn',
-            template: __webpack_require__(830),
-            styles: [__webpack_require__(792)]
+            template: __webpack_require__(835),
+            styles: [__webpack_require__(795)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_right_content_service__["a" /* RightContentService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_right_content_service__["a" /* RightContentService */]) === 'function' && _a) || Object])
     ], AddContentBtnComponent);
@@ -912,8 +954,8 @@ var AntiAuthParentComponent = (function () {
     AntiAuthParentComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-anti-auth-parent',
-            template: __webpack_require__(831),
-            styles: [__webpack_require__(793)]
+            template: __webpack_require__(836),
+            styles: [__webpack_require__(796)]
         }), 
         __metadata('design:paramtypes', [])
     ], AntiAuthParentComponent);
@@ -947,8 +989,8 @@ var AuthParentComponent = (function () {
     AuthParentComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-auth-parent',
-            template: __webpack_require__(832),
-            styles: [__webpack_require__(794)]
+            template: __webpack_require__(837),
+            styles: [__webpack_require__(797)]
         }), 
         __metadata('design:paramtypes', [])
     ], AuthParentComponent);
@@ -964,7 +1006,7 @@ var AuthParentComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_Timeline__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(63);
@@ -1000,17 +1042,7 @@ var CreateCustomLogComponent = (function () {
         this.timelines = [];
         this.entries = [];
         this.settings = null;
-        this.modes = [
-            { value: 'angry', img: 'emoji-angry.png' },
-            { value: 'blah', img: 'emoji-blah.png' },
-            { value: 'brilliant', img: 'emoji-brilliant.png' },
-            { value: 'calm', img: 'emoji-calm.png' },
-            { value: 'confident', img: 'emoji-confident.png' },
-            { value: 'confused', img: 'emoji-confused.png' },
-            { value: 'cool', img: 'emoji-cool.png' },
-            { value: 'down', img: 'emoji-down.png' },
-            { value: 'embarrassed', img: 'emoji-embarrassed.png' }
-        ];
+        this.modes = [];
         this.types = [];
         this.tags = [
             'angry', 'blah', 'brilliant', 'calm'
@@ -1020,6 +1052,7 @@ var CreateCustomLogComponent = (function () {
         this.selectedTypes = [];
         this.selectedTags = ['blah'];
         this.types = this.app.entryContentCategories;
+        this.modes = this.app.entryContentModes;
     }
     CreateCustomLogComponent.prototype.isModeSelected = function (mode) {
         if (this.selectedModes.indexOf(mode) >= 0) {
@@ -1311,8 +1344,8 @@ var CreateCustomLogComponent = (function () {
     CreateCustomLogComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-create-custom-log',
-            template: __webpack_require__(838),
-            styles: [__webpack_require__(800)]
+            template: __webpack_require__(843),
+            styles: [__webpack_require__(803)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* AppService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* ActivatedRoute */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* Location */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* Location */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_6__services_timeline_service__["a" /* TimelineService */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_7__services_entry_service__["a" /* EntryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_7__services_entry_service__["a" /* EntryService */]) === 'function' && _g) || Object])
     ], CreateCustomLogComponent);
@@ -1332,6 +1365,7 @@ var CreateCustomLogComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_users_service__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_UserStuff__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_service__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CreateManagedUserComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1347,11 +1381,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var CreateManagedUserComponent = (function () {
-    function CreateManagedUserComponent(router, auth, usersService) {
+    function CreateManagedUserComponent(router, auth, usersService, app) {
         this.router = router;
         this.auth = auth;
         this.usersService = usersService;
+        this.app = app;
         this.title = 'Create Managed Profile';
         this.formBusy = false;
     }
@@ -1363,7 +1399,7 @@ var CreateManagedUserComponent = (function () {
             var mapedData = data.json().payload;
             var userStuff = new __WEBPACK_IMPORTED_MODULE_4__models_UserStuff__["a" /* UserStuff */](mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
             _this.auth.setUser(JSON.stringify(userStuff));
-            alert('Managed profile created successfully');
+            _this.app.show_success_popup('Managed profile created successfully');
             _this.formBusy = false;
             _this.router.navigate(['/manage-profiles']);
         });
@@ -1374,13 +1410,13 @@ var CreateManagedUserComponent = (function () {
     CreateManagedUserComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-create-managed-user',
-            template: __webpack_require__(840),
-            styles: [__webpack_require__(802)]
+            template: __webpack_require__(845),
+            styles: [__webpack_require__(805)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_users_service__["a" /* UsersService */]) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_users_service__["a" /* UsersService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__app_service__["a" /* AppService */]) === 'function' && _d) || Object])
     ], CreateManagedUserComponent);
     return CreateManagedUserComponent;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 //# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/create-managed-user.component.js.map
 
@@ -1422,8 +1458,8 @@ var CreateNewPasswordComponent = (function () {
     CreateNewPasswordComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-create-new-password',
-            template: __webpack_require__(841),
-            styles: [__webpack_require__(803)]
+            template: __webpack_require__(846),
+            styles: [__webpack_require__(806)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_medium_to_login_service__["a" /* MediumToLoginService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_medium_to_login_service__["a" /* MediumToLoginService */]) === 'function' && _c) || Object])
     ], CreateNewPasswordComponent);
@@ -1446,7 +1482,7 @@ var CreateNewPasswordComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_profile_management_service__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_http__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__models_Post__ = __webpack_require__(411);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CreateProfileComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1515,11 +1551,11 @@ var CreateProfileComponent = (function () {
         }
         else {
             this.formBusy = false;
-            alert('something went wrong');
+            this.appService.show_error_popup();
         }
     };
     CreateProfileComponent.prototype.someThingWentWrong = function (event) {
-        alert(event.error.msg);
+        this.appService.show_error_popup(event.error.msg);
         this.formBusy = false;
     };
     CreateProfileComponent.prototype.ngOnInit = function () {
@@ -1527,8 +1563,8 @@ var CreateProfileComponent = (function () {
     CreateProfileComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-create-profile',
-            template: __webpack_require__(842),
-            styles: [__webpack_require__(804)]
+            template: __webpack_require__(847),
+            styles: [__webpack_require__(807)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_users_service__["a" /* UsersService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__services_entry_service__["a" /* EntryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__services_entry_service__["a" /* EntryService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__angular_router__["a" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__services_profile_management_service__["a" /* ProfileManagementService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_6__services_profile_management_service__["a" /* ProfileManagementService */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_7__angular_http__["a" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_7__angular_http__["a" /* Http */]) === 'function' && _g) || Object, (typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_8__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_8__app_service__["a" /* AppService */]) === 'function' && _h) || Object])
     ], CreateProfileComponent);
@@ -1546,6 +1582,7 @@ var CreateProfileComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_service__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return EditProfileComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1559,10 +1596,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var EditProfileComponent = (function () {
-    function EditProfileComponent(route, location) {
+    function EditProfileComponent(route, location, app) {
         this.route = route;
         this.location = location;
+        this.app = app;
         this.user = null;
     }
     EditProfileComponent.prototype.ngOnInit = function () {
@@ -1570,7 +1609,7 @@ var EditProfileComponent = (function () {
         this.route.data
             .subscribe(function (data) {
             if (data.user == null) {
-                alert('no user found');
+                _this.app.show_error_popup('no user found.');
                 _this.location.back();
             }
             _this.user = data.user;
@@ -1580,13 +1619,13 @@ var EditProfileComponent = (function () {
     EditProfileComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-edit-profile',
-            template: __webpack_require__(843),
-            styles: [__webpack_require__(805)]
+            template: __webpack_require__(848),
+            styles: [__webpack_require__(808)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_common__["d" /* Location */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_common__["d" /* Location */]) === 'function' && _b) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_common__["d" /* Location */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_common__["d" /* Location */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__app_service__["a" /* AppService */]) === 'function' && _c) || Object])
     ], EditProfileComponent);
     return EditProfileComponent;
-    var _a, _b;
+    var _a, _b, _c;
 }());
 //# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/edit-profile.component.js.map
 
@@ -1597,7 +1636,7 @@ var EditProfileComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(7);
@@ -1648,8 +1687,8 @@ var ForgotpassComponent = (function () {
     ForgotpassComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-forgotpass',
-            template: __webpack_require__(845),
-            styles: [__webpack_require__(807)]
+            template: __webpack_require__(851),
+            styles: [__webpack_require__(811)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* AppService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* ActivatedRoute */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__services_medium_to_password_reset_prompt_service__["a" /* MediumToPasswordResetPromptService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_medium_to_password_reset_prompt_service__["a" /* MediumToPasswordResetPromptService */]) === 'function' && _f) || Object])
     ], ForgotpassComponent);
@@ -1715,8 +1754,8 @@ var HomeComponent = (function () {
     HomeComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-home',
-            template: __webpack_require__(849),
-            styles: [__webpack_require__(811)]
+            template: __webpack_require__(855),
+            styles: [__webpack_require__(815)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_right_content_service__["a" /* RightContentService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_right_content_service__["a" /* RightContentService */]) === 'function' && _c) || Object])
     ], HomeComponent);
@@ -1737,6 +1776,7 @@ var HomeComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_users_service__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_UserStuff__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_service__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InviteManagedUserComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1753,15 +1793,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var InviteManagedUserComponent = (function () {
-    function InviteManagedUserComponent(router, auth, usersService, timelineService, activatedRoute) {
+    function InviteManagedUserComponent(router, auth, usersService, timelineService, activatedRoute, app) {
         this.router = router;
         this.auth = auth;
         this.usersService = usersService;
         this.timelineService = timelineService;
         this.activatedRoute = activatedRoute;
+        this.app = app;
         this.timelineId = '';
-        this.title = 'Invite Managed Profile';
+        this.title = 'Create Profile.';
         this.formBusy = false;
     }
     InviteManagedUserComponent.prototype.ngOnInit = function () {
@@ -1779,7 +1821,7 @@ var InviteManagedUserComponent = (function () {
             var userStuff = new __WEBPACK_IMPORTED_MODULE_4__models_UserStuff__["a" /* UserStuff */](mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
             _this.auth.setUser(JSON.stringify(userStuff));
             _this.timelineService.inviteUsers(_this.timelineId, event.user.UserId, "").subscribe(function (data) {
-                alert('Managed user invited successfully');
+                _this.app.show_success_popup('Managed user added successfully.');
                 _this.formBusy = false;
                 _this.router.navigate(['/manage-logs']);
             });
@@ -1791,13 +1833,13 @@ var InviteManagedUserComponent = (function () {
     InviteManagedUserComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-invite-managed-user',
-            template: __webpack_require__(850),
-            styles: [__webpack_require__(812)]
+            template: __webpack_require__(856),
+            styles: [__webpack_require__(816)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_users_service__["a" /* UsersService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__["a" /* TimelineService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _e) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_users_service__["a" /* UsersService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__["a" /* TimelineService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_6__app_service__["a" /* AppService */]) === 'function' && _f) || Object])
     ], InviteManagedUserComponent);
     return InviteManagedUserComponent;
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f;
 }());
 //# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/invite-managed-user.component.js.map
 
@@ -1810,7 +1852,7 @@ var InviteManagedUserComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_users_service__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__ = __webpack_require__(18);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InviteUsersComponent; });
@@ -1840,6 +1882,7 @@ var InviteUsersComponent = (function () {
         this.searchedUsers = [];
         this.timeline = null;
         this.email = '';
+        this.InviteMessage = '';
         this.selectedUsers = [];
     }
     InviteUsersComponent.prototype.invite = function (form) {
@@ -1847,11 +1890,11 @@ var InviteUsersComponent = (function () {
         var users = this.selectedUsers.join(',');
         var emails = form.value.email;
         if (users == '' && emails == '') {
-            alert('please select atleast one user or enter an email address.');
+            this.appService.show_error_popup('please select atleast one user or enter an email address.');
         }
         else {
-            this.timelineService.inviteUsers(this.timeline.Id, users, emails).subscribe(function (data) {
-                alert('invitation sent successfully');
+            this.timelineService.inviteUsers(this.timeline.Id, users, emails, this.InviteMessage).subscribe(function (data) {
+                _this.appService.show_success_popup('invitation sent successfully');
                 _this.router.navigate(['/manage-logs']);
             });
         }
@@ -1889,7 +1932,8 @@ var InviteUsersComponent = (function () {
             escapeMarkup: function (markup) { return markup; },
             minimumInputLength: 1,
             templateResult: function (repo) {
-                return "<div class='select2-result-repository__title'>" + repo.FirstName + ' ' + repo.LastName + "</div>";
+                console.log(repo);
+                return "<div class='select2-result-repository__title'>" + repo.Nickname + ', ' + repo.FirstName + ' ' + repo.LastName + ', ' + repo.address + "</div>";
             },
             templateSelection: function (repo) {
                 return repo.FirstName + ' ' + repo.LastName;
@@ -1915,8 +1959,8 @@ var InviteUsersComponent = (function () {
     InviteUsersComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-invite-users',
-            template: __webpack_require__(851),
-            styles: [__webpack_require__(813)]
+            template: __webpack_require__(857),
+            styles: [__webpack_require__(817)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__["a" /* TimelineService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_users_service__["a" /* UsersService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__app_service__["a" /* AppService */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */]) === 'function' && _f) || Object])
     ], InviteUsersComponent);
@@ -1932,7 +1976,7 @@ var InviteUsersComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_medium_to_login_service__ = __webpack_require__(262);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(40);
@@ -1997,8 +2041,8 @@ var LoginComponent = (function () {
     LoginComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-login',
-            template: __webpack_require__(853),
-            styles: [__webpack_require__(815)]
+            template: __webpack_require__(859),
+            styles: [__webpack_require__(819)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* AppService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__angular_router__["a" /* Router */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* ActivatedRoute */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__services_medium_to_login_service__["a" /* MediumToLoginService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_medium_to_login_service__["a" /* MediumToLoginService */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_7__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_7__services_timeline_service__["a" /* TimelineService */]) === 'function' && _g) || Object])
     ], LoginComponent);
@@ -2022,7 +2066,7 @@ var LoginComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_medium_to_manage_entry_service__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_Post__ = __webpack_require__(411);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_timeline_service__ = __webpack_require__(18);
@@ -2071,17 +2115,7 @@ var ManageEntryComponent = (function () {
         this.whatTags = [];
         this.whoTags = [];
         this.youTags = [];
-        this.modes = [
-            { value: 'angry', img: 'emoji-angry.png' },
-            { value: 'blah', img: 'emoji-blah.png' },
-            { value: 'brilliant', img: 'emoji-brilliant.png' },
-            { value: 'calm', img: 'emoji-calm.png' },
-            { value: 'confident', img: 'emoji-confident.png' },
-            { value: 'confused', img: 'emoji-confused.png' },
-            { value: 'cool', img: 'emoji-cool.png' },
-            { value: 'down', img: 'emoji-down.png' },
-            { value: 'embarrassed', img: 'emoji-embarrassed.png' }
-        ];
+        this.modes = [];
         this.seletedTimelines = [];
         this.types = [];
         this.timelines = [];
@@ -2108,6 +2142,7 @@ var ManageEntryComponent = (function () {
         this.uploadingFiles = false;
         this.managedUsers = [];
         this.types = __WEBPACK_IMPORTED_MODULE_9_lodash__["cloneDeep"](this.app.entryContentCategories);
+        this.modes = __WEBPACK_IMPORTED_MODULE_9_lodash__["cloneDeep"](this.app.entryContentModes);
         var userStuff = this.auth.getUser();
         this.timelines = userStuff.timelines;
         this.managedUsers = userStuff.managedUsers;
@@ -2147,7 +2182,7 @@ var ManageEntryComponent = (function () {
         if (confirm('Are you sure you want to delete this post?')) {
             this.entryService.updateEntry(this.existingEntry.EntryId, { Delete: true }).subscribe(function (data) {
                 _this.timelineService.removeEntriesFromTimelines(_this.app.property_to_array('Id', _this.auth.getUser().timelines), [_this.existingEntry.EntryId]);
-                alert('Post Deleted Successfully!');
+                _this.app.show_success_popup('Post Deleted Successfully!');
                 _this.rightContentService.aside_in = false;
                 if (_this.auth.getUser().timelines.length > 0)
                     _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
@@ -2167,7 +2202,7 @@ var ManageEntryComponent = (function () {
     ManageEntryComponent.prototype.filesSelected = function (event) {
         var _this = this;
         if (event.target.files.length > 10) {
-            alert('maximum 10 images are allowed in a post');
+            this.app.show_error_popup('maximum 10 images are allowed in a post');
         }
         else {
             this.uploadingFiles = true;
@@ -2236,21 +2271,21 @@ var ManageEntryComponent = (function () {
         if (this.uploadingPost)
             return false;
         if (this.uploadingFiles) {
-            alert('please wait until your files are being uploaded.');
+            this.app.show_error_popup('please wait until your files are being uploaded.');
             return false;
         }
         var data = form.value;
         if (data.Name == '') {
-            alert('Post Title is required');
+            this.app.show_error_popup('Post Title is required');
         }
         else if (this.seletedTimelines.length <= 0) {
-            alert('please select atleast one timeline');
+            this.app.show_error_popup('please select atleast one timeline');
         }
         else if (this.selectedTypes.length <= 0) {
-            alert('please select atleast one Type');
+            this.app.show_error_popup('please select atleast one Type');
         }
         else if ($('#new-post-start-date').val() == '') {
-            alert('please select Start Date');
+            this.app.show_error_popup('please select Start Date');
         }
         else {
             this.uploadingPost = true;
@@ -2281,7 +2316,7 @@ var ManageEntryComponent = (function () {
                     _this.updateEntryInLocalStorage(updatedEntry);
                     _this.uploadingPost = false;
                     _this.entryupdated.emit({ data: updatedEntry });
-                    alert('Post Updated Successfully!');
+                    _this.app.show_success_popup('Post Updated Successfully!');
                     _this.rightContentService.aside_in = false;
                     $('#add-entry-form-wizard').bootstrapWizard('show', 0); //reset form
                 }, function (error) {
@@ -2299,13 +2334,13 @@ var ManageEntryComponent = (function () {
                     _this.updateEntryInLocalStorage(updatedEntry);
                     _this.uploadingPost = false;
                     _this.entrycreated.emit({ data: _this.seletedTimelines });
-                    alert('Post Created Successfully!');
+                    _this.app.show_success_popup('Post Created Successfully!');
                     _this.rightContentService.aside_in = false;
                     $('#add-entry-form-wizard').bootstrapWizard('show', 0); //reset form
                     _this.resetForm(form); //reset form
                 }, function (error) {
                     _this.uploadingPost = false;
-                    alert('some thing went wrong with the server. please try again.');
+                    _this.app.show_error_popup('some thing went wrong with the server. please try again.');
                 });
             }
         }
@@ -2326,6 +2361,11 @@ var ManageEntryComponent = (function () {
     };
     ManageEntryComponent.prototype.managedUserSelected = function () {
         this.timelines = this.timelineService.findTimelinesOfManagedUser(this.selectedManagedUserId);
+        if (this.selectedManagedUserId != this.auth.currentUser.UserId)
+            this.timelines = this.app.remove_obj_by_property('Name', 'My Private Timeline', this.timelines);
+        if (this.timelines.length > 0) {
+            this.setSelectedTimelines(this.timelines[0].Id);
+        }
     };
     ManageEntryComponent.prototype.modeChanged = function (data) {
         var parts = data.split(',');
@@ -2475,21 +2515,21 @@ var ManageEntryComponent = (function () {
     ManageEntryComponent.prototype.validateStep = function (step) {
         if (step == 1) {
             if (this.selectedTypes.length == 0) {
-                alert('Please select atleast 1 content type.');
+                this.app.show_error_popup('Please select atleast 1 content type.');
                 return false;
             }
             if (this.seletedTimelines.length == 0) {
-                alert('Please select atleast 1 timeline.');
+                this.app.show_error_popup('Please select atleast 1 timeline.');
                 return false;
             }
         }
         else if (step == 2) {
             if (this.postName == '') {
-                alert('Please enter a title for the post.');
+                this.app.show_error_popup('Please enter a title for the post.');
                 return false;
             }
             if ($("#new-post-start-date").val() == '') {
-                alert('please select atleast start date');
+                this.app.show_error_popup('please select atleast start date');
                 return false;
             }
         }
@@ -2567,8 +2607,8 @@ var ManageEntryComponent = (function () {
     ManageEntryComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-manage-entry',
-            template: __webpack_require__(854),
-            styles: [__webpack_require__(816)]
+            template: __webpack_require__(860),
+            styles: [__webpack_require__(820)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_entry_service__["a" /* EntryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_entry_service__["a" /* EntryService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_right_content_service__["a" /* RightContentService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__services_right_content_service__["a" /* RightContentService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__services_medium_to_manage_entry_service__["a" /* MediumToManageEntryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_medium_to_manage_entry_service__["a" /* MediumToManageEntryService */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_6__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_6__angular_router__["a" /* Router */]) === 'function' && _g) || Object, (typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_8__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_8__app_service__["a" /* AppService */]) === 'function' && _h) || Object, (typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_10__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_10__services_timeline_service__["a" /* TimelineService */]) === 'function' && _j) || Object])
     ], ManageEntryComponent);
@@ -2587,7 +2627,7 @@ var ManageEntryComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_TimelineDetail__ = __webpack_require__(412);
@@ -2650,8 +2690,8 @@ var ManageLogsComponent = (function () {
     ManageLogsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-manage-logs',
-            template: __webpack_require__(855),
-            styles: [__webpack_require__(817)]
+            template: __webpack_require__(861),
+            styles: [__webpack_require__(821)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__app_service__["a" /* AppService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _e) || Object])
     ], ManageLogsComponent);
@@ -2668,7 +2708,7 @@ var ManageLogsComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_UserStuff__ = __webpack_require__(99);
@@ -2715,8 +2755,8 @@ var ManageProfilesComponent = (function () {
     ManageProfilesComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-create-profile',
-            template: __webpack_require__(856),
-            styles: [__webpack_require__(818)]
+            template: __webpack_require__(862),
+            styles: [__webpack_require__(822)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* AppService */]) === 'function' && _b) || Object])
     ], ManageProfilesComponent);
@@ -2777,8 +2817,8 @@ var PickColorComponent = (function () {
     PickColorComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-pick-color',
-            template: __webpack_require__(857),
-            styles: [__webpack_require__(819)]
+            template: __webpack_require__(863),
+            styles: [__webpack_require__(823)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_profile_management_service__["a" /* ProfileManagementService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_profile_management_service__["a" /* ProfileManagementService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_common__["d" /* Location */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__angular_common__["d" /* Location */]) === 'function' && _c) || Object])
     ], PickColorComponent);
@@ -2813,8 +2853,8 @@ var ParentComponent = (function () {
     ParentComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-parent',
-            template: __webpack_require__(858),
-            styles: [__webpack_require__(820)]
+            template: __webpack_require__(864),
+            styles: [__webpack_require__(824)]
         }), 
         __metadata('design:paramtypes', [])
     ], ParentComponent);
@@ -2852,8 +2892,8 @@ var PasswordResetPromptComponent = (function () {
     PasswordResetPromptComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-password-reset-prompt',
-            template: __webpack_require__(859),
-            styles: [__webpack_require__(821)]
+            template: __webpack_require__(865),
+            styles: [__webpack_require__(825)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_medium_to_password_reset_prompt_service__["a" /* MediumToPasswordResetPromptService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_medium_to_password_reset_prompt_service__["a" /* MediumToPasswordResetPromptService */]) === 'function' && _a) || Object])
     ], PasswordResetPromptComponent);
@@ -2874,7 +2914,7 @@ var PasswordResetPromptComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_medium_to_manage_entry_service__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__add_content_btn_add_content_btn_component__ = __webpack_require__(388);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__header_header_component__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_service__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PostDetailComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2952,8 +2992,8 @@ var PostDetailComponent = (function () {
     PostDetailComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-post-detail',
-            template: __webpack_require__(860),
-            styles: [__webpack_require__(822)]
+            template: __webpack_require__(866),
+            styles: [__webpack_require__(826)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__services_medium_to_manage_entry_service__["a" /* MediumToManageEntryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_medium_to_manage_entry_service__["a" /* MediumToManageEntryService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_6__app_service__["a" /* AppService */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_6__app_service__["a" /* AppService */]) === 'function' && _f) || Object])
     ], PostDetailComponent);
@@ -2969,7 +3009,7 @@ var PostDetailComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(7);
@@ -3066,8 +3106,8 @@ var RegisterComponent = (function () {
     RegisterComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-register',
-            template: __webpack_require__(862),
-            styles: [__webpack_require__(824)]
+            template: __webpack_require__(868),
+            styles: [__webpack_require__(828)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* AppService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* ActivatedRoute */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_users_service__["a" /* UsersService */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_8__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_8__services_timeline_service__["a" /* TimelineService */]) === 'function' && _g) || Object])
     ], RegisterComponent);
@@ -3084,7 +3124,7 @@ var RegisterComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__header_header_component__ = __webpack_require__(261);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__manage_entry_manage_entry_component__ = __webpack_require__(401);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_auth_service__ = __webpack_require__(6);
@@ -3116,7 +3156,11 @@ var ViewLogComponent = (function () {
         this.auth = auth;
         this.timelineService = timelineService;
         this.timeline = null;
+        this.userStuff = null;
+        this.myPrivateTimeline = null;
         this.timeline = new __WEBPACK_IMPORTED_MODULE_6__models_Timeline__["a" /* Timeline */]();
+        this.userStuff = this.auth.getUser();
+        this.myPrivateTimeline = this.app.find_obj_by_prop('Name', 'My Private Timeline', this.userStuff.timelines);
     }
     ViewLogComponent.prototype.timelineUpdated = function (event) {
         if (this.timeline.Id != '')
@@ -3132,7 +3176,6 @@ var ViewLogComponent = (function () {
             else {
                 //TODO: users array is not returned by the api yet.
                 _this.timeline = data.log;
-                console.log(_this.timeline);
                 _this.headerComponent.title = _this.timeline.Name;
             }
         }, function (error) { });
@@ -3148,8 +3191,8 @@ var ViewLogComponent = (function () {
     ViewLogComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-view-log',
-            template: __webpack_require__(865),
-            styles: [__webpack_require__(827)]
+            template: __webpack_require__(872),
+            styles: [__webpack_require__(832)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* AppService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_auth_service__["a" /* AuthService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_7__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_7__services_timeline_service__["a" /* TimelineService */]) === 'function' && _e) || Object])
     ], ViewLogComponent);
@@ -3167,6 +3210,7 @@ var ViewLogComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_service__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ViewProfileComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3180,10 +3224,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ViewProfileComponent = (function () {
-    function ViewProfileComponent(route, location) {
+    function ViewProfileComponent(route, location, app) {
         this.route = route;
         this.location = location;
+        this.app = app;
         this.user = null;
     }
     ViewProfileComponent.prototype.ngOnInit = function () {
@@ -3191,7 +3237,7 @@ var ViewProfileComponent = (function () {
         this.route.data
             .subscribe(function (data) {
             if (data.user == null) {
-                alert('no user found');
+                _this.app.show_error_popup('no user found');
                 _this.location.back();
             }
             _this.user = data.user;
@@ -3200,13 +3246,13 @@ var ViewProfileComponent = (function () {
     ViewProfileComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-view-profile',
-            template: __webpack_require__(866),
-            styles: [__webpack_require__(828)]
+            template: __webpack_require__(873),
+            styles: [__webpack_require__(833)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_common__["d" /* Location */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_common__["d" /* Location */]) === 'function' && _b) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_common__["d" /* Location */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_common__["d" /* Location */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__app_service__["a" /* AppService */]) === 'function' && _c) || Object])
     ], ViewProfileComponent);
     return ViewProfileComponent;
-    var _a, _b;
+    var _a, _b, _c;
 }());
 //# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/view-profile.component.js.map
 
@@ -3314,11 +3360,11 @@ webpackEmptyContext.id = 486;
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(634);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(637);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__polyfills_ts__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(573);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(633);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(636);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_module__ = __webpack_require__(604);
 
 
@@ -3339,7 +3385,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs__ = __webpack_require__(290);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs__);
@@ -3451,7 +3497,7 @@ var UsersService = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs__ = __webpack_require__(290);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_User__ = __webpack_require__(129);
@@ -3591,8 +3637,8 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-root',
-            template: __webpack_require__(829),
-            styles: [__webpack_require__(791)]
+            template: __webpack_require__(834),
+            styles: [__webpack_require__(794)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_right_content_service__["a" /* RightContentService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_right_content_service__["a" /* RightContentService */]) === 'function' && _c) || Object])
     ], AppComponent);
@@ -3611,13 +3657,13 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(564);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_app_routes_module__ = __webpack_require__(626);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_app_routes_module__ = __webpack_require__(629);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_medium_to_login_service__ = __webpack_require__(262);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(603);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_home_home_component__ = __webpack_require__(397);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_login_login_component__ = __webpack_require__(400);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_register_register_component__ = __webpack_require__(408);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_forgotpass_forgotpass_component__ = __webpack_require__(396);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_password_reset_prompt_password_reset_prompt_component__ = __webpack_require__(406);
@@ -3632,37 +3678,39 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__services_timeline_service__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__services_entry_service__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_header_header_component__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_header_title_title_component__ = __webpack_require__(614);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_header_action_action_component__ = __webpack_require__(613);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_header_title_title_component__ = __webpack_require__(615);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_header_action_action_component__ = __webpack_require__(614);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_body_body_component__ = __webpack_require__(609);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_body_aside_aside_component__ = __webpack_require__(606);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_body_body_content_body_content_component__ = __webpack_require__(607);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_body_body_right_content_body_right_content_component__ = __webpack_require__(608);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_manage_entry_manage_entry_component__ = __webpack_require__(401);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_footer_footer_component__ = __webpack_require__(612);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_footer_footer_component__ = __webpack_require__(613);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__services_profile_management_service__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__services_right_content_service__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_angular2_google_maps_core__ = __webpack_require__(420);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_35_angular2_google_maps_core__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_manage_logs_manage_logs_component__ = __webpack_require__(402);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_create_log_create_log_component__ = __webpack_require__(611);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_log_log_component__ = __webpack_require__(615);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_log_log_component__ = __webpack_require__(616);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_invite_users_invite_users_component__ = __webpack_require__(399);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_add_content_btn_add_content_btn_component__ = __webpack_require__(388);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_post_detail_post_detail_component__ = __webpack_require__(407);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__services_medium_to_post_detail_service__ = __webpack_require__(186);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__services_medium_to_manage_entry_service__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__components_create_custom_log_create_custom_log_component__ = __webpack_require__(391);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__components_test_test_component__ = __webpack_require__(621);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__components_profile_profile_component__ = __webpack_require__(620);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__components_test_test_component__ = __webpack_require__(623);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__components_profile_profile_component__ = __webpack_require__(621);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__components_view_profile_view_profile_component__ = __webpack_require__(410);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__components_create_profile_create_profile_component__ = __webpack_require__(394);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__components_timeline_detail_timeline_detail_component__ = __webpack_require__(622);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__components_timeline_detail_timeline_detail_component__ = __webpack_require__(624);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__components_edit_profile_edit_profile_component__ = __webpack_require__(395);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__components_create_managed_user_create_managed_user_component__ = __webpack_require__(392);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__components_invite_managed_user_invite_managed_user_component__ = __webpack_require__(398);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__components_view_log_view_log_component__ = __webpack_require__(409);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__components_back_button_back_button_component__ = __webpack_require__(605);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__components_success_message_popup_success_message_popup_component__ = __webpack_require__(622);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56__components_error_message_popup_error_message_popup_component__ = __webpack_require__(612);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3673,6 +3721,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
 
 
 
@@ -3774,7 +3824,9 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_51__components_create_managed_user_create_managed_user_component__["a" /* CreateManagedUserComponent */],
                 __WEBPACK_IMPORTED_MODULE_52__components_invite_managed_user_invite_managed_user_component__["a" /* InviteManagedUserComponent */],
                 __WEBPACK_IMPORTED_MODULE_53__components_view_log_view_log_component__["a" /* ViewLogComponent */],
-                __WEBPACK_IMPORTED_MODULE_54__components_back_button_back_button_component__["a" /* BackButtonComponent */]
+                __WEBPACK_IMPORTED_MODULE_54__components_back_button_back_button_component__["a" /* BackButtonComponent */],
+                __WEBPACK_IMPORTED_MODULE_55__components_success_message_popup_success_message_popup_component__["a" /* SuccessMessagePopupComponent */],
+                __WEBPACK_IMPORTED_MODULE_56__components_error_message_popup_error_message_popup_component__["a" /* ErrorMessagePopupComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_4__modules_app_routes_module__["a" /* AppRoutingModule */],
@@ -3836,8 +3888,8 @@ var BackButtonComponent = (function () {
     BackButtonComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-back-button',
-            template: __webpack_require__(833),
-            styles: [__webpack_require__(795)]
+            template: __webpack_require__(838),
+            styles: [__webpack_require__(798)]
         }), 
         __metadata('design:paramtypes', [])
     ], BackButtonComponent);
@@ -3855,7 +3907,7 @@ var BackButtonComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_users_service__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_UserStuff__ = __webpack_require__(99);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AsideComponent; });
@@ -3906,8 +3958,8 @@ var AsideComponent = (function () {
     AsideComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-aside',
-            template: __webpack_require__(834),
-            styles: [__webpack_require__(796)]
+            template: __webpack_require__(839),
+            styles: [__webpack_require__(799)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__app_service__["a" /* AppService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_users_service__["a" /* UsersService */]) === 'function' && _e) || Object])
     ], AsideComponent);
@@ -3942,8 +3994,8 @@ var BodyContentComponent = (function () {
     BodyContentComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-body-content',
-            template: __webpack_require__(835),
-            styles: [__webpack_require__(797)]
+            template: __webpack_require__(840),
+            styles: [__webpack_require__(800)]
         }), 
         __metadata('design:paramtypes', [])
     ], BodyContentComponent);
@@ -3977,8 +4029,8 @@ var BodyRightContentComponent = (function () {
     BodyRightContentComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-body-right-content',
-            template: __webpack_require__(836),
-            styles: [__webpack_require__(798)]
+            template: __webpack_require__(841),
+            styles: [__webpack_require__(801)]
         }), 
         __metadata('design:paramtypes', [])
     ], BodyRightContentComponent);
@@ -4012,8 +4064,8 @@ var BodyComponent = (function () {
     BodyComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-body',
-            template: __webpack_require__(837),
-            styles: [__webpack_require__(799)]
+            template: __webpack_require__(842),
+            styles: [__webpack_require__(802)]
         }), 
         __metadata('design:paramtypes', [])
     ], BodyComponent);
@@ -4117,8 +4169,8 @@ var CreateLogComponent = (function () {
     CreateLogComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-create-log',
-            template: __webpack_require__(839),
-            styles: [__webpack_require__(801)]
+            template: __webpack_require__(844),
+            styles: [__webpack_require__(804)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_timeline_service__["a" /* TimelineService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_auth_service__["a" /* AuthService */]) === 'function' && _c) || Object])
     ], CreateLogComponent);
@@ -4130,6 +4182,41 @@ var CreateLogComponent = (function () {
 /***/ },
 
 /***/ 612:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ErrorMessagePopupComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ErrorMessagePopupComponent = (function () {
+    function ErrorMessagePopupComponent() {
+    }
+    ErrorMessagePopupComponent.prototype.ngOnInit = function () {
+    };
+    ErrorMessagePopupComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-error-message-popup',
+            template: __webpack_require__(849),
+            styles: [__webpack_require__(809)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ErrorMessagePopupComponent);
+    return ErrorMessagePopupComponent;
+}());
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/error-message-popup.component.js.map
+
+/***/ },
+
+/***/ 613:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4153,8 +4240,8 @@ var FooterComponent = (function () {
     FooterComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-footer',
-            template: __webpack_require__(844),
-            styles: [__webpack_require__(806)]
+            template: __webpack_require__(850),
+            styles: [__webpack_require__(810)]
         }), 
         __metadata('design:paramtypes', [])
     ], FooterComponent);
@@ -4164,7 +4251,7 @@ var FooterComponent = (function () {
 
 /***/ },
 
-/***/ 613:
+/***/ 614:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4188,8 +4275,8 @@ var ActionComponent = (function () {
     ActionComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-action',
-            template: __webpack_require__(846),
-            styles: [__webpack_require__(808)]
+            template: __webpack_require__(852),
+            styles: [__webpack_require__(812)]
         }), 
         __metadata('design:paramtypes', [])
     ], ActionComponent);
@@ -4199,7 +4286,7 @@ var ActionComponent = (function () {
 
 /***/ },
 
-/***/ 614:
+/***/ 615:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4223,8 +4310,8 @@ var TitleComponent = (function () {
     TitleComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'sa-title',
-            template: __webpack_require__(848),
-            styles: [__webpack_require__(810)]
+            template: __webpack_require__(854),
+            styles: [__webpack_require__(814)]
         }), 
         __metadata('design:paramtypes', [])
     ], TitleComponent);
@@ -4234,7 +4321,7 @@ var TitleComponent = (function () {
 
 /***/ },
 
-/***/ 615:
+/***/ 616:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4244,7 +4331,7 @@ var TitleComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_medium_to_manage_entry_service__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__models_Timeline__ = __webpack_require__(183);
@@ -4298,7 +4385,7 @@ var LogComponent = (function () {
             _this.refreshingLog = false;
         }, function (error) {
             _this.refreshingLog = false;
-            alert(error);
+            _this.app.show_error_popup(error);
         });
     };
     LogComponent.prototype.refreshLog = function () {
@@ -4312,8 +4399,8 @@ var LogComponent = (function () {
             }
             else {
                 timelineService.get(timelineId, auth.getUser().profile.UserId).subscribe(function (data) {
-                    console.log(data.json().payload);
                     _this.timeline = _this.app.map(data.json().payload, new __WEBPACK_IMPORTED_MODULE_8__models_Timeline__["a" /* Timeline */]());
+                    _this.timeline.Entries = (_this.timeline.Entries == null) ? [] : _this.timeline.Entries;
                     _this.timelineService.pushTimelineWithEntires(_this.timeline);
                     resolve(_this.timeline);
                 }, function (error) {
@@ -4354,7 +4441,7 @@ var LogComponent = (function () {
             this.router.navigate(['/profile/' + UserId]);
         }
         else {
-            alert('user not found.');
+            this.app.show_error_popup('user not found.');
         }
     };
     LogComponent.prototype.ngOnInit = function () {
@@ -4367,8 +4454,8 @@ var LogComponent = (function () {
     LogComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-log',
-            template: __webpack_require__(852),
-            styles: [__webpack_require__(814)]
+            template: __webpack_require__(858),
+            styles: [__webpack_require__(818)]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_medium_to_post_detail_service__["a" /* MediumToPostDetailService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_medium_to_post_detail_service__["a" /* MediumToPostDetailService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__services_medium_to_manage_entry_service__["a" /* MediumToManageEntryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_medium_to_manage_entry_service__["a" /* MediumToManageEntryService */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_6__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_6__app_service__["a" /* AppService */]) === 'function' && _g) || Object, (typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__["a" /* TimelineService */]) === 'function' && _h) || Object])
     ], LogComponent);
@@ -4379,7 +4466,7 @@ var LogComponent = (function () {
 
 /***/ },
 
-/***/ 616:
+/***/ 617:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4387,7 +4474,7 @@ var LogComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_Timeline__ = __webpack_require__(183);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return LogResolver; });
 /**
@@ -4451,7 +4538,7 @@ var LogResolver = (function () {
 
 /***/ },
 
-/***/ 617:
+/***/ 618:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4502,7 +4589,7 @@ var LogsResolver = (function () {
 
 /***/ },
 
-/***/ 618:
+/***/ 619:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4571,7 +4658,7 @@ var TokensResolver = (function () {
 
 /***/ },
 
-/***/ 619:
+/***/ 620:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4579,7 +4666,7 @@ var TokensResolver = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_medium_to_post_detail_service__ = __webpack_require__(186);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PostResolver; });
 /**
@@ -4633,7 +4720,7 @@ var PostResolver = (function () {
 
 /***/ },
 
-/***/ 620:
+/***/ 621:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4646,7 +4733,7 @@ var PostResolver = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_profile_management_service__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_lodash__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_lodash__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileComponent; });
@@ -4688,8 +4775,8 @@ var ProfileComponent = (function () {
         this.someThingWentWrong = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.colors = [
             'aquamarine', 'beachblue', 'bloodred', 'brownbear', 'chai',
-            'cream', 'creamsicleorange', 'pinkrose', 'plum', 'bloodred', 'brownbear',
-            'cream'
+            'cream', 'creamsicleorange', 'forestgreen', 'graywhale', 'lemonyellow', 'mintgreen',
+            'bloodorange', 'pinkrose', 'plum', 'raspberry', 'seagreen', 'skyblue', 'slateblue'
         ];
         this.selectedImage = null;
         this.selectedThumbnail = '';
@@ -4740,8 +4827,8 @@ var ProfileComponent = (function () {
             profileData['ImageId'] = this.uploadedFile.Id;
         }
         var newAcountData = {
-            Email: inputData.email,
-            Pass: inputData.password,
+            Email: '',
+            Pass: '',
             Username: ''
         };
         var createProfile = new Promise(function (resolve, reject) {
@@ -4769,17 +4856,12 @@ var ProfileComponent = (function () {
             _this.profileUpdating.emit({
                 data: form.value
             });
-            _this.userService.updateSettings(_this.managedProfile, _this.getUser().UserId, profileData, image).subscribe(function (data) {
+            _this.userService.updateSettings(_this.managedProfile, _this.getUser().UserId, profileData).subscribe(function (data) {
                 if (!_this.manualControls) {
                     _this.formBusy = false;
                     _this.exitEditMode();
                 }
                 var updatedUser = data.json().payload.User;
-                console.log(updatedUser);
-                if (_this.selectedImage == null) {
-                    updatedUser.ImageURL = _this.getUser().ImageURL;
-                    updatedUser.ThumbURL = _this.getUser().ThumbURL;
-                }
                 _this.setUser(_this.appService.map(updatedUser, new __WEBPACK_IMPORTED_MODULE_1__models_User__["a" /* User */]()));
                 _this.profileUpdated.emit({
                     user: _this.getUser()
@@ -4790,11 +4872,11 @@ var ProfileComponent = (function () {
                 });
                 if (!_this.manualControls) {
                     _this.formBusy = false;
-                    alert('some thing went wrong with the server please try again.');
+                    _this.appService.show_error_popup('some thing went wrong with the server please try again.');
                 }
             });
         }, function (error) {
-            alert(error);
+            _this.appService.show_error_popup(error);
         });
     };
     ProfileComponent.prototype.loggedInUsrCanEdit = function () {
@@ -4815,7 +4897,7 @@ var ProfileComponent = (function () {
                 });
             }
             else {
-                alert('only jpeg images are allowed');
+                this.appService.show_error_popup('only jpeg images are allowed');
             }
         }
     };
@@ -4901,8 +4983,8 @@ var ProfileComponent = (function () {
     ProfileComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-profile',
-            template: __webpack_require__(861),
-            styles: [__webpack_require__(823)]
+            template: __webpack_require__(867),
+            styles: [__webpack_require__(827)]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_users_service__["a" /* UsersService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__services_timeline_service__["a" /* TimelineService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_entry_service__["a" /* EntryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__services_entry_service__["a" /* EntryService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_auth_service__["a" /* AuthService */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_6__angular_router__["a" /* Router */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_7__services_profile_management_service__["a" /* ProfileManagementService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_7__services_profile_management_service__["a" /* ProfileManagementService */]) === 'function' && _g) || Object, (typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_8__angular_http__["a" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_8__angular_http__["a" /* Http */]) === 'function' && _h) || Object, (typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_9__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_9__app_service__["a" /* AppService */]) === 'function' && _j) || Object, (typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_2__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_users_service__["a" /* UsersService */]) === 'function' && _k) || Object])
     ], ProfileComponent);
@@ -4913,7 +4995,42 @@ var ProfileComponent = (function () {
 
 /***/ },
 
-/***/ 621:
+/***/ 622:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SuccessMessagePopupComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var SuccessMessagePopupComponent = (function () {
+    function SuccessMessagePopupComponent() {
+    }
+    SuccessMessagePopupComponent.prototype.ngOnInit = function () {
+    };
+    SuccessMessagePopupComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-success-message-popup',
+            template: __webpack_require__(869),
+            styles: [__webpack_require__(829)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SuccessMessagePopupComponent);
+    return SuccessMessagePopupComponent;
+}());
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/success-message-popup.component.js.map
+
+/***/ },
+
+/***/ 623:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4937,8 +5054,8 @@ var TestComponent = (function () {
     TestComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-test',
-            template: __webpack_require__(863),
-            styles: [__webpack_require__(825)]
+            template: __webpack_require__(870),
+            styles: [__webpack_require__(830)]
         }), 
         __metadata('design:paramtypes', [])
     ], TestComponent);
@@ -4948,13 +5065,13 @@ var TestComponent = (function () {
 
 /***/ },
 
-/***/ 622:
+/***/ 624:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_TimelineDetail__ = __webpack_require__(412);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_User__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth_service__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__ = __webpack_require__(18);
@@ -5006,7 +5123,7 @@ var TimelineDetailComponent = (function () {
             _this.timeline.Name = form.value.Name;
             $('#' + _this.edit_log_modal_id).modal('hide');
         }, function (error) {
-            alert('some thing went wrong');
+            _this.app.show_error_popup('some thing went wrong');
             $('#' + _this.edit_log_modal_id).modal('hide');
         });
     };
@@ -5023,7 +5140,7 @@ var TimelineDetailComponent = (function () {
     TimelineDetailComponent.prototype.removeUser = function (userId) {
         var _this = this;
         if (userId == this.auth.currentUser.UserId) {
-            alert('Can not remove yourself');
+            this.app.show_error_popup('Can not remove yourself');
         }
         else if (confirm("are you sure you want to delete this user?")) {
             //TODO: Couldn't test it at the time for some reason.
@@ -5036,9 +5153,9 @@ var TimelineDetailComponent = (function () {
                         updatedUsers.push(user);
                 }
                 _this.timeline.Users = updatedUsers;
-                alert('user deleted');
+                _this.app.show_success_popup('user deleted');
             }, function (error) {
-                alert('some thing went wrong the server');
+                _this.app.show_error_popup('some thing went wrong the server');
             });
         }
     };
@@ -5052,8 +5169,8 @@ var TimelineDetailComponent = (function () {
     TimelineDetailComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-timeline-detail',
-            template: __webpack_require__(864),
-            styles: [__webpack_require__(826)]
+            template: __webpack_require__(871),
+            styles: [__webpack_require__(831)]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* AppService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* AppService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__["a" /* TimelineService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__services_timeline_service__["a" /* TimelineService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_6__angular_router__["a" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_8__services_users_service__["a" /* UsersService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_8__services_users_service__["a" /* UsersService */]) === 'function' && _f) || Object])
     ], TimelineDetailComponent);
@@ -5064,13 +5181,13 @@ var TimelineDetailComponent = (function () {
 
 /***/ },
 
-/***/ 623:
+/***/ 625:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CustomLogResolver; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5111,7 +5228,7 @@ var CustomLogResolver = (function () {
 
 /***/ },
 
-/***/ 624:
+/***/ 626:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5169,7 +5286,7 @@ var ViewProfileResolver = (function () {
 
 /***/ },
 
-/***/ 625:
+/***/ 627:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5195,7 +5312,30 @@ var EntryCategory = (function () {
 
 /***/ },
 
-/***/ 626:
+/***/ 628:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return EntryMode; });
+/**
+ * Created by officeaccount on 15/02/2017.
+ */
+var EntryMode = (function () {
+    function EntryMode(value, img) {
+        if (value === void 0) { value = ''; }
+        if (img === void 0) { img = ''; }
+        this.value = '';
+        this.img = '';
+        this.value = value;
+        this.img = img;
+    }
+    return EntryMode;
+}());
+//# sourceMappingURL=/Users/nomantufail/workspace/php/coding-pixel/social_app/dev/src/EntryMode.js.map
+
+/***/ },
+
+/***/ 629:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5204,38 +5344,38 @@ var EntryCategory = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_home_home_component__ = __webpack_require__(397);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_login_login_component__ = __webpack_require__(400);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_register_register_component__ = __webpack_require__(408);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_auth_guard_service__ = __webpack_require__(629);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_auth_guard_service__ = __webpack_require__(632);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_forgotpass_forgotpass_component__ = __webpack_require__(396);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_anti_auth_guard_service__ = __webpack_require__(627);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_password_reset_prompt_guard_service__ = __webpack_require__(630);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_anti_auth_guard_service__ = __webpack_require__(630);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_password_reset_prompt_guard_service__ = __webpack_require__(633);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_create_new_password_create_new_password_component__ = __webpack_require__(393);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_password_reset_prompt_password_reset_prompt_component__ = __webpack_require__(406);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_parent_parent_component__ = __webpack_require__(405);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_parent_tokens_resolver__ = __webpack_require__(618);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_parent_tokens_resolver__ = __webpack_require__(619);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_auth_parent_auth_parent_component__ = __webpack_require__(390);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_anti_auth_parent_anti_auth_parent_component__ = __webpack_require__(389);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_manage_profiles_pick_color_pick_color_component__ = __webpack_require__(404);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__services_profile_management_service__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__services_profile_created_guard_service__ = __webpack_require__(632);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__services_profile_created_guard_service__ = __webpack_require__(635);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_manage_logs_manage_logs_component__ = __webpack_require__(402);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_log_log_resolver__ = __webpack_require__(616);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_manage_logs_logs_resolver__ = __webpack_require__(617);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_log_log_resolver__ = __webpack_require__(617);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_manage_logs_logs_resolver__ = __webpack_require__(618);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_invite_users_invite_users_component__ = __webpack_require__(399);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_post_detail_post_detail_component__ = __webpack_require__(407);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_post_detail_post_resolver__ = __webpack_require__(619);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__services_post_detail_guard_service__ = __webpack_require__(631);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_post_detail_post_resolver__ = __webpack_require__(620);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__services_post_detail_guard_service__ = __webpack_require__(634);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_create_custom_log_create_custom_log_component__ = __webpack_require__(391);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_view_profile_view_profile_component__ = __webpack_require__(410);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_view_profile_view_profile_resolver__ = __webpack_require__(624);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_view_profile_view_profile_resolver__ = __webpack_require__(626);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_manage_profiles_manage_profiles_component__ = __webpack_require__(403);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_create_profile_create_profile_component__ = __webpack_require__(394);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_anti_profile_created_guard_service__ = __webpack_require__(628);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_anti_profile_created_guard_service__ = __webpack_require__(631);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_edit_profile_edit_profile_component__ = __webpack_require__(395);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_create_managed_user_create_managed_user_component__ = __webpack_require__(392);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_invite_managed_user_invite_managed_user_component__ = __webpack_require__(398);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_view_log_view_log_component__ = __webpack_require__(409);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_create_custom_log_create_custom_log_resolver__ = __webpack_require__(610);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_view_log_custom_log_resolver__ = __webpack_require__(623);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_view_log_custom_log_resolver__ = __webpack_require__(625);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppRoutingModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5354,7 +5494,7 @@ var AppRoutingModule = (function () {
 
 /***/ },
 
-/***/ 627:
+/***/ 630:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5402,7 +5542,7 @@ var AntiAuthGuardService = (function () {
 
 /***/ },
 
-/***/ 628:
+/***/ 631:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5449,7 +5589,7 @@ var AntiProfileCreatedGuardService = (function () {
 
 /***/ },
 
-/***/ 629:
+/***/ 632:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5497,7 +5637,7 @@ var AuthGuardService = (function () {
 
 /***/ },
 
-/***/ 630:
+/***/ 633:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5543,7 +5683,7 @@ var PasswordResetPromptGuardService = (function () {
 
 /***/ },
 
-/***/ 631:
+/***/ 634:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5600,7 +5740,7 @@ var PostDetailGuardService = (function () {
 
 /***/ },
 
-/***/ 632:
+/***/ 635:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5647,7 +5787,7 @@ var ProfileCreatedGuardService = (function () {
 
 /***/ },
 
-/***/ 633:
+/***/ 636:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5663,41 +5803,41 @@ var environment = {
 
 /***/ },
 
-/***/ 634:
+/***/ 637:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(652);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(655);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(645);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(648);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(641);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(644);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(647);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(650);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(646);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(649);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(644);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(647);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(643);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(646);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(651);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(654);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(640);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(643);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(639);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(642);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(649);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(652);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(642);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(645);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(650);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(653);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(648);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(651);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(653);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(656);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(1132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(1139);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -5719,27 +5859,6 @@ var environment = {
 
 /***/ },
 
-/***/ 791:
-/***/ function(module, exports) {
-
-module.exports = ""
-
-/***/ },
-
-/***/ 792:
-/***/ function(module, exports) {
-
-module.exports = ""
-
-/***/ },
-
-/***/ 793:
-/***/ function(module, exports) {
-
-module.exports = ""
-
-/***/ },
-
 /***/ 794:
 /***/ function(module, exports) {
 
@@ -5750,49 +5869,49 @@ module.exports = ""
 /***/ 795:
 /***/ function(module, exports) {
 
-module.exports = ".back-button{\n    padding: 13px;\n}"
+module.exports = ""
 
 /***/ },
 
 /***/ 796:
 /***/ function(module, exports) {
 
-module.exports = "@media(max-width:1200px) {\n    #mainnav-container,\n    .brand-title{\n        transition: .5s;\n        -webkit-transition: .5s;\n        -moz-transition: .5s;\n    }\n    .brand-title{\n        width:67px;\n    }\n}\n\n#mainnav-container{\n    position: fixed;\n}\n\n.pull-to-refresh{\n    float: right;\n}\n#mainnav-menu i {\n    padding: 0;\n}"
+module.exports = ""
 
 /***/ },
 
 /***/ 797:
 /***/ function(module, exports) {
 
-module.exports = "@media (min-width: 769px){\n    #content-container {\n        padding-left: 220px;\n        left:0px !important;\n    }\n}\n@media(max-width:1200px){\n    #content-container{\n        transition: .5s;\n        -webkit-transition: .5s;\n        -moz-transition: .5s;\n        left:0px;\n    }\n}"
+module.exports = ""
 
 /***/ },
 
 /***/ 798:
 /***/ function(module, exports) {
 
-module.exports = "/*#aside{*/\n    /*padding-top: 80px;*/\n/*}*/\n\n"
+module.exports = ".back-button{\n    padding: 13px;\n}\n\n@media (max-width: 767px) {\n    .backBtn{\n        position: fixed;\n        top: 0px;\n        left: 0px;\n        width: 100%;\n        background: #263238;\n        z-index: 999;\n    }\n}\n"
 
 /***/ },
 
 /***/ 799:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = "@media(max-width:1200px) {\n    #mainnav-container,\n    .brand-title{\n        transition: .5s;\n        -webkit-transition: .5s;\n        -moz-transition: .5s;\n    }\n    .brand-title{\n        width:67px;\n    }\n}\n\n#mainnav-container{\n    position: fixed;\n}\n\n.pull-to-refresh{\n    float: right;\n}\n#mainnav-menu i {\n    padding: 0;\n}"
 
 /***/ },
 
 /***/ 800:
 /***/ function(module, exports) {
 
-module.exports = ".category-images{\n    width:50px;\n    height: auto;\n}\n\n.post-type-panel,\n.mood-type-panel,\n.cate-widget{\n    overflow: hidden;\n}\n.btn.active {\n    border:none;\n}\n.post-type-panel label,\n.mood-type-panel label,\n.cate-widget label,\n.tags-widget label{\n    float: left;\n    width: 33.3%;\n    padding: 15px;\n    text-align: center;\n    cursor: pointer;\n    margin-bottom: 0px;\n    border: 2px solid #ffffff;\n}\n\n.cate-widget label,\n.tags-widget label{\n    padding:15px 5px;\n}\n\n.post-type-panel label input,\n.mood-type-panel label input,\n.cate-widget label input,\n.tags-widget label input{\n    visibility: hidden;\n    position: absolute;\n    left:0px;\n    top:0px;\n}\n\n.post-type-panel label img{\n    width: 50px;\n}\n\n.mood-type-panel label img{\n    width: 30px;\n    margin-bottom: 4px;\n}\n\n.post-type-panel label span,\n.mood-type-panel label span,\n.tags-widget label span,\n.cate-widget label span{\n    display: block;\n    font-size: 12px;\n    color: #888;\n}\n\n.post-type-panel label:hover span,\n.post-type-panel label.active span,\n.mood-type-panel label:hover span,\n.mood-type-panel label.active span,\n.cate-widget label.active span,\n.cate-widget label:hover span,\n.tags-widget label:hover span,\n.tags-widget label.active span{\n    color: #000;\n}\n\n.post-type-panel label.active,\n.mood-type-panel label.active,\n.cate-widget label.active,\n.tags-widget label.active{\n    background: #F2F2F2;\n}\n\n.widget-tabs-contr{\n    overflow: hidden;\n}\n\n.post-type-panel .type-definitions{\n    display: none;\n}\n\n.show_definitions label{\n    display: table;\n    width: 100%;\n    text-align: left;\n}\n\n.show_definitions .type-left{\n    text-align: center;\n}\n\n.show_definitions .type-left,\n.show_definitions .type-definitions{\n    display: table-cell;\n    vertical-align: top;\n    padding: 10px;\n    font-size: 12px;\n}\n\n.sebm-google-map-container {\n    height: 150px;\n}\n\n.dropdown-header{\n    overflow: hidden;\n}"
+module.exports = "@media (min-width: 769px){\n    #content-container {\n        padding-left: 220px;\n        left:0px !important;\n    }\n}\n@media(max-width:1200px){\n    #content-container{\n        transition: .5s;\n        -webkit-transition: .5s;\n        -moz-transition: .5s;\n        left:0px;\n    }\n}"
 
 /***/ },
 
 /***/ 801:
 /***/ function(module, exports) {
 
-module.exports = ".input_text {\n    width: 100%;\n    margin-bottom: 20px;\n    height:32px;\n}\n.spacer {\n    height:10px;\n}"
+module.exports = "/*#aside{*/\n    /*padding-top: 80px;*/\n/*}*/\n\n"
 
 /***/ },
 
@@ -5806,14 +5925,14 @@ module.exports = ""
 /***/ 803:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = ".category-images{\n    width:50px;\n    height: auto;\n}\n\n.post-type-panel,\n.mood-type-panel,\n.cate-widget{\n    overflow: hidden;\n}\n.btn.active {\n    border:none;\n}\n.post-type-panel label,\n.mood-type-panel label,\n.cate-widget label,\n.tags-widget label{\n    float: left;\n    width: 33.3%;\n    padding: 15px;\n    text-align: center;\n    cursor: pointer;\n    margin-bottom: 0px;\n    border: 2px solid #ffffff;\n}\n\n.cate-widget label,\n.tags-widget label{\n    padding:15px 5px;\n}\n\n.post-type-panel label input,\n.mood-type-panel label input,\n.cate-widget label input,\n.tags-widget label input{\n    visibility: hidden;\n    position: absolute;\n    left:0px;\n    top:0px;\n}\n\n.post-type-panel label img{\n    width: 50px;\n}\n\n.mood-type-panel label img{\n    width: 30px;\n    margin-bottom: 4px;\n}\n\n.post-type-panel label span,\n.mood-type-panel label span,\n.tags-widget label span,\n.cate-widget label span{\n    display: block;\n    font-size: 12px;\n    color: #888;\n}\n\n.post-type-panel label:hover span,\n.post-type-panel label.active span,\n.mood-type-panel label:hover span,\n.mood-type-panel label.active span,\n.cate-widget label.active span,\n.cate-widget label:hover span,\n.tags-widget label:hover span,\n.tags-widget label.active span{\n    color: #000;\n}\n\n.post-type-panel label.active,\n.mood-type-panel label.active,\n.cate-widget label.active,\n.tags-widget label.active{\n    background: #F2F2F2;\n}\n\n.widget-tabs-contr{\n    overflow: hidden;\n}\n\n.post-type-panel .type-definitions{\n    display: none;\n}\n\n.show_definitions label{\n    display: table;\n    width: 100%;\n    text-align: left;\n}\n\n.show_definitions .type-left{\n    text-align: center;\n}\n\n.show_definitions .type-left,\n.show_definitions .type-definitions{\n    display: table-cell;\n    vertical-align: top;\n    padding: 10px;\n    font-size: 12px;\n}\n\n.sebm-google-map-container {\n    height: 150px;\n}\n\n.dropdown-header{\n    overflow: hidden;\n}"
 
 /***/ },
 
 /***/ 804:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = ".input_text {\n    width: 100%;\n    margin-bottom: 20px;\n    height:32px;\n}\n.spacer {\n    height:10px;\n}"
 
 /***/ },
 
@@ -5848,7 +5967,7 @@ module.exports = ""
 /***/ 809:
 /***/ function(module, exports) {
 
-module.exports = "#navbar{\n    position: fixed;\n}"
+module.exports = ""
 
 /***/ },
 
@@ -5876,77 +5995,77 @@ module.exports = ""
 /***/ 813:
 /***/ function(module, exports) {
 
-module.exports = "textarea {\n    width: 100%;\n    resize: none;\n    border: solid 1px #ddd;\n    margin: 10px 0;\n}\n.user-info {\n    margin-bottom: 10px;\n}\n.u-img {\n    width: 50px;\n    height:50px;\n    overflow: hidden;\n    margin-right: 5px;\n    float: left;\n}\n.u-img img {\n    max-width: 100%;\n}\n.u-name {\n    float: left;\n}\n.select2-container {\n    max-width: 100%;\n}"
+module.exports = "#navbar{\n    position: fixed;\n    z-index: 99999;\n}"
 
 /***/ },
 
 /***/ 814:
 /***/ function(module, exports) {
 
-module.exports = ".timeline-label .img-holder{\n    height:500px;\n    overflow: hidden;\n}\n\n.timeline-label .img-holder img {\n    height: 100%;\n}\n\n.type-icon-grey img {\n    width:25px;\n    -webkit-filter: grayscale(100%);\n            filter: grayscale(100%);\n}\n@media (max-width: 640px){\n    .timeline-label .img-holder {\n        height: auto;\n    }\n    .timeline-label .img-holder img {\n        height: auto;\n    }\n}"
+module.exports = ""
 
 /***/ },
 
 /***/ 815:
 /***/ function(module, exports) {
 
-module.exports = "@media only screen and (max-width: 500px) {\n    .mar-rgt, .mar-lft {\n        font-size: 12px;\n        margin:0 5px;\n    }\n}"
+module.exports = ""
 
 /***/ },
 
 /***/ 816:
 /***/ function(module, exports) {
 
-module.exports = ".post-type-panel,\n.mood-type-panel{\n    overflow: hidden;\n}\n\n.post-type-panel label,\n.mood-type-panel label{\n    float: left;\n    width: 33.3%;\n    padding: 15px;\n    text-align: center;\n    cursor: pointer;\n    margin-bottom: 0px;\n    border: 2px solid #ffffff;\n}\n\n.post-type-panel label input,\n.mood-type-panel label input{\n    visibility: hidden;\n    position: absolute;\n    left:0px;\n    top:0px;\n}\n\n.post-type-panel label img{\n    width: 50px;\n}\n\n.mood-type-panel label img{\n    width: 30px;\n    margin-bottom: 4px;\n}\n\n.post-type-panel label span,\n.mood-type-panel label span{\n    display: block;\n    font-size: 12px;\n    color: #888;\n}\n\n.post-type-panel label:hover span,\n.post-type-panel label.active span,\n.mood-type-panel label:hover span,\n.mood-type-panel label.active span{\n    color: #000;\n}\n\n.post-type-panel label.active,\n.mood-type-panel label.active{\n    background: #F2F2F2;\n}\n\n.widget-tabs-contr{\n    overflow: hidden;\n}\n\n.post-type-panel .type-definitions{\n    display: none;\n}\n\n.show_definitions label{\n    display: table;\n    width: 100%;\n    text-align: left;\n}\n\n.show_definitions .type-left{\n    text-align: center;\n}\n.show_definitions .type-left,\n.show_definitions .type-definitions{\n    display: inline-block;\n    width: 82%;\n    vertical-align: top;\n    padding: 10px;\n    font-size: 12px;\n}\n\n.sebm-google-map-container {\n    height: 150px;\n}\n#post-images {\n    position: absolute;\n    opacity:0;\n    top:0;\n    left:0;\n    width: 100%;\n    height: 100%;\n    cursor: pointer;\n}\n.fileinput-button {\n    position: relative;\n}\n.imglisting {\n    padding:0;\n    max-resolution: 10px 0;\n}\n.imglisting li {\n    position: relative;\n}\n.selectimge  .cross {\n    position: absolute;\n    right: 0;\n    top: 0;\n    text-align: center;\n    z-index: 99999;\n    height: 20px;\n    width: 20px;\n    font-weight:bold;\n    line-height: 20px;\n    background: red;\n    color: #fff\n}\n.form-busy{\n    position: relative;\n}\n\n.form-busy:after{\n    content: '';\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background: rgba(138, 138, 138, 0.7);\n    top: 0px;\n    left: 0px;\n}\n.form-busy:before {\n    content: '';\n    background-image: url(\"../../../assets/img/form-loader.svg\");\n    position: absolute;\n    top: 50%;\n    z-index: 100;\n    width: 120px;\n    height: 120px;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    left: 50%;\n}\n\n.show_definitions .type-left {\n    width:18% !important;\n}\n\n\n@media (max-width: 767px) {\n    .show_definitions .type-left {\n        width: 100%\n    }\n    .show_definitions .type-left,\n    .show_definitions .type-definitions{\n        display: table-cell;\n        width: 100% ;\n    }\n\n}"
+module.exports = ""
 
 /***/ },
 
 /***/ 817:
 /***/ function(module, exports) {
 
-module.exports = ".spacer {\n    height:10px;\n}\n\n.log-modal .table th {\n    border: none !important;\n}\n.log-modal .table form {\n    text-align: center;\n}\n.log-modal .table form input[type=text] {\n    padding: 5px;\n    vertical-align: top;\n    width: 100%;\n    max-width: 200px;\n}\n\nbutton.btn.info-btn {\n    margin-left: 15px;\n}"
+module.exports = "textarea {\n    width: 100%;\n    resize: none;\n    border: solid 1px #ddd;\n    margin: 10px 0;\n}\n.user-info {\n    margin-bottom: 10px;\n}\n.u-img {\n    width: 50px;\n    height:50px;\n    overflow: hidden;\n    margin-right: 5px;\n    float: left;\n}\n.u-img img {\n    max-width: 100%;\n}\n.u-name {\n    float: left;\n}\n.select2-container {\n    max-width: 100%;\n}"
 
 /***/ },
 
 /***/ 818:
 /***/ function(module, exports) {
 
-module.exports = ".pad-ver figure{\n    display: block;\n    width: 100px;\n    height: 100px;\n    margin: 0 auto 10px;\n}\n.panel-head{\n    padding: 15px;\n    margin-bottom: 30px;\n    border-bottom: 1px solid #f3f3f3;\n}\n\n.panel-head h3 {\n    color: #344a61;\n    font-size:22px;\n}\n\n.panel-head .demo-panel-ref-btn,\n.panel-head span{\n    font-size: 16px;\n    padding:0px;\n    display: inline-block;\n    vertical-align: middle;\n}\n.panel-head .demo-panel-ref-btn{\n    padding-left: 10px;\n    color: #394f65;\n}\n\n.panel-head .panel-control{\n    padding-right:0px;\n}\n.panel-head span {\n    color: #c5ccd3;\n}\n.panel-head h3 {\n    margin:0px;\n}\n\n.pro-image{\n    margin-bottom: 40px;\n}\n\n.pro-content{\n    padding-bottom: 30px;\n}\n\n.pro-content label {\n    display: block;\n    margin-bottom: 30px;\n    font-size: 16px;\n    color: #344a61;\n}\n\n.pro-content label .color-box{\n    width: 20px;\n    height:20px;\n    display: inline-block;\n    vertical-align: middle;\n}\n\n@media (max-width: 414px){\n    .panel-head h3 {\n        font-size:16px;\n    }\n    .panel-head .demo-panel-ref-btn,\n    .panel-head span{\n        font-size:12px;\n    }\n    .pro-content label {\n        font-size:12px;\n        margin-bottom: 20px;\n    }\n    .pro-content label strong,\n    .pro-content label span{\n        display: block;\n    }\n}"
+module.exports = ".timeline-label .img-holder{\n    height:500px;\n    overflow: hidden;\n}\n\n.timeline-label .img-holder img {\n    height: 100%;\n}\n\n.type-icon-grey img {\n    width:25px;\n    -webkit-filter: grayscale(100%);\n            filter: grayscale(100%);\n}\n@media (max-width: 640px){\n    .timeline-label .img-holder {\n        height: auto;\n    }\n    .timeline-label .img-holder img {\n        height: auto;\n    }\n}"
 
 /***/ },
 
 /***/ 819:
 /***/ function(module, exports) {
 
-module.exports = ".chose-color{\n    overflow: hidden;\n}\n\n.chose-color label{\n    float: left;\n    width:33.3%;\n    text-align: center;\n    padding:30px;\n    color: #FFF;\n    margin-bottom: 0px;\n    cursor: pointer;\n}\n\n.chose-color label input {\n    visibility: hidden;\n}\n.chose-color  label   input {\n    position: absolute;\n}\n.chose-color   label{\n    padding:30px 0;\n    text-align: center;\n}\n@media(max-width: 767px){\n    .chose-color   label {\n        font-size: 10px;\n    } \n}"
+module.exports = "@media only screen and (max-width: 500px) {\n    .mar-rgt, .mar-lft {\n        font-size: 12px;\n        margin:0 5px;\n    }\n}"
 
 /***/ },
 
 /***/ 820:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = ".post-type-panel,\n.mood-type-panel{\n    overflow: hidden;\n}\n\n.post-type-panel label,\n.mood-type-panel label{\n    float: left;\n    width: 33.3%;\n    padding: 15px;\n    text-align: center;\n    cursor: pointer;\n    margin-bottom: 0px;\n    border: 2px solid #ffffff;\n}\n\n.post-type-panel label input,\n.mood-type-panel label input{\n    visibility: hidden;\n    position: absolute;\n    left:0px;\n    top:0px;\n}\n\n.post-type-panel label img{\n    width: 50px;\n}\n\n.mood-type-panel label img{\n    width: 30px;\n    margin-bottom: 4px;\n}\n\n.post-type-panel label span,\n.mood-type-panel label span{\n    display: block;\n    font-size: 12px;\n    color: #888;\n}\n\n.post-type-panel label:hover span,\n.post-type-panel label.active span,\n.mood-type-panel label:hover span,\n.mood-type-panel label.active span{\n    color: #000;\n}\n\n.post-type-panel label.active,\n.mood-type-panel label.active{\n    background: #F2F2F2;\n}\n\n.widget-tabs-contr{\n    overflow: hidden;\n}\n\n.post-type-panel .type-definitions{\n    display: none;\n}\n\n.show_definitions label{\n    display: table;\n    width: 100%;\n    text-align: left;\n}\n\n.show_definitions .type-left{\n    text-align: center;\n}\n.show_definitions .type-left,\n.show_definitions .type-definitions{\n    display: inline-block;\n    width: 82%;\n    vertical-align: top;\n    padding: 10px;\n    font-size: 12px;\n}\n\n.sebm-google-map-container {\n    height: 150px;\n}\n#post-images {\n    position: absolute;\n    opacity:0;\n    top:0;\n    left:0;\n    width: 100%;\n    height: 100%;\n    cursor: pointer;\n}\n.fileinput-button {\n    position: relative;\n}\n.imglisting {\n    padding:0;\n    max-resolution: 10px 0;\n}\n.imglisting li {\n    position: relative;\n}\n.selectimge  .cross {\n    position: absolute;\n    right: 0;\n    top: 0;\n    text-align: center;\n    z-index: 99999;\n    height: 20px;\n    width: 20px;\n    font-weight:bold;\n    line-height: 20px;\n    background: red;\n    color: #fff\n}\n.form-busy{\n    position: relative;\n}\n\n.form-busy:after{\n    content: '';\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background: rgba(138, 138, 138, 0.7);\n    top: 0px;\n    left: 0px;\n}\n.form-busy:before {\n    content: '';\n    background-image: url(\"../../../assets/img/form-loader.svg\");\n    position: absolute;\n    top: 50%;\n    z-index: 100;\n    width: 120px;\n    height: 120px;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    left: 50%;\n}\n\n.show_definitions .type-left {\n    width:18% !important;\n}\n\n\n@media (max-width: 767px) {\n    .show_definitions .type-left {\n        width: 100%\n    }\n    .show_definitions .type-left,\n    .show_definitions .type-definitions{\n        display: table-cell;\n        width: 100% ;\n    }\n\n}"
 
 /***/ },
 
 /***/ 821:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = ".spacer {\n    height:10px;\n}\n\n.log-modal .table th {\n    border: none !important;\n}\n.log-modal .table form {\n    text-align: center;\n}\n.log-modal .table form input[type=text] {\n    padding: 5px;\n    vertical-align: top;\n    width: 100%;\n    max-width: 200px;\n}\n\nbutton.btn.info-btn {\n    margin-left: 15px;\n}"
 
 /***/ },
 
 /***/ 822:
 /***/ function(module, exports) {
 
-module.exports = ".btn-group-justified.cutoms>.btn, .btn-group-justified.cutoms>.btn-group {\n    display: block;\n    float: left;\n    width: 33.33%;\n}\n.btn.active, .btn {\n    border:none !important;\n}\n.btn-group-justified.cutoms > .btn {\n    height:99px;\n}\n.btn.btn-active-highlight img:focus {\n    outline: none;\n}\n.type-icon-grey img {\n    width:25px;\n    -webkit-filter: grayscale(100%);\n            filter: grayscale(100%);\n}"
+module.exports = ".pad-ver figure{\n    display: block;\n    width: 100px;\n    height: 100px;\n    margin: 0 auto 10px;\n}\n.panel-head{\n    padding: 15px;\n    margin-bottom: 30px;\n    border-bottom: 1px solid #f3f3f3;\n}\n\n.panel-head h3 {\n    color: #344a61;\n    font-size:22px;\n}\n\n.panel-head .demo-panel-ref-btn,\n.panel-head span{\n    font-size: 16px;\n    padding:0px;\n    display: inline-block;\n    vertical-align: middle;\n}\n.panel-head .demo-panel-ref-btn{\n    padding-left: 10px;\n    color: #394f65;\n}\n\n.panel-head .panel-control{\n    padding-right:0px;\n}\n.panel-head span {\n    color: #c5ccd3;\n}\n.panel-head h3 {\n    margin:0px;\n}\n\n.pro-image{\n    margin-bottom: 40px;\n}\n\n.pro-content{\n    padding-bottom: 30px;\n}\n\n.pro-content label {\n    display: block;\n    margin-bottom: 30px;\n    font-size: 16px;\n    color: #344a61;\n}\n\n.pro-content label .color-box{\n    width: 20px;\n    height:20px;\n    display: inline-block;\n    vertical-align: middle;\n}\n\n@media (max-width: 414px){\n    .panel-head h3 {\n        font-size:16px;\n    }\n    .panel-head .demo-panel-ref-btn,\n    .panel-head span{\n        font-size:12px;\n    }\n    .pro-content label {\n        font-size:12px;\n        margin-bottom: 20px;\n    }\n    .pro-content label strong,\n    .pro-content label span{\n        display: block;\n    }\n}"
 
 /***/ },
 
 /***/ 823:
 /***/ function(module, exports) {
 
-module.exports = ".profile-head h3 {\n    display: inline-block;\n}\n.profile-head .panel-control {\n    display: inline-block;\n    width: calc(100% - 75px);\n    float: none;\n    vertical-align: middle;\n}\n.profile-head .panel-control span {\n    width: calc(100% - 70px);\n}\n.pad-ver figure{\n    display: block;\n    width: 100px;\n    height: 100px;\n    margin: 0 auto 10px;\n}\n\n.form-busy{\n    position: relative;\n}\n\n.form-busy:after{\n    content: '';\n    position: fixed;\n    width: 100%;\n    height: 100%;\n    background: rgba(138, 138, 138, 0.7);\n    top: 0px;\n    left: 0px;\n    z-index:999;\n    overflow: hidden;\n}\n.form-busy:before {\n    content: '';\n    background-image: url(\"http://dev1-social.apptazer.com/assets/img/form-loader.svg\");\n    position: fixed;\n    top: 50%;\n    z-index: 1000;\n    width: 120px;\n    height: 120px;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    left: 50%;\n    overflow: hidden;\n}\n\n.panel-head{\n    padding: 15px;\n    margin-bottom: 30px;\n    border-bottom: 1px solid #f3f3f3;\n}\n\n.panel-head h3 {\n    color: #344a61;\n    font-size:22px;\n}\n\n.panel-head .demo-panel-ref-btn,\n.panel-head span{\n    font-size: 16px;\n    padding:0px;\n    display: inline-block;\n    vertical-align: middle;\n}\n.panel-head .demo-panel-ref-btn{\n    padding-left: 10px;\n    color: #394f65;\n}\n\n.panel-head .panel-control{\n    padding-right:0px;\n}\n.panel-head span {\n    color: #c5ccd3;\n}\n.panel-head h3 {\n    margin:0px;\n}\n\n.pro-image{\n    margin-bottom: 40px;\n}\n\n.pro-content{\n    padding-bottom: 30px;\n}\n\n.pro-content label {\n    display: block;\n    margin-bottom: 30px;\n    font-size: 16px;\n    color: #344a61;\n}\n\n.pro-content label .color-box{\n    width: 20px;\n    height:20px;\n    display: inline-block;\n    vertical-align: middle;\n}\n\n.chose-color{\n    overflow: hidden;\n}\n\n.chose-color label{\n    float: left;\n    width:33.3%;\n    text-align: center;\n    padding:30px;\n    color: #FFF;\n    margin-bottom: 0px;\n    cursor: pointer;\n}\n\n.chose-color label input {\n    visibility: hidden;\n}\n.chose-color  label   input {\n    position: absolute;\n}\n.chose-color   label{\n    padding:30px 0;\n    text-align: center;\n}\n@media(max-width: 767px){\n    .chose-color   label {\n        font-size: 10px;\n    }\n}\n\n@media (max-width: 414px){\n    .panel-head h3 {\n        font-size:16px;\n    }\n    .panel-head .demo-panel-ref-btn,\n    .panel-head span{\n        font-size:12px;\n    }\n    .pro-content label {\n        font-size:12px;\n        margin-bottom: 20px;\n    }\n    .pro-content label strong,\n    .pro-content label span{\n        display: block;\n    }\n    .profile-head .panel-control {\n        width: calc(100% - 55px);\n    }\n    .profile-head .panel-control span {\n        width: calc(100% - 70px);\n    }\n}"
+module.exports = ".chose-color{\n    overflow: hidden;\n}\n\n.chose-color label{\n    float: left;\n    width:33.3%;\n    text-align: center;\n    padding:30px;\n    color: #FFF;\n    margin-bottom: 0px;\n    cursor: pointer;\n}\n\n.chose-color label input {\n    visibility: hidden;\n}\n.chose-color  label   input {\n    position: absolute;\n}\n.chose-color   label{\n    padding:30px 0;\n    text-align: center;\n}\n@media(max-width: 767px){\n    .chose-color   label {\n        font-size: 10px;\n    } \n}"
 
 /***/ },
 
@@ -5967,14 +6086,14 @@ module.exports = ""
 /***/ 826:
 /***/ function(module, exports) {
 
-module.exports = ".link {\n    cursor: pointer;\n}\n\n@media (max-width: 414px) {\n    .panel-body {\n        padding-left: 0;\n        padding-right: 0;\n    }\n    .panel-body .mins-width {\n        padding-left: 5px !important;\n        padding-right: 5px !important;\n    }\n}"
+module.exports = ".btn-group-justified.cutoms>.btn, .btn-group-justified.cutoms>.btn-group {\n    display: block;\n    float: left;\n    width: 33.33%;\n}\n.btn.active, .btn {\n    border:none !important;\n}\n.btn-group-justified.cutoms > .btn {\n    height:99px;\n}\n.btn.btn-active-highlight img:focus {\n    outline: none;\n}\n.type-icon-grey img {\n    width:25px;\n    -webkit-filter: grayscale(100%);\n            filter: grayscale(100%);\n}"
 
 /***/ },
 
 /***/ 827:
 /***/ function(module, exports) {
 
-module.exports = ".refresh-span i.fa-refresh {\n    margin: 10px;\n    font-size: 20px;\n}"
+module.exports = ".profile-head h3 {\n    display: inline-block;\n}\n.profile-head .panel-control {\n    display: inline-block;\n    width: calc(100% - 75px);\n    float: none;\n    vertical-align: middle;\n}\n.profile-head .panel-control span {\n    width: calc(100% - 70px);\n}\n.pad-ver figure{\n    display: block;\n    width: 100px;\n    height: 100px;\n    margin: 0 auto 10px;\n}\n\n.form-busy{\n    position: relative;\n}\n\n.form-busy:after{\n    content: '';\n    position: fixed;\n    width: 100%;\n    height: 100%;\n    background: rgba(138, 138, 138, 0.7);\n    top: 0px;\n    left: 0px;\n    z-index:999;\n    overflow: hidden;\n}\n.form-busy:before {\n    content: '';\n    background-image: url(\"http://dev1-social.apptazer.com/assets/img/form-loader.svg\");\n    position: fixed;\n    top: 50%;\n    z-index: 1000;\n    width: 120px;\n    height: 120px;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    left: 50%;\n    overflow: hidden;\n}\n\n.panel-head{\n    padding: 15px;\n    margin-bottom: 30px;\n    border-bottom: 1px solid #f3f3f3;\n}\n\n.panel-head h3 {\n    color: #344a61;\n    font-size:22px;\n}\n\n.panel-head .demo-panel-ref-btn,\n.panel-head span{\n    font-size: 16px;\n    padding:0px;\n    display: inline-block;\n    vertical-align: middle;\n}\n.panel-head .demo-panel-ref-btn{\n    padding-left: 10px;\n    color: #394f65;\n}\n\n.panel-head .panel-control{\n    padding-right:0px;\n}\n.panel-head span {\n    color: #c5ccd3;\n}\n.panel-head h3 {\n    margin:0px;\n}\n\n.pro-image{\n    margin-bottom: 40px;\n}\n\n.pro-content{\n    padding-bottom: 30px;\n}\n\n.pro-content label {\n    display: block;\n    margin-bottom: 30px;\n    font-size: 16px;\n    color: #344a61;\n}\n\n.pro-content label .color-box{\n    width: 20px;\n    height:20px;\n    display: inline-block;\n    vertical-align: middle;\n}\n\n.chose-color{\n    overflow: hidden;\n}\n\n.chose-color label{\n    float: left;\n    width:33.3%;\n    text-align: center;\n    padding:30px;\n    color: #FFF;\n    margin-bottom: 0px;\n    cursor: pointer;\n}\n\n.chose-color label input {\n    visibility: hidden;\n}\n.chose-color  label   input {\n    position: absolute;\n}\n.chose-color   label{\n    padding:30px 0;\n    text-align: center;\n}\n@media(max-width: 767px){\n    .chose-color   label {\n        font-size: 10px;\n    }\n}\n\n@media (max-width: 414px){\n    .panel-head h3 {\n        font-size:16px;\n    }\n    .panel-head .demo-panel-ref-btn,\n    .panel-head span{\n        font-size:12px;\n    }\n    .pro-content label {\n        font-size:12px;\n        margin-bottom: 20px;\n    }\n    .pro-content label strong,\n    .pro-content label span{\n        display: block;\n    }\n    .profile-head .panel-control {\n        width: calc(100% - 55px);\n    }\n    .profile-head .panel-control span {\n        width: calc(100% - 70px);\n    }\n}"
 
 /***/ },
 
@@ -5988,263 +6107,312 @@ module.exports = ""
 /***/ 829:
 /***/ function(module, exports) {
 
-module.exports = "<div id=\"container\" class=\"effect aside-float aside-bright mainnav-lg navbar-fixed\" [ngClass]=\"{'aside-in': rightContent.aside_in}\">\n  <router-outlet></router-outlet>\n</div>\n"
+module.exports = ""
 
 /***/ },
 
 /***/ 830:
 /***/ function(module, exports) {
 
-module.exports = "<a (click)=\"asideToggle()\" href=\"javascript:void(0)\"> <em class=\"fa fa-fw fa-plus\"></em> {{content}} </a>"
+module.exports = ""
 
 /***/ },
 
 /***/ 831:
 /***/ function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>"
+module.exports = ".link {\n    cursor: pointer;\n}\n\n@media (max-width: 414px) {\n    .panel-body {\n        padding-left: 0;\n        padding-right: 0;\n    }\n    .panel-body .mins-width {\n        padding-left: 5px !important;\n        padding-right: 5px !important;\n    }\n}"
 
 /***/ },
 
 /***/ 832:
 /***/ function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>"
+module.exports = ".refresh-span i.fa-refresh {\n    margin: 10px;\n    font-size: 20px;\n}"
 
 /***/ },
 
 /***/ 833:
 /***/ function(module, exports) {
 
-module.exports = "<i (click)=\"goBack()\" class=\"fa fa-chevron-left back-button\"></i>"
+module.exports = ""
 
 /***/ },
 
 /***/ 834:
 /***/ function(module, exports) {
 
-module.exports = "<nav id=\"mainnav-container\">\n  <div id=\"mainnav\">\n\n    <!--Menu-->\n    <!--================================-->\n    <div id=\"mainnav-menu-wrap\">\n      <div class=\"nano\">\n        <div class=\"nano-content\">\n\n          <!--Profile Widget-->\n          <!--================================-->\n          <div id=\"mainnav-profile\" class=\"mainnav-profile\">\n            <div class=\"profile-wrap\">\n                        <div class=\"pad-btm text-left\"> <img class=\"img-circle img-xs img-border\" [src]=\"(auth.currentUser.ImageURL == '')?app.default_user_profile_pic:auth.currentUser.ImageURL\" alt=\"Profile Picture\"> <span class=\"menu-title text-muted\">{{auth.currentUser.FirstName}} {{auth.currentUser.LastName}} </span> </div>\n              <a href=\"#profile-nav\" class=\"box-block\">\n              </a> </div>\n          </div>\n\n          <!--Profile Widget-->\n          <!--================================-->\n          <div class=\"mainnav-profile\">\n            <div id=\"profile-nav\" class=\"collapse list-group bg-trans\"> <a href=\"#\" class=\"list-group-item\"> <i class=\"demo-pli-male icon-lg icon-fw\"></i> View Profile </a> <a href=\"#\" class=\"list-group-item\"> <i class=\"demo-pli-gear icon-lg icon-fw\"></i> Settings </a> <a href=\"#\" class=\"list-group-item\"> <i class=\"demo-pli-information icon-lg icon-fw\"></i> Help </a> <a href=\"#\" class=\"list-group-item\"> <i class=\"demo-pli-unlock icon-lg icon-fw\"></i> Logout </a> </div>\n          </div>\n          <ul id=\"mainnav-menu\" class=\"list-group\">\n\n            <li class=\"list-divider\"></li>\n            <li class=\"list-header\">View Logs <i (click)=\"refreshTimelines()\" class=\"pull-to-refresh fa fa-refresh\" [ngClass]=\"{'fa-spin': loadingUserStuff}\"  aria-hidden=\"true\"></i></li>\n            <li *ngFor=\"let option of timelineService.userTimelines\"> <a routerLink=\"/log/{{option.Id}}\"> <span class=\"menu-title text-menu\"> <strong>{{option.Name}}</strong> </span> </a> </li>\n            <li routerLinkActive=\"active\"> <a routerLink=\"/create-custom-log\"> <span class=\"menu-title text-menu\"> <strong>Custom View</strong> </span> </a> </li>\n\n            <li class=\"list-divider\"></li>\n\n            <li class=\"list-header\">Manage</li>\n            <li routerLinkActive=\"active\"> <a routerLink=\"/manage-logs\"> <span class=\"menu-title text-menu\"> <strong>Logs</strong> </span> </a> </li>\n\n            <!--Menu list item-->\n            <li routerLinkActive=\"active\"> <a routerLink=\"/manage-profiles\"> <span class=\"menu-title text-menu\"> <strong>My Account</strong> </span> </a> </li>\n            <li class=\"list-divider\"></li>\n            <!--Menu list item-->\n\n            <li> <a href=\"javascript:void(0)\" (click)=\"logout()\"> <span class=\"menu-title text-menu\"> <strong>Logout</strong> </span> </a> </li>\n            <li class=\"list-divider\"></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n    <!--================================-->\n    <!--End menu-->\n\n  </div>\n</nav>\n"
+module.exports = "<div id=\"container\" class=\"effect aside-float aside-bright mainnav-lg navbar-fixed\" [ngClass]=\"{'aside-in': rightContent.aside_in}\">\n  <router-outlet></router-outlet>\n</div>\n"
 
 /***/ },
 
 /***/ 835:
 /***/ function(module, exports) {
 
-module.exports = "<div id=\"content-container\">\n\n  <!--Page content-->\n  <!--===================================================-->\n  <div id=\"page-content\">\n    <ng-content></ng-content>\n  </div>\n  <!--===================================================-->\n  <!--End page content-->\n\n</div>"
+module.exports = "<a (click)=\"asideToggle()\" href=\"javascript:void(0)\"> <em class=\"fa fa-fw fa-plus\"></em> {{content}} </a>"
 
 /***/ },
 
 /***/ 836:
 /***/ function(module, exports) {
 
-module.exports = "<aside id=\"aside-container\">\n  <div id=\"aside\">\n    <div class=\"nano\">\n      <div class=\"nano-content\">\n        <ng-content></ng-content>\n      </div>\n    </div>\n  </div>\n</aside>"
+module.exports = "<router-outlet></router-outlet>"
 
 /***/ },
 
 /***/ 837:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"boxed\">\n  <ng-content></ng-content>\n</div>\n"
+module.exports = "<router-outlet></router-outlet>\n<app-error-message-popup></app-error-message-popup>\n<app-success-message-popup></app-success-message-popup>"
 
 /***/ },
 
 /***/ 838:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\" (click)=\"viewCustomLog($event)\"> <a href=\"javascript:void(0)\"> <em class=\"fa fa-fw fa-eye\"></em> View </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <div class=\"row\">\n      <div class=\"col-lg-12\">\n        <div class=\"panel\">\n          <div class=\"panel-heading\">\n            <div class=\"panel-control\">\n              <ul class=\"pager pager-rounded\">\n              </ul>\n            </div>\n            <h3 class=\"panel-title\">Configure Custom View</h3>\n          </div>\n\n          <!--Hover Rows-->\n          <!--===================================================-->\n          <div class=\"panel-body\">\n            <p class=\"mar-btm\">Use these filters to configure a custom view with content from any of your logs. </p>\n            <div class=\"row\">\n              <div class=\"col-sm-4 col-md-3\">\n                <div class=\"mar-btm\">\n                  <p class=\"dropdown-header\">\n                      <span>\n                          <button class=\"btn btn-xs btn-rounded btn-default pull-right\" (click)=\"unselectAllTimelines()\"> None</button>\n                          <button class=\"btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm\" (click)=\"selectAllTimelines()\">All</button>\n                      </span>\n                  </p>\n\n                  <div class=\"form-group pad-hor\">\n                    <span *ngFor=\"let option of timelines\">\n                      <div class=\"checkbox\" >\n                        <input class=\"magic-checkbox\" id=\"demo-form-checkbox{{option.Id}}\" #timeline type=\"checkbox\" value=\"{{option.Id}}\" [checked]=\"isTimelineSelected(option.Id)\" name=\"timeline{{option.Id}}\" (change)=\"timelinesChanged(timeline.checked+','+timeline.value)\" />\n                          <label for=\"demo-form-checkbox{{option.Id}}\"> {{option.Name}}</label>\n                      </div>\n                      <hr class=\"new-section-xs bord-no\">\n                    </span>\n                  </div>\n                </div>\n\n                <div class=\"mar-btm\">\n                  <p class=\"dropdown-header\">View Date<span>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right\">All</button>\n                                                </span>\n                  </p>\n                  <!--Bootstrap Datepicker : Range-->\n                  <!--===================================================-->\n                  <div id=\"demo-dp-range\">\n                    <div class=\"input-daterange input-group\" id=\"datepicker\">\n                      <input type=\"text\" class=\"form-control datepicker\" name=\"start\" id=\"from-date\"/>\n                      <span class=\"input-group-addon\">to</span>\n                      <input type=\"text\" class=\"form-control datepicker\" name=\"end\" id=\"to-date\"/>\n                    </div>\n                  </div>\n                  <!--===================================================-->\n                </div>\n\n                <hr class=\"new-section-xs bord-no\">\n\n              </div>\n              <div class=\"col-sm-4 col-md-3\">\n                <div class=\"mar-btm\">\n                  <p class=\"dropdown-header\">View Categories<span>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right\" (click)=\"unselectAllTypes()\">None</button>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm\" (click)=\"selectAllTypes()\">All</button>\n                                                </span>\n                  </p>\n                  <div class=\"cate-widget\">\n                    <label *ngFor=\"let option of types\" [ngClass]=\"{active: isTypeSelected(option.value)}\">\n                      <input type=\"checkbox\" #type type=\"checkbox\" value=\"{{option.value}}\" [checked]=\"isTypeSelected(option.value)\" (change)=\"typeChanged(type.checked+','+type.value)\" />\n                      <img class=\"category-images\" src=\"assets/img/{{option.img}}\" alt=\"\">\n                      <span>{{option.value}}</span>\n                    </label>\n                  </div>\n                  <!--Justified Button Group-->\n                  <!--===================================================-->\n\n                </div>\n              </div>\n              <div class=\"col-sm-4 col-md-3\">\n                <div class=\"mar-btm\">\n                  <p class=\"dropdown-header\">View Tags<span>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right\" (click)=\"unselectAllTags()\">None</button>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm\" (click)=\"selectAllTags()\">All</button>\n                                                </span>\n                  </p>\n                  <!--Justified Button Group-->\n                  <!--===================================================-->\n                  <!--                  <div class=\"pre-scrollable bord-ver\">\n                  -->\n                  <div class=\"tags-widget clearfix\">\n                    <label *ngFor=\"let option of tags\" [ngClass]=\"{active: isTagSelected(option)}\">\n                      <input type=\"checkbox\" #tag value=\"{{option}}\" [checked]=\"isTagSelected(option)\" (change)=\"tagChanged(tag.checked+','+tag.value)\" />\n                      <span>{{option}}</span>\n                    </label>\n                  </div>\n                  <!--===================================================-->\n                </div>\n              </div>\n              <div class=\"col-sm-12 col-md-3\">\n                <div class=\"mar-btm\">\n                  <div class=\"clear\"></div>\n                  <p class=\"dropdown-header wide\" >View Moods<span>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right\" (click)=\"unselectAllMoods()\">None</button>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm\" (click)=\"selectAllMoods()\">All</button>\n                                                </span>\n                  </p>\n                  <!--                  <div class=\"pre-scrollable bord-ver\">\n                  -->\t\t\t\t\t                        <!--Justified Button Group-->\n                  <!--===================================================-->\n                  <div class=\"mood-type-panel\">\n                    <label  *ngFor=\"let option of modes\" [ngClass]=\"{active: isModeSelected(option.value)}\">\n                      <input type=\"checkbox\" #mode type=\"checkbox\" value=\"{{option.value}}\" [checked]=\"isModeSelected(option.value)\" (change)=\"modeChanged(mode.checked+','+mode.value)\" >\n                      <img src=\"assets/img/{{option.img}}\" alt=\"\">\n                      <span>{{option.value}}</span>\n                    </label>\n                  </div>\n                  <!--===================================================-->\n\n                </div>\n              </div>\n            </div>\n          </div>\n\n    </div>\n      </div>\n    </div>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
+module.exports = "<span class=\"backBtn\"><i (click)=\"goBack()\" class=\"fa fa-chevron-left back-button\"></i></span>"
 
 /***/ },
 
 /***/ 839:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\" (click)=\"asideToggle()\"> <a href=\"javascript:void(0)\"> <em class=\"fa fa-fw fa-plus\"></em> Add Content </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <div class=\"row\">\n      <div class=\"spacer\"></div>\n      <div  class=\"col-lg-6\">\n        <div class=\"panel\">\n          <div class=\"panel-heading\">\n            <div class=\"panel-control\">\n              <ul class=\"pager pager-rounded\">\n\n              </ul>\n            </div>\n            <h3 class=\"panel-title\">\n              Create new log\n            </h3>\n\n          </div>\n\n\n          <!--Hover Rows-->\n          <!--===================================================-->\n          <div class=\"panel-body\">\n\n\n            <table class=\"table table-hover table-vcenter\">\n              <thead>\n              <tr>\n                <th>\n                  <form (submit)=\"create(f)\" #f=\"ngForm\">\n                    <input type=\"text\" class=\"input_text\" ngModel name=\"Name\" placeholder=\"Enter New Log Name Here..\" required>\n                    <button type=\"submit\" class=\"btn btn-info\">Save</button>\n                    <div class=\"spacer\"></div>\n                  </form>\n                </th>\n              </tr>\n              </thead>\n            </table>\n          </div>\n          <!--===================================================-->\n          <!--End Hover Rows-->\n\n        </div>\n      </div>\n\n\n      <br>\n    </div>\n\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
+module.exports = "<nav id=\"mainnav-container\">\n  <div id=\"mainnav\">\n\n    <!--Menu-->\n    <!--================================-->\n    <div id=\"mainnav-menu-wrap\">\n      <div class=\"nano\">\n        <div class=\"nano-content\">\n\n          <!--Profile Widget-->\n          <!--================================-->\n          <div id=\"mainnav-profile\" class=\"mainnav-profile\">\n            <div class=\"profile-wrap\">\n                        <div class=\"pad-btm text-left\"> <img class=\"img-circle img-xs img-border\" [src]=\"(auth.currentUser.ImageURL == '')?app.default_user_profile_pic:auth.currentUser.ImageURL\" alt=\"Profile Picture\"> <span class=\"menu-title text-muted\">{{auth.currentUser.FirstName}} {{auth.currentUser.LastName}} </span> </div>\n              <a href=\"#profile-nav\" class=\"box-block\">\n              </a> </div>\n          </div>\n\n          <!--Profile Widget-->\n          <!--================================-->\n          <div class=\"mainnav-profile\">\n            <div id=\"profile-nav\" class=\"collapse list-group bg-trans\"> <a href=\"#\" class=\"list-group-item\"> <i class=\"demo-pli-male icon-lg icon-fw\"></i> View Profile </a> <a href=\"#\" class=\"list-group-item\"> <i class=\"demo-pli-gear icon-lg icon-fw\"></i> Settings </a> <a href=\"#\" class=\"list-group-item\"> <i class=\"demo-pli-information icon-lg icon-fw\"></i> Help </a> <a href=\"#\" class=\"list-group-item\"> <i class=\"demo-pli-unlock icon-lg icon-fw\"></i> Logout </a> </div>\n          </div>\n          <ul id=\"mainnav-menu\" class=\"list-group\">\n\n            <li class=\"list-divider\"></li>\n            <li class=\"list-header\">View Logs <i (click)=\"refreshTimelines()\" class=\"pull-to-refresh fa fa-refresh\" [ngClass]=\"{'fa-spin': loadingUserStuff}\"  aria-hidden=\"true\"></i></li>\n            <li *ngFor=\"let option of timelineService.userTimelines\"> <a routerLink=\"/log/{{option.Id}}\"> <span class=\"menu-title text-menu\"> <strong>{{option.Name}}</strong> </span> </a> </li>\n            <li routerLinkActive=\"active\"> <a routerLink=\"/create-custom-log\"> <span class=\"menu-title text-menu\"> <strong>Custom View</strong> </span> </a> </li>\n\n            <li class=\"list-divider\"></li>\n\n            <li class=\"list-header\">Manage</li>\n            <li routerLinkActive=\"active\"> <a routerLink=\"/manage-logs\"> <span class=\"menu-title text-menu\"> <strong>Logs</strong> </span> </a> </li>\n\n            <!--Menu list item-->\n            <li routerLinkActive=\"active\"> <a routerLink=\"/manage-profiles\"> <span class=\"menu-title text-menu\"> <strong>My Account</strong> </span> </a> </li>\n            <li class=\"list-divider\"></li>\n            <!--Menu list item-->\n\n            <li> <a href=\"javascript:void(0)\" (click)=\"logout()\"> <span class=\"menu-title text-menu\"> <strong>Logout</strong> </span> </a> </li>\n            <li class=\"list-divider\"></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n    <!--================================-->\n    <!--End menu-->\n\n  </div>\n</nav>\n"
 
 /***/ },
 
 /***/ 840:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Profile </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <app-profile\n            [manualControls]=\"true\"\n            [formBusy]=\"formBusy\"\n            [editMode]=\"true\"\n            [newAccount]=\"true\"\n            (profileUpdated)=\"profileCreated($event)\"\n            (profileUpdating)=\"profileCreating($event)\"\n            [title]='title'\n    ></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
+module.exports = "<div id=\"content-container\">\n\n  <!--Page content-->\n  <!--===================================================-->\n  <div id=\"page-content\">\n    <ng-content></ng-content>\n  </div>\n  <!--===================================================-->\n  <!--End page content-->\n\n</div>"
 
 /***/ },
 
 /***/ 841:
 /***/ function(module, exports) {
 
-module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- LOGIN FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"mar-ver pad-btm\">\n              <h3 class=\"h4 mar-no\">Riza</h3>\n              <p class=\"text-muted\">Create new password.</p>\n            </div>\n            <form action=\"index.html\" (ngSubmit)=\"createNewPassword(f)\" #f=\"ngForm\">\n                <div class=\"form-group\">\n                    <input type=\"password\" class=\"form-control\" ngModel name=\"password\" placeholder=\"Enter new password\" autofocus>\n                </div>\n                <div class=\"form-group\">\n                    <input type=\"password\" class=\"form-control\" ngModel name=\"confirm_password\" placeholder=\"Confirm new password\">\n                </div>\n                <div class=\"checkbox pad-btm text-left\">\n                    <input id=\"demo-form-checkbox\" class=\"magic-checkbox\" type=\"checkbox\">\n                </div>\n                <button class=\"btn btn-primary btn-lg btn-block\" type=\"submit\">Reset Password</button>\n            </form>\n        </div>\n\n\n    </div>\n</div>\n<!--===================================================-->\n"
+module.exports = "<aside id=\"aside-container\">\n  <div id=\"aside\">\n    <div class=\"nano\">\n      <div class=\"nano-content\">\n        <ng-content></ng-content>\n      </div>\n    </div>\n  </div>\n</aside>"
 
 /***/ },
 
 /***/ 842:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Create Profile </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <app-profile\n            [user]=\"auth.currentUser\"\n            [manualControls]=\"true\"\n            [editMode]=\"editMode\"\n            (profileUpdating)=\"profileUpdating($event)\"\n            [formBusy]=\"formBusy\"\n            (profileUpdated)=\"profileUpdated($event)\"\n            (someThingWentWrong)=\"someThingWentWrong($event)\"\n    ></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
+module.exports = "<div class=\"boxed\">\n  <ng-content></ng-content>\n</div>\n"
 
 /***/ },
 
 /***/ 843:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <app-back-button></app-back-button>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Profile </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <app-profile [user]=\"user\" [editMode]=\"true\"></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\" (click)=\"viewCustomLog($event)\"> <a href=\"javascript:void(0)\"> <em class=\"fa fa-fw fa-eye\"></em> View </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <div class=\"row\">\n      <div class=\"col-lg-12\">\n        <div class=\"panel\">\n          <div class=\"panel-heading\">\n            <div class=\"panel-control\">\n              <ul class=\"pager pager-rounded\">\n              </ul>\n            </div>\n            <h3 class=\"panel-title\">Configure Custom View</h3>\n          </div>\n\n          <!--Hover Rows-->\n          <!--===================================================-->\n          <div class=\"panel-body\">\n            <p class=\"mar-btm\">Use these filters to configure a custom view with content from any of your logs. </p>\n            <div class=\"row\">\n              <div class=\"col-sm-4 col-md-3\">\n                <div class=\"mar-btm\">\n                  <p class=\"dropdown-header\">\n                      <span>\n                          <button class=\"btn btn-xs btn-rounded btn-default pull-right\" (click)=\"unselectAllTimelines()\"> None</button>\n                          <button class=\"btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm\" (click)=\"selectAllTimelines()\">All</button>\n                      </span>\n                  </p>\n\n                  <div class=\"form-group pad-hor\">\n                    <span *ngFor=\"let option of timelines\">\n                      <div class=\"checkbox\" >\n                        <input class=\"magic-checkbox\" id=\"demo-form-checkbox{{option.Id}}\" #timeline type=\"checkbox\" value=\"{{option.Id}}\" [checked]=\"isTimelineSelected(option.Id)\" name=\"timeline{{option.Id}}\" (change)=\"timelinesChanged(timeline.checked+','+timeline.value)\" />\n                          <label for=\"demo-form-checkbox{{option.Id}}\"> {{option.Name}}</label>\n                      </div>\n                      <hr class=\"new-section-xs bord-no\">\n                    </span>\n                  </div>\n                </div>\n\n                <div class=\"mar-btm\">\n                  <p class=\"dropdown-header\">View Date<span>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right\">All</button>\n                                                </span>\n                  </p>\n                  <!--Bootstrap Datepicker : Range-->\n                  <!--===================================================-->\n                  <div id=\"demo-dp-range\">\n                    <div class=\"input-daterange input-group\" id=\"datepicker\">\n                      <input type=\"text\" class=\"form-control datepicker\" name=\"start\" id=\"from-date\"/>\n                      <span class=\"input-group-addon\">to</span>\n                      <input type=\"text\" class=\"form-control datepicker\" name=\"end\" id=\"to-date\"/>\n                    </div>\n                  </div>\n                  <!--===================================================-->\n                </div>\n\n                <hr class=\"new-section-xs bord-no\">\n\n              </div>\n              <div class=\"col-sm-4 col-md-3\">\n                <div class=\"mar-btm\">\n                  <p class=\"dropdown-header\">View Categories<span>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right\" (click)=\"unselectAllTypes()\">None</button>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm\" (click)=\"selectAllTypes()\">All</button>\n                                                </span>\n                  </p>\n                  <div class=\"cate-widget\">\n                    <label *ngFor=\"let option of types\" [ngClass]=\"{active: isTypeSelected(option.value)}\">\n                      <input type=\"checkbox\" #type type=\"checkbox\" value=\"{{option.value}}\" [checked]=\"isTypeSelected(option.value)\" (change)=\"typeChanged(type.checked+','+type.value)\" />\n                      <img class=\"category-images\" src=\"assets/img/{{option.img}}\" alt=\"\">\n                      <span>{{option.value}}</span>\n                    </label>\n                  </div>\n                  <!--Justified Button Group-->\n                  <!--===================================================-->\n\n                </div>\n              </div>\n              <div class=\"col-sm-4 col-md-3\">\n                <div class=\"mar-btm\">\n                  <p class=\"dropdown-header\">View Tags<span>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right\" (click)=\"unselectAllTags()\">None</button>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm\" (click)=\"selectAllTags()\">All</button>\n                                                </span>\n                  </p>\n                  <!--Justified Button Group-->\n                  <!--===================================================-->\n                  <!--                  <div class=\"pre-scrollable bord-ver\">\n                  -->\n                  <div class=\"tags-widget clearfix\">\n                    <label *ngFor=\"let option of tags\" [ngClass]=\"{active: isTagSelected(option)}\">\n                      <input type=\"checkbox\" #tag value=\"{{option}}\" [checked]=\"isTagSelected(option)\" (change)=\"tagChanged(tag.checked+','+tag.value)\" />\n                      <span>{{option}}</span>\n                    </label>\n                  </div>\n                  <!--===================================================-->\n                </div>\n              </div>\n              <div class=\"col-sm-12 col-md-3\">\n                <div class=\"mar-btm\">\n                  <div class=\"clear\"></div>\n                  <p class=\"dropdown-header wide\" >View Moods<span>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right\" (click)=\"unselectAllMoods()\">None</button>\n                                                <button class=\"btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm\" (click)=\"selectAllMoods()\">All</button>\n                                                </span>\n                  </p>\n                  <!--                  <div class=\"pre-scrollable bord-ver\">\n                  -->\t\t\t\t\t                        <!--Justified Button Group-->\n                  <!--===================================================-->\n                  <div class=\"mood-type-panel\">\n                    <label  *ngFor=\"let option of modes\" [ngClass]=\"{active: isModeSelected(option.value)}\">\n                      <input type=\"checkbox\" #mode type=\"checkbox\" value=\"{{option.value}}\" [checked]=\"isModeSelected(option.value)\" (change)=\"modeChanged(mode.checked+','+mode.value)\" >\n                      <img src=\"assets/img/{{option.img}}\" alt=\"\">\n                      <span>{{option.value}}</span>\n                    </label>\n                  </div>\n                  <!--===================================================-->\n\n                </div>\n              </div>\n            </div>\n          </div>\n\n    </div>\n      </div>\n    </div>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
 
 /***/ },
 
 /***/ 844:
 /***/ function(module, exports) {
 
-module.exports = "<footer id=\"footer\">\n  <p class=\"pad-lft\">&#0169; 2017 RIZA</p>\n</footer>"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\" (click)=\"asideToggle()\"> <a href=\"javascript:void(0)\"> <em class=\"fa fa-fw fa-plus\"></em> Add Content </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <div class=\"row\">\n      <div class=\"spacer\"></div>\n      <div  class=\"col-lg-6\">\n        <div class=\"panel\">\n          <div class=\"panel-heading\">\n            <div class=\"panel-control\">\n              <ul class=\"pager pager-rounded\">\n\n              </ul>\n            </div>\n            <h3 class=\"panel-title\">\n              Create new log\n            </h3>\n\n          </div>\n\n\n          <!--Hover Rows-->\n          <!--===================================================-->\n          <div class=\"panel-body\">\n\n\n            <table class=\"table table-hover table-vcenter\">\n              <thead>\n              <tr>\n                <th>\n                  <form (submit)=\"create(f)\" #f=\"ngForm\">\n                    <input type=\"text\" class=\"input_text\" ngModel name=\"Name\" placeholder=\"Enter New Log Name Here..\" required>\n                    <button type=\"submit\" class=\"btn btn-info\">Save</button>\n                    <div class=\"spacer\"></div>\n                  </form>\n                </th>\n              </tr>\n              </thead>\n            </table>\n          </div>\n          <!--===================================================-->\n          <!--End Hover Rows-->\n\n        </div>\n      </div>\n\n\n      <br>\n    </div>\n\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
 
 /***/ },
 
 /***/ 845:
 /***/ function(module, exports) {
 
-module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- PASSWORD RESETTING FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"pad-ver\">\n                <i class=\"pli-mail icon-3x\"></i>\n            </div>\n            <p class=\"text-muted pad-btm\">Enter your email address to recover your password. </p>\n            <form action=\"pages-login.html\" (ngSubmit)=\"sendPasswordResetLink(f)\" #f=\"ngForm\">\n                <div class=\"form-group\">\n                    <input type=\"email\" class=\"form-control\" placeholder=\"Email\" ngModel name=\"email\">\n                </div>\n                <div class=\"form-group text-right\">\n                    <button class=\"btn btn-success btn-block\" type=\"submit\">Reset Password</button>\n                </div>\n            </form>\n            <p style=\"color:red; text-align:center;\">{{errors}}</p>\n            <div class=\"pad-top\">\n                <a routerLink=\"/login\" class=\"btn-link mar-rgt\">Back to Login</a>\n            </div>\n        </div>\n    </div>\n</div>\n<!--===================================================-->\n"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Profile </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <app-profile\n            [manualControls]=\"true\"\n            [formBusy]=\"formBusy\"\n            [editMode]=\"true\"\n            [newAccount]=\"true\"\n            (profileUpdated)=\"profileCreated($event)\"\n            (profileUpdating)=\"profileCreating($event)\"\n            [title]='title'\n    ></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
 
 /***/ },
 
 /***/ 846:
 /***/ function(module, exports) {
 
-module.exports = "<ul class=\"nav navbar-top-links pull-right top-bar-widget\">\n  <ng-content></ng-content>\n</ul>"
+module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- LOGIN FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"mar-ver pad-btm\">\n              <h3 class=\"h4 mar-no\">Riza</h3>\n              <p class=\"text-muted\">Create new password.</p>\n            </div>\n            <form action=\"index.html\" (ngSubmit)=\"createNewPassword(f)\" #f=\"ngForm\">\n                <div class=\"form-group\">\n                    <input type=\"password\" class=\"form-control\" ngModel name=\"password\" placeholder=\"Enter new password\" autofocus>\n                </div>\n                <div class=\"form-group\">\n                    <input type=\"password\" class=\"form-control\" ngModel name=\"confirm_password\" placeholder=\"Confirm new password\">\n                </div>\n                <div class=\"checkbox pad-btm text-left\">\n                    <input id=\"demo-form-checkbox\" class=\"magic-checkbox\" type=\"checkbox\">\n                </div>\n                <button class=\"btn btn-primary btn-lg btn-block\" type=\"submit\">Reset Password</button>\n            </form>\n        </div>\n\n\n    </div>\n</div>\n<!--===================================================-->\n"
 
 /***/ },
 
 /***/ 847:
 /***/ function(module, exports) {
 
-module.exports = "<header id=\"navbar\">\n  <div id=\"navbar-container\" class=\"boxed\">\n\n    <!--Brand logo & name-->\n    <!--================================-->\n    <div class=\"navbar-header\">\n      <a href=\"#\" class=\"navbar-brand\">\n        <img src=\"assets/img/logo.png\" alt=\"Nifty Logo\" class=\"brand-icon\">\n        <div class=\"brand-title\">\n          <img src=\"assets/img/logo-text-img.png\" alt=\"Nifty Logo\" class=\"brand-icon-text-img mar-no\">\n        </div>\n      </a>\n    </div>\n    <!--================================-->\n    <!--End brand logo & name—>\n\n    <!--Navbar Dropdown-->\n    <!--================================-->\n    <div class=\"navbar-content bg-navbar clearfix\">\n      <ul class=\"nav navbar-top-links pull-left\">\n        <!--Navigation toogle button-->\n        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n        <li class=\"tgl-menu-btn\"> <a class=\"mainnav-toggle\" href=\"javascript:void(0)\"> <i class=\"fa fa-fw fa-bars\"></i> </a> </li>\n        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n        <!--End Navigation toogle button-->\n\n        <li *ngIf=\"title != ''\"> <a href=\"javascript:void(0)\"> {{title}} </a> </li>\n      </ul>\n        <ng-content></ng-content>\n    </div>\n    <!--================================-->\n    <!--End Navbar Dropdown-->\n\n  </div>\n</header>\n"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Create Profile </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <app-profile\n            [user]=\"auth.currentUser\"\n            [manualControls]=\"true\"\n            [editMode]=\"editMode\"\n            (profileUpdating)=\"profileUpdating($event)\"\n            [formBusy]=\"formBusy\"\n            (profileUpdated)=\"profileUpdated($event)\"\n            (someThingWentWrong)=\"someThingWentWrong($event)\"\n    ></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
 
 /***/ },
 
 /***/ 848:
 /***/ function(module, exports) {
 
-module.exports = "<ul class=\"nav navbar-top-links pull-left\">\n  <ng-content></ng-content>\n</ul>"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <app-back-button></app-back-button>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Profile </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <app-profile [user]=\"user\" [editMode]=\"true\"></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
 
 /***/ },
 
 /***/ 849:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <app-profile\n            [user]=\"auth.currentUser\"\n            (profileUpdating)=\"profileUpdating($event)\"\n            (profileUpdated)=\"profileUpdated($event)\"\n    ></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n\n"
+module.exports = "<div id=\"global_error_popup\" class=\"modal fade\" role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n        <h4 class=\"modal-title\">Error!</h4>\n      </div>\n      <div class=\"modal-body\">\n        <p id=\"global_error_popup_text\"></p>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ },
 
 /***/ 850:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Profile </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <app-profile\n            [manualControls]=\"true\"\n            [formBusy]=\"formBusy\"\n            [editMode]=\"true\"\n            [newAccount]=\"true\"\n            (profileUpdated)=\"profileCreated($event)\"\n            (profileUpdating)=\"profileCreating($event)\"\n            [title]='title'\n    ></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
+module.exports = "<footer id=\"footer\">\n  <p class=\"pad-lft\">&#0169; 2017 RIZA</p>\n</footer>"
 
 /***/ },
 
 /***/ 851:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <div class=\"row\">\n      <div class=\"col-lg-12\">\n        <div class=\"panel\">\n          <form (submit)=\"invite(f)\" #f=\"ngForm\">\n            <div class=\"panel-heading\">\n              <div class=\"panel-control\">\n                <ul class=\"pager pager-rounded\">\n                </ul>\n              </div>\n              <div class=\"panel-heading\">\n                <div class=\"panel-control\">\n                  <button type=\"submit\" class=\"demo-panel-ref-btn btn btn-default\" data-target=\"#demo-panel-ref\" data-toggle=\"panel-overlay\"> <i class=\"fa fa-share fa-fw\"></i> Invite </button>\n                </div>\n                <h3 class=\"panel-title\">Invite others to join this log</h3>\n              </div>\n            </div>\n            <!--Hover Rows-->\n            <!--===================================================-->\n            <div class=\"panel-body\">\n              <div class=\"mar-ver\">\n                <p class=\"text-main text-bold mar-no\">Add from the directory</p>\n                <p>Invite someone that already uses Riza to join this log.</p>\n                <div class=\"input-group mar-btm col-xs-12 col-md-4\">\n                  <!--===================================================-->\n                  <select class=\"invite-users-multi-select\" multiple style=\"width: 300px;\" ngModel name=\"users\">\n\n                  </select>\n                  <!--===================================================-->\n                </div>\n              </div>\n\n              <p class=\"text-main text-bold\">Or, enter an email address</p>\n              <!--                                  <p>Enter the email address of the person you would like to invite.</p>\n              -->                                  \t\t\t\t\t                  <div class=\"input-group mar-btm col-xs-12 col-md-3\">\n              <input type=\"text\" [(ngModel)]=\"email\" name=\"email\" class=\"form-control\" placeholder=\"Enter email\">\n            </div>\n              <div class=\"input-group mar-btm col-xs-12 col-md-4\">\n\n                <button *ngIf=\"email != ''\" type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#myModal\">Preview Email Invite</button>\n                <!-- Modal -->\n                <div id=\"myModal\" class=\"modal fade\" role=\"dialog\">\n                  <div class=\"modal-dialog\">\n\n                    <!-- Modal content-->\n                    <div class=\"modal-content\">\n                      <div class=\"modal-header\">\n                        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                        <h4 class=\"modal-title\">Send Invitation</h4>\n                      </div>\n                      <div class=\"modal-body\">\n                        <div class=\"user-info clearfix\">\n\n                        <div class=\"u-img\"><img src=\"assets/img/profile-photos/profile-default.png\" alt=\"\"></div>\n                        <div class=\"u-name\">\n                            <strong>{{email}}</strong>\n                        </div>\n                        </div>\n                        <p >\n                          They will see this message when your request is sent\n                        </p>\n                        <p style=\"height: 150px; border:solid 1px #ddd; padding:6px; border-radius:4px\">\n                          Please join my log\n                        </p>\n                      </div>\n                      <div class=\"modal-footer\">\n                        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n            <!--===================================================-->\n            <!--End Hover Rows-->\n          </form>\n        </div>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-lg-12\">\n        <div class=\"panel\">\n          <div class=\"panel-heading\">\n            <div class=\"panel-control\">\n              <ul class=\"pager pager-rounded\">\n              </ul>\n            </div>\n            <h3 class=\"panel-title\">Add someone to this log by creating a profile for them.</h3>\n          </div>\n\n          <!--Hover Rows-->\n          <!--===================================================-->\n          <div class=\"panel-body\">\n            <p class=\"text-main text-bold\">Instead of inviting someone to create their own profile, you can create one for them. This is a great way to go for pets, children, people who have died, or members of your family or friends who are kind of busy or just dropped their phone in the lake.</p>\n            <p> Once you create this person’s profile, you can add content for them too. Since you’ll be the manager of this profile, when other log members suggest content for them, you will be the one to review and add those posts. </p>\n            <p> When you create a profile, you can invite someone to start managing their own profile right away, when they turn 13, or anytime.  You also can transfer the management of this profile to another member of your log. </p>\n            <a class=\"btn btn-info\" routerLink=\"/log/{{timeline.Id}}/invite-users/managed\">Create Managed Profile</a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n\n"
+module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- PASSWORD RESETTING FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"pad-ver\">\n                <i class=\"pli-mail icon-3x\"></i>\n            </div>\n            <p class=\"text-muted pad-btm\">Enter your email address to recover your password. </p>\n            <form action=\"pages-login.html\" (ngSubmit)=\"sendPasswordResetLink(f)\" #f=\"ngForm\">\n                <div class=\"form-group\">\n                    <input type=\"email\" class=\"form-control\" placeholder=\"Email\" ngModel name=\"email\">\n                </div>\n                <div class=\"form-group text-right\">\n                    <button class=\"btn btn-success btn-block\" type=\"submit\">Reset Password</button>\n                </div>\n            </form>\n            <p style=\"color:red; text-align:center;\">{{errors}}</p>\n            <div class=\"pad-top\">\n                <a routerLink=\"/login\" class=\"btn-link mar-rgt\">Back to Login</a>\n            </div>\n        </div>\n    </div>\n</div>\n<!--===================================================-->\n"
 
 /***/ },
 
 /***/ 852:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"col-sm-12\">\n  <button *ngIf=\"timeline.Id != ''\" type=\"button\" (click)=\"pullToRefresh($event)\">refresh <i *ngIf=\"refreshingLog\" class=\"fa fa-refresh fa-spin\"></i></button>\n  <div *ngIf=\"timeline.Entries.length > 0\" class=\"timeline\">\n    <div class=\"timeline-entry\" *ngFor=\"let entry of timeline.Entries\">\n      <div class=\"timeline-stat\">\n        <div class=\"timeline-icon\"></div>\n        <div class=\"timeline-time\">{{modifiedDate(entry.DateStart)}} {{(entry.DateEnd != '')?'-':''}} {{modifiedDate(entry.DateEnd)}}</div>\n      </div>\n      <div class=\"timeline-label\">\n        <div (click)=\"showDetail(entry)\" *ngIf=\"entry.Files.length > 0\" class=\"img-holder mar-btm\"> <img alt=\"Image\" src=\"{{entry.Files[0].FileURL}}\"> </div>\n        <p>\n          <span class=\"type-icon-grey\" *ngFor=\"let type of getEntryTypes(entry.Type)\"><img src=\"{{app.domain}}/assets/img/{{type.img}}\"></span>\n          <a href=\"javascript:void(0)\" (click)=\"showDetail(entry)\" class=\"text-main btn-link text-semibold\"><i  class=\"fa text-muted\"></i>\n          {{entry.Name}}</a> <a class=\"pull-right btn-link text-semibold\" (click)=\"showUserProfile(entry.UserId)\">{{(entry.NickName == \"\" || entry.NickName == undefined)?entry.User:entry.NickName}}</a></p>\n      </div>\n    </div>\n    <div class=\"clearfix\"></div>\n  </div>\n</div>"
+module.exports = "<ul class=\"nav navbar-top-links pull-right top-bar-widget\">\n  <ng-content></ng-content>\n</ul>"
 
 /***/ },
 
 /***/ 853:
 /***/ function(module, exports) {
 
-module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- LOGIN FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"mar-ver pad-btm\">\n                <h3 class=\"h4 mar-no\">{{title}}</h3>\n                <p class=\"text-muted\">Sign In to your account.</p>\n            </div>\n            <form action=\"index.html\" (ngSubmit)=\"attempt(f)\" #f=\"ngForm\">\n                <div class=\"form-group\">\n                    <input type=\"text\" class=\"form-control\" ngModel name=\"Email\" placeholder=\"Email\" autofocus required=\"required\">\n                </div>\n                <div class=\"form-group\">\n                    <input type=\"password\" class=\"form-control\" ngModel name=\"Password\" placeholder=\"Password\" required>\n                </div>\n                <div class=\"checkbox pad-btm text-left\">\n                    <input id=\"demo-form-checkbox\" class=\"magic-checkbox\" type=\"checkbox\">\n                    <label for=\"demo-form-checkbox\">Remember me</label>\n                </div>\n                <button class=\"btn btn-primary btn-lg btn-block\" type=\"submit\">Sign In</button>\n            </form>\n        </div>\n        <p style=\"color:red; text-align:center;\">{{errors}}</p>\n        <div class=\"pad-all\">\n            <a routerLink=\"/forgotpass\" class=\"btn-link mar-rgt\">Forgot password ?</a>\n            <a routerLink=\"/register\" class=\"btn-link mar-lft\">Create new account</a>\n        </div>\n    </div>\n</div>\n<!--===================================================-->\n"
+module.exports = "<header id=\"navbar\">\n  <div id=\"navbar-container\" class=\"boxed\">\n\n    <!--Brand logo & name-->\n    <!--================================-->\n    <div class=\"navbar-header\">\n      <a href=\"#\" class=\"navbar-brand\">\n        <img src=\"assets/img/logo.png\" alt=\"Nifty Logo\" class=\"brand-icon\">\n        <div class=\"brand-title\">\n          <img src=\"assets/img/logo-text-img.png\" alt=\"Nifty Logo\" class=\"brand-icon-text-img mar-no\">\n        </div>\n      </a>\n    </div>\n    <!--================================-->\n    <!--End brand logo & name—>\n\n    <!--Navbar Dropdown-->\n    <!--================================-->\n    <div class=\"navbar-content bg-navbar clearfix\">\n      <ul class=\"nav navbar-top-links pull-left\">\n        <!--Navigation toogle button-->\n        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n        <li class=\"tgl-menu-btn\"> <a class=\"mainnav-toggle\" href=\"javascript:void(0)\"> <i class=\"fa fa-fw fa-bars\"></i> </a> </li>\n        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n        <!--End Navigation toogle button-->\n\n        <li *ngIf=\"title != ''\"> <a href=\"javascript:void(0)\"> {{title}} </a> </li>\n      </ul>\n        <ng-content></ng-content>\n    </div>\n    <!--================================-->\n    <!--End Navbar Dropdown-->\n\n  </div>\n</header>\n"
 
 /***/ },
 
 /***/ 854:
 /***/ function(module, exports) {
 
-module.exports = "\n<!-- Bubble Numbers Form Wizard -->\n<!--===================================================-->\n<div id=\"add-entry-form-wizard\" [ngClass]=\"{'form-busy': uploadingPost == true}\">\n\n  <!--Form-->\n  <form class=\"form-horizontal\" onsubmit=\"return false\" #f=\"ngForm\">\n\n    <!--Footer button-->\n    <div class=\"wz-heading wz-w-label bg-info\">\n\n      <!--Progress bar-->\n      <div class=\"progress progress-xs\">\n        <div style=\"width: 15%;\" class=\"progress-bar progress-bar-dark\"></div>\n      </div>\n      <!--Nav-->\n      <ul class=\"wz-steps wz-icon-bw wz-nav-on text-lg\">\n        <li class=\"col-xs-3\"> <a data-toggle=\"tab\" href=\"#demo-step-tab1\"> <span class=\"icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver\"> <span class=\"wz-icon icon-txt text-bold\">1</span> <em class=\"wz-icon-done demo-psi-like\"></em> </span> <small class=\"wz-desc box-block text-semibold\"></small> </a> </li>\n        <li class=\"col-xs-3\"> <a data-toggle=\"tab\" href=\"#demo-step-tab2\"> <span class=\"icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver\"> <span class=\"wz-icon icon-txt text-bold\">2</span> <i class=\"wz-icon-done demo-psi-like\"></i> </span> <small class=\"wz-desc box-block text-semibold\"></small> </a> </li>\n        <li class=\"col-xs-3\"> <a data-toggle=\"tab\" href=\"#demo-step-tab3\"> <span class=\"icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver\"> <span class=\"wz-icon icon-txt text-bold\">3</span> <i class=\"wz-icon-done demo-psi-like\"></i> </span> <small class=\"wz-desc box-block text-semibold\"></small> </a> </li>\n        <li class=\"col-xs-3\"> <a data-toggle=\"tab\" href=\"#demo-step-tab4\"> <span class=\"icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver\"> <span class=\"wz-icon icon-txt text-bold\">4</span> <i class=\"wz-icon-done demo-psi-like\"></i> </span> <small class=\"wz-desc box-block text-semibold\"></small> </a> </li>\n      </ul>\n    </div>\n    <div class=\"bg-gray bord-btm\">\n      <div class=\"demo-nifty-btn widget-tabs-contr\">\n        <div class=\"col-xs-6 pad-no\">\n          <button type=\"button\" class=\"previous btn btn-block btn-info mar-no pad-ver\" (click)=\"movedToPrevSlide()\">Previous</button>\n        </div>\n        <div class=\"col-xs-6 pad-no\">\n          <button type=\"button\" class=\"next btn btn-block btn-info mar-no pad-ver\" (click)=\"movedToNextSlide()\">Next</button>\n          <button type=\"button\" (click)=\"create(f,$event)\" class=\"finish btn btn-block btn-success mar-no pad-ver\" disabled type=\"submit\">Save</button>\n        </div>\n      </div>\n    </div>\n    <div class=\"panel-body bg-light\">\n      <div class=\"tab-content\">\n\n        <!--First tab-->\n        <div id=\"demo-step-tab1\" class=\"tab-pane\">\n          <div class=\"mar-btm\">\n            <p class=\"text-main text-bold\">Type of content:<span class=\"btn btn-default btn-xs btn-rounded pull-right mar-rgt\" (click)=\"changeTypeOrientation()\"> Show Definitions</span></p>\n            <!--Justified Button Group-->\n            <!--===================================================-->\n\n            <div class=\"post-type-panel\" [ngClass]=\"{show_definitions: showDefinitions === true}\">\n              <label *ngFor=\"let option of types\" [ngClass]=\"{active: isTypeSelected(option.value)}\">\n                <input type=\"checkbox\" #type type=\"checkbox\" value=\"{{option.value}}\" [checked]=\"isTypeSelected(option.value)\" (change)=\"typeChanged(type.checked+','+type.value)\" />\n                <div class=\"type-left\">\n                  <img src=\"assets/img/{{option.img}}\" alt=\"\">\n                  <span>{{option.value}}</span>\n                </div>\n                <div class=\"type-definitions\">\n                  {{option.desc}}\n                </div>\n              </label>\n            </div>\n            <!--===================================================-->\n\n          </div>\n          <hr class=\"new-section-xs bord-no\">\n          <div class=\"mar-ver\">\n            <p class=\"text-main text-bold\">Post By Managed User:</p>\n            <!-- Default Bootstrap Select -->\n            <!--===================================================-->\n            <select class=\"\" name=\"UserId\" [(ngModel)]=\"selectedManagedUserId\" (change)=\"managedUserSelected()\">\n              <option value=\"{{auth.currentUser.UserId}}\">{{auth.currentUser.FirstName}} {{auth.currentUser.LastName}}</option>\n              <option *ngFor=\"let user of managedUsers\" value=\"{{user.UserId}}\">\n                {{user.FirstName}} {{user.LastName}}\n              </option>\n            </select>\n            <!--===================================================-->\n          </div>\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Include this content in these timelines:</p>\n          <div class = \"mar-lft mar-top\">\n            <div class=\"form-group pad-hor\">\n              <!-- Checkboxes -->\n                <span  *ngFor=\"let option of timelines\">\n                  <div class=\"checkbox\">\n                        <input class=\"magic-checkbox\" id=\"demo-form-checkbox{{option.Id}}\" #timeline type=\"checkbox\" value=\"{{option.Id}}\" [checked]=\"isTimelineSelected(option.Id)\" name=\"timeline{{option.Id}}\" (change)=\"timelinesChanged(timeline.checked+','+timeline.value)\" />\n                        <label for=\"demo-form-checkbox{{option.Id}}\"> {{option.Name}}</label>\n                    </div>\n                <hr class=\"new-section-xs bord-no\">\n              </span>\n            </div>\n          </div>\n\n          <hr class=\"new-section-xs bord-no\">\n          <hr class=\"new-section-xs\">\n          <div *ngIf=\"existingEntry != null\" class=\"text-danger pad-all\"><span (click)=\"deletePost()\"><i class=\"fa fa-close pad-rgt text-danger\"></i>Delete this Post</span></div>\n        </div>\n\n        <!--Second tab-->\n        <div id=\"demo-step-tab2\" class=\"tab-pane fade\">\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Title</p>\n          <div>\n            <input type=\"text\" [(ngModel)]=\"postName\" name=\"Name\" class=\"form-control\">\n          </div>\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Date(s)</p>\n\n          <!--Bootstrap Datepicker : Range-->\n          <!--===================================================-->\n          <div id=\"demo-dp-range\">\n            <div class=\"input-daterange input-group\">\n              <input id=\"new-post-start-date\" class=\"form-control datepicker\" [(ngModel)]=\"postDateStart\" name=\"DateStart\" />\n              <span class=\"input-group-addon\">to</span>\n              <input id=\"new-post-end-date\" class=\"form-control datepicker\" [(ngModel)]=\"postDateEnd\" name=\"DateEnd\" />\n            </div>\n          </div>\n          <!--===================================================-->\n\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Location</p>\n          <div>\n            <input type=\"text\" [(ngModel)]=\"postLocation\" name=\"Location\" class=\"form-control\" id=\"autocompleteInput\">\n          </div>\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Map</p>\n          <div *ngIf=\"showmap\">\n            <sebm-google-map [(latitude)]=\"lat\" [(longitude)]=\"lng\" [zoom]=\"15\">\n              <sebm-google-map-marker [(latitude)]=\"lat\" [(longitude)]=\"lng\"></sebm-google-map-marker>\n            </sebm-google-map>\n          </div>\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Add images</p>\n\n          <div>\n            <!--<div class=\"panel-body\">-->\n\n            <!--Dropzonejs using Bootstrap theme-->\n            <!--===================================================-->\n\n            <div class=\"bord-top pad-ver\">\n              <!-- The fileinput-button span is used to style the file input field as button -->\n              <span class=\"btn btn-default fileinput-button dz-clickable\">\n                <i class=\"fa fa-plus\"></i>\n                <span>Add Images<input id=\"post-images\" (change)=\"filesSelected($event)\" type=\"file\" ngModel name=\"images\" accept=\".jpg\" multiple  /></span>\n                <i *ngIf=\"uploadingFiles\" class=\"fa fa-refresh fa-spin\"></i>\n              </span>\n              <ul class=\"clearfix imglisting\">\n                <li class=\"selectimge\" *ngFor=\"let img of existingFiles; let i = index\" >\n                  <img src=\"{{img.ThumbURL}}\" >\n                  <span class=\"cross\" (click)=\"removeImage(img.Id)\">x</span>\n                </li>\n                <li class=\"selectimge\" *ngFor=\"let img of uploadedFiles; let i = index\" >\n                  <img src=\"{{img.ThumbURL}}\" >\n                  <span class=\"cross\" (click)=\"removeImage(img.Id)\">x</span>\n                </li>\n              </ul>\n              <div class=\"btn-group pull-right\">\n                <!--<button id=\"dz-upload-btn\" class=\"btn btn-default\" type=\"submit\" disabled> <i class=\"fa fa-upload-cloud\"></i> Upload </button>-->\n                <!--<button id=\"dz-remove-btn\" class=\"btn btn-default cancel\" type=\"reset\" disabled> <i class=\"demo-pli-cross\"></i> </button>-->\n              </div>\n            </div>\n            <!--===================================================-->\n            <!--End Dropzonejs using Bootstrap theme-->\n          </div>\n        </div>\n\n        <!--Third tab-->\n        <div id=\"demo-step-tab3\" class=\"tab-pane\">\n\n          <p class=\"text-main text-bold\">I was my <em class=\"text-success\"> best self ?</em></p>\n\n          <!--Range Slider2 : Steps-->\n          <!--===================================================-->\n          <div class=\"pad-hor mar-btm\">\n            <div class=\"mar-btm text-center\"> <span class=\"h1 text-success\">{{BestSelfRating}}</span> </div>\n            <div id=\"test_slider\"></div>\n            <input type=\"hidden\" [ngModel]=\"BestSelfRating\" name=\"BestSelfRating\">\n            <div class=\"mar-all\"><i class=\"pull-left\">Not so much</i><i class=\"pull-right\"> Yes I really was</i> </div>\n          </div>\n          <br><br>\n          <p class=\"text-main text-bold\">About</p>\n          <textarea rows=\"4\" class=\"form-control\" [(ngModel)]=\"postAbout\" name=\"About\" placeholder=\"My experiences, highlights, insights, or whatever comes to mind.\" ></textarea>\n          <hr class=\"new-section-xs bord-no\">\n          <!-- Bootstrap Tags Input -->\n          <!--===================================================-->\n          <input type=\"text\" id=\"what-tags-input\" class=\"form-control\" [ngModel]=\"whatTags\" name=\"Tags\" placeholder=\"What Tags\" value=\"{{whatTags.join(',')}}\" data-role=\"tagsinput\">\n          <!--===================================================-->\n          <hr class=\"new-section-sm bord-no\">\n          <p class=\"text-main text-bold\">What else...</p>\n          <textarea rows=\"1\" [(ngModel)]=\"postWhatelse\" name=\"WhatElse\" class=\"form-control\" placeholder=\"Challenges, additianal comments, etc.\" ></textarea>\n          <hr class=\"new-section-sm bord-no\">\n\n          <!--Range Slider1 : Steps-->\n          <p class=\"text-main text-bold\">How <em class=\"text-success\"> close </em> did I feel to others?</p>\n          <!--                    <hr class=\"new-section-xs bord-no\">\n-->\n\n          <!--===================================================-->\n          <div class=\"pad-hor\">\n            <div class=\"mar-btm text-center\"> <span class=\"h1 text-success\">{{CloseToOthers}}</span> </div>\n            <div id=\"close_to_others_slider\"></div>\n            <input type=\"hidden\" [ngModel]=\"CloseToOthers\" name=\"CloseToOthers\">\n          </div>\n          <div class=\"mar-all\"><i class=\"pull-left\">Not close</i><i class=\"pull-right\"> Very close</i> </div>\n          <hr class=\"new-section-sm bord-no\">\n          <!--===================================================-->\n\n          <!--                      <hr class=\"new-section-xs bord-no\">\n-->\n          <!-- Bootstrap Tags Input -->\n          <!--===================================================-->\n          <input id=\"who-tags-input\" type=\"text\" class=\"form-control\" [ngModel]=\"whoTags\" name=\"WhoTags\" placeholder=\"Who Tags\" value=\"{{whoTags.join(',')}}\" data-role=\"tagsinput\">\n          <!--===================================================-->\n\n          <hr class=\"new-section-xs bord-no\">\n\n          <!--===================================================-->\n        </div>\n\n        <!--Fourth tab-->\n        <div id=\"demo-step-tab4\" class=\"tab-pane\">\n          <hr class=\"new-section-md bord-no\">\n          <p class=\"text-main text-bold\">Tags about me related to this post</p>\n\n          <!-- Bootstrap Tags Input -->\n          <!--===================================================-->\n          <input id=\"you-tags-input\" type=\"text\" class=\"form-control\" [ngModel]=\"youTags\" name=\"YouTags\" placeholder=\"You Tags\" value=\"{{youTags.join(',')}}\" data-role=\"tagsinput\">\n          <!--===================================================-->\n\n          <hr class=\"new-section-sm bord-no\">\n          <p class=\"text-main text-bold\">Mood (select all that apply)</p>\n          <div class=\"mar-btm\">\n\n            <!--Justified Button Group-->\n            <!--===================================================-->\n\n            <div class=\"mood-type-panel\">\n              <label  *ngFor=\"let option of modes\" [ngClass]=\"{active: isModeSelected(option.value)}\">\n                <input type=\"checkbox\" #mode type=\"checkbox\" [checked]=\"isModeSelected(option.value)\" value=\"{{option.value}}\" (change)=\"modeChanged(mode.checked+','+mode.value)\" >\n                <img src=\"assets/img/{{option.img}}\" alt=\"\">\n                <span>{{option.value}}</span>\n              </label>\n            </div>\n            <!--===================================================-->\n\n          </div>\n        </div>\n      </div>\n    </div>\n  </form>\n</div>\n<!--===================================================-->\n<!-- End Bubble Numbers Form Wizard -->\n"
+module.exports = "<ul class=\"nav navbar-top-links pull-left\">\n  <ng-content></ng-content>\n</ul>"
 
 /***/ },
 
 /***/ 855:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n\n    <div class=\"row\">\n      <div class=\"row\">\n        <button data-toggle=\"modal\" [attr.data-target]=\"'#'+create_log_modal_id\" class=\"btn btn-info info-btn\"><i class=\"fa fa-add\"></i>Create New Log</button>\n      </div>\n      <div id=\"{{create_log_modal_id}}\" class=\"modal fade log-modal\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Create new log</h4>\n            </div>\n            <div class=\"modal-body\">\n              <table class=\"table table-hover table-vcenter\">\n                <thead>\n                <tr>\n                  <th>\n                    <form (submit)=\"createLog(f)\" #f=\"ngForm\">\n                      <input type=\"text\" class=\"input_text\" [(ngModel)]=\"NewLogName\" name=\"Name\" placeholder=\"Enter New Log Name\" required>\n                      <button type=\"submit\" class=\"btn btn-info\">Save</button>\n                    </form>\n                  </th>\n                </tr>\n                </thead>\n              </table>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"spacer\"></div>\n      <app-timeline-detail *ngFor=\"let timeline of timelines\" [timeline]=\"timeline\"></app-timeline-detail>\n      <br>\n    </div>\n\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <app-profile\n            [user]=\"auth.currentUser\"\n            (profileUpdating)=\"profileUpdating($event)\"\n            (profileUpdated)=\"profileUpdated($event)\"\n    ></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n\n"
 
 /***/ },
 
 /***/ 856:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n    <sa-title></sa-title>\n    <sa-action>\n        <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > </a> </li>\n    </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n    <sa-body-content>\n        <app-profile [user]=\"auth.currentUser\" (profileUpdated)=\"profileUpdated($event)\" ></app-profile>\n\n        <app-profile\n                *ngFor=\"let user of managedUsers\"\n                    [user]=\"user\"\n                    [managedProfile]=\"true\"\n                    (profileUpdated)=\"managedUserProfileUpdated($event)\"\n        ></app-profile>\n    </sa-body-content>\n    <sa-body-right-content>\n        <sa-manage-entry></sa-manage-entry>\n    </sa-body-right-content>\n    <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Owned by {{(this.auth.currentUser.Nickname == '')?this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName:this.auth.currentUser.LastName}} </a> </li>\n  </sa-action>\n</sa-header>\n\n<sa-body>\n  <sa-body-content>\n    <app-profile\n            [manualControls]=\"true\"\n            [formBusy]=\"formBusy\"\n            [editMode]=\"true\"\n            [newAccount]=\"true\"\n            (profileUpdated)=\"profileCreated($event)\"\n            (profileUpdating)=\"profileCreating($event)\"\n            [title]='title'\n    ></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
 
 /***/ },
 
 /***/ 857:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"\" > Profile </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <div class=\"row\">\n      <div class=\"col-sm-12\">\n        <div class=\"panel\">\n          <div class=\"panel-heading\">\n            <h3 class=\"panel-title\">Choose Color</h3>\n          </div>\n          <div class=\"panel-body\">\n\n            <div class=\"pad-ver mar-btm\">\n              <div class=\"chose-color\">\n                <label  *ngFor=\"let option of colors\" class=\"btn-{{option}}\">\n                  <input #color type=\"radio\" name=\"myColor\" (change)=\"clicked(option)\">\n                  {{option}}\n                </label>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </div>\n\n    </div>\n  </sa-body-content>\n  <sa-body-right-content></sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <div class=\"row\">\n      <div class=\"col-lg-12\">\n        <div class=\"panel\">\n          <form (submit)=\"invite(f)\" #f=\"ngForm\">\n            <div class=\"panel-heading\">\n              <div class=\"panel-control\">\n                <ul class=\"pager pager-rounded\">\n                </ul>\n              </div>\n              <div class=\"panel-heading\">\n                <div class=\"panel-control\">\n                  <button type=\"submit\" class=\"demo-panel-ref-btn btn btn-default\" data-target=\"#demo-panel-ref\" data-toggle=\"panel-overlay\"> <i class=\"fa fa-share fa-fw\"></i> Invite </button>\n                </div>\n                <h3 class=\"panel-title\">Invite others to join this log</h3>\n              </div>\n            </div>\n            <!--Hover Rows-->\n            <!--===================================================-->\n            <div class=\"panel-body\">\n              <div class=\"mar-ver\">\n                <p class=\"text-main text-bold mar-no\">Add from the directory</p>\n                <p>Invite someone that already uses Riza to join this log.</p>\n                <div class=\"input-group mar-btm col-xs-12 col-md-4\">\n                  <!--===================================================-->\n                  <select class=\"invite-users-multi-select\" multiple style=\"width: 300px;\" ngModel name=\"users\">\n\n                  </select>\n                  <!--===================================================-->\n                </div>\n              </div>\n\n              <p class=\"text-main text-bold\">Or, enter an email address</p>\n              <!--                                  <p>Enter the email address of the person you would like to invite.</p>\n              -->                                  \t\t\t\t\t                  <div class=\"input-group mar-btm col-xs-12 col-md-3\">\n              <input type=\"text\" [(ngModel)]=\"email\" name=\"email\" class=\"form-control\" placeholder=\"Enter email\">\n            </div>\n              <div class=\"input-group mar-btm col-xs-12 col-md-4\">\n\n                <button *ngIf=\"email != ''\" type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#myModal\">Preview Email Invite</button>\n                <!-- Modal -->\n                <div id=\"myModal\" class=\"modal fade\" role=\"dialog\">\n                  <div class=\"modal-dialog\">\n\n                    <!-- Modal content-->\n                    <div class=\"modal-content\">\n                      <div class=\"modal-header\">\n                        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                        <h4 class=\"modal-title\">Send Invitation</h4>\n                      </div>\n                      <div class=\"modal-body\">\n                        <div class=\"user-info clearfix\">\n\n                        <div class=\"u-img\"><img src=\"assets/img/profile-photos/profile-default.png\" alt=\"\"></div>\n                        <div class=\"u-name\">\n                            <strong>{{email}}</strong>\n                        </div>\n                        </div>\n                        <p >\n                          They will see this message when your request is sent\n                        </p>\n                        <textarea style=\"height: 150px; border:solid 1px #ddd; padding:6px; border-radius:4px\" [(ngModel)]=\"InviteMessage\" name=\"InviteMessage\" >\n                          Please join my log\n                        </textarea>\n                      </div>\n                      <div class=\"modal-footer\">\n                        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n            <!--===================================================-->\n            <!--End Hover Rows-->\n          </form>\n        </div>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-lg-12\">\n        <div class=\"panel\">\n          <div class=\"panel-heading\">\n            <div class=\"panel-control\">\n              <ul class=\"pager pager-rounded\">\n              </ul>\n            </div>\n            <h3 class=\"panel-title\">Add someone to this log by creating a profile for them.</h3>\n          </div>\n\n          <!--Hover Rows-->\n          <!--===================================================-->\n          <div class=\"panel-body\">\n            <p class=\"text-main text-bold\">Instead of inviting someone to create their own profile, you can create one for them. This is a great way to go for pets, children, people who have died, or members of your family or friends who are kind of busy or just dropped their phone in the lake.</p>\n            <p> Once you create this person’s profile, you can add content for them too. Since you’ll be the manager of this profile, when other log members suggest content for them, you will be the one to review and add those posts. </p>\n            <p> When you create a profile, you can invite someone to start managing their own profile right away, when they turn 13, or anytime.  You also can transfer the management of this profile to another member of your log. </p>\n            <a class=\"btn btn-info\" routerLink=\"/log/{{timeline.Id}}/invite-users/managed\">Create Managed Profile</a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n\n"
 
 /***/ },
 
 /***/ 858:
 /***/ function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>"
+module.exports = "<div class=\"col-sm-12\">\n  <button *ngIf=\"timeline.Id != ''\" type=\"button\" (click)=\"pullToRefresh($event)\">refresh <i *ngIf=\"refreshingLog\" class=\"fa fa-refresh fa-spin\"></i></button>\n  <div *ngIf=\"timeline.Entries.length > 0\" class=\"timeline\">\n    <div class=\"timeline-entry\" *ngFor=\"let entry of timeline.Entries\">\n      <div class=\"timeline-stat\">\n        <div class=\"timeline-icon\"></div>\n        <div class=\"timeline-time\">{{modifiedDate(entry.DateStart)}} {{(entry.DateEnd != '')?'-':''}} {{modifiedDate(entry.DateEnd)}}</div>\n      </div>\n      <div class=\"timeline-label\">\n        <div (click)=\"showDetail(entry)\" *ngIf=\"entry.Files.length > 0\" class=\"img-holder mar-btm\"> <img alt=\"Image\" src=\"{{entry.Files[0].FileURL}}\"> </div>\n        <p>\n          <span class=\"type-icon-grey\" *ngFor=\"let type of getEntryTypes(entry.Type)\"><img src=\"{{app.domain}}/assets/img/{{type.img}}\"></span>\n          <a href=\"javascript:void(0)\" (click)=\"showDetail(entry)\" class=\"text-main btn-link text-semibold\"><i  class=\"fa text-muted\"></i>\n          {{entry.Name}}</a> <a class=\"pull-right btn-link text-semibold\" (click)=\"showUserProfile(entry.UserId)\">{{(entry.NickName == \"\" || entry.NickName == undefined)?entry.User.split(' ')[0]:entry.NickName}}</a></p>\n      </div>\n    </div>\n    <div class=\"clearfix\"></div>\n  </div>\n</div>"
 
 /***/ },
 
 /***/ 859:
 /***/ function(module, exports) {
 
-module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- LOGIN FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"mar-ver pad-btm\">\n              <h3 class=\"h4 mar-no\">Thanks</h3>\n            </div>\n\n                                <div class=\"mar-ver pad-btm\">\n\n              <p class=\"text-muted\">Please check ({{email}}) for a link to reset your password.</p>\n            </div>\n\n\n\n        </div>\n\n    </div>\n</div>\n<!--===================================================-->\n"
+module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- LOGIN FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"mar-ver pad-btm\">\n                <h3 class=\"h4 mar-no\">{{title}}</h3>\n                <p class=\"text-muted\">Sign In to your account.</p>\n            </div>\n            <form action=\"index.html\" (ngSubmit)=\"attempt(f)\" #f=\"ngForm\">\n                <div class=\"form-group\">\n                    <input type=\"text\" class=\"form-control\" ngModel name=\"Email\" placeholder=\"Email\" autofocus required=\"required\">\n                </div>\n                <div class=\"form-group\">\n                    <input type=\"password\" class=\"form-control\" ngModel name=\"Password\" placeholder=\"Password\" required>\n                </div>\n                <div class=\"checkbox pad-btm text-left\">\n                    <input id=\"demo-form-checkbox\" class=\"magic-checkbox\" type=\"checkbox\">\n                    <label for=\"demo-form-checkbox\">Remember me</label>\n                </div>\n                <button class=\"btn btn-primary btn-lg btn-block\" type=\"submit\">Sign In</button>\n            </form>\n        </div>\n        <p style=\"color:red; text-align:center;\">{{errors}}</p>\n        <div class=\"pad-all\">\n            <a routerLink=\"/forgotpass\" class=\"btn-link mar-rgt\">Forgot password ?</a>\n            <a routerLink=\"/register\" class=\"btn-link mar-lft\">Create new account</a>\n        </div>\n    </div>\n</div>\n<!--===================================================-->\n"
 
 /***/ },
 
 /***/ 860:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <app-back-button></app-back-button>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n\n<sa-body>\n  <sa-body-content>\n    <div *ngIf=\"post != null\">\n      <div class=\"row\" *ngIf=\"post.Files.length > 0\">\n        <div class=\"col-sm-12\">\n\n          <!--Carousel-->\n          <!--===================================================-->\n          <div id=\"demo-carousel\" class=\"carousel slide\" data-ride=\"carousel\">\n\n            <!--Indicators-->\n            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n            <ol class=\"carousel-indicators in pad-btm\">\n              <li class=\"active\" *ngFor=\"let file of post.Files\" data-target=\"#demo-carousel\"></li>\n            </ol>\n\n            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n\n            <div class=\"carousel-inner text-center\" >\n              <!--Item 1-->\n              <div class=\"item\"  *ngFor=\"let file of post.Files; let i = index\" [ngClass]=\"(i == 0)?'active':''\">\n                <div class=\"thumbnail\"> <img src=\"{{file.FileURL}}\" alt=\"Image\"> </div>\n              </div>\n            </div>\n\n            <!--carousel-control-->\n            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n            <a *ngIf=\"post.Files.length > 1\" class=\"carousel-control left\" data-slide=\"prev\" href=\"#demo-carousel\"><i class=\"text-light demo-pli-arrow-left icon-4x\"></i></a>\n            <a *ngIf=\"post.Files.length > 1\" class=\"carousel-control right\" data-slide=\"next\" href=\"#demo-carousel\"><i class=\"text-light demo-pli-arrow-right icon-4x\"></i></a>\n            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n\n          </div>\n          <!--===================================================-->\n          <!--End Carousel-->\n\n\n        </div>\n\n\n      </div>\n      <div class=\"row\">\n        <div class=\"col-sm-12\">\n          <div class=\"panel panel-trans\">\n            <div class=\"panel-heading\">\n              <h3 class=\"panel-title\"><span class=\"type-icon-grey\" *ngFor=\"let type of getEntryTypes(post.Type)\"><img src=\"{{app.domain}}/assets/img/{{type.img}}\"></span>{{post.Name}}<span class=\"pull-right text-thin\">{{post.User}}</span> </h3>\n            </div>\n            <div class=\"panel-body\">\n              <p class=\"text-lg pad-btm\">{{post.About}}</p>\n              <p><strong>What else? </strong> {{post.WhatElse}}.</p>\n              <p><strong>Location: </strong> <span class=\"text-primary\">{{(post.Location != 'undefined')?post.Location:''}}</span> <i class=\"fa fa-map-marker pad-ver text-primary\"></i></p>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"row\">\n\n        <div class=\"col-sm-6\">\n          <div class=\"panel panel-trans\">\n            <div class=\"panel-heading\">\n              <h3 class=\"panel-title\">Relationships</h3>\n            </div>\n            <div class=\"panel-body\">\n              <p class=\"mar-top\"><strong>Who: </strong>{{post.WhoTags.split(',').join('#')}}</p>\n              <hr class=\"new-section-xs bord-no\">\n              <div> <span class=\"pull-right text-primary\">{{post.CloseToOthers}}%</span> <span class=\"mar-ver\">{{user.Nickname}} felt close to others</span> </div>\n              <div class=\"progress progress-l mar-top bg-white\">\n                <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\"\n                     aria-valuemin=\"0\" aria-valuemax=\"100\" [ngStyle]=\"{width: post.CloseToOthers + '%'}\">\n                  <span class=\"sr-only\">70% Complete</span>\n                </div>\n                <!--<div class=\"progress-bar bg-primary\" data-toggle=\"tooltip\" [attr.data-original-title]=\"(post.CloseToOthers+'%')\" [ngStyle]=\"{width: post.CloseToOthers}\"></div>-->\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"col-sm-6\">\n          <div class=\"panel panel-trans\">\n            <div class=\"panel-heading\">\n              <h3 class=\"panel-title\">About Me</h3>\n            </div>\n            <div class=\"panel-body\">\n              <p class=\"mar-top\"><strong>Me: </strong>{{post.YouTags.split(',').join('#')}}</p>\n              <hr class=\"new-section-xs bord-no\">\n              <div class=\"\"> <span class=\"pull-right text-info\">{{post.BestSelfRating}}%</span> <span class=\"mar-ver\">Best me</span> </div>\n              <div class=\"progress progress-l mar-top bg-white\">\n                <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\"\n                     aria-valuemin=\"0\" aria-valuemax=\"100\" [ngStyle]=\"{width: post.BestSelfRating + '%'}\">\n                  <span class=\"sr-only\">70% Complete</span>\n                </div>\n                <!--<div class=\"progress-bar bg-info\" data-toggle=\"tooltip\" data-original-title=\"95%\" [ngStyle]=\"{width: post.BestSelfRating}\"></div>-->\n              </div>\n              <hr class=\"new-section-xs bord-no\">\n              <div class=\"btn-group-justified cutoms\" *ngIf=\"post.Mode != ''\">\n                <a *ngFor=\"let option of post.Mode.split(',')\" href=\"javascript:void(0)\" data-toggle=\"button\" class=\"btn btn-md btn-active-highlight pad-top\">\n                  <img class=\"img-sm\" src=\"assets/img/emoji-{{option}}.png\" alt=\"thumbs\">\n                  <p>{{option}}</p>\n                </a>\n              </div>\n            </div>\n          </div>\n        </div>\n\n\n      </div>\n    </div>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry (EntryUpdated)=\"updatePost($event)\"></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n\n"
+module.exports = "\n<!-- Bubble Numbers Form Wizard -->\n<!--===================================================-->\n<div id=\"add-entry-form-wizard\" [ngClass]=\"{'form-busy': uploadingPost == true}\">\n\n  <!--Form-->\n  <form class=\"form-horizontal\" onsubmit=\"return false\" #f=\"ngForm\">\n\n    <!--Footer button-->\n    <div class=\"wz-heading wz-w-label bg-info\">\n\n      <!--Progress bar-->\n      <div class=\"progress progress-xs\">\n        <div style=\"width: 15%;\" class=\"progress-bar progress-bar-dark\"></div>\n      </div>\n      <!--Nav-->\n      <ul class=\"wz-steps wz-icon-bw wz-nav-on text-lg\">\n        <li class=\"col-xs-3\"> <a data-toggle=\"tab\" href=\"#demo-step-tab1\"> <span class=\"icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver\"> <span class=\"wz-icon icon-txt text-bold\">1</span> <em class=\"wz-icon-done demo-psi-like\"></em> </span> <small class=\"wz-desc box-block text-semibold\"></small> </a> </li>\n        <li class=\"col-xs-3\"> <a data-toggle=\"tab\" href=\"#demo-step-tab2\"> <span class=\"icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver\"> <span class=\"wz-icon icon-txt text-bold\">2</span> <i class=\"wz-icon-done demo-psi-like\"></i> </span> <small class=\"wz-desc box-block text-semibold\"></small> </a> </li>\n        <li class=\"col-xs-3\"> <a data-toggle=\"tab\" href=\"#demo-step-tab3\"> <span class=\"icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver\"> <span class=\"wz-icon icon-txt text-bold\">3</span> <i class=\"wz-icon-done demo-psi-like\"></i> </span> <small class=\"wz-desc box-block text-semibold\"></small> </a> </li>\n        <li class=\"col-xs-3\"> <a data-toggle=\"tab\" href=\"#demo-step-tab4\"> <span class=\"icon-wrap icon-wrap-xs icon-circle bg-gray mar-ver\"> <span class=\"wz-icon icon-txt text-bold\">4</span> <i class=\"wz-icon-done demo-psi-like\"></i> </span> <small class=\"wz-desc box-block text-semibold\"></small> </a> </li>\n      </ul>\n    </div>\n    <div class=\"bg-gray bord-btm\">\n      <div class=\"demo-nifty-btn widget-tabs-contr\">\n        <div class=\"col-xs-6 pad-no\">\n          <button type=\"button\" class=\"previous btn btn-block btn-info mar-no pad-ver\" (click)=\"movedToPrevSlide()\">Previous</button>\n        </div>\n        <div class=\"col-xs-6 pad-no\">\n          <button type=\"button\" class=\"next btn btn-block btn-info mar-no pad-ver\" (click)=\"movedToNextSlide()\">Next</button>\n          <button type=\"button\" (click)=\"create(f,$event)\" class=\"finish btn btn-block btn-success mar-no pad-ver\" disabled type=\"submit\">Save</button>\n        </div>\n      </div>\n    </div>\n    <div class=\"panel-body bg-light\">\n      <div class=\"tab-content\">\n        <!--First tab-->\n        <div id=\"demo-step-tab1\" class=\"tab-pane\">\n          <div class=\"mar-ver\">\n            <p class=\"text-main text-bold\">Add to this person's timeline.</p>\n            <!-- Default Bootstrap Select -->\n            <!--===================================================-->\n            <select class=\"\" name=\"UserId\" [(ngModel)]=\"selectedManagedUserId\" (change)=\"managedUserSelected()\">\n              <option value=\"{{auth.currentUser.UserId}}\">{{auth.currentUser.FirstName}} {{auth.currentUser.LastName}}</option>\n              <option *ngFor=\"let user of managedUsers\" value=\"{{user.UserId}}\">\n                {{user.FirstName}} {{user.LastName}}\n              </option>\n            </select>\n            <!--===================================================-->\n          </div>\n          <hr class=\"new-section-xs bord-no\">\n          <div class=\"mar-btm\">\n            <p class=\"text-main text-bold\">Type of content:<span class=\"btn btn-default btn-xs btn-rounded pull-right mar-rgt\" (click)=\"changeTypeOrientation()\"> {{(showDefinitions)?'Hide Definitions':'Show Definitions'}}</span></p>\n            <div class=\"post-type-panel\" [ngClass]=\"{show_definitions: showDefinitions === true}\">\n              <label *ngFor=\"let option of types\" [ngClass]=\"{active: isTypeSelected(option.value)}\">\n                <input type=\"checkbox\" #type type=\"checkbox\" value=\"{{option.value}}\" [checked]=\"isTypeSelected(option.value)\" (change)=\"typeChanged(type.checked+','+type.value)\" />\n                <div class=\"type-left\">\n                  <img src=\"assets/img/{{option.img}}\" alt=\"\">\n                  <span>{{option.value}}</span>\n                </div>\n                <div class=\"type-definitions\">\n                  {{option.desc}}\n                </div>\n              </label>\n            </div>\n            <!--===================================================-->\n\n          </div>\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Include this content in these timelines:</p>\n          <div class = \"mar-lft mar-top\">\n            <div class=\"form-group pad-hor\">\n                <span  *ngFor=\"let option of timelines\">\n                  <div class=\"checkbox\">\n                        <input class=\"magic-checkbox\" id=\"demo-form-checkbox{{option.Id}}\" #timeline type=\"checkbox\" value=\"{{option.Id}}\" [checked]=\"isTimelineSelected(option.Id)\" name=\"timeline{{option.Id}}\" (change)=\"timelinesChanged(timeline.checked+','+timeline.value)\" />\n                        <label for=\"demo-form-checkbox{{option.Id}}\"> {{option.Name}}</label>\n                  </div>\n                  <hr class=\"new-section-xs bord-no\">\n              </span>\n            </div>\n          </div>\n\n          <hr class=\"new-section-xs bord-no\">\n          <hr class=\"new-section-xs\">\n          <div *ngIf=\"existingEntry != null\" class=\"text-danger pad-all\"><span (click)=\"deletePost()\"><i class=\"fa fa-close pad-rgt text-danger\"></i>Delete this Post</span></div>\n        </div>\n\n        <!--Second tab-->\n        <div id=\"demo-step-tab2\" class=\"tab-pane fade\">\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Title</p>\n          <div>\n            <input type=\"text\" [(ngModel)]=\"postName\" name=\"Name\" class=\"form-control\">\n          </div>\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Date(s)</p>\n\n          <!--Bootstrap Datepicker : Range-->\n          <!--===================================================-->\n          <div id=\"demo-dp-range\">\n            <div class=\"input-daterange input-group\">\n              <input id=\"new-post-start-date\" class=\"form-control datepicker\" [(ngModel)]=\"postDateStart\" name=\"DateStart\" />\n              <span class=\"input-group-addon\">to</span>\n              <input id=\"new-post-end-date\" class=\"form-control datepicker\" [(ngModel)]=\"postDateEnd\" name=\"DateEnd\" />\n            </div>\n          </div>\n          <!--===================================================-->\n\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Location</p>\n          <div>\n            <input type=\"text\" [(ngModel)]=\"postLocation\" name=\"Location\" class=\"form-control\" id=\"autocompleteInput\">\n          </div>\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Map</p>\n          <div *ngIf=\"showmap\">\n            <sebm-google-map [(latitude)]=\"lat\" [(longitude)]=\"lng\" [zoom]=\"15\">\n              <sebm-google-map-marker [(latitude)]=\"lat\" [(longitude)]=\"lng\"></sebm-google-map-marker>\n            </sebm-google-map>\n          </div>\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Add images</p>\n\n          <div>\n            <!--<div class=\"panel-body\">-->\n\n            <!--Dropzonejs using Bootstrap theme-->\n            <!--===================================================-->\n\n            <div class=\"bord-top pad-ver\">\n              <!-- The fileinput-button span is used to style the file input field as button -->\n              <span class=\"btn btn-default fileinput-button dz-clickable\">\n                <i class=\"fa fa-plus\"></i>\n                <span>Add Images<input id=\"post-images\" (change)=\"filesSelected($event)\" type=\"file\" ngModel name=\"images\" accept=\".jpg\" multiple  /></span>\n                <i *ngIf=\"uploadingFiles\" class=\"fa fa-refresh fa-spin\"></i>\n              </span>\n              <ul class=\"clearfix imglisting\">\n                <li class=\"selectimge\" *ngFor=\"let img of existingFiles; let i = index\" >\n                  <img src=\"{{img.ThumbURL}}\" >\n                  <span class=\"cross\" (click)=\"removeImage(img.Id)\">x</span>\n                </li>\n                <li class=\"selectimge\" *ngFor=\"let img of uploadedFiles; let i = index\" >\n                  <img src=\"{{img.ThumbURL}}\" >\n                  <span class=\"cross\" (click)=\"removeImage(img.Id)\">x</span>\n                </li>\n              </ul>\n              <div class=\"btn-group pull-right\">\n                <!--<button id=\"dz-upload-btn\" class=\"btn btn-default\" type=\"submit\" disabled> <i class=\"fa fa-upload-cloud\"></i> Upload </button>-->\n                <!--<button id=\"dz-remove-btn\" class=\"btn btn-default cancel\" type=\"reset\" disabled> <i class=\"demo-pli-cross\"></i> </button>-->\n              </div>\n            </div>\n            <!--===================================================-->\n            <!--End Dropzonejs using Bootstrap theme-->\n          </div>\n        </div>\n\n        <!--Third tab-->\n        <div id=\"demo-step-tab3\" class=\"tab-pane\">\n\n          <p class=\"text-main text-bold\">About</p>\n          <textarea rows=\"4\" class=\"form-control\" [(ngModel)]=\"postAbout\" name=\"About\" placeholder=\"My experiences, highlights, insights, or whatever comes to mind.\" ></textarea>\n          <hr class=\"new-section-xs bord-no\">\n          <!-- Bootstrap Tags Input -->\n          <!--===================================================-->\n          <input type=\"text\" id=\"what-tags-input\" class=\"form-control\" [ngModel]=\"whatTags\" name=\"Tags\" placeholder=\"What Tags\" value=\"{{whatTags.join(',')}}\" data-role=\"tagsinput\">\n          <!--===================================================-->\n          <hr class=\"new-section-sm bord-no\">\n          <p class=\"text-main text-bold\">What else...</p>\n          <textarea rows=\"1\" [(ngModel)]=\"postWhatelse\" name=\"WhatElse\" class=\"form-control\" placeholder=\"Challenges, additianal comments, etc.\" ></textarea>\n          <hr class=\"new-section-sm bord-no\">\n\n          <!--Range Slider1 : Steps-->\n          <p class=\"text-main text-bold\">How <em class=\"text-success\"> close </em> did I feel to others?</p>\n          <!--                    <hr class=\"new-section-xs bord-no\">\n-->\n\n          <!--===================================================-->\n          <div class=\"pad-hor\">\n            <div class=\"mar-btm text-center\"> <span class=\"h1 text-success\">{{CloseToOthers}}</span> </div>\n            <div id=\"close_to_others_slider\"></div>\n            <input type=\"hidden\" [ngModel]=\"CloseToOthers\" name=\"CloseToOthers\">\n          </div>\n          <div class=\"mar-all\"><i class=\"pull-left\">Not close</i><i class=\"pull-right\"> Very close</i> </div>\n          <hr class=\"new-section-sm bord-no\">\n          <!--===================================================-->\n\n          <!--                      <hr class=\"new-section-xs bord-no\">\n-->\n          <!-- Bootstrap Tags Input -->\n          <!--===================================================-->\n          <input id=\"who-tags-input\" type=\"text\" class=\"form-control\" [ngModel]=\"whoTags\" name=\"WhoTags\" placeholder=\"Who Tags\" value=\"{{whoTags.join(',')}}\" data-role=\"tagsinput\">\n          <!--===================================================-->\n\n          <hr class=\"new-section-xs bord-no\">\n\n          <!--===================================================-->\n        </div>\n\n        <!--Fourth tab-->\n        <div id=\"demo-step-tab4\" class=\"tab-pane\">\n          <p class=\"text-main text-bold\">I was my <em class=\"text-success\"> best self ?</em></p>\n\n          <!--Range Slider2 : Steps-->\n          <!--===================================================-->\n          <div class=\"pad-hor mar-btm\">\n            <div class=\"mar-btm text-center\"> <span class=\"h1 text-success\">{{BestSelfRating}}</span> </div>\n            <div id=\"test_slider\"></div>\n            <input type=\"hidden\" [ngModel]=\"BestSelfRating\" name=\"BestSelfRating\">\n            <div class=\"mar-all\"><i class=\"pull-left\">Not so much</i><i class=\"pull-right\"> Yes I really was</i> </div>\n          </div>\n          <br>\n          <hr class=\"new-section-md bord-no\">\n          <p class=\"text-main text-bold\">Tags about me related to this post</p>\n\n          <!-- Bootstrap Tags Input -->\n          <!--===================================================-->\n          <input id=\"you-tags-input\" type=\"text\" class=\"form-control\" [ngModel]=\"youTags\" name=\"YouTags\" placeholder=\"You Tags\" value=\"{{youTags.join(',')}}\" data-role=\"tagsinput\">\n          <!--===================================================-->\n\n          <hr class=\"new-section-sm bord-no\">\n          <p class=\"text-main text-bold\">Mood (select all that apply)</p>\n          <div class=\"mar-btm\">\n\n            <!--Justified Button Group-->\n            <!--===================================================-->\n\n            <div class=\"mood-type-panel\">\n              <label  *ngFor=\"let option of modes\" [ngClass]=\"{active: isModeSelected(option.value)}\">\n                <input type=\"checkbox\" #mode type=\"checkbox\" [checked]=\"isModeSelected(option.value)\" value=\"{{option.value}}\" (change)=\"modeChanged(mode.checked+','+mode.value)\" >\n                <img src=\"assets/img/{{option.img}}\" alt=\"\">\n                <span>{{option.value}}</span>\n              </label>\n            </div>\n            <!--===================================================-->\n\n          </div>\n        </div>\n      </div>\n    </div>\n  </form>\n</div>\n<!--===================================================-->\n<!-- End Bubble Numbers Form Wizard -->\n"
 
 /***/ },
 
 /***/ 861:
 /***/ function(module, exports) {
 
-module.exports = "<div *ngIf=\"editMode && loggedInUsrCanEdit()\" class=\"row\">\n  <div class=\"col-lg-12\">\n    <div class=\"panel\">\n\n      <form id=\"demo-bvd-notempty\" action=\"#\" class=\"form-horizontal\" (submit)=\"createProfile(f)\" #f=\"ngForm\" [ngClass]=\"{'form-busy': formBusy == true}\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-control\">\n            <button type=\"submit\" class=\"demo-panel-ref-btn btn btn-default\" data-target=\"#demo-panel-ref\" data-toggle=\"panel-overlay\"> <i class=\"fa fa-share fa-fw\"></i> {{getAction()}} </button>\n          </div>\n          <h3 class=\"panel-title\">{{getTitle()}}</h3>\n        </div>\n\n        <div class=\"panel-body\">\n          <div class=\"text-center pad-ver\">\n            <figure (click)=\"chooseFile($event)\">\n              <img alt=\"Avatar\" class=\"img-lg img-circle img-border-aquamarine mar-btm\" [src]=\"(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '' || user.ImageURL == undefined)?appService.default_user_profile_pic:user.ImageURL)\">\n            </figure>\n            <p class=\"text-sm\">Add photo <input id=\"{{photo_chooser_id}}\" style=\"display: none;\" type=\"file\" accept=\".jpg\" (change)=\"filesSelected($event)\"></p>\n          </div>\n          <br>\n\n          <div class=\"new-account-section\" *ngIf=\"newAccount\">\n            <p class=\"text-main text-bold\">Account Info</p>\n            <input type=\"email\" placeholder=\"Email Address\"  [ngModel]=\"newUser.email\" required=\"required\" name=\"email\" class=\"form-control input-lg\">\n            <hr class=\"new-section-xs bord-no\">\n            <input type=\"text\" placeholder=\"Password\"  [ngModel]=\"newUser.password\" required=\"required\" name=\"password\" class=\"form-control input-lg\">\n            <hr class=\"new-section-xs bord-no\">\n          </div>\n          <p class=\"text-main text-bold\">Name</p>\n          <input type=\"text\" placeholder=\"First name\" class=\"form-control input-lg\" [ngModel]=\"user.FirstName\" name=\"FirstName\" required>\n          <br>\n          <input type=\"text\" placeholder=\"Last name\" class=\"form-control input-lg\"  [ngModel]=\"user.LastName\" name=\"LastName\" required>\n          <br>\n          <!--                <hr class=\"new-section-xs bord-no\"> -->\n          <input type=\"text\" placeholder=\"Profile name / nickname\"  [ngModel]=\"user.NickName\" required=\"required\" name=\"NickName\" class=\"form-control input-lg\">\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Birthday</p>\n\n          <!--Bootstrap Datepicker : Component-->\n          <!--===================================================-->\n          <div id=\"demo-dp-component\">\n            <div class=\"input-group date\">\n              <input required\n                     type=\"text\"\n                     class=\"form-control datepicker\"\n                     [ngModel]=\"user.DateBirthDay\"\n                     name=\"DateBirthDay\">\n              <span class=\"input-group-addon\"><i class=\"demo-pli-calendar-4\"></i></span> </div>\n            <small class=\"text-muted\">Your birthday is used to build your timeline.</small> </div>\n          <!--===================================================-->\n\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Location / address</p>\n          <input type=\"text\" placeholder=\" \" class=\"form-control input-lg\"  [ngModel]=\"user.address\" name=\"address\" id=\"demo-is-inputlarge\">\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Color</p>\n          <div class=\" mar-btm\">\n            <input type=\"hidden\" [(ngModel)]=\"user.Color\" name=\"Color\">\n            <button type=\"button\" class=\"btn btn-{{user.Color}} fa fa-check pad-all mar-rgt\"> </button>\n            <button type=\"button\" class=\"btn btn-default\" data-toggle=\"modal\" [attr.data-target]=\"'#'+color_picker_modal_id\">Select Color</button>\n          </div>\n        </div>\n      </form>\n      <div id=\"{{color_picker_modal_id}}\" class=\"modal fade\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Choose Color</h4>\n            </div>\n            <div class=\"modal-body\">\n              <div class=\"chose-color\">\n                <label  *ngFor=\"let option of colors\" class=\"btn-{{option}}\">\n                  <input #color type=\"radio\" value=\"{{option}}\" [(ngModel)]=\"user.Color\" name=\"myColor\" (click)=\"colorPicked($event)\">\n                  {{option}}\n                </label>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div *ngIf=\"editMode == false\" class=\"row\">\n  <div class=\"col-lg-12\">\n    <div class=\"panel\">\n      <div class=\"panel-head profile-head\">\n        <h3>Profile</h3>\n        <div class=\"panel-control\">\n\n          <!-- Todo:Decide how to check who is managing this user. -->\n          <span>Managed by {{user.ManagedByUserName}}</span>\n          <button *ngIf=\"loggedInUsrCanEdit()\" class=\"demo-panel-ref-btn btn btn-default\" type=\"button\" (click)=\"enterEditMode()\"> <i class=\"fa fa-pencil fa-fw\"></i> Edit </button>\n        </div>\n\n      </div>\n      <div class=\"text-center pro-image\">\n        <figure>\n          <img alt=\"Avatar\" class=\"img-lg img-circle img-border-aquamarine mar-btm\" [src]=\"(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '')?appService.default_user_profile_pic:user.ImageURL)\">\n        </figure>\n      </div>\n      <div class=\"text-center pro-content\">\n        <label>\n          <strong>Name</strong>\n          <span>{{user.FirstName}} {{user.LastName}}</span>\n        </label>\n        <label>\n          <strong>Nick Name</strong>\n          <span>{{user.NickName}}</span>\n        </label>\n        <label>\n          <strong>Birthday</strong>\n          <span>{{user.DateBirthDay}}</span>\n        </label>\n        <label>\n          <strong>Location</strong>\n          <span>{{user.address}}</span>\n        </label>\n        <label>\n          <strong>Color</strong>\n          <span class=\"color-box btn-{{user.Color}}\"></span>\n        </label>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"></li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n\n    <div class=\"row\">\n      <div class=\"row\">\n        <button data-toggle=\"modal\" [attr.data-target]=\"'#'+create_log_modal_id\" class=\"btn btn-info info-btn\"><i class=\"fa fa-add\"></i>Create New Log</button>\n      </div>\n      <div id=\"{{create_log_modal_id}}\" class=\"modal fade log-modal\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Create new log</h4>\n            </div>\n            <div class=\"modal-body\">\n              <table class=\"table table-hover table-vcenter\">\n                <thead>\n                <tr>\n                  <th>\n                    <form (submit)=\"createLog(f)\" #f=\"ngForm\">\n                      <input type=\"text\" class=\"input_text\" [(ngModel)]=\"NewLogName\" name=\"Name\" placeholder=\"Enter New Log Name\" required>\n                      <button type=\"submit\" class=\"btn btn-info\">Save</button>\n                    </form>\n                  </th>\n                </tr>\n                </thead>\n              </table>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"spacer\"></div>\n      <app-timeline-detail *ngFor=\"let timeline of timelines\" [timeline]=\"timeline\"></app-timeline-detail>\n      <br>\n    </div>\n\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
 
 /***/ },
 
 /***/ 862:
 /***/ function(module, exports) {
 
-module.exports = "\n<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- REGISTRATION FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"mar-ver pad-btm\">\n                <h3 class=\"h4 mar-no\">Welcome to Riza!</h3>\n                <p class=\"text-muted mar-top\">Create an account to start your own personal and family log or join an existing Riza community. </p>\n            </div>\n            <form action=\"pages-login.html\" (ngSubmit)=\"registerUser(f)\" #f=\"ngForm\">\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <div class=\"form-group\">\n                            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"email\" name=\"email\" value=\"newuser6@gmail.com\" placeholder=\"E-mail\" name=\"email\" required>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"form-group\">\n                            <input type=\"password\" class=\"form-control\" [(ngModel)]=\"pass\" name=\"password\" value=\"111\" placeholder=\"Create password\" required>\n                        </div>\n                        <div class=\"form-group\">\n                            <input type=\"password\" class=\"form-control\" [(ngModel)]=\"passagain\" name=\"confirmpass\" value=\"111\" placeholder=\"Re-type password\" required>\n                        </div>\n                    </div>\n                </div>\n                     <div class=\"mar-ver text-left text-sm\">\n                       <i>The fine print: by creating an account, you agree to our <a href=\"#\" class=\"btn-link\">Terms and Conditions.</a></i>\n                     </div>\n                <button class=\"btn btn-primary btn-block\" type=\"submit\">Register</button>\n            </form>\n        </div>\n        <p style=\"color:red; text-align:center;\">{{errors}}</p>\n        <div class=\"pad-all\">\n            Already have an account ? <a routerLink=\"/login\" class=\"btn-link mar-rgt\">Sign In</a>\n        </div>\n    </div>\n</div>\n<!--===================================================-->\n"
+module.exports = "<sa-header>\n    <sa-title></sa-title>\n    <sa-action>\n        <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > </a> </li>\n    </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n    <sa-body-content>\n        <app-profile [user]=\"auth.currentUser\" (profileUpdated)=\"profileUpdated($event)\" ></app-profile>\n\n        <app-profile\n                *ngFor=\"let user of managedUsers\"\n                    [user]=\"user\"\n                    [managedProfile]=\"true\"\n                    (profileUpdated)=\"managedUserProfileUpdated($event)\"\n        ></app-profile>\n    </sa-body-content>\n    <sa-body-right-content>\n        <sa-manage-entry></sa-manage-entry>\n    </sa-body-right-content>\n    <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
 
 /***/ },
 
 /***/ 863:
 /***/ function(module, exports) {
 
-module.exports = "<p>\n  test works!\n</p>\n"
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"\" > Profile </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <div class=\"row\">\n      <div class=\"col-sm-12\">\n        <div class=\"panel\">\n          <div class=\"panel-heading\">\n            <h3 class=\"panel-title\">Choose Color</h3>\n          </div>\n          <div class=\"panel-body\">\n\n            <div class=\"pad-ver mar-btm\">\n              <div class=\"chose-color\">\n                <label  *ngFor=\"let option of colors\" class=\"btn-{{option}}\">\n                  <input #color type=\"radio\" name=\"myColor\" (change)=\"clicked(option)\">\n                  {{option}}\n                </label>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </div>\n\n    </div>\n  </sa-body-content>\n  <sa-body-right-content></sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>"
 
 /***/ },
 
 /***/ 864:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"col-lg-6\">\n  <div class=\"panel\">\n    <div class=\"panel-heading\">\n      <div class=\"panel-control\">\n        <ul class=\"pager pager-rounded\">\n          <a routerLink=\"/log/{{timeline.Id}}/invite-users\" id=\"demo-btn-addrow\" class=\"btn\"><i\n                  class=\"fa fa-plus text-info\"></i></a>\n        </ul>\n      </div>\n      <h3 class=\"panel-title\">{{timeline.Name}}<span class=\"text-sm text-muted mar-lft\"> Admin: {{timeline.CreatedByUser}}</span>\n        <button *ngIf=\"auth.currentUser.UserId == timeline.CreatedByUserId\" data-toggle=\"modal\" [attr.data-target]=\"'#'+edit_log_modal_id\" class=\"btn\"><i class=\"fa fa-pencil text-info\"></i></button>\n      </h3>\n    </div>\n\n\n    <!--Hover Rows-->\n    <!--===================================================-->\n    <div class=\"panel-body\">\n\n      <table class=\"table table-hover table-vcenter\">\n        <thead>\n        <tr>\n          <th class=\"mins-width\">Image</th>\n          <th>Name</th>\n          <th class=\"text-center\">Profile managed by</th>\n          <th class=\"text-center\">Profile</th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr *ngFor=\"let user of timeline.Users\">\n          <td class=\"text-center\"><img class=\"img-xs img-circle\"\n                                       [src]=\"(user.ImageURL == undefined || user.ImageURL == '')?app.default_user_profile_pic:user.ImageURL\"\n                                       alt=\"Profile picture\"></td>\n          <td>\n            <span class=\"text-main text-semibold\">{{user.FirstName}} {{user.LastName}}</span>\n          </td>\n          <td class=\"text-center\"><span\n                  class=\"text-muted text-semibold\">{{(user.ManagedByUserName == undefined)?\"\":user.ManagedByUserName}}</span></td>\n          <td class=\"text-center\">\n            <span *ngIf=\"currentUserCanEditThis(user)\" (click)=\"editUser(user)\" class=\"link text-info text-semibold\">Edit</span>\n            <span *ngIf=\"currentUserCanDeleteThis(user)\" class=\"link text-info text-semibold\" (click)=\"removeUser(user.UserId)\">Del</span>\n          </td>\n        </tr>\n        </tbody>\n      </table>\n    </div>\n    <!--===================================================-->\n    <!--End Hover Rows-->\n\n  </div>\n  <div id=\"{{edit_log_modal_id}}\" class=\"modal fade\" role=\"dialog\">\n    <div class=\"modal-dialog\">\n      <!-- Modal content-->\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n          <h4 class=\"modal-title\">Edit log name</h4>\n        </div>\n        <div class=\"modal-body\">\n          <table class=\"table table-hover table-vcenter\">\n            <thead>\n            <tr>\n              <th>\n                <form (submit)=\"updateLog(f)\" #f=\"ngForm\">\n                  <input type=\"text\" class=\"input_text\" [ngModel]=\"timeline.Name\" name=\"Name\" placeholder=\"Enter New Log Name Here..\" required>\n                  <button type=\"submit\" class=\"btn btn-info\">Save</button>\n                </form>\n              </th>\n            </tr>\n            </thead>\n          </table>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<router-outlet></router-outlet>"
 
 /***/ },
 
 /***/ 865:
 /***/ function(module, exports) {
 
-module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <app-back-button></app-back-button>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <div class=\"row\">\n      <app-log [timeline]=\"timeline\"></app-log>\n    </div>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry #manageEntryComponent\n                     (EntryCreated)=\"timelineUpdated($event)\"\n                     (EntryUpdated)=\"timelineUpdated($event)\"\n            [seletedTimelines]=\"(timeline.Id == '')?[]:[timeline.Id]\"></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n\n"
+module.exports = "<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- LOGIN FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"mar-ver pad-btm\">\n              <h3 class=\"h4 mar-no\">Thanks</h3>\n            </div>\n\n                                <div class=\"mar-ver pad-btm\">\n\n              <p class=\"text-muted\">Please check ({{email}}) for a link to reset your password.</p>\n            </div>\n\n\n\n        </div>\n\n    </div>\n</div>\n<!--===================================================-->\n"
 
 /***/ },
 
 /***/ 866:
+/***/ function(module, exports) {
+
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <app-back-button></app-back-button>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n\n<sa-body>\n  <sa-body-content>\n    <div *ngIf=\"post != null\">\n      <div class=\"row\" *ngIf=\"post.Files.length > 0\">\n        <div class=\"col-sm-12\">\n\n          <!--Carousel-->\n          <!--===================================================-->\n          <div id=\"demo-carousel\" class=\"carousel slide\" data-ride=\"carousel\">\n\n            <!--Indicators-->\n            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n            <ol class=\"carousel-indicators in pad-btm\">\n              <li class=\"active\" *ngFor=\"let file of post.Files\" data-target=\"#demo-carousel\"></li>\n            </ol>\n\n            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n\n            <div class=\"carousel-inner text-center\" >\n              <!--Item 1-->\n              <div class=\"item\"  *ngFor=\"let file of post.Files; let i = index\" [ngClass]=\"(i == 0)?'active':''\">\n                <div class=\"thumbnail\"> <img src=\"{{file.FileURL}}\" alt=\"Image\"> </div>\n              </div>\n            </div>\n\n            <!--carousel-control-->\n            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n            <a *ngIf=\"post.Files.length > 1\" class=\"carousel-control left\" data-slide=\"prev\" href=\"#demo-carousel\"><i class=\"text-light demo-pli-arrow-left icon-4x\"></i></a>\n            <a *ngIf=\"post.Files.length > 1\" class=\"carousel-control right\" data-slide=\"next\" href=\"#demo-carousel\"><i class=\"text-light demo-pli-arrow-right icon-4x\"></i></a>\n            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n\n          </div>\n          <!--===================================================-->\n          <!--End Carousel-->\n\n\n        </div>\n\n\n      </div>\n      <div class=\"row\">\n        <div class=\"col-sm-12\">\n          <div class=\"panel panel-trans\">\n            <div class=\"panel-heading\">\n              <h3 class=\"panel-title\"><span class=\"type-icon-grey\" *ngFor=\"let type of getEntryTypes(post.Type)\"><img src=\"{{app.domain}}/assets/img/{{type.img}}\"></span>{{post.Name}}<span class=\"pull-right text-thin\">{{post.User}}</span> </h3>\n            </div>\n            <div class=\"panel-body\">\n              <p class=\"text-lg pad-btm\">{{post.About}}</p>\n              <p><strong>What else? </strong> {{post.WhatElse}}.</p>\n              <p><strong>Location: </strong> <span class=\"text-primary\">{{(post.Location != 'undefined')?post.Location:''}}</span> <i class=\"fa fa-map-marker pad-ver text-primary\"></i></p>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"row\">\n\n        <div class=\"col-sm-6\">\n          <div class=\"panel panel-trans\">\n            <div class=\"panel-heading\">\n              <h3 class=\"panel-title\">Relationships</h3>\n            </div>\n            <div class=\"panel-body\">\n              <p class=\"mar-top\"><strong>Who: </strong>{{post.WhoTags.split(',').join('#')}}</p>\n              <hr class=\"new-section-xs bord-no\">\n              <div> <span class=\"pull-right text-primary\">{{post.CloseToOthers}}%</span> <span class=\"mar-ver\">{{user.Nickname}} felt close to others</span> </div>\n              <div class=\"progress progress-l mar-top bg-white\">\n                <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\"\n                     aria-valuemin=\"0\" aria-valuemax=\"100\" [ngStyle]=\"{width: post.CloseToOthers + '%'}\">\n                  <span class=\"sr-only\">70% Complete</span>\n                </div>\n                <!--<div class=\"progress-bar bg-primary\" data-toggle=\"tooltip\" [attr.data-original-title]=\"(post.CloseToOthers+'%')\" [ngStyle]=\"{width: post.CloseToOthers}\"></div>-->\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"col-sm-6\">\n          <div class=\"panel panel-trans\">\n            <div class=\"panel-heading\">\n              <h3 class=\"panel-title\">About Me</h3>\n            </div>\n            <div class=\"panel-body\">\n              <p *ngIf=\"post.YouTags.split(',').length > 0\" class=\"mar-top\"><strong>Me: </strong>{{post.YouTags.split(',').join('#')}}</p>\n              <hr class=\"new-section-xs bord-no\">\n              <div class=\"\"> <span class=\"pull-right text-info\">{{post.BestSelfRating}}%</span> <span class=\"mar-ver\">Best me</span> </div>\n              <div class=\"progress progress-l mar-top bg-white\">\n                <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\"\n                     aria-valuemin=\"0\" aria-valuemax=\"100\" [ngStyle]=\"{width: post.BestSelfRating + '%'}\">\n                  <span class=\"sr-only\">70% Complete</span>\n                </div>\n              </div>\n              <hr class=\"new-section-xs bord-no\">\n              <div class=\"btn-group-justified cutoms\" *ngIf=\"post.Mode != ''\">\n                <a *ngFor=\"let option of post.Mode.split(',')\" href=\"javascript:void(0)\" data-toggle=\"button\" class=\"btn btn-md btn-active-highlight pad-top\">\n                  <img class=\"img-sm\" src=\"assets/img/emoji-{{option}}.png\" alt=\"thumbs\">\n                  <p>{{option}}</p>\n                </a>\n              </div>\n            </div>\n          </div>\n        </div>\n\n\n      </div>\n    </div>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry (EntryUpdated)=\"updatePost($event)\"></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n\n"
+
+/***/ },
+
+/***/ 867:
+/***/ function(module, exports) {
+
+module.exports = "<div *ngIf=\"editMode && loggedInUsrCanEdit()\" class=\"row\">\n  <div class=\"col-lg-12\">\n    <div class=\"panel\">\n\n      <form id=\"demo-bvd-notempty\" action=\"#\" class=\"form-horizontal\" (submit)=\"createProfile(f)\" #f=\"ngForm\" [ngClass]=\"{'form-busy': formBusy == true}\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-control\">\n            <button type=\"submit\" class=\"demo-panel-ref-btn btn btn-default\" data-target=\"#demo-panel-ref\" data-toggle=\"panel-overlay\"> <i class=\"fa fa-share fa-fw\"></i> {{getAction()}} </button>\n          </div>\n          <h3 class=\"panel-title\">{{getTitle()}}</h3>\n        </div>\n\n        <div class=\"panel-body\">\n          <div class=\"text-center pad-ver\">\n            <figure (click)=\"chooseFile($event)\">\n              <img alt=\"Avatar\" class=\"img-lg img-circle img-border-aquamarine mar-btm\" [src]=\"(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '' || user.ImageURL == undefined)?appService.default_user_profile_pic:user.ImageURL)\">\n            </figure>\n            <p class=\"text-sm\">Add photo <input id=\"{{photo_chooser_id}}\" style=\"display: none;\" type=\"file\" accept=\".jpg\" (change)=\"filesSelected($event)\"></p>\n          </div>\n          <br>\n\n          <p class=\"text-main text-bold\">Name</p>\n          <input type=\"text\" placeholder=\"First name\" class=\"form-control input-lg\" [ngModel]=\"user.FirstName\" name=\"FirstName\" required>\n          <br>\n          <input type=\"text\" placeholder=\"Last name\" class=\"form-control input-lg\"  [ngModel]=\"user.LastName\" name=\"LastName\" required>\n          <br>\n          <!--                <hr class=\"new-section-xs bord-no\"> -->\n          <input type=\"text\" placeholder=\"Profile name / nickname\"  [ngModel]=\"user.NickName\" required=\"required\" name=\"NickName\" class=\"form-control input-lg\">\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Birthday</p>\n\n          <!--Bootstrap Datepicker : Component-->\n          <!--===================================================-->\n          <div id=\"demo-dp-component\">\n            <div class=\"input-group date\">\n              <input required\n                     type=\"text\"\n                     class=\"form-control datepicker\"\n                     [ngModel]=\"user.DateBirthDay\"\n                     name=\"DateBirthDay\">\n              <span class=\"input-group-addon\"><i class=\"demo-pli-calendar-4\"></i></span> </div>\n            <small class=\"text-muted\">Your birthday is used to build your timeline.</small> </div>\n          <!--===================================================-->\n\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Location / address</p>\n          <input type=\"text\" placeholder=\" \" class=\"form-control input-lg\"  [ngModel]=\"user.address\" name=\"address\" id=\"demo-is-inputlarge\">\n          <hr class=\"new-section-xs bord-no\">\n          <p class=\"text-main text-bold\">Color</p>\n          <div class=\" mar-btm\">\n            <input type=\"hidden\" [(ngModel)]=\"user.Color\" name=\"Color\">\n            <button type=\"button\" class=\"btn btn-{{user.Color}} fa fa-check pad-all mar-rgt\"> </button>\n            <button type=\"button\" class=\"btn btn-default\" data-toggle=\"modal\" [attr.data-target]=\"'#'+color_picker_modal_id\">Select Color</button>\n          </div>\n        </div>\n      </form>\n      <div id=\"{{color_picker_modal_id}}\" class=\"modal fade\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Choose Color</h4>\n            </div>\n            <div class=\"modal-body\">\n              <div class=\"chose-color\">\n                <label  *ngFor=\"let option of colors\" class=\"btn-{{option}}\">\n                  <input #color type=\"radio\" value=\"{{option}}\" [(ngModel)]=\"user.Color\" name=\"myColor\" (click)=\"colorPicked($event)\">\n                  {{option}}\n                </label>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div *ngIf=\"editMode == false\" class=\"row\">\n  <div class=\"col-lg-12\">\n    <div class=\"panel\">\n      <div class=\"panel-head profile-head\">\n        <h3>Profile</h3>\n        <div class=\"panel-control\">\n\n          <!-- Todo:Decide how to check who is managing this user. -->\n          <span>Managed by {{user.ManagedByUserName}}</span>\n          <button *ngIf=\"loggedInUsrCanEdit()\" class=\"demo-panel-ref-btn btn btn-default\" type=\"button\" (click)=\"enterEditMode()\"> <i class=\"fa fa-pencil fa-fw\"></i> Edit </button>\n        </div>\n\n      </div>\n      <div class=\"text-center pro-image\">\n        <figure>\n          <img alt=\"Avatar\" class=\"img-lg img-circle img-border-aquamarine mar-btm\" [src]=\"(selectedThumbnail != '')?selectedThumbnail:((user.ImageURL == '')?appService.default_user_profile_pic:user.ImageURL)\">\n        </figure>\n      </div>\n      <div class=\"text-center pro-content\">\n        <label>\n          <strong>Name</strong>\n          <span>{{user.FirstName}} {{user.LastName}}</span>\n        </label>\n        <label>\n          <strong>Nick Name</strong>\n          <span>{{user.NickName}}</span>\n        </label>\n        <label>\n          <strong>Birthday</strong>\n          <span>{{user.DateBirthDay}}</span>\n        </label>\n        <label>\n          <strong>Location</strong>\n          <span>{{user.address}}</span>\n        </label>\n        <label>\n          <strong>Color</strong>\n          <span class=\"color-box btn-{{user.Color}}\"></span>\n        </label>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ },
+
+/***/ 868:
+/***/ function(module, exports) {
+
+module.exports = "\n<!-- BACKGROUND IMAGE -->\n<!--===================================================-->\n<div id=\"bg-overlay\"></div>\n\n\n<!-- REGISTRATION FORM -->\n<!--===================================================-->\n<div class=\"cls-content\">\n    <div class=\"cls-content-sm panel\">\n        <div class=\"panel-body\">\n            <div class=\"mar-ver pad-btm\">\n                <h3 class=\"h4 mar-no\">Welcome to Riza!</h3>\n                <p class=\"text-muted mar-top\">Create an account to start your own personal and family log or join an existing Riza community. </p>\n            </div>\n            <form action=\"pages-login.html\" (ngSubmit)=\"registerUser(f)\" #f=\"ngForm\">\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <div class=\"form-group\">\n                            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"email\" name=\"email\" value=\"newuser6@gmail.com\" placeholder=\"E-mail\" name=\"email\" required>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"form-group\">\n                            <input type=\"password\" class=\"form-control\" [(ngModel)]=\"pass\" name=\"password\" value=\"111\" placeholder=\"Create password\" required>\n                        </div>\n                        <div class=\"form-group\">\n                            <input type=\"password\" class=\"form-control\" [(ngModel)]=\"passagain\" name=\"confirmpass\" value=\"111\" placeholder=\"Re-type password\" required>\n                        </div>\n                    </div>\n                </div>\n                     <div class=\"mar-ver text-left text-sm\">\n                       <i>The fine print: by creating an account, you agree to our <a href=\"#\" class=\"btn-link\">Terms and Conditions.</a></i>\n                     </div>\n                <button class=\"btn btn-primary btn-block\" type=\"submit\">Register</button>\n            </form>\n        </div>\n        <p style=\"color:red; text-align:center;\">{{errors}}</p>\n        <div class=\"pad-all\">\n            Already have an account ? <a routerLink=\"/login\" class=\"btn-link mar-rgt\">Sign In</a>\n        </div>\n    </div>\n</div>\n<!--===================================================-->\n"
+
+/***/ },
+
+/***/ 869:
+/***/ function(module, exports) {
+
+module.exports = "<div id=\"global_success_popup\" class=\"modal fade\" role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n        <h4 class=\"modal-title\">Success!</h4>\n      </div>\n      <div class=\"modal-body\">\n        <p id=\"global_success_popup_text\"></p>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ },
+
+/***/ 870:
+/***/ function(module, exports) {
+
+module.exports = "<p>\n  test works!\n</p>\n"
+
+/***/ },
+
+/***/ 871:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"col-lg-6\">\n  <div class=\"panel\">\n    <div class=\"panel-heading\">\n      <div class=\"panel-control\">\n        <ul class=\"pager pager-rounded\">\n          <a routerLink=\"/log/{{timeline.Id}}/invite-users\" id=\"demo-btn-addrow\" class=\"btn\"><i\n                  class=\"fa fa-plus text-info\"></i></a>\n        </ul>\n      </div>\n      <h3 class=\"panel-title\">{{timeline.Name}}<span class=\"text-sm text-muted mar-lft\"> Admin: {{timeline.CreatedByUser}}</span>\n        <button *ngIf=\"auth.currentUser.UserId == timeline.CreatedByUserId\" data-toggle=\"modal\" [attr.data-target]=\"'#'+edit_log_modal_id\" class=\"btn\"><i class=\"fa fa-pencil text-info\"></i></button>\n      </h3>\n    </div>\n\n\n    <!--Hover Rows-->\n    <!--===================================================-->\n    <div class=\"panel-body\">\n\n      <table class=\"table table-hover table-vcenter\">\n        <thead>\n        <tr>\n          <th class=\"mins-width\">Image</th>\n          <th>Name</th>\n          <th class=\"text-center\">Profile managed by</th>\n          <th class=\"text-center\">Profile</th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr *ngFor=\"let user of timeline.Users\">\n          <td class=\"text-center\"><img class=\"img-xs img-circle\"\n                                       [src]=\"(user.ImageURL == undefined || user.ImageURL == '')?app.default_user_profile_pic:user.ImageURL\"\n                                       alt=\"Profile picture\"></td>\n          <td>\n            <span class=\"text-main text-semibold\">{{user.FirstName}} {{user.LastName}}</span>\n          </td>\n          <td class=\"text-center\"><span\n                  class=\"text-muted text-semibold\">{{(user.ManagedByUserName == undefined)?\"\":user.ManagedByUserName}}</span></td>\n          <td class=\"text-center\">\n            <span *ngIf=\"currentUserCanEditThis(user)\" (click)=\"editUser(user)\" class=\"link text-info text-semibold\">Edit</span>\n            <span *ngIf=\"currentUserCanDeleteThis(user)\" class=\"link text-info text-semibold\" (click)=\"removeUser(user.UserId)\">Del</span>\n          </td>\n        </tr>\n        </tbody>\n      </table>\n    </div>\n    <!--===================================================-->\n    <!--End Hover Rows-->\n\n  </div>\n  <div id=\"{{edit_log_modal_id}}\" class=\"modal fade\" role=\"dialog\">\n    <div class=\"modal-dialog\">\n      <!-- Modal content-->\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n          <h4 class=\"modal-title\">Edit log name</h4>\n        </div>\n        <div class=\"modal-body\">\n          <table class=\"table table-hover table-vcenter\">\n            <thead>\n            <tr>\n              <th>\n                <form (submit)=\"updateLog(f)\" #f=\"ngForm\">\n                  <input type=\"text\" class=\"input_text\" [ngModel]=\"timeline.Name\" name=\"Name\" placeholder=\"Enter New Log Name Here..\" required>\n                  <button type=\"submit\" class=\"btn btn-info\">Save</button>\n                </form>\n              </th>\n            </tr>\n            </thead>\n          </table>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ },
+
+/***/ 872:
+/***/ function(module, exports) {
+
+module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <app-add-content-btn></app-add-content-btn> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <div class=\"row\">\n      <app-log [timeline]=\"timeline\"></app-log>\n    </div>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry #manageEntryComponent\n                     (EntryCreated)=\"timelineUpdated($event)\"\n                     (EntryUpdated)=\"timelineUpdated($event)\"\n            [seletedTimelines]=\"(timeline.Id == '')?[myPrivateTimeline.Id]:[myPrivateTimeline.Id, timeline.Id]\"></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n\n"
+
+/***/ },
+
+/***/ 873:
 /***/ function(module, exports) {
 
 module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li class=\"pad-rgt\"> <a href=\"javascript:void(0)\" > Profile </a> </li>\n  </sa-action>\n</sa-header>\n<!--===================================================-->\n<!--END NAVBAR-->\n\n<sa-body>\n  <sa-body-content>\n    <app-profile [user]=\"user\"></app-profile>\n  </sa-body-content>\n  <sa-body-right-content>\n    <sa-manage-entry></sa-manage-entry>\n  </sa-body-right-content>\n  <sa-aside></sa-aside>\n</sa-body>\n<!-- FOOTER -->\n<!--===================================================-->\n<sa-footer></sa-footer>\n"
@@ -6256,7 +6424,7 @@ module.exports = "<sa-header>\n  <sa-title></sa-title>\n  <sa-action>\n    <li c
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__User__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return UserStuff; });
@@ -6309,5 +6477,5 @@ var UserStuff = (function () {
 
 /***/ }
 
-},[1133]);
+},[1140]);
 //# sourceMappingURL=main.bundle.map

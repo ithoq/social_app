@@ -6,6 +6,7 @@ import {ManageEntryComponent} from "../manage-entry/manage-entry.component";
 import {AuthService} from "../../services/auth.service";
 import {Timeline} from "../../models/Timeline";
 import {TimelineService} from "../../services/timeline.service";
+import {UserStuff} from "../../models/UserStuff";
 declare var LZString:any;
 @Component({
   selector: 'app-view-log',
@@ -16,6 +17,8 @@ export class ViewLogComponent implements OnInit {
   @ViewChild(ManageEntryComponent) manageEntryComponent;
   @ViewChild(HeaderComponent) headerComponent;
   public timeline:Timeline = null;
+  public userStuff:UserStuff = null;
+  public myPrivateTimeline:Timeline = null;
   constructor(
       public route:ActivatedRoute,
       public router:Router,
@@ -23,7 +26,9 @@ export class ViewLogComponent implements OnInit {
       public auth:AuthService,
       public timelineService:TimelineService
   ) {
-    this.timeline = new Timeline();
+        this.timeline = new Timeline();
+        this.userStuff = this.auth.getUser();
+        this.myPrivateTimeline = this.app.find_obj_by_prop('Name','My Private Timeline',this.userStuff.timelines);
   }
 
   timelineUpdated(event){
@@ -39,7 +44,6 @@ export class ViewLogComponent implements OnInit {
           }else{
               //TODO: users array is not returned by the api yet.
               this.timeline = data.log;
-              console.log(this.timeline);
               this.headerComponent.title = this.timeline.Name;
           }
         }, (error)=>{});

@@ -44,8 +44,8 @@ export class TimelineService {
       this.userTimelines = timelines;
   }
 
-    inviteUsers(timelineId, users,emails){
-        return this.http.get(this.appService.api_end_point+'timelineInviteUsers/'+this.auth.get_session_token()+"/&TimelineId="+timelineId+"&InviteUsers="+users+"&InviteEmails="+emails);
+    inviteUsers(timelineId, users,emails, inviteMessage:string = ''){
+        return this.http.get(this.appService.api_end_point+'timelineInviteUsers/'+this.auth.get_session_token()+"/&TimelineId="+timelineId+"&InviteUsers="+users+"&InviteEmails="+emails+"&InviteMessage="+inviteMessage);
     }
 
     removeUsers(timelineId, users){

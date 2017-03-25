@@ -63,12 +63,12 @@ export class CreateProfileComponent implements OnInit {
       });
     }else{
       this.formBusy = false;
-      alert('something went wrong');
+      this.appService.show_error_popup();
     }
   }
 
   someThingWentWrong(event){
-    alert(event.error.msg);
+    this.appService.show_error_popup(event.error.msg);
     this.formBusy = false;
   }
 

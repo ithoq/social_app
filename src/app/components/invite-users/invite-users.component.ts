@@ -18,6 +18,7 @@ export class InviteUsersComponent implements OnInit {
   public searchedUsers = [];
   public timeline:any = null;
   public email:any = '';
+  public InviteMessage:string = '';
   constructor(private timelineService:TimelineService ,private route:ActivatedRoute, private router:Router, private users:UsersService, private appService:AppService, private auth:AuthService) { }
   public selectedUsers = [];
 
@@ -25,10 +26,10 @@ export class InviteUsersComponent implements OnInit {
     let users = this.selectedUsers.join(',');
     let emails = form.value.email;
     if(users == '' && emails == ''){
-      alert('please select atleast one user or enter an email address.')
+      this.appService.show_error_popup('please select atleast one user or enter an email address.');
     }else{
-      this.timelineService.inviteUsers(this.timeline.Id,users,emails).subscribe((data:Response)=>{
-        alert('invitation sent successfully');
+      this.timelineService.inviteUsers(this.timeline.Id,users,emails,this.InviteMessage).subscribe((data:Response)=>{
+        this.appService.show_success_popup('invitation sent successfully');
         this.router.navigate(['/manage-logs']);
       });
     }
@@ -66,7 +67,8 @@ export class InviteUsersComponent implements OnInit {
       escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
       minimumInputLength: 1,
       templateResult: function (repo) {
-        return "<div class='select2-result-repository__title'>" + repo.FirstName +' '+ repo.LastName+ "</div>";
+        console.log(repo);
+        return "<div class='select2-result-repository__title'>" + repo.Nickname+', '+repo.FirstName +' '+ repo.LastName+', '+repo.address+ "</div>";
       }, // omitted for brevity, see the source of this page
       templateSelection: function (repo) {
         return repo.FirstName +' '+ repo.LastName;

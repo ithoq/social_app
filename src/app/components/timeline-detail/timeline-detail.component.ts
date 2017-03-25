@@ -46,7 +46,7 @@ export class TimelineDetailComponent implements OnInit {
         this.timeline.Name = form.value.Name;
       $('#'+this.edit_log_modal_id).modal('hide');
     },(error)=>{
-      alert('some thing went wrong');
+      this.app.show_error_popup('some thing went wrong');
       $('#'+this.edit_log_modal_id).modal('hide');
     });
   }
@@ -64,7 +64,7 @@ export class TimelineDetailComponent implements OnInit {
 
   removeUser(userId:string){ //TODO: push these changes to local storage
     if(userId == this.auth.currentUser.UserId){
-      alert('Can not remove yourself');
+      this.app.show_error_popup('Can not remove yourself');
     }else if(confirm("are you sure you want to delete this user?")){
       //TODO: Couldn't test it at the time for some reason.
       this.timelineService.removeUsers(this.timeline.Id,userId).subscribe((data:Response)=>{
@@ -75,9 +75,9 @@ export class TimelineDetailComponent implements OnInit {
             updatedUsers.push(user);
         }
         this.timeline.Users = updatedUsers;
-        alert('user deleted')
+        this.app.show_success_popup('user deleted')
       }, (error)=>{
-        alert('some thing went wrong the server');
+        this.app.show_error_popup('some thing went wrong the server');
       });
     }
   }

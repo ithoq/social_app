@@ -109,7 +109,7 @@ export var ManageEntryComponent = (function () {
         if (confirm('Are you sure you want to delete this post?')) {
             this.entryService.updateEntry(this.existingEntry.EntryId, { Delete: true }).subscribe(function (data) {
                 _this.timelineService.removeEntriesFromTimelines(_this.app.property_to_array('Id', _this.auth.getUser().timelines), [_this.existingEntry.EntryId]);
-                alert('Post Deleted Successfully!');
+                _this.app.show_success_popup('Post Deleted Successfully!');
                 _this.rightContentService.aside_in = false;
                 if (_this.auth.getUser().timelines.length > 0)
                     _this.router.navigate(['/log/' + _this.auth.getUser().timelines[0].Id]);
@@ -129,7 +129,7 @@ export var ManageEntryComponent = (function () {
     ManageEntryComponent.prototype.filesSelected = function (event) {
         var _this = this;
         if (event.target.files.length > 10) {
-            alert('maximum 10 images are allowed in a post');
+            this.app.show_error_popup('maximum 10 images are allowed in a post');
         }
         else {
             this.uploadingFiles = true;
@@ -198,21 +198,21 @@ export var ManageEntryComponent = (function () {
         if (this.uploadingPost)
             return false;
         if (this.uploadingFiles) {
-            alert('please wait until your files are being uploaded.');
+            this.app.show_error_popup('please wait until your files are being uploaded.');
             return false;
         }
         var data = form.value;
         if (data.Name == '') {
-            alert('Post Title is required');
+            this.app.show_error_popup('Post Title is required');
         }
         else if (this.seletedTimelines.length <= 0) {
-            alert('please select atleast one timeline');
+            this.app.show_error_popup('please select atleast one timeline');
         }
         else if (this.selectedTypes.length <= 0) {
-            alert('please select atleast one Type');
+            this.app.show_error_popup('please select atleast one Type');
         }
         else if ($('#new-post-start-date').val() == '') {
-            alert('please select Start Date');
+            this.app.show_error_popup('please select Start Date');
         }
         else {
             this.uploadingPost = true;
@@ -243,7 +243,7 @@ export var ManageEntryComponent = (function () {
                     _this.updateEntryInLocalStorage(updatedEntry);
                     _this.uploadingPost = false;
                     _this.entryupdated.emit({ data: updatedEntry });
-                    alert('Post Updated Successfully!');
+                    _this.app.show_success_popup('Post Updated Successfully!');
                     _this.rightContentService.aside_in = false;
                     $('#add-entry-form-wizard').bootstrapWizard('show', 0); //reset form
                 }, function (error) {
@@ -261,13 +261,13 @@ export var ManageEntryComponent = (function () {
                     _this.updateEntryInLocalStorage(updatedEntry);
                     _this.uploadingPost = false;
                     _this.entrycreated.emit({ data: _this.seletedTimelines });
-                    alert('Post Created Successfully!');
+                    _this.app.show_success_popup('Post Created Successfully!');
                     _this.rightContentService.aside_in = false;
                     $('#add-entry-form-wizard').bootstrapWizard('show', 0); //reset form
                     _this.resetForm(form); //reset form
                 }, function (error) {
                     _this.uploadingPost = false;
-                    alert('some thing went wrong with the server. please try again.');
+                    _this.app.show_error_popup('some thing went wrong with the server. please try again.');
                 });
             }
         }
@@ -288,6 +288,11 @@ export var ManageEntryComponent = (function () {
     };
     ManageEntryComponent.prototype.managedUserSelected = function () {
         this.timelines = this.timelineService.findTimelinesOfManagedUser(this.selectedManagedUserId);
+        if (this.selectedManagedUserId != this.auth.currentUser.UserId)
+            this.timelines = this.app.remove_obj_by_property('Name', 'My Private Timeline', this.timelines);
+        if (this.timelines.length > 0) {
+            this.setSelectedTimelines(this.timelines[0].Id);
+        }
     };
     ManageEntryComponent.prototype.modeChanged = function (data) {
         var parts = data.split(',');
@@ -437,21 +442,21 @@ export var ManageEntryComponent = (function () {
     ManageEntryComponent.prototype.validateStep = function (step) {
         if (step == 1) {
             if (this.selectedTypes.length == 0) {
-                alert('Please select atleast 1 content type.');
+                this.app.show_error_popup('Please select atleast 1 content type.');
                 return false;
             }
             if (this.seletedTimelines.length == 0) {
-                alert('Please select atleast 1 timeline.');
+                this.app.show_error_popup('Please select atleast 1 timeline.');
                 return false;
             }
         }
         else if (step == 2) {
             if (this.postName == '') {
-                alert('Please enter a title for the post.');
+                this.app.show_error_popup('Please enter a title for the post.');
                 return false;
             }
             if ($("#new-post-start-date").val() == '') {
-                alert('please select atleast start date');
+                this.app.show_error_popup('please select atleast start date');
                 return false;
             }
         }

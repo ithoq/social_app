@@ -19,13 +19,6 @@
           </div>
           <br>
 
-          <div class="new-account-section" *ngIf="newAccount">
-            <p class="text-main text-bold">Account Info</p>
-            <input type="email" placeholder="Email Address"  [ngModel]="newUser.email" required="required" name="email" class="form-control input-lg">
-            <hr class="new-section-xs bord-no">
-            <input type="text" placeholder="Password"  [ngModel]="newUser.password" required="required" name="password" class="form-control input-lg">
-            <hr class="new-section-xs bord-no">
-          </div>
           <p class="text-main text-bold">Name</p>
           <input type="text" placeholder="First name" class="form-control input-lg" [ngModel]="user.FirstName" name="FirstName" required>
           <br>

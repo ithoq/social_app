@@ -23,7 +23,11 @@ export var ViewLogComponent = (function () {
         this.auth = auth;
         this.timelineService = timelineService;
         this.timeline = null;
+        this.userStuff = null;
+        this.myPrivateTimeline = null;
         this.timeline = new Timeline();
+        this.userStuff = this.auth.getUser();
+        this.myPrivateTimeline = this.app.find_obj_by_prop('Name', 'My Private Timeline', this.userStuff.timelines);
     }
     ViewLogComponent.prototype.timelineUpdated = function (event) {
         if (this.timeline.Id != '')
@@ -39,7 +43,6 @@ export var ViewLogComponent = (function () {
             else {
                 //TODO: users array is not returned by the api yet.
                 _this.timeline = data.log;
-                console.log(_this.timeline);
                 _this.headerComponent.title = _this.timeline.Name;
             }
         }, function (error) { });

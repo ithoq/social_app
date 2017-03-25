@@ -88,8 +88,8 @@ export var ProfileComponent = (function () {
             profileData['ImageId'] = this.uploadedFile.Id;
         }
         var newAcountData = {
-            Email: inputData.email,
-            Pass: inputData.password,
+            Email: '',
+            Pass: '',
             Username: ''
         };
         var createProfile = new Promise(function (resolve, reject) {
@@ -133,11 +133,11 @@ export var ProfileComponent = (function () {
                 });
                 if (!_this.manualControls) {
                     _this.formBusy = false;
-                    alert('some thing went wrong with the server please try again.');
+                    _this.appService.show_error_popup('some thing went wrong with the server please try again.');
                 }
             });
         }, function (error) {
-            alert(error);
+            _this.appService.show_error_popup(error);
         });
     };
     ProfileComponent.prototype.loggedInUsrCanEdit = function () {
@@ -158,7 +158,7 @@ export var ProfileComponent = (function () {
                 });
             }
             else {
-                alert('only jpeg images are allowed');
+                this.appService.show_error_popup('only jpeg images are allowed');
             }
         }
     };

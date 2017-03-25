@@ -22,17 +22,7 @@ export class CreateCustomLogComponent implements OnInit {
   public timelines:any = [];
   public entries:Array<Timeline> = [];
   public settings:any = null;
-  public modes = [
-    {value:'angry',img:'emoji-angry.png'},
-    {value:'blah',img:'emoji-blah.png'},
-    {value:'brilliant',img:'emoji-brilliant.png'},
-    {value:'calm',img:'emoji-calm.png'},
-    {value:'confident',img:'emoji-confident.png'},
-    {value:'confused',img:'emoji-confused.png'},
-    {value:'cool',img:'emoji-cool.png'},
-    {value:'down',img:'emoji-down.png'},
-    {value:'embarrassed',img:'emoji-embarrassed.png'}
-  ];
+  public modes = [];
   public types = [];
   public tags:any = [
     'angry', 'blah', 'brilliant','calm'
@@ -52,6 +42,7 @@ export class CreateCustomLogComponent implements OnInit {
       public entryService:EntryService
   ) {
     this.types = this.app.entryContentCategories;
+    this.modes = this.app.entryContentModes;
   }
 
   isModeSelected(mode:any){

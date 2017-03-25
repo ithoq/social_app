@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {User} from "../../models/User";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
+import {AppService} from "../../app.service";
 
 @Component({
   selector: 'app-edit-profile',
@@ -10,13 +11,13 @@ import {Location} from "@angular/common";
 })
 export class EditProfileComponent implements OnInit {
   public user:User = null;
-  constructor(private route:ActivatedRoute,private location:Location) { }
+  constructor(private route:ActivatedRoute,private location:Location, public app:AppService) { }
 
   ngOnInit() {
     this.route.data
         .subscribe((data: { user: any }) => {
           if(data.user == null){
-              alert('no user found');
+              this.app.show_error_popup('no user found.');
               this.location.back();
           }
           this.user = data.user;

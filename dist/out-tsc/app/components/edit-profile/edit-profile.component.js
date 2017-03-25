@@ -10,10 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
+import { AppService } from "../../app.service";
 export var EditProfileComponent = (function () {
-    function EditProfileComponent(route, location) {
+    function EditProfileComponent(route, location, app) {
         this.route = route;
         this.location = location;
+        this.app = app;
         this.user = null;
     }
     EditProfileComponent.prototype.ngOnInit = function () {
@@ -21,7 +23,7 @@ export var EditProfileComponent = (function () {
         this.route.data
             .subscribe(function (data) {
             if (data.user == null) {
-                alert('no user found');
+                _this.app.show_error_popup('no user found.');
                 _this.location.back();
             }
             _this.user = data.user;
@@ -34,7 +36,7 @@ export var EditProfileComponent = (function () {
             templateUrl: './edit-profile.component.html',
             styleUrls: ['./edit-profile.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute, Location])
+        __metadata('design:paramtypes', [ActivatedRoute, Location, AppService])
     ], EditProfileComponent);
     return EditProfileComponent;
 }());

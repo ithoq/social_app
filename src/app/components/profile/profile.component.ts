@@ -102,8 +102,8 @@ export class ProfileComponent implements OnInit {
       //TODO: set uploaded file id in profileData object;
     }
     let newAcountData = {
-      Email:inputData.email,
-      Pass:inputData.password,
+      Email:'',
+      Pass:'',
       Username:''
     };
 
@@ -151,11 +151,11 @@ export class ProfileComponent implements OnInit {
         });
         if(!this.manualControls){
           this.formBusy = false;
-          alert('some thing went wrong with the server please try again.');
+          this.appService.show_error_popup('some thing went wrong with the server please try again.');
         }
       });
     }, (error)=>{
-      alert(error);
+      this.appService.show_error_popup(error);
     });
   }
 
@@ -176,7 +176,7 @@ export class ProfileComponent implements OnInit {
           this.uploadingFile = false;
         });
       }else{
-        alert('only jpeg images are allowed');
+        this.appService.show_error_popup('only jpeg images are allowed');
       }
     }
   }

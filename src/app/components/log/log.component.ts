@@ -51,7 +51,7 @@ export class LogComponent implements OnInit {
             this.refreshingLog = false;
         },(error)=>{
             this.refreshingLog = false;
-            alert(error)
+            this.app.show_error_popup(error);
         });
     }
 
@@ -64,9 +64,9 @@ export class LogComponent implements OnInit {
                 reject('timeline id is required');
             }else{
                 timelineService.get(timelineId, auth.getUser().profile.UserId).subscribe(
-                    (data:any)=> { //TODO: push these changes to local storage
-                        console.log(data.json().payload);
+                    (data:any)=> {
                         this.timeline = this.app.map(data.json().payload, new Timeline());
+                        this.timeline.Entries = (this.timeline.Entries == null)?[]:this.timeline.Entries;
                         this.timelineService.pushTimelineWithEntires(this.timeline);
                         resolve(this.timeline);
                     },
@@ -110,7 +110,7 @@ export class LogComponent implements OnInit {
             localStorage.setItem('viewUserProfile',JSON.stringify(clonedUser));
             this.router.navigate(['/profile/'+UserId]);
         }else{
-            alert('user not found.');
+            this.app.show_error_popup('user not found.');
         }
     }
     ngOnInit() {

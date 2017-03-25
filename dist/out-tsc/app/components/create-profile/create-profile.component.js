@@ -64,11 +64,11 @@ export var CreateProfileComponent = (function () {
         }
         else {
             this.formBusy = false;
-            alert('something went wrong');
+            this.appService.show_error_popup();
         }
     };
     CreateProfileComponent.prototype.someThingWentWrong = function (event) {
-        alert(event.error.msg);
+        this.appService.show_error_popup(event.error.msg);
         this.formBusy = false;
     };
     CreateProfileComponent.prototype.ngOnInit = function () {

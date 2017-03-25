@@ -41,7 +41,7 @@ export var TimelineDetailComponent = (function () {
             _this.timeline.Name = form.value.Name;
             $('#' + _this.edit_log_modal_id).modal('hide');
         }, function (error) {
-            alert('some thing went wrong');
+            _this.app.show_error_popup('some thing went wrong');
             $('#' + _this.edit_log_modal_id).modal('hide');
         });
     };
@@ -58,7 +58,7 @@ export var TimelineDetailComponent = (function () {
     TimelineDetailComponent.prototype.removeUser = function (userId) {
         var _this = this;
         if (userId == this.auth.currentUser.UserId) {
-            alert('Can not remove yourself');
+            this.app.show_error_popup('Can not remove yourself');
         }
         else if (confirm("are you sure you want to delete this user?")) {
             //TODO: Couldn't test it at the time for some reason.
@@ -71,9 +71,9 @@ export var TimelineDetailComponent = (function () {
                         updatedUsers.push(user);
                 }
                 _this.timeline.Users = updatedUsers;
-                alert('user deleted');
+                _this.app.show_success_popup('user deleted');
             }, function (error) {
-                alert('some thing went wrong the server');
+                _this.app.show_error_popup('some thing went wrong the server');
             });
         }
     };

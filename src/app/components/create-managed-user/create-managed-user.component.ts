@@ -4,6 +4,7 @@ import {AuthService} from "../../services/auth.service";
 import {UsersService} from "../../services/users.service";
 import {Response} from "@angular/http";
 import {UserStuff} from "../../models/UserStuff";
+import {AppService} from "../../app.service";
 
 @Component({
   selector: 'app-create-managed-user',
@@ -14,7 +15,7 @@ export class CreateManagedUserComponent implements OnInit {
 
   public formBusy:boolean;
   public title:string;
-  constructor(public router:Router, public auth:AuthService, public usersService:UsersService) {
+  constructor(public router:Router, public auth:AuthService, public usersService:UsersService, public app:AppService) {
     this.title = 'Create Managed Profile';
     this.formBusy = false;
   }
@@ -27,7 +28,7 @@ export class CreateManagedUserComponent implements OnInit {
       let mapedData = data.json().payload;
       let userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
       this.auth.setUser(JSON.stringify(userStuff));
-      alert('Managed profile created successfully');
+      this.app.show_success_popup('Managed profile created successfully');
       this.formBusy = false;
       this.router.navigate(['/manage-profiles']);
     });

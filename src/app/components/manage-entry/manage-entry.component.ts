@@ -143,7 +143,7 @@ export class ManageEntryComponent implements OnInit {
                 (data:Response)=>{ //TODO: push these changes to local storage
                     this.timelineService.removeEntriesFromTimelines(
                         this.app.property_to_array('Id', this.auth.getUser().timelines), [this.existingEntry.EntryId]);
-                    alert('Post Deleted Successfully!');
+                    this.app.show_success_popup('Post Deleted Successfully!');
                     this.rightContentService.aside_in = false;
                     if(this.auth.getUser().timelines.length > 0)
                         this.router.navigate(['/log/'+this.auth.getUser().timelines[0].Id]);
@@ -165,7 +165,7 @@ export class ManageEntryComponent implements OnInit {
 
     filesSelected(event){
         if(event.target.files.length > 10){
-            alert('maximum 10 images are allowed in a post');
+            this.app.show_error_popup('maximum 10 images are allowed in a post');
         }else{
             this.uploadingFiles = true;
             let files = new FormData();
@@ -231,18 +231,18 @@ export class ManageEntryComponent implements OnInit {
     create(form:NgForm, event){
         if(this.uploadingPost) return false;
         if(this.uploadingFiles){
-            alert('please wait until your files are being uploaded.');
+            this.app.show_error_popup('please wait until your files are being uploaded.');
             return false;
         }
         let data = form.value;
         if (data.Name == ''){
-            alert('Post Title is required');
+            this.app.show_error_popup('Post Title is required');
         }else if(this.seletedTimelines.length <= 0){
-            alert('please select atleast one timeline')
+            this.app.show_error_popup('please select atleast one timeline')
         }else if(this.selectedTypes.length <= 0){
-            alert('please select atleast one Type')
+            this.app.show_error_popup('please select atleast one Type')
         }else if($('#new-post-start-date').val() == ''){
-            alert('please select Start Date')
+            this.app.show_error_popup('please select Start Date')
         }else{
             this.uploadingPost = true;
             data.TimelineId = this.seletedTimelines.join(',');
@@ -274,7 +274,7 @@ export class ManageEntryComponent implements OnInit {
                         this.updateEntryInLocalStorage(updatedEntry);
                         this.uploadingPost = false;
                         this.entryupdated.emit({data:updatedEntry});
-                        alert('Post Updated Successfully!');
+                        this.app.show_success_popup('Post Updated Successfully!');
                         this.rightContentService.aside_in = false;
                         $('#add-entry-form-wizard').bootstrapWizard('show',0); //reset form
                     },(error) => {
@@ -293,13 +293,13 @@ export class ManageEntryComponent implements OnInit {
                         this.updateEntryInLocalStorage(updatedEntry);
                         this.uploadingPost = false;
                         this.entrycreated.emit({data:this.seletedTimelines});
-                        alert('Post Created Successfully!');
+                        this.app.show_success_popup('Post Created Successfully!');
                         this.rightContentService.aside_in = false;
                         $('#add-entry-form-wizard').bootstrapWizard('show',0); //reset form
                         this.resetForm(form); //reset form
                     },(error) => {
                         this.uploadingPost = false;
-                        alert('some thing went wrong with the server. please try again.')
+                        this.app.show_error_popup('some thing went wrong with the server. please try again.')
                     }
                 );
             }
@@ -322,6 +322,11 @@ export class ManageEntryComponent implements OnInit {
 
     managedUserSelected(){
         this.timelines = this.timelineService.findTimelinesOfManagedUser(this.selectedManagedUserId);
+        if(this.selectedManagedUserId != this.auth.currentUser.UserId)
+            this.timelines = this.app.remove_obj_by_property('Name','My Private Timeline',this.timelines);
+        if(this.timelines.length > 0){
+            this.setSelectedTimelines(this.timelines[0].Id);
+        }
     }
     modeChanged(data:any){
         var parts = data.split(',');
@@ -477,20 +482,20 @@ export class ManageEntryComponent implements OnInit {
     validateStep(step:number):boolean{
         if(step == 1){
             if(this.selectedTypes.length == 0){
-                alert('Please select atleast 1 content type.');
+                this.app.show_error_popup('Please select atleast 1 content type.');
                 return false;
             }
             if(this.seletedTimelines.length == 0){
-                alert('Please select atleast 1 timeline.');
+                this.app.show_error_popup('Please select atleast 1 timeline.');
                 return false;
             }
         }else if(step == 2){
             if(this.postName == ''){
-                alert('Please enter a title for the post.');
+                this.app.show_error_popup('Please enter a title for the post.');
                 return false;
             }
             if($("#new-post-start-date").val() == ''){
-                alert('please select atleast start date');
+                this.app.show_error_popup('please select atleast start date');
                 return false;
             }
         }

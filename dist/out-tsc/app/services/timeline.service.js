@@ -41,8 +41,9 @@ export var TimelineService = (function () {
     TimelineService.prototype.setUserTimelines = function (timelines) {
         this.userTimelines = timelines;
     };
-    TimelineService.prototype.inviteUsers = function (timelineId, users, emails) {
-        return this.http.get(this.appService.api_end_point + 'timelineInviteUsers/' + this.auth.get_session_token() + "/&TimelineId=" + timelineId + "&InviteUsers=" + users + "&InviteEmails=" + emails);
+    TimelineService.prototype.inviteUsers = function (timelineId, users, emails, inviteMessage) {
+        if (inviteMessage === void 0) { inviteMessage = ''; }
+        return this.http.get(this.appService.api_end_point + 'timelineInviteUsers/' + this.auth.get_session_token() + "/&TimelineId=" + timelineId + "&InviteUsers=" + users + "&InviteEmails=" + emails + "&InviteMessage=" + inviteMessage);
     };
     TimelineService.prototype.removeUsers = function (timelineId, users) {
         return this.http.get(this.appService.api_end_point + 'timelineInviteUsers/' + this.auth.get_session_token() + "/&TimelineId=" + timelineId + "&RemoveUsers=" + users);

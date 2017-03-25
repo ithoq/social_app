@@ -28,9 +28,9 @@ export var AppService = (function () {
             new EntryCategory('Learning', 'icon-learning-big.png', 'Your school(s), for sure, but also a class that you’ve loved, a camp, a project, your subjects, a skill, a trade. Important teachers, inspiring ideas, and anything else that would go into a portfolio of your brain and your abilities can be included here!'),
             new EntryCategory('Health', 'icon-health-big.png', 'Anything that would go in your health file. Next time you need to remember when you had your last tetanus shot, you’ll have it right here! When did you break your arm or have your appendix removed? If you got a diagnosis or started a new medicine, add it. But also here’s a great place to note health solutions - what practices, tools, medicines, and life-changes you’ve tried so you can track them and see how they’ve worked for you over time.'),
             new EntryCategory('Fitness', 'icon-fitness-big.png', 'Your history of physical fitness. You can include a sport, a sporting event (a race, an award, a game), exercise - whatever has helped you stay active and fit. Also include orgs and people that are part of your fitness - a club, a coach, etc. Here’s also a great place to track any changes you’ve made that have (or not) helped you take care of your body as well as any other changes that have impacted your physical fitness.'),
-            new EntryCategory('Celebration', 'icon-celebration-big.png', ''),
-            new EntryCategory('Faves', 'icon-faves-big.png', ''),
-            new EntryCategory('Purpose', 'icon-world-big.png', ''),
+            new EntryCategory('Celebration', 'icon-celebration-big.png', 'Celebrations, holidays, rituals, vacations and trips, special events, and anything else that belongs in your personal and family history.'),
+            new EntryCategory('Faves', 'icon-faves-big.png', 'Your favorites. Include what you like, what you’ve seen or done or counted or found - songs, books, movies, blogs, restaurants, hiking trails, artists, zoos, baseball teams, butterflies…'),
+            new EntryCategory('Purpose', 'icon-world-big.png', 'Community, state, country or world change that matters to you. Track one thing that inspires you or bugs you in your community or the world and how that informs your sense of purpose in your life. Identify a cause - local or global - that you care about and track the problems and solutions you see happening as well as your own involvement in it. Here’s a place to make connections between your passions and your purpose.'),
             new EntryCategory('People', 'icon-images-big.png', 'Your family, close friends, mentors, and other people (or pets!) who’ve been important to you.'),
             new EntryCategory('Bigs', 'logo.png', 'The “big” memories, experiences, decisions, and moments that, if you were to write your life story, need to be told.'),
             new EntryCategory('Other', 'icon-growth-big.png', ''),
@@ -156,6 +156,16 @@ export var AppService = (function () {
             unique_array.push(obj);
         }
         return unique_array;
+    };
+    AppService.prototype.show_error_popup = function (error_message) {
+        if (error_message === void 0) { error_message = 'Something went wrong!'; }
+        $('#global_error_popup').modal('show');
+        $('#global_error_popup_text').text(error_message);
+    };
+    AppService.prototype.show_success_popup = function (success_message) {
+        if (success_message === void 0) { success_message = 'Done!'; }
+        $('#global_success_popup').modal('show');
+        $('#global_success_popup_text').text(success_message);
     };
     AppService = __decorate([
         Injectable(), 

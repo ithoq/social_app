@@ -12,11 +12,13 @@ import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { UsersService } from "../../services/users.service";
 import { UserStuff } from "../../models/UserStuff";
+import { AppService } from "../../app.service";
 export var CreateManagedUserComponent = (function () {
-    function CreateManagedUserComponent(router, auth, usersService) {
+    function CreateManagedUserComponent(router, auth, usersService, app) {
         this.router = router;
         this.auth = auth;
         this.usersService = usersService;
+        this.app = app;
         this.title = 'Create Managed Profile';
         this.formBusy = false;
     }
@@ -28,7 +30,7 @@ export var CreateManagedUserComponent = (function () {
             var mapedData = data.json().payload;
             var userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
             _this.auth.setUser(JSON.stringify(userStuff));
-            alert('Managed profile created successfully');
+            _this.app.show_success_popup('Managed profile created successfully');
             _this.formBusy = false;
             _this.router.navigate(['/manage-profiles']);
         });
@@ -42,7 +44,7 @@ export var CreateManagedUserComponent = (function () {
             templateUrl: './create-managed-user.component.html',
             styleUrls: ['./create-managed-user.component.css']
         }), 
-        __metadata('design:paramtypes', [Router, AuthService, UsersService])
+        __metadata('design:paramtypes', [Router, AuthService, UsersService, AppService])
     ], CreateManagedUserComponent);
     return CreateManagedUserComponent;
 }());

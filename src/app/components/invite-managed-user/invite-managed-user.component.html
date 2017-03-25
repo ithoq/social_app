@@ -1,11 +1,9 @@
 <sa-header>
   <sa-title></sa-title>
   <sa-action>
-    <li class="pad-rgt"> <a href="javascript:void(0)" > Profile </a> </li>
+    <li class="pad-rgt"> <a href="javascript:void(0)" > Owned by {{(this.auth.currentUser.Nickname == '')?this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName:this.auth.currentUser.LastName}} </a> </li>
   </sa-action>
 </sa-header>
-<!--===================================================-->
-<!--END NAVBAR-->
 
 <sa-body>
   <sa-body-content>

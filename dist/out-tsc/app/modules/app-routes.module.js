@@ -67,7 +67,7 @@ var appRoutes = [
                     { path: "create-custom-log", resolve: { entries: CreateCustomLogResolver }, component: CreateCustomLogComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "pick-color", component: PickColorComponent, canActivate: [ProfileManagementService] },
                     { path: "post/:id", resolve: { post: PostResolver }, component: PostDetailComponent, canActivate: [ProfileCreatedGuardService] },
-                    { path: '', redirectTo: "/log/custom", pathMatch: "full" }
+                    { path: '', redirectTo: "/home", pathMatch: "full" }
                 ] },
             { path: "", component: AntiAuthParentComponent, canActivate: [AntiAuthGuardService], children: [
                     { path: "login", component: LoginComponent },

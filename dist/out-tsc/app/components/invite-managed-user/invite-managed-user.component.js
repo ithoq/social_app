@@ -13,15 +13,17 @@ import { AuthService } from "../../services/auth.service";
 import { UsersService } from "../../services/users.service";
 import { UserStuff } from "../../models/UserStuff";
 import { TimelineService } from "../../services/timeline.service";
+import { AppService } from "../../app.service";
 export var InviteManagedUserComponent = (function () {
-    function InviteManagedUserComponent(router, auth, usersService, timelineService, activatedRoute) {
+    function InviteManagedUserComponent(router, auth, usersService, timelineService, activatedRoute, app) {
         this.router = router;
         this.auth = auth;
         this.usersService = usersService;
         this.timelineService = timelineService;
         this.activatedRoute = activatedRoute;
+        this.app = app;
         this.timelineId = '';
-        this.title = 'Invite Managed Profile';
+        this.title = 'Create Profile.';
         this.formBusy = false;
     }
     InviteManagedUserComponent.prototype.ngOnInit = function () {
@@ -39,7 +41,7 @@ export var InviteManagedUserComponent = (function () {
             var userStuff = new UserStuff(mapedData.User, mapedData.Timelines, mapedData.ManagedUsers);
             _this.auth.setUser(JSON.stringify(userStuff));
             _this.timelineService.inviteUsers(_this.timelineId, event.user.UserId, "").subscribe(function (data) {
-                alert('Managed user invited successfully');
+                _this.app.show_success_popup('Managed user added successfully.');
                 _this.formBusy = false;
                 _this.router.navigate(['/manage-logs']);
             });
@@ -54,7 +56,7 @@ export var InviteManagedUserComponent = (function () {
             templateUrl: './invite-managed-user.component.html',
             styleUrls: ['./invite-managed-user.component.css']
         }), 
-        __metadata('design:paramtypes', [Router, AuthService, UsersService, TimelineService, ActivatedRoute])
+        __metadata('design:paramtypes', [Router, AuthService, UsersService, TimelineService, ActivatedRoute, AppService])
     ], InviteManagedUserComponent);
     return InviteManagedUserComponent;
 }());

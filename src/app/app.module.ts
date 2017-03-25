@@ -56,6 +56,8 @@ import { CreateManagedUserComponent } from './components/create-managed-user/cre
 import { InviteManagedUserComponent } from './components/invite-managed-user/invite-managed-user.component';
 import { ViewLogComponent } from './components/view-log/view-log.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
+import { SuccessMessagePopupComponent } from './components/success-message-popup/success-message-popup.component';
+import { ErrorMessagePopupComponent } from './components/error-message-popup/error-message-popup.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,9 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     CreateManagedUserComponent,
     InviteManagedUserComponent,
     ViewLogComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    SuccessMessagePopupComponent,
+    ErrorMessagePopupComponent
   ],
   imports: [
     AppRoutingModule,

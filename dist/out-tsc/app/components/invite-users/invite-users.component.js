@@ -24,6 +24,7 @@ export var InviteUsersComponent = (function () {
         this.searchedUsers = [];
         this.timeline = null;
         this.email = '';
+        this.InviteMessage = '';
         this.selectedUsers = [];
     }
     InviteUsersComponent.prototype.invite = function (form) {
@@ -31,11 +32,11 @@ export var InviteUsersComponent = (function () {
         var users = this.selectedUsers.join(',');
         var emails = form.value.email;
         if (users == '' && emails == '') {
-            alert('please select atleast one user or enter an email address.');
+            this.appService.show_error_popup('please select atleast one user or enter an email address.');
         }
         else {
-            this.timelineService.inviteUsers(this.timeline.Id, users, emails).subscribe(function (data) {
-                alert('invitation sent successfully');
+            this.timelineService.inviteUsers(this.timeline.Id, users, emails, this.InviteMessage).subscribe(function (data) {
+                _this.appService.show_success_popup('invitation sent successfully');
                 _this.router.navigate(['/manage-logs']);
             });
         }
@@ -73,7 +74,8 @@ export var InviteUsersComponent = (function () {
             escapeMarkup: function (markup) { return markup; },
             minimumInputLength: 1,
             templateResult: function (repo) {
-                return "<div class='select2-result-repository__title'>" + repo.FirstName + ' ' + repo.LastName + "</div>";
+                console.log(repo);
+                return "<div class='select2-result-repository__title'>" + repo.Nickname + ', ' + repo.FirstName + ' ' + repo.LastName + ', ' + repo.address + "</div>";
             },
             templateSelection: function (repo) {
                 return repo.FirstName + ' ' + repo.LastName;
