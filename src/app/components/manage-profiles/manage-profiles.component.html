@@ -9,6 +9,13 @@
 
 <sa-body>
     <sa-body-content>
+        <h3>Update Credentials</h3>
+        <form (submit)="updateCredentials(credentials_form)" #credentials_form="ngForm">
+            <input type="text" ngModel name="Email" placeholder="Enter new email address" class="form-control input-lg mar-btm" required="required">
+            <input type="password" ngModel name="Password" placeholder="Enter new password" class="form-control input-lg mar-btm"  required="required">
+            <input type="submit" value="Update">
+        </form>
+        <hr>
         <app-profile [user]="auth.currentUser" (profileUpdated)="profileUpdated($event)" ></app-profile>
 
         <app-profile

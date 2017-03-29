@@ -7,6 +7,7 @@ import {AddContentBtnComponent} from "../add-content-btn/add-content-btn.compone
 import {HeaderComponent} from "../header/header.component";
 import {AppService} from "../../app.service";
 import {User} from "../../models/User";
+import {RightContentService} from "../../services/right-content.service";
 
 declare var $:any;
 @Component({
@@ -17,6 +18,7 @@ declare var $:any;
 export class PostDetailComponent implements OnInit {
     @ViewChild(AddContentBtnComponent) addContentBtnComponent;
     @ViewChild(HeaderComponent) headerComponent;
+    @ViewChild(ManageEntryComponent) manageEntryComponent;
   public post:any;
   public user:any;
   public bestSelfRating:any = 0;
@@ -26,7 +28,8 @@ export class PostDetailComponent implements OnInit {
       private auth:AuthService,
       private mediumToManageEntry:MediumToManageEntryService,
       public appService:AppService,
-      public app:AppService
+      public app:AppService,
+      public rcs:RightContentService
   ) {
     this.user = this.auth.getUser().profile;
   }
@@ -36,6 +39,9 @@ export class PostDetailComponent implements OnInit {
         this.post = post;
     }
 
+    savePost(){
+        this.manageEntryComponent.submitForm();
+    }
     getEntryTypes(givenTypes:string){
         let foundTypes = [];
         for(let givenType of givenTypes.split(',')){
@@ -57,7 +63,8 @@ export class PostDetailComponent implements OnInit {
                     let title = this.post.DateStart.split(' ')[0]+
                         ' ' +this.post.DateEnd.split(' ')[0];
                     this.headerComponent.title = title;
-                    if(this.post.UserId == this.auth.currentUser.UserId || this.appService.property_in_array('UserId',this.post.UserId, this.auth.getUser().managedUsers)){
+                    console.log(this.post);
+                    if(this.post.TempUserId == this.auth.currentUser.UserId || this.appService.property_in_array('UserId',this.post.TempUserId, this.auth.getUser().managedUsers)){
                         this.addContentBtnComponent.content = 'Edit Post';
                         this.mediumToManageEntry.setPost(data.post);
                     }

@@ -8,8 +8,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
+import { RightContentService } from "../../services/right-content.service";
 export var BackButtonComponent = (function () {
-    function BackButtonComponent() {
+    function BackButtonComponent(rightContentService) {
+        this.rightContentService = rightContentService;
     }
     BackButtonComponent.prototype.ngOnInit = function () {
     };
@@ -22,7 +24,7 @@ export var BackButtonComponent = (function () {
             templateUrl: './back-button.component.html',
             styleUrls: ['./back-button.component.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [RightContentService])
     ], BackButtonComponent);
     return BackButtonComponent;
 }());

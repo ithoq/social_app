@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RightContentService} from "../../services/right-content.service";
 
 @Component({
   selector: 'app-back-button',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BackButtonComponent implements OnInit {
 
-  constructor() { }
+  constructor(private rightContentService:RightContentService) { }
 
   ngOnInit() {
   }

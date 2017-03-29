@@ -1,7 +1,7 @@
 <sa-header>
-  <sa-title></sa-title>
+
   <sa-action>
-    <li class="pad-rgt"> <app-add-content-btn></app-add-content-btn> </li>
+
   </sa-action>
 </sa-header>
 <!--===================================================-->
@@ -20,7 +20,7 @@
               </div>
               <div class="panel-heading">
                 <div class="panel-control">
-                  <button type="submit" class="demo-panel-ref-btn btn btn-default" data-target="#demo-panel-ref" data-toggle="panel-overlay"> <i class="fa fa-share fa-fw"></i> Invite </button>
+
                 </div>
                 <h3 class="panel-title">Invite others to join this log</h3>
               </div>
@@ -43,11 +43,11 @@
               <p class="text-main text-bold">Or, enter an email address</p>
               <!--                                  <p>Enter the email address of the person you would like to invite.</p>
               -->                                  					                  <div class="input-group mar-btm col-xs-12 col-md-3">
-              <input type="text" [(ngModel)]="email" name="email" class="form-control" placeholder="Enter email">
+              <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="Enter email">
             </div>
               <div class="input-group mar-btm col-xs-12 col-md-4">
 
-                <button *ngIf="email != ''" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Preview Email Invite</button>
+                <a type="button" class="btn btn-info" (click)="previewEmail()">Preview Email Invite</a>
                 <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
                   <div class="modal-dialog">

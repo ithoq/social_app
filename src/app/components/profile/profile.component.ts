@@ -46,6 +46,7 @@ export class ProfileComponent implements OnInit {
   public photo_chooser_id = '';
   public uploadedFile:UploadedFile = null;
   public uploadingFile:boolean = false;
+  public rightActionTitle:string = 'Save';
   constructor(
       private userService:UsersService,
       private timelineService:TimelineService,
@@ -71,14 +72,23 @@ export class ProfileComponent implements OnInit {
   }
 
   getAction(){
-    return 'Save';
+    return this.rightActionTitle;
   }
-
+  setAction(action='save'){
+    this.rightActionTitle = action;
+  }
+  goToEditPage(){
+    localStorage.setItem('viewUserProfile',JSON.stringify(this.user));
+    this.router.navigate(['/profile/'+this.user.UserId+'/edit']);
+  }
   enterEditMode(){
     this.editMode = true;
   }
   exitEditMode(){
     this.editMode = false;
+  }
+  submitForm(){
+    $('#submit-profile').click();
   }
   createProfile(form:NgForm){
     let inputData = form.value;
@@ -134,13 +144,19 @@ export class ProfileComponent implements OnInit {
       this.profileUpdating.emit({
         data:form.value
       });
+      console.log(profileData);
       this.userService.updateSettings(this.managedProfile, this.getUser().UserId, profileData).subscribe((data:Response)=>{
         if(!this.manualControls){
           this.formBusy = false;
           this.exitEditMode();
         }
         let updatedUser:any = data.json().payload.User;
-        this.setUser(this.appService.map(updatedUser, new User()));
+        let mapedUser = this.appService.map(updatedUser, new User());
+        if(this.uploadedFile != null){
+            mapedUser.ImageURL = this.uploadedFile.FileURL;
+            mapedUser.ThumbURL = this.uploadedFile.ThumbURL;
+        }
+        this.setUser(mapedUser);
 
         this.profileUpdated.emit({
           user:this.getUser()

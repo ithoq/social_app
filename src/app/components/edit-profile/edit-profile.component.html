@@ -1,8 +1,16 @@
 <sa-header>
-  <sa-title></sa-title>
-  <app-back-button></app-back-button>
+  <sa-title>
+  </sa-title>
+  <app-header-stripe>
+    <app-left-action>
+      <app-back-button></app-back-button>
+    </app-left-action>
+    <app-right-action>
+      <button class="stripe-action-btn" (click)="saveUser()">Save</button>
+    </app-right-action>
+  </app-header-stripe>
   <sa-action>
-    <li class="pad-rgt"> <a href="javascript:void(0)" > Profile </a> </li>
+    <li class="pad-rgt"> <a href="javascript:void(0)" >  </a> </li>
   </sa-action>
 </sa-header>
 <!--===================================================-->
@@ -10,7 +18,7 @@
 
 <sa-body>
   <sa-body-content>
-    <app-profile [user]="user" [editMode]="true"></app-profile>
+    <app-profile [title]="title" #managedProfile [user]="user" [editMode]="true"></app-profile>
   </sa-body-content>
   <sa-body-right-content>
     <sa-manage-entry></sa-manage-entry>

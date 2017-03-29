@@ -25,6 +25,7 @@ export var InviteUsersComponent = (function () {
         this.timeline = null;
         this.email = '';
         this.InviteMessage = '';
+        this.timelineId = '';
         this.selectedUsers = [];
     }
     InviteUsersComponent.prototype.invite = function (form) {
@@ -39,6 +40,15 @@ export var InviteUsersComponent = (function () {
                 _this.appService.show_success_popup('invitation sent successfully');
                 _this.router.navigate(['/manage-logs']);
             });
+        }
+    };
+    InviteUsersComponent.prototype.previewEmail = function () {
+        if (this.selectedUsers.length == 0 && this.email == '') {
+            this.appService.show_error_popup('You have to choose an email or a user.');
+        }
+        else {
+            localStorage.setItem('emails_userids_of_inviting_user', JSON.stringify({ users: this.selectedUsers, emails: this.email }));
+            this.router.navigate(['log/' + this.timelineId + '/invite-users/preview-email']);
         }
     };
     InviteUsersComponent.prototype.ngOnInit = function () {
@@ -74,7 +84,6 @@ export var InviteUsersComponent = (function () {
             escapeMarkup: function (markup) { return markup; },
             minimumInputLength: 1,
             templateResult: function (repo) {
-                console.log(repo);
                 return "<div class='select2-result-repository__title'>" + repo.Nickname + ', ' + repo.FirstName + ' ' + repo.LastName + ', ' + repo.address + "</div>";
             },
             templateSelection: function (repo) {
@@ -82,7 +91,7 @@ export var InviteUsersComponent = (function () {
             } // omitted for brevity, see the source of this page
         });
         invite_users_multi_select.on("select2:select", function (e) {
-            _this.selectedUsers.push(e.params.data.UserId);
+            _this.selectedUsers.push(e.params.data);
         });
         invite_users_multi_select.on("select2:unselect", function (e) {
             var index = _this.selectedUsers.indexOf(e.params.data.UserId);
@@ -97,6 +106,11 @@ export var InviteUsersComponent = (function () {
             }
             _this.timeline = data.log;
         }, function (error) { });
+        this.route.params
+            .map(function (params) { return params['id']; })
+            .subscribe(function (timelineId) {
+            _this.timelineId = timelineId;
+        });
     };
     InviteUsersComponent = __decorate([
         Component({

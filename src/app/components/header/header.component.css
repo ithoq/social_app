@@ -1,4 +1,16 @@
-#navbar{
+#navbar {
     position: fixed;
     z-index: 99999;
+}
+
+@media (max-width:767px) {
+    .navbar-top-links .tgl-menu-btn {
+        top: -38px !important;
+    }
+    .mainnav-profile .profile-wrap {
+        display: block !important;
+    }
+    .mainnav-sm .mainnav-profile {
+        visibility: visible !important;
+    }
 }

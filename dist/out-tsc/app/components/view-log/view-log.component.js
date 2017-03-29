@@ -15,13 +15,15 @@ import { ManageEntryComponent } from "../manage-entry/manage-entry.component";
 import { AuthService } from "../../services/auth.service";
 import { Timeline } from "../../models/Timeline";
 import { TimelineService } from "../../services/timeline.service";
+import { RightContentService } from "../../services/right-content.service";
 export var ViewLogComponent = (function () {
-    function ViewLogComponent(route, router, app, auth, timelineService) {
+    function ViewLogComponent(route, router, app, auth, timelineService, rcs) {
         this.route = route;
         this.router = router;
         this.app = app;
         this.auth = auth;
         this.timelineService = timelineService;
+        this.rcs = rcs;
         this.timeline = null;
         this.userStuff = null;
         this.myPrivateTimeline = null;
@@ -32,6 +34,9 @@ export var ViewLogComponent = (function () {
     ViewLogComponent.prototype.timelineUpdated = function (event) {
         if (this.timeline.Id != '')
             this.timeline = this.app.find_obj_by_prop('Id', this.timeline.Id, this.timelineService.getAllTimelinesWithEntries());
+    };
+    ViewLogComponent.prototype.addPost = function () {
+        this.manageEntryComponent.submitForm();
     };
     ViewLogComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -61,7 +66,7 @@ export var ViewLogComponent = (function () {
             templateUrl: './view-log.component.html',
             styleUrls: ['./view-log.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute, Router, AppService, AuthService, TimelineService])
+        __metadata('design:paramtypes', [ActivatedRoute, Router, AppService, AuthService, TimelineService, RightContentService])
     ], ViewLogComponent);
     return ViewLogComponent;
 }());

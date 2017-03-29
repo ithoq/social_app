@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, Output, ChangeDetectorRef, EventEmitter, Input} from '@angular/core';
+import {Component, OnInit, Inject, Output, ChangeDetectorRef, EventEmitter, Input, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {EntryService} from "../../services/entry.service";
@@ -17,6 +17,7 @@ import {UploadedFile} from "../../models/UploadedFile";
 import {User} from "../../models/User";
 import {UserStuff} from "../../models/UserStuff";
 import {EntryMode} from "../../models/EntryMode";
+import {create} from "domain";
 
 declare var noUiSlider: any;
 declare var wNumb: any;
@@ -35,7 +36,7 @@ export class ManageEntryComponent implements OnInit {
     // Events of the components
     @Output('EntryCreated') entrycreated = new EventEmitter();
     @Output('EntryUpdated') entryupdated = new EventEmitter();
-
+    @ViewChild('f') manageEntryForm;
 
     /* external libs */
     noUiSlider: any;
@@ -217,6 +218,7 @@ export class ManageEntryComponent implements OnInit {
         updatedPost.YouTags = data.YouTags;
         updatedPost.User = data.User;
         updatedPost.UserId = data.UserId;
+        updatedPost.TempUserId = data.TempUserId;
         //TODO: Files are not being handeled yet.
         return updatedPost;
     }
@@ -228,6 +230,9 @@ export class ManageEntryComponent implements OnInit {
         }
         return true;
     }
+    submitForm(){
+        this.create(this.manageEntryForm,null);
+    }
     create(form:NgForm, event){
         if(this.uploadingPost) return false;
         if(this.uploadingFiles){
@@ -235,6 +240,7 @@ export class ManageEntryComponent implements OnInit {
             return false;
         }
         let data = form.value;
+        console.log(data);
         if (data.Name == ''){
             this.app.show_error_popup('Post Title is required');
         }else if(this.seletedTimelines.length <= 0){
@@ -257,7 +263,9 @@ export class ManageEntryComponent implements OnInit {
             data.Lat = this.lat;
             data.Lng = this.lng;
             data.AddFileIds = this.uploadedFileIds;
+            data.TempUserId = data.UserId;
             data.UserId = (data.UserId == this.auth.currentUser.UserId || data.UserId == null)?'':data.UserId;
+
             let selectedManagedUser:User =(data.UserId == '')?this.auth.currentUser: this.app.find_obj_by_prop('UserId', data.UserId, this.managedUsers);
 
             //TODO: add functionality to create a post for a managed user.

@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { AppService } from "../../app.service";
@@ -17,7 +17,11 @@ export var EditProfileComponent = (function () {
         this.location = location;
         this.app = app;
         this.user = null;
+        this.title = '';
     }
+    EditProfileComponent.prototype.saveUser = function () {
+        this.managedProfile.submitForm();
+    };
     EditProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.data
@@ -27,9 +31,14 @@ export var EditProfileComponent = (function () {
                 _this.location.back();
             }
             _this.user = data.user;
-            console.log(_this.user);
+            _this.managedProfile.setAction('');
+            _this.title = 'Edit Profile';
         }, function (error) { });
     };
+    __decorate([
+        ViewChild('managedProfile'), 
+        __metadata('design:type', Object)
+    ], EditProfileComponent.prototype, "managedProfile", void 0);
     EditProfileComponent = __decorate([
         Component({
             selector: 'app-edit-profile',

@@ -44,6 +44,7 @@ import { InviteManagedUserComponent } from "../components/invite-managed-user/in
 import { ViewLogComponent } from "../components/view-log/view-log.component";
 import { CreateCustomLogResolver } from "../components/create-custom-log/create-custom-log.resolver";
 import { CustomLogResolver } from "../components/view-log/custom-log.resolver";
+import { EmailPreviewComponent } from "../components/email-preview/email-preview.component";
 var appRoutes = [
     {
         path: '',
@@ -59,6 +60,7 @@ var appRoutes = [
                     { path: 'log/custom', resolve: { log: CustomLogResolver }, component: ViewLogComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: 'log/:id', resolve: { log: LogResolver }, component: ViewLogComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: 'log/:id/invite-users', resolve: { log: LogResolver }, component: InviteUsersComponent, canActivate: [ProfileCreatedGuardService] },
+                    { path: 'log/:id/invite-users/preview-email', component: EmailPreviewComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: 'log/:id/invite-users/managed', component: InviteManagedUserComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "manage-profiles", component: ManageProfilesComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "create-profile", component: CreateProfileComponent, canActivate: [AntiProfileCreatedGuardService] },
@@ -67,7 +69,7 @@ var appRoutes = [
                     { path: "create-custom-log", resolve: { entries: CreateCustomLogResolver }, component: CreateCustomLogComponent, canActivate: [ProfileCreatedGuardService] },
                     { path: "pick-color", component: PickColorComponent, canActivate: [ProfileManagementService] },
                     { path: "post/:id", resolve: { post: PostResolver }, component: PostDetailComponent, canActivate: [ProfileCreatedGuardService] },
-                    { path: '', redirectTo: "/home", pathMatch: "full" }
+                    { path: '', redirectTo: "/log/custom", pathMatch: "full" }
                 ] },
             { path: "", component: AntiAuthParentComponent, canActivate: [AntiAuthGuardService], children: [
                     { path: "login", component: LoginComponent },

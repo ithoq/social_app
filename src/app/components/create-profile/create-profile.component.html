@@ -1,7 +1,14 @@
 <sa-header>
-  <sa-title></sa-title>
+  <app-header-stripe>
+    <app-left-action>
+
+    </app-left-action>
+    <app-right-action>
+      <button class="saveBtn" (click)="createProfile()">Add</button>
+    </app-right-action>
+  </app-header-stripe>
   <sa-action>
-    <li class="pad-rgt"> <a href="javascript:void(0)" > Create Profile </a> </li>
+
   </sa-action>
 </sa-header>
 <!--===================================================-->
@@ -9,7 +16,7 @@
 
 <sa-body>
   <sa-body-content>
-    <app-profile
+    <app-profile #profile
             [user]="auth.currentUser"
             [manualControls]="true"
             [editMode]="editMode"
@@ -17,6 +24,7 @@
             [formBusy]="formBusy"
             (profileUpdated)="profileUpdated($event)"
             (someThingWentWrong)="someThingWentWrong($event)"
+                 [title]="title"
     ></app-profile>
   </sa-body-content>
   <sa-body-right-content>

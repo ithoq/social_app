@@ -1,0 +1,58 @@
+<sa-header>
+  <app-header-stripe>
+    <app-left-action>
+      <app-back-button></app-back-button>
+    </app-left-action>
+    <app-right-action>
+
+    </app-right-action>
+  </app-header-stripe>
+
+</sa-header>
+<!--===================================================-->
+<!--END NAVBAR-->
+
+<sa-body>
+  <sa-body-content>
+
+    <div class="h-request">
+      <strong class="title">Send invitation to:</strong>
+      <div class="h-reciever" *ngIf="userStuff.users.length > 0">
+        <div class="img-holder"><img [src]="(userStuff.users[0].ImageURL == '' || userStuff.users[0].ImageURL == undefined)?appService.default_user_profile_pic:userStuff.users[0].ImageURL" alt="Reciever"></div>
+        <div class="h-txt">
+          <h3>{{userStuff.users[0].NickName}}</h3>
+          <span>{{userStuff.users[0].FirstName}} {{userStuff.users[0].LastName}}</span>
+        </div>
+      </div>
+      <div class="h-reciever" *ngIf="userStuff.emails == '' && userStuff.users.length == 0">
+      <div class="img-holder"><img [src]="app.default_user_profile_pic" alt="Reciever"></div>
+      <div class="h-txt">
+        <h3>{{userStuff.emails}}</h3>
+      </div>
+    </div>
+      <form (submit)="sendInvite(f)" #f="ngForm" class="h-request-form">
+        <fieldset>
+          <span>They will see this message when your request is sent.</span>
+          <textarea placeholder="Please join my log." ngModel name="InviteMessage"></textarea>
+          <button class="btn btn-info info-btn" type="submit"><i *ngIf="sending" class="fa fa-refresh fa-spin"></i> Send</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <!--<form (submit)="inviteUsers(f)" #f="ngForm">-->
+      <!--<textarea ngModel name="InviteMessage"></textarea>-->
+      <!--<input type="submit" value="send">-->
+    <!--</form>-->
+
+
+
+  </sa-body-content>
+  <sa-body-right-content>
+    <sa-manage-entry></sa-manage-entry>
+  </sa-body-right-content>
+  <sa-aside></sa-aside>
+</sa-body>
+<!-- FOOTER -->
+<!--===================================================-->
+<sa-footer></sa-footer>
+

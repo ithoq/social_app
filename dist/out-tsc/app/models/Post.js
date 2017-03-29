@@ -27,6 +27,7 @@ export var Post = (function () {
         this.images = "";
         this.User = "";
         this.UserId = "";
+        this.TempUserId = "";
     }
     return Post;
 }());

@@ -16,3 +16,7 @@
     width:25px;
     filter: grayscale(100%);
 }
+.stripe-action-btn {
+    background: none;
+    border:none;
+}

@@ -1,0 +1,80 @@
+.h-reciever{ padding:0 0 12px; }
+.h-request .title {
+    margin: 0 0 40px;
+    font-size:16px;
+    line-height:20px;
+    display: block;
+    color: #515252;
+}
+
+.h-reciever .img-holder {
+    width: 61px;
+    height: 61px;
+    float: left;
+    border-radius: 100%;
+    overflow: hidden;
+    background:gray;
+}
+
+.h-txt {
+    padding-left: 17px;
+    overflow: hidden;
+}
+
+.h-txt h3 {
+    margin: 0 0 5px;
+    font-size:20px;
+    line-height:24px;
+    color: #617183;
+}
+
+.h-txt span {
+    margin: 0 0 5px;
+    display: block;
+    color: #617183;
+}
+
+.h-reciever {
+    position: relative;
+    overflow: hidden;
+}
+
+.h-reciever:after {
+    width: 260px;
+    height: 2px;
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    background: #e1dfde;
+}
+
+.h-request-form textarea {
+    width: 100%;
+    height: 120px;
+    font-size:15px;
+    line-height:19px;
+    margin: 0 0 15px;
+    padding: 15px;
+    border: 1px solid #42b6e1;
+    color: #a8a9a7;
+    resize: none;
+    display: block;
+}
+
+.h-request-form input[type="submit"] {
+    width: 100px;
+    height: 42px;
+    padding: 3px;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    color: #fff;
+    background: #25a7ad;
+}
+
+.h-request-form span {
+    padding: 14px 0 26px;
+    display: block;
+    color: #a8a9a7;
+}

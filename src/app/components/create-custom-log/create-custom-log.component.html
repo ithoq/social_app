@@ -84,26 +84,23 @@
 
                 </div>
               </div>
-              <div class="col-sm-4 col-md-3">
-                <div class="mar-btm">
-                  <p class="dropdown-header">View Tags<span>
-                                                <button class="btn btn-xs btn-rounded btn-default pull-right" (click)="unselectAllTags()">None</button>
-                                                <button class="btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm" (click)="selectAllTags()">All</button>
-                                                </span>
-                  </p>
-                  <!--Justified Button Group-->
-                  <!--===================================================-->
-                  <!--                  <div class="pre-scrollable bord-ver">
-                  -->
-                  <div class="tags-widget clearfix">
-                    <label *ngFor="let option of tags" [ngClass]="{active: isTagSelected(option)}">
-                      <input type="checkbox" #tag value="{{option}}" [checked]="isTagSelected(option)" (change)="tagChanged(tag.checked+','+tag.value)" />
-                      <span>{{option}}</span>
-                    </label>
-                  </div>
-                  <!--===================================================-->
-                </div>
-              </div>
+              <!--<div class="col-sm-4 col-md-3">-->
+                <!--<div class="mar-btm">-->
+                  <!--<p class="dropdown-header">View Tags<span>-->
+                                                <!--<button class="btn btn-xs btn-rounded btn-default pull-right" (click)="unselectAllTags()">None</button>-->
+                                                <!--<button class="btn btn-xs btn-rounded btn-default pull-right mar-rgt-sm" (click)="selectAllTags()">All</button>-->
+                                                <!--</span>-->
+                  <!--</p>-->
+                  <!---->
+                  <!--<div class="tags-widget clearfix">-->
+                    <!--<label *ngFor="let option of tags" [ngClass]="{active: isTagSelected(option)}">-->
+                      <!--<input type="checkbox" #tag value="{{option}}" [checked]="isTagSelected(option)" (change)="tagChanged(tag.checked+','+tag.value)" />-->
+                      <!--<span>{{option}}</span>-->
+                    <!--</label>-->
+                  <!--</div>-->
+                  <!--&lt;!&ndash;===================================================&ndash;&gt;-->
+                <!--</div>-->
+              <!--</div>-->
               <div class="col-sm-12 col-md-3">
                 <div class="mar-btm">
                   <div class="clear"></div>

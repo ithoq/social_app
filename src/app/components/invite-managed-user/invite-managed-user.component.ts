@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router, Params, ActivatedRoute} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {UsersService} from "../../services/users.service";
@@ -14,6 +14,7 @@ import {AppService} from "../../app.service";
 })
 export class InviteManagedUserComponent implements OnInit {
 
+  @ViewChild('managedProfile') managedProfile;
   public formBusy:boolean;
   public title:string;
   private timelineId:string = '';
@@ -25,7 +26,7 @@ export class InviteManagedUserComponent implements OnInit {
       public activatedRoute:ActivatedRoute,
       public app:AppService
   ){
-      this.title = 'Create Profile.';
+      this.title = '';
       this.formBusy = false;
   }
 
@@ -34,7 +35,12 @@ export class InviteManagedUserComponent implements OnInit {
         .map(params => params['id'])
         .subscribe((timelineId) => {
           this.timelineId = timelineId;
+          this.managedProfile.setAction('');
         });
+  }
+
+  saveUser(){
+    this.managedProfile.submitForm();
   }
 
   profileCreated(event){

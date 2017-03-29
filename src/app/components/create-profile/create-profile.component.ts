@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {UsersService} from "../../services/users.service";
 import {TimelineService} from "../../services/timeline.service";
@@ -15,8 +15,10 @@ import {Post} from "../../models/Post";
   styleUrls: ['./create-profile.component.css']
 })
 export class CreateProfileComponent implements OnInit {
+  @ViewChild('profile') profile;
   public editMode:boolean = true;
   public formBusy:boolean = false;
+  public title:string = 'Create Profile';
   constructor(
       private userService:UsersService,
       private timelineService:TimelineService,
@@ -32,6 +34,9 @@ export class CreateProfileComponent implements OnInit {
     this.formBusy = true;
   }
 
+  createProfile(){
+    this.profile.submitForm();
+  }
   profileUpdated(event){
     let inputData = event.user;
     let userStuff = this.auth.getUser();

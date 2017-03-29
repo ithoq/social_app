@@ -4,6 +4,9 @@ import {AppService} from "../../app.service";
 import {User} from "../../models/User";
 import * as _ from 'lodash';
 import {UserStuff} from "../../models/UserStuff";
+import {NgForm} from "@angular/forms";
+import {Response} from "@angular/http";
+import {UsersService} from "../../services/users.service";
 
 declare var $:any;
 
@@ -19,8 +22,13 @@ export class ManageProfilesComponent implements OnInit {
     public formBusy:boolean = false;
     public editMode:boolean = false;
     public managedUsers:Array<User> = [];
-    constructor(private auth:AuthService, public appService:AppService) {}
+    constructor(private auth:AuthService, public appService:AppService, public userService:UsersService) {}
 
+    updateCredentials(f:NgForm){
+        this.userService.updateSettings(false, this.auth.currentUser.UserId, f.value).subscribe((data:Response)=>{
+            this.appService.show_success_popup('Credentials updated successfully');
+        });
+    }
     profileUpdated(event){
         let oldUserStuff = this.auth.getUser();
         let userStuff = new UserStuff(event.user, oldUserStuff.timelines, oldUserStuff.managedUsers);

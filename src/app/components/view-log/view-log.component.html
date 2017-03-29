@@ -1,5 +1,12 @@
 <sa-header>
-  <sa-title></sa-title>
+  <app-header-stripe *ngIf="rcs.aside_in">
+    <app-left-action>
+      <app-right-aside-closer>Cancel</app-right-aside-closer>
+    </app-left-action>
+    <app-right-action>
+
+    </app-right-action>
+  </app-header-stripe>
   <sa-action>
     <li class="pad-rgt"> <app-add-content-btn></app-add-content-btn> </li>
   </sa-action>

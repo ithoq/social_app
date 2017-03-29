@@ -12,10 +12,12 @@ import { AuthService } from "../../services/auth.service";
 import { AppService } from "../../app.service";
 import * as _ from 'lodash';
 import { UserStuff } from "../../models/UserStuff";
+import { UsersService } from "../../services/users.service";
 export var ManageProfilesComponent = (function () {
-    function ManageProfilesComponent(auth, appService) {
+    function ManageProfilesComponent(auth, appService, userService) {
         this.auth = auth;
         this.appService = appService;
+        this.userService = userService;
         this.user = null;
         this.selectedImage = null;
         this.selectedThumbnail = '';
@@ -23,6 +25,12 @@ export var ManageProfilesComponent = (function () {
         this.editMode = false;
         this.managedUsers = [];
     }
+    ManageProfilesComponent.prototype.updateCredentials = function (f) {
+        var _this = this;
+        this.userService.updateSettings(false, this.auth.currentUser.UserId, f.value).subscribe(function (data) {
+            _this.appService.show_success_popup('Credentials updated successfully');
+        });
+    };
     ManageProfilesComponent.prototype.profileUpdated = function (event) {
         var oldUserStuff = this.auth.getUser();
         var userStuff = new UserStuff(event.user, oldUserStuff.timelines, oldUserStuff.managedUsers);
@@ -43,7 +51,7 @@ export var ManageProfilesComponent = (function () {
             templateUrl: './manage-profiles.component.html',
             styleUrls: ['./manage-profiles.component.css']
         }), 
-        __metadata('design:paramtypes', [AuthService, AppService])
+        __metadata('design:paramtypes', [AuthService, AppService, UsersService])
     ], ManageProfilesComponent);
     return ManageProfilesComponent;
 }());

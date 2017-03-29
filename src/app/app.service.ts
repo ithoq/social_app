@@ -22,18 +22,23 @@ export class AppService {
 
   private setDefaultEntryCategories(){
     this.entryContentCategories = [
+      new EntryCategory('Relationships', 'icon-relationships-big.png', 'A place that is important to you, where you live or have lived, where you’ve gone, a place that matters a lot to you.'),
+      new EntryCategory('Work', 'icon-work-big.png', 'A place that is important to you, where you live or have lived, where you’ve gone, a place that matters a lot to you.'),
       new EntryCategory('Place', 'icon-places-big.png', 'A place that is important to you, where you live or have lived, where you’ve gone, a place that matters a lot to you.'),
       new EntryCategory('Learning', 'icon-learning-big.png', 'Your school(s), for sure, but also a class that you’ve loved, a camp, a project, your subjects, a skill, a trade. Important teachers, inspiring ideas, and anything else that would go into a portfolio of your brain and your abilities can be included here!'),
       new EntryCategory('Health', 'icon-health-big.png', 'Anything that would go in your health file. Next time you need to remember when you had your last tetanus shot, you’ll have it right here! When did you break your arm or have your appendix removed? If you got a diagnosis or started a new medicine, add it. But also here’s a great place to note health solutions - what practices, tools, medicines, and life-changes you’ve tried so you can track them and see how they’ve worked for you over time.'),
       new EntryCategory('Fitness', 'icon-fitness-big.png', 'Your history of physical fitness. You can include a sport, a sporting event (a race, an award, a game), exercise - whatever has helped you stay active and fit. Also include orgs and people that are part of your fitness - a club, a coach, etc. Here’s also a great place to track any changes you’ve made that have (or not) helped you take care of your body as well as any other changes that have impacted your physical fitness.'),
-      new EntryCategory('Celebration', 'icon-celebration-big.png', 'Celebrations, holidays, rituals, vacations and trips, special events, and anything else that belongs in your personal and family history.'),
+      new EntryCategory('Celebration', 'icon-celebration-big.png', ' Celebrations, holidays, rituals, vacations and trips, special events, and anything else that belongs in your personal and family history. '),
       new EntryCategory('Faves', 'icon-faves-big.png', 'Your favorites. Include what you like, what you’ve seen or done or counted or found - songs, books, movies, blogs, restaurants, hiking trails, artists, zoos, baseball teams, butterflies…'),
-      new EntryCategory('Purpose', 'icon-world-big.png', 'Community, state, country or world change that matters to you. Track one thing that inspires you or bugs you in your community or the world and how that informs your sense of purpose in your life. Identify a cause - local or global - that you care about and track the problems and solutions you see happening as well as your own involvement in it. Here’s a place to make connections between your passions and your purpose.'),
+      new EntryCategory('Purpose', 'icon-world-big.png', ' Community, state, country or world change that matters to you. Track one thing that inspires you or bugs you in your community or the world and how that informs your sense of purpose in your life. Identify a cause - local or global - that you care about and track the problems and solutions you see happening as well as your own involvement in it. Here’s a place to make connections between your passions and your purpose.'),
       new EntryCategory('People', 'icon-images-big.png', 'Your family, close friends, mentors, and other people (or pets!) who’ve been important to you.'),
-      new EntryCategory('Bigs', 'logo.png', 'The “big” memories, experiences, decisions, and moments that, if you were to write your life story, need to be told.'),
-      new EntryCategory('Other', 'icon-growth-big.png', ''),
+      new EntryCategory('Bigs', 'icon-age-big.png', 'The “big” memories, experiences, decisions, and moments that, if you were to write your life story, need to be told.'),
+      new EntryCategory('Growth', 'icon-growth-big.png', ' The experiences, places, and people that make a difference in your emotional and spiritual growth. This category is a really personal one so make it work for you. One person might include her place of worship, a camp she\'s gone to, a small group, and other positives in her spiritual life. Another family (or individual) might use this space to keep track of mental and emotional health, to look at treatments, practices, relapses, events, supports, etc. over time. You could use this is to track your gratitudes or quotes or affirmations or songs or a person or insight or opportunity - whatever or whoever means something to you and connects with your becoming a better person and ahappier human. Be creative and have fun with this!'),
+      new EntryCategory('Pictures', 'icon-images-big.png', 'The most important pictures that tell the story of you, your family and the people and things that you love.'),
+      new EntryCategory('Other', 'icon-growth-big.png', 'Use this category to record, remember, celebrate, track, focus on your own unique custom content. '),
     ];
   }
+
   private setDefaultEntryModes(){
     this.entryContentModes = [
       new EntryMode('angry','emoji-angry.png'),

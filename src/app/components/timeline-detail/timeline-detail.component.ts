@@ -21,6 +21,7 @@ export class TimelineDetailComponent implements OnInit {
 
   @Input() timeline:TimelineDetail;
   public edit_log_modal_id:string = '';
+  public confirm_del_user_id:string = '';
   constructor(
       public app:AppService,
       public auth:AuthService,
@@ -62,10 +63,15 @@ export class TimelineDetailComponent implements OnInit {
     this.router.navigate(['/profile/'+userfound.UserId+'/edit']);
   }
 
+  public deleting_user_id = 0;
+  confirmRemoveUsr(deleting_user_id){
+    this.deleting_user_id = deleting_user_id;
+    $('#'+this.confirm_del_user_id).modal('show');
+  }
   removeUser(userId:string){ //TODO: push these changes to local storage
     if(userId == this.auth.currentUser.UserId){
       this.app.show_error_popup('Can not remove yourself');
-    }else if(confirm("are you sure you want to delete this user?")){
+    }else {
       //TODO: Couldn't test it at the time for some reason.
       this.timelineService.removeUsers(this.timeline.Id,userId).subscribe((data:Response)=>{
         let updatedUsers:Array<User> = [];
@@ -84,5 +90,6 @@ export class TimelineDetailComponent implements OnInit {
 
   ngOnInit() {
     this.edit_log_modal_id = 'edit-log-'+this.app.unique_id();
+    this.confirm_del_user_id = 'confirm-user-del-'+this.app.unique_id();
   }
 }

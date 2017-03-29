@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, ActivatedRouteSnapshot} from "@angular/router";
 import {UsersService} from "../../services/users.service";
 import {Response} from "@angular/http";
 import {AppService} from "../../app.service";
@@ -19,7 +19,14 @@ export class InviteUsersComponent implements OnInit {
   public timeline:any = null;
   public email:any = '';
   public InviteMessage:string = '';
-  constructor(private timelineService:TimelineService ,private route:ActivatedRoute, private router:Router, private users:UsersService, private appService:AppService, private auth:AuthService) { }
+  public timelineId:string = '';
+  constructor(private timelineService:TimelineService,
+              private route:ActivatedRoute,
+              private router:Router,
+              private users:UsersService,
+              private appService:AppService,
+              private auth:AuthService
+  ) { }
   public selectedUsers = [];
 
   invite(form:NgForm){
@@ -32,6 +39,14 @@ export class InviteUsersComponent implements OnInit {
         this.appService.show_success_popup('invitation sent successfully');
         this.router.navigate(['/manage-logs']);
       });
+    }
+  }
+  previewEmail(){
+    if(this.selectedUsers.length == 0 && this.email == ''){
+      this.appService.show_error_popup('You have to choose an email or a user.');
+    }else{
+      localStorage.setItem('emails_userids_of_inviting_user', JSON.stringify({users:this.selectedUsers,emails:this.email}));
+      this.router.navigate(['log/'+this.timelineId+'/invite-users/preview-email']);
     }
   }
   ngOnInit() {
@@ -67,7 +82,6 @@ export class InviteUsersComponent implements OnInit {
       escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
       minimumInputLength: 1,
       templateResult: function (repo) {
-        console.log(repo);
         return "<div class='select2-result-repository__title'>" + repo.Nickname+', '+repo.FirstName +' '+ repo.LastName+', '+repo.address+ "</div>";
       }, // omitted for brevity, see the source of this page
       templateSelection: function (repo) {
@@ -75,7 +89,7 @@ export class InviteUsersComponent implements OnInit {
       } // omitted for brevity, see the source of this page
     });
     invite_users_multi_select.on("select2:select", (e) => {
-      this.selectedUsers.push(e.params.data.UserId);
+      this.selectedUsers.push(e.params.data);
     });
     invite_users_multi_select.on("select2:unselect", (e) => {
       var index = this.selectedUsers.indexOf(e.params.data.UserId);
@@ -89,6 +103,11 @@ export class InviteUsersComponent implements OnInit {
           if(data.log == null){this.router.navigate(['/manage-logs']); }
           this.timeline = data.log;
         }, (error)=>{});
+    this.route.params
+        .map(params => params['id'])
+        .subscribe((timelineId) => {
+          this.timelineId = timelineId;
+        });
   }
 
 }

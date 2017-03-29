@@ -1,6 +1,13 @@
 <sa-header>
-  <sa-title></sa-title>
-  <app-back-button></app-back-button>
+  <app-header-stripe>
+    <app-left-action>
+      <app-back-button *ngIf="!rcs.aside_in"></app-back-button>
+      <app-right-aside-closer *ngIf="rcs.aside_in">Cancel</app-right-aside-closer>
+    </app-left-action>
+    <app-right-action>
+      <button class="stripe-action-btn" *ngIf="rcs.aside_in" (click)="savePost()">Save</button>
+    </app-right-action>
+  </app-header-stripe>
   <sa-action>
     <li class="pad-rgt"> <app-add-content-btn></app-add-content-btn> </li>
   </sa-action>
@@ -55,24 +62,24 @@
             </div>
             <div class="panel-body">
               <p class="text-lg pad-btm">{{post.About}}</p>
-              <p><strong>What else? </strong> {{post.WhatElse}}.</p>
-              <p><strong>Location: </strong> <span class="text-primary">{{(post.Location != 'undefined')?post.Location:''}}</span> <i class="fa fa-map-marker pad-ver text-primary"></i></p>
+              <p *ngIf="post.WhatElse != ''"><strong>What else? </strong> {{post.WhatElse}}.</p>
+              <p *ngIf="post.Location != 'undefined' && post.Location != ''"><strong>Location: </strong> <span class="text-primary">{{(post.Location != 'undefined')?post.Location:''}}</span> <i class="fa fa-map-marker pad-ver text-primary"></i></p>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
 
-        <div class="col-sm-6">
+        <div class="col-sm-6" *ngIf="post.WhoTags.length > 0 && post.CloseToOthers > 0">
           <div class="panel panel-trans">
             <div class="panel-heading">
               <h3 class="panel-title">Relationships</h3>
             </div>
             <div class="panel-body">
-              <p class="mar-top"><strong>Who: </strong>{{post.WhoTags.split(',').join('#')}}</p>
+              <p class="mar-top" *ngIf="post.WhoTags.length > 0"><strong>Who: </strong>{{post.WhoTags.split(',').join('#')}}</p>
               <hr class="new-section-xs bord-no">
-              <div> <span class="pull-right text-primary">{{post.CloseToOthers}}%</span> <span class="mar-ver">{{user.Nickname}} felt close to others</span> </div>
-              <div class="progress progress-l mar-top bg-white">
+              <div *ngIf="post.CloseToOthers > 0"> <span class="pull-right text-primary">{{post.CloseToOthers}}%</span> <span class="mar-ver">{{user.Nickname}} felt close to others</span> </div>
+              <div *ngIf="post.CloseToOthers > 0" class="progress progress-l mar-top bg-white">
                 <div class="progress-bar" role="progressbar" aria-valuenow="70"
                      aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: post.CloseToOthers + '%'}">
                   <span class="sr-only">70% Complete</span>
@@ -82,7 +89,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6" *ngIf="post.YouTags.split(',').length > 0 && post.BestSelfRating > 0 && post.Mode == ''">
           <div class="panel panel-trans">
             <div class="panel-heading">
               <h3 class="panel-title">About Me</h3>
@@ -90,8 +97,8 @@
             <div class="panel-body">
               <p *ngIf="post.YouTags.split(',').length > 0" class="mar-top"><strong>Me: </strong>{{post.YouTags.split(',').join('#')}}</p>
               <hr class="new-section-xs bord-no">
-              <div class=""> <span class="pull-right text-info">{{post.BestSelfRating}}%</span> <span class="mar-ver">Best me</span> </div>
-              <div class="progress progress-l mar-top bg-white">
+              <div class="" *ngIf="post.BestSelfRating > 0"> <span class="pull-right text-info">{{post.BestSelfRating}}%</span> <span class="mar-ver">Best me</span> </div>
+              <div class="progress progress-l mar-top bg-white" *ngIf="post.BestSelfRating > 0">
                 <div class="progress-bar" role="progressbar" aria-valuenow="70"
                      aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: post.BestSelfRating + '%'}">
                   <span class="sr-only">70% Complete</span>

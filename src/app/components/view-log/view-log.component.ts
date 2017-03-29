@@ -7,6 +7,7 @@ import {AuthService} from "../../services/auth.service";
 import {Timeline} from "../../models/Timeline";
 import {TimelineService} from "../../services/timeline.service";
 import {UserStuff} from "../../models/UserStuff";
+import {RightContentService} from "../../services/right-content.service";
 declare var LZString:any;
 @Component({
   selector: 'app-view-log',
@@ -16,6 +17,7 @@ declare var LZString:any;
 export class ViewLogComponent implements OnInit {
   @ViewChild(ManageEntryComponent) manageEntryComponent;
   @ViewChild(HeaderComponent) headerComponent;
+
   public timeline:Timeline = null;
   public userStuff:UserStuff = null;
   public myPrivateTimeline:Timeline = null;
@@ -24,7 +26,8 @@ export class ViewLogComponent implements OnInit {
       public router:Router,
       public app:AppService,
       public auth:AuthService,
-      public timelineService:TimelineService
+      public timelineService:TimelineService,
+      public rcs:RightContentService
   ) {
         this.timeline = new Timeline();
         this.userStuff = this.auth.getUser();
@@ -36,6 +39,9 @@ export class ViewLogComponent implements OnInit {
         this.timeline = this.app.find_obj_by_prop('Id',this.timeline.Id,this.timelineService.getAllTimelinesWithEntries());
   }
 
+    addPost(){
+        this.manageEntryComponent.submitForm();
+    }
   ngOnInit() {
     this.route.data
         .subscribe((data: { log: any }) => {

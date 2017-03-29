@@ -46,6 +46,7 @@ export var ProfileComponent = (function () {
         this.photo_chooser_id = '';
         this.uploadedFile = null;
         this.uploadingFile = false;
+        this.rightActionTitle = 'Save';
         this.user = new User();
         this.editMode = false;
         this.manualControls = false;
@@ -58,13 +59,24 @@ export var ProfileComponent = (function () {
         return this.title;
     };
     ProfileComponent.prototype.getAction = function () {
-        return 'Save';
+        return this.rightActionTitle;
+    };
+    ProfileComponent.prototype.setAction = function (action) {
+        if (action === void 0) { action = 'save'; }
+        this.rightActionTitle = action;
+    };
+    ProfileComponent.prototype.goToEditPage = function () {
+        localStorage.setItem('viewUserProfile', JSON.stringify(this.user));
+        this.router.navigate(['/profile/' + this.user.UserId + '/edit']);
     };
     ProfileComponent.prototype.enterEditMode = function () {
         this.editMode = true;
     };
     ProfileComponent.prototype.exitEditMode = function () {
         this.editMode = false;
+    };
+    ProfileComponent.prototype.submitForm = function () {
+        $('#submit-profile').click();
     };
     ProfileComponent.prototype.createProfile = function (form) {
         var _this = this;
@@ -117,13 +129,19 @@ export var ProfileComponent = (function () {
             _this.profileUpdating.emit({
                 data: form.value
             });
+            console.log(profileData);
             _this.userService.updateSettings(_this.managedProfile, _this.getUser().UserId, profileData).subscribe(function (data) {
                 if (!_this.manualControls) {
                     _this.formBusy = false;
                     _this.exitEditMode();
                 }
                 var updatedUser = data.json().payload.User;
-                _this.setUser(_this.appService.map(updatedUser, new User()));
+                var mapedUser = _this.appService.map(updatedUser, new User());
+                if (_this.uploadedFile != null) {
+                    mapedUser.ImageURL = _this.uploadedFile.FileURL;
+                    mapedUser.ThumbURL = _this.uploadedFile.ThumbURL;
+                }
+                _this.setUser(mapedUser);
                 _this.profileUpdated.emit({
                     user: _this.getUser()
                 });

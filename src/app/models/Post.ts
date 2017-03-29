@@ -26,4 +26,5 @@ export class Post {
     images:string = "";
     User:string = "";
     UserId:string = "";
+    TempUserId:string = "";
 }

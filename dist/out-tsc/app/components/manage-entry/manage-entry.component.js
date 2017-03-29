@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Output, ChangeDetectorRef, EventEmitter, Input } from '@angular/core';
+import { Component, Output, ChangeDetectorRef, EventEmitter, Input, ViewChild } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { EntryService } from "../../services/entry.service";
 import { MapsAPILoader } from "angular2-google-maps/core";
@@ -182,6 +182,7 @@ export var ManageEntryComponent = (function () {
         updatedPost.YouTags = data.YouTags;
         updatedPost.User = data.User;
         updatedPost.UserId = data.UserId;
+        updatedPost.TempUserId = data.TempUserId;
         //TODO: Files are not being handeled yet.
         return updatedPost;
     };
@@ -193,6 +194,9 @@ export var ManageEntryComponent = (function () {
         }
         return true;
     };
+    ManageEntryComponent.prototype.submitForm = function () {
+        this.create(this.manageEntryForm, null);
+    };
     ManageEntryComponent.prototype.create = function (form, event) {
         var _this = this;
         if (this.uploadingPost)
@@ -202,6 +206,7 @@ export var ManageEntryComponent = (function () {
             return false;
         }
         var data = form.value;
+        console.log(data);
         if (data.Name == '') {
             this.app.show_error_popup('Post Title is required');
         }
@@ -228,6 +233,7 @@ export var ManageEntryComponent = (function () {
             data.Lat = this.lat;
             data.Lng = this.lng;
             data.AddFileIds = this.uploadedFileIds;
+            data.TempUserId = data.UserId;
             data.UserId = (data.UserId == this.auth.currentUser.UserId || data.UserId == null) ? '' : data.UserId;
             var selectedManagedUser_1 = (data.UserId == '') ? this.auth.currentUser : this.app.find_obj_by_prop('UserId', data.UserId, this.managedUsers);
             //TODO: add functionality to create a post for a managed user.
@@ -527,6 +533,10 @@ export var ManageEntryComponent = (function () {
         Output('EntryUpdated'), 
         __metadata('design:type', Object)
     ], ManageEntryComponent.prototype, "entryupdated", void 0);
+    __decorate([
+        ViewChild('f'), 
+        __metadata('design:type', Object)
+    ], ManageEntryComponent.prototype, "manageEntryForm", void 0);
     __decorate([
         Input(), 
         __metadata('design:type', Object)

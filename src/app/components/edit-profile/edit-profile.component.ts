@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from "../../models/User";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
@@ -10,8 +10,15 @@ import {AppService} from "../../app.service";
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
+    @ViewChild('managedProfile') managedProfile;
   public user:User = null;
+  public title:string = '';
   constructor(private route:ActivatedRoute,private location:Location, public app:AppService) { }
+
+
+    saveUser(){
+        this.managedProfile.submitForm();
+    }
 
   ngOnInit() {
     this.route.data
@@ -21,7 +28,8 @@ export class EditProfileComponent implements OnInit {
               this.location.back();
           }
           this.user = data.user;
-          console.log(this.user);
+          this.managedProfile.setAction('');
+          this.title = 'Edit Profile'
         }, (error)=>{});
   }
 }

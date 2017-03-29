@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { UsersService } from "../../services/users.service";
 import { TimelineService } from "../../services/timeline.service";
@@ -29,9 +29,13 @@ export var CreateProfileComponent = (function () {
         this.appService = appService;
         this.editMode = true;
         this.formBusy = false;
+        this.title = 'Create Profile';
     }
     CreateProfileComponent.prototype.profileUpdating = function (event) {
         this.formBusy = true;
+    };
+    CreateProfileComponent.prototype.createProfile = function () {
+        this.profile.submitForm();
     };
     CreateProfileComponent.prototype.profileUpdated = function (event) {
         var _this = this;
@@ -73,6 +77,10 @@ export var CreateProfileComponent = (function () {
     };
     CreateProfileComponent.prototype.ngOnInit = function () {
     };
+    __decorate([
+        ViewChild('profile'), 
+        __metadata('design:type', Object)
+    ], CreateProfileComponent.prototype, "profile", void 0);
     CreateProfileComponent = __decorate([
         Component({
             selector: 'app-create-profile',

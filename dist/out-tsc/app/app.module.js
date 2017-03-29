@@ -64,6 +64,11 @@ import { ViewLogComponent } from './components/view-log/view-log.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { SuccessMessagePopupComponent } from './components/success-message-popup/success-message-popup.component';
 import { ErrorMessagePopupComponent } from './components/error-message-popup/error-message-popup.component';
+import { HeaderStripeComponent } from './components/header-stripe/header-stripe.component';
+import { LeftActionComponent } from './components/header-stripe/left-action/left-action.component';
+import { RightActionComponent } from './components/header-stripe/right-action/right-action.component';
+import { RightAsideCloserComponent } from './components/right-aside-closer/right-aside-closer.component';
+import { EmailPreviewComponent } from './components/email-preview/email-preview.component';
 export var AppModule = (function () {
     function AppModule() {
     }
@@ -112,7 +117,12 @@ export var AppModule = (function () {
                 ViewLogComponent,
                 BackButtonComponent,
                 SuccessMessagePopupComponent,
-                ErrorMessagePopupComponent
+                ErrorMessagePopupComponent,
+                HeaderStripeComponent,
+                LeftActionComponent,
+                RightActionComponent,
+                RightAsideCloserComponent,
+                EmailPreviewComponent
             ],
             imports: [
                 AppRoutingModule,

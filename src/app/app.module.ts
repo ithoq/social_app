@@ -38,7 +38,6 @@ import {RightContentService} from "./services/right-content.service";
 import {AgmCoreModule} from "angular2-google-maps/core";
 import { ManageLogsComponent } from './components/manage-logs/manage-logs.component';
 import { CreateLogComponent } from './components/create-log/create-log.component';
-import { TimelineComponent } from './components/timeline/timeline.component';
 import { LogComponent } from './components/log/log.component';
 import { InviteUsersComponent } from './components/invite-users/invite-users.component';
 import { AddContentBtnComponent } from './components/add-content-btn/add-content-btn.component';
@@ -58,6 +57,11 @@ import { ViewLogComponent } from './components/view-log/view-log.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { SuccessMessagePopupComponent } from './components/success-message-popup/success-message-popup.component';
 import { ErrorMessagePopupComponent } from './components/error-message-popup/error-message-popup.component';
+import { HeaderStripeComponent } from './components/header-stripe/header-stripe.component';
+import { LeftActionComponent } from './components/header-stripe/left-action/left-action.component';
+import { RightActionComponent } from './components/header-stripe/right-action/right-action.component';
+import { RightAsideCloserComponent } from './components/right-aside-closer/right-aside-closer.component';
+import { EmailPreviewComponent } from './components/email-preview/email-preview.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +107,12 @@ import { ErrorMessagePopupComponent } from './components/error-message-popup/err
     ViewLogComponent,
     BackButtonComponent,
     SuccessMessagePopupComponent,
-    ErrorMessagePopupComponent
+    ErrorMessagePopupComponent,
+    HeaderStripeComponent,
+    LeftActionComponent,
+    RightActionComponent,
+    RightAsideCloserComponent,
+    EmailPreviewComponent
   ],
   imports: [
     AppRoutingModule,

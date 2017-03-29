@@ -24,6 +24,8 @@ export var TimelineDetailComponent = (function () {
         this.router = router;
         this.usersService = usersService;
         this.edit_log_modal_id = '';
+        this.confirm_del_user_id = '';
+        this.deleting_user_id = 0;
         this.timeline = new TimelineDetail();
     }
     TimelineDetailComponent.prototype.currentUserCanEditThis = function (user) {
@@ -55,12 +57,16 @@ export var TimelineDetailComponent = (function () {
         localStorage.setItem('viewUserProfile', JSON.stringify(actualUser));
         this.router.navigate(['/profile/' + userfound.UserId + '/edit']);
     };
+    TimelineDetailComponent.prototype.confirmRemoveUsr = function (deleting_user_id) {
+        this.deleting_user_id = deleting_user_id;
+        $('#' + this.confirm_del_user_id).modal('show');
+    };
     TimelineDetailComponent.prototype.removeUser = function (userId) {
         var _this = this;
         if (userId == this.auth.currentUser.UserId) {
             this.app.show_error_popup('Can not remove yourself');
         }
-        else if (confirm("are you sure you want to delete this user?")) {
+        else {
             //TODO: Couldn't test it at the time for some reason.
             this.timelineService.removeUsers(this.timeline.Id, userId).subscribe(function (data) {
                 var updatedUsers = [];
@@ -79,6 +85,7 @@ export var TimelineDetailComponent = (function () {
     };
     TimelineDetailComponent.prototype.ngOnInit = function () {
         this.edit_log_modal_id = 'edit-log-' + this.app.unique_id();
+        this.confirm_del_user_id = 'confirm-user-del-' + this.app.unique_id();
     };
     __decorate([
         Input(), 

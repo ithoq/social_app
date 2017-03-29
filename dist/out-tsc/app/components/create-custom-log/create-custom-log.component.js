@@ -294,8 +294,20 @@ export var CreateCustomLogComponent = (function () {
         localStorage.setItem('custom_log', LZString.compress(JSON.stringify(customTimeline)));
         this.router.navigate(['/log/custom']);
     };
+    CreateCustomLogComponent.prototype.createSettings = function () {
+        var settings = {
+            modes: this.selectedModes,
+            tags: this.selectedTags,
+            types: this.selectedTypes,
+            timelines: this.seletedTimelines,
+            fromDate: $('#from-date').val(),
+            toDate: $('#to-date').val()
+        };
+        localStorage.setItem('custom_log_settings', JSON.stringify(settings));
+    };
     CreateCustomLogComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.createSettings();
         this.route.data
             .subscribe(function (data) {
             _this.entries = data.entries;
@@ -316,15 +328,7 @@ export var CreateCustomLogComponent = (function () {
         $('.datepicker').datepicker();
     };
     CreateCustomLogComponent.prototype.ngDoCheck = function () {
-        var settings = {
-            modes: this.selectedModes,
-            tags: this.selectedTags,
-            types: this.selectedTypes,
-            timelines: this.seletedTimelines,
-            fromDate: $('#from-date').val(),
-            toDate: $('#to-date').val()
-        };
-        localStorage.setItem('custom_log_settings', JSON.stringify(settings));
+        this.createSettings();
     };
     CreateCustomLogComponent = __decorate([
         Component({

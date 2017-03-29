@@ -11,17 +11,20 @@ import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { MediumToManageEntryService } from "../../services/medium-to-manage-entry.service";
+import { ManageEntryComponent } from "../manage-entry/manage-entry.component";
 import { AddContentBtnComponent } from "../add-content-btn/add-content-btn.component";
 import { HeaderComponent } from "../header/header.component";
 import { AppService } from "../../app.service";
+import { RightContentService } from "../../services/right-content.service";
 export var PostDetailComponent = (function () {
-    function PostDetailComponent(route, router, auth, mediumToManageEntry, appService, app) {
+    function PostDetailComponent(route, router, auth, mediumToManageEntry, appService, app, rcs) {
         this.route = route;
         this.router = router;
         this.auth = auth;
         this.mediumToManageEntry = mediumToManageEntry;
         this.appService = appService;
         this.app = app;
+        this.rcs = rcs;
         this.bestSelfRating = 0;
         this.user = this.auth.getUser().profile;
     }
@@ -29,6 +32,9 @@ export var PostDetailComponent = (function () {
         var post = event.data;
         localStorage.setItem('post', JSON.stringify(post));
         this.post = post;
+    };
+    PostDetailComponent.prototype.savePost = function () {
+        this.manageEntryComponent.submitForm();
     };
     PostDetailComponent.prototype.getEntryTypes = function (givenTypes) {
         var foundTypes = [];
@@ -53,7 +59,8 @@ export var PostDetailComponent = (function () {
                 var title = _this.post.DateStart.split(' ')[0] +
                     ' ' + _this.post.DateEnd.split(' ')[0];
                 _this.headerComponent.title = title;
-                if (_this.post.UserId == _this.auth.currentUser.UserId || _this.appService.property_in_array('UserId', _this.post.UserId, _this.auth.getUser().managedUsers)) {
+                console.log(_this.post);
+                if (_this.post.TempUserId == _this.auth.currentUser.UserId || _this.appService.property_in_array('UserId', _this.post.TempUserId, _this.auth.getUser().managedUsers)) {
                     _this.addContentBtnComponent.content = 'Edit Post';
                     _this.mediumToManageEntry.setPost(data.post);
                 }
@@ -71,13 +78,17 @@ export var PostDetailComponent = (function () {
         ViewChild(HeaderComponent), 
         __metadata('design:type', Object)
     ], PostDetailComponent.prototype, "headerComponent", void 0);
+    __decorate([
+        ViewChild(ManageEntryComponent), 
+        __metadata('design:type', Object)
+    ], PostDetailComponent.prototype, "manageEntryComponent", void 0);
     PostDetailComponent = __decorate([
         Component({
             selector: 'app-post-detail',
             templateUrl: './post-detail.component.html',
             styleUrls: ['./post-detail.component.css']
         }), 
-        __metadata('design:paramtypes', [ActivatedRoute, Router, AuthService, MediumToManageEntryService, AppService, AppService])
+        __metadata('design:paramtypes', [ActivatedRoute, Router, AuthService, MediumToManageEntryService, AppService, AppService, RightContentService])
     ], PostDetailComponent);
     return PostDetailComponent;
 }());

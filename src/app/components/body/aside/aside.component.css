@@ -1,22 +1,30 @@
 @media(max-width:1200px) {
     #mainnav-container,
-    .brand-title{
+    .brand-title {
         transition: .5s;
         -webkit-transition: .5s;
         -moz-transition: .5s;
     }
-    .brand-title{
-        width:67px;
+    .brand-title {
+        width: 67px;
     }
 }
 
-#mainnav-container{
+#mainnav-container {
     position: fixed;
 }
 
-.pull-to-refresh{
+.pull-to-refresh {
     float: right;
 }
+
 #mainnav-menu i {
     padding: 0;
+}
+
+.mainnav-profile {
+    max-height: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: hidden;
 }

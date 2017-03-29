@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { UsersService } from "../../services/users.service";
@@ -23,7 +23,7 @@ export var InviteManagedUserComponent = (function () {
         this.activatedRoute = activatedRoute;
         this.app = app;
         this.timelineId = '';
-        this.title = 'Create Profile.';
+        this.title = '';
         this.formBusy = false;
     }
     InviteManagedUserComponent.prototype.ngOnInit = function () {
@@ -32,7 +32,11 @@ export var InviteManagedUserComponent = (function () {
             .map(function (params) { return params['id']; })
             .subscribe(function (timelineId) {
             _this.timelineId = timelineId;
+            _this.managedProfile.setAction('');
         });
+    };
+    InviteManagedUserComponent.prototype.saveUser = function () {
+        this.managedProfile.submitForm();
     };
     InviteManagedUserComponent.prototype.profileCreated = function (event) {
         var _this = this;
@@ -50,6 +54,10 @@ export var InviteManagedUserComponent = (function () {
     InviteManagedUserComponent.prototype.profileCreating = function (event) {
         this.formBusy = true;
     };
+    __decorate([
+        ViewChild('managedProfile'), 
+        __metadata('design:type', Object)
+    ], InviteManagedUserComponent.prototype, "managedProfile", void 0);
     InviteManagedUserComponent = __decorate([
         Component({
             selector: 'app-invite-managed-user',

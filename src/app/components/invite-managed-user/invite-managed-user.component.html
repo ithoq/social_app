@@ -1,13 +1,24 @@
 <sa-header>
-  <sa-title></sa-title>
+  <sa-title>
+    Add Manged user
+  </sa-title>
+
+  <app-header-stripe>
+    <app-left-action>
+      <app-back-button></app-back-button>
+    </app-left-action>
+    <app-right-action>
+      <button class="stripe-action-btn" (click)="saveUser()">Add</button>
+    </app-right-action>
+  </app-header-stripe>
   <sa-action>
-    <li class="pad-rgt"> <a href="javascript:void(0)" > Owned by {{(this.auth.currentUser.Nickname == '')?this.auth.currentUser.FirstName+' '+this.auth.currentUser.LastName:this.auth.currentUser.LastName}} </a> </li>
+    <li class="pad-rgt owned-by"> <a href="javascript:void(0)" > Owned by {{(auth.currentUser.Nickname == '')?auth.currentUser.FirstName.split(' ')[0]:auth.currentUser.Nickname.split(' ')[0]}} </a> </li>
   </sa-action>
 </sa-header>
 
 <sa-body>
   <sa-body-content>
-    <app-profile
+    <app-profile #managedProfile
             [manualControls]="true"
             [formBusy]="formBusy"
             [editMode]="true"

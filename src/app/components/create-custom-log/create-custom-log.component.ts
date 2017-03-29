@@ -302,7 +302,19 @@ export class CreateCustomLogComponent implements OnInit {
     this.router.navigate(['/log/custom'])
   }
 
+  createSettings(){
+    let settings = {
+      modes:this.selectedModes,
+      tags:this.selectedTags,
+      types:this.selectedTypes,
+      timelines:this.seletedTimelines,
+      fromDate:$('#from-date').val(),
+      toDate:$('#to-date').val()
+    };
+    localStorage.setItem('custom_log_settings',JSON.stringify(settings));
+  }
   ngOnInit() {
+    this.createSettings();
     this.route.data
         .subscribe((data: { entries: Array<Timeline> }) => {
           this.entries = data.entries;
@@ -325,15 +337,7 @@ export class CreateCustomLogComponent implements OnInit {
   }
 
   ngDoCheck() {
-    let settings = {
-      modes:this.selectedModes,
-      tags:this.selectedTags,
-      types:this.selectedTypes,
-      timelines:this.seletedTimelines,
-      fromDate:$('#from-date').val(),
-      toDate:$('#to-date').val()
-    };
-    localStorage.setItem('custom_log_settings',JSON.stringify(settings));
+    this.createSettings();
   }
 
 }
